@@ -5,8 +5,7 @@ import { messages } from './lang';
 import { createI18n } from 'vue-i18n';
 import App from './App.vue';
 import type { RampConfig, RampConfigs, RampOptions } from './definitions';
-import { useInitializeStore } from './stores/initialize';
-import { useStartingFixturesStore } from './stores/starting-fixtures';
+import { useStore } from './store';
 
 export class API {
   readonly $vApp: ComponentPublicInstance;
@@ -39,12 +38,37 @@ export class API {
    * @param options the default RAMP options to be used
    */
   initialize(configs?: RampConfigs, options?: RampOptions) {
-    // TODO: Implement me!
-    const initializeStore = useInitializeStore(this.$vApp.$pinia);
-    const startingFixturesStore = useStartingFixturesStore(this.$vApp.$pinia);
+    const store = useStore(this.$vApp.$pinia);
 
-    initializeStore.initialized = true;
-    startingFixturesStore.startingFixtures = configs?.startingFixtures ?? [];
+    store.initialized = true;
+    store.startingFixtures = configs?.startingFixtures ?? [];
+    store.options = options ?? {};
+
+    // TODO: Add better defaulting?
+    store.configs = configs?.configs ?? {
+      en: {
+        map: {
+          lodSets: [],
+          extentSets: [],
+          tileSchemas: [],
+          basemaps: [],
+          initialBasemapId: ''
+        },
+        fixtures: {},
+        layers: []
+      },
+      fr: {
+        map: {
+          lodSets: [],
+          extentSets: [],
+          tileSchemas: [],
+          basemaps: [],
+          initialBasemapId: ''
+        },
+        fixtures: {},
+        layers: []
+      }
+    };
   }
 
   /**
@@ -54,8 +78,19 @@ export class API {
    * @returns the requested RAMP config, or all the RAMP configs.
    */
   getConfig(lang?: string): RampConfigs | RampConfig {
-    // TODO: Implement me!
-    return {} as RampConfig;
+    const store = useStore(this.$vApp.$pinia);
+    return lang
+      ? store.configs[lang]
+      : { startingFixtures: store.startingFixtures, configs: store.configs };
+  }
+
+  /**
+   * Return the currently specified options.
+   *
+   * @returns the RAMP options
+   */
+  getOptions(): RampOptions {
+    return useStore(this.$vApp.$pinia).options;
   }
 }
 

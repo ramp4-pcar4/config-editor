@@ -1,23 +1,30 @@
 <script setup lang="ts">
 import Loading from '@/components/loading.vue';
 import Navbar from './components/navbar.vue';
+import StartingFixturesEditor from '@/components/starting-fixtures.vue';
+import OptionsEditor from '@/components/options.vue';
 
 import '@/styles.css';
 import { useI18n } from 'vue-i18n';
 import type { API } from './main';
 import { inject } from 'vue';
-import { useInitializeStore } from './stores/initialize';
+import { useStore } from './store';
 
 const { t } = useI18n();
 const api = inject<API>('api');
 
-const initializeStore = useInitializeStore();
+const editors: { [key: string]: any } = {
+  'starting-fixtures': StartingFixturesEditor,
+  options: OptionsEditor
+};
+
+const store = useStore();
 </script>
 
 <template>
   <div class="editor-container h-full">
     <div
-      v-if="!initializeStore.initialized"
+      v-if="!store.initialized"
       class="w-full h-full bg-[#1c1717] box-border flex items-center justify-center"
     >
       <loading />
@@ -26,6 +33,9 @@ const initializeStore = useInitializeStore();
       <h1 class="flex-0 text-3xl font-bold text-center">{{ t('title') }}</h1>
       <div class="flex-1 mt-5 flex">
         <navbar class="basis-1/5 h-full" />
+        <div class="basis-4/5 h-full px-5">
+          <component :is="editors[store.editingTemplate]"></component>
+        </div>
       </div>
     </div>
   </div>
