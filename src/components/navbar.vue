@@ -27,7 +27,11 @@ onMounted(() => {
   <div
     class="flex flex-col items-center border-black border-2 sm:text-lg divide-y divide-slate-200"
   >
-    <div class="w-full p-1 sm:p-3 menu-item" @click="setTemplate('starting-fixtures')">
+    <div
+      class="w-full p-1 sm:p-3 menu-item border-gray-800"
+      :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
+      @click="setTemplate('starting-fixtures')"
+    >
       Starting Fixtures
     </div>
     <div class="w-full">
@@ -76,12 +80,23 @@ onMounted(() => {
           v-if="langsExpanded[lang]"
           v-for="section in sections"
           class="menu-item ml-1 sm:ml-3 pl-1 sm:pl-2"
+          :class="{
+            'bg-gray-200':
+              store.editingTemplate === section.toLowerCase() && store.editingLang === lang
+          }"
+          @click="setTemplate(section.toLowerCase(), lang)"
         >
           {{ section }}
         </div>
       </div>
     </div>
-    <div class="menu-item w-full p-1 sm:p-3" @click="setTemplate('options')">Options</div>
+    <div
+      class="menu-item w-full p-1 sm:p-3"
+      :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
+      @click="setTemplate('options')"
+    >
+      Options
+    </div>
     <div class="w-full flex justify-center">
       <button
         class="mt-3 bg-black text-white p-2 hover:bg-gray-800 rounded-md mx-1 w-full sm:w-4/5"

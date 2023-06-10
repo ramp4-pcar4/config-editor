@@ -2,6 +2,7 @@
 import Loading from '@/components/loading.vue';
 import Navbar from './components/navbar.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';
+import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
 
 import '@/styles.css';
@@ -15,6 +16,7 @@ const api = inject<API>('api');
 
 const editors: { [key: string]: any } = {
   'starting-fixtures': StartingFixturesEditor,
+  system: SystemEditor,
   options: OptionsEditor
 };
 
@@ -34,7 +36,10 @@ const store = useStore();
       <div class="flex-1 mt-5 flex">
         <navbar class="basis-1/5 h-full" />
         <div class="basis-4/5 h-full px-5">
-          <component :is="editors[store.editingTemplate]"></component>
+          <component
+            :is="editors[store.editingTemplate]"
+            :key="`${store.editingTemplate}-${store.editingLang}`"
+          ></component>
         </div>
       </div>
     </div>
