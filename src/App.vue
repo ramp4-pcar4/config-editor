@@ -5,6 +5,7 @@ import StartingFixturesEditor from '@/components/starting-fixtures.vue';
 import PanelsEditor from '@/components/panels.vue';
 import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
+import Preview from '@/components/preview.vue';
 
 import '@/styles.css';
 import { useI18n } from 'vue-i18n';
@@ -19,7 +20,8 @@ const editors: { [key: string]: any } = {
   'starting-fixtures': StartingFixturesEditor,
   panels: PanelsEditor,
   system: SystemEditor,
-  options: OptionsEditor
+  options: OptionsEditor,
+  preview: Preview
 };
 
 const store = useStore();

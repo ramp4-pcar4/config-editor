@@ -100,6 +100,7 @@ onMounted(() => {
     <div class="w-full flex justify-center">
       <button
         class="mt-3 bg-black text-white p-2 hover:bg-gray-800 rounded-md mx-1 w-full sm:w-4/5"
+        @click="setTemplate('preview')"
       >
         Preview
       </button>
