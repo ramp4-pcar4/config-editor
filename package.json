@@ -14,7 +14,8 @@
   "dependencies": {
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
-    "vue-i18n": "^9.2.2"
+    "vue-i18n": "^9.2.2",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

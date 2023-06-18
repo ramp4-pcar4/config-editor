@@ -2,6 +2,7 @@
 import Loading from '@/components/loading.vue';
 import Navbar from './components/navbar.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';
+import PanelsEditor from '@/components/panels.vue';
 import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
 
@@ -16,6 +17,7 @@ const api = inject<API>('api');
 
 const editors: { [key: string]: any } = {
   'starting-fixtures': StartingFixturesEditor,
+  panels: PanelsEditor,
   system: SystemEditor,
   options: OptionsEditor
 };
