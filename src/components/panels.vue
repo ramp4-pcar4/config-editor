@@ -52,21 +52,20 @@ onBeforeMount(() => {
       </div>
       <!-- add item button -->
       <button
-        class="bg-black cursor-pointer hover:bg-gray-800 ml-auto p-1 text-white flex-shrink-0"
+        class="bg-black cursor-pointer hover:bg-gray-800 ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
         @click="addPanel()"
       >
-        <div class="flex items-center">
-          <svg
-            fill="white"
-            height="18px"
-            width="18px"
-            viewBox="0 0 23 21"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-          </svg>
-          <span class="px-2"> Add panel </span>
-        </div>
+        <svg
+          class="relative bottom-[2px]"
+          fill="white"
+          height="18px"
+          width="18px"
+          viewBox="0 0 23 21"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+        </svg>
+        <span class="px-2"> Add panel </span>
       </button>
     </div>
     <hr class="border-solid border-t-2 border-gray-300 my-2" />
@@ -74,7 +73,7 @@ onBeforeMount(() => {
       <thead>
         <tr>
           <th></th>
-          <th class="starlabel">Panel ID</th>
+          <th class="required">Panel ID</th>
           <th>Screen ID</th>
           <th>Pin</th>
         </tr>
@@ -159,9 +158,5 @@ table input[type='text'] {
   font-weight: normal;
   padding: 2px;
   margin-top: 0;
-}
-.starlabel:after {
-  content: ' *';
-  color: red;
 }
 </style>

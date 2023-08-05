@@ -6,6 +6,7 @@ import { createI18n } from 'vue-i18n';
 import App from './App.vue';
 import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import { useStore } from './store';
+import VueTippy from 'vue-tippy';
 
 export class API {
   readonly $vApp: ComponentPublicInstance;
@@ -24,6 +25,11 @@ export class API {
         messages
       })
     );
+
+    element.use(VueTippy, {
+      directive: 'tippy', // => v-tippy
+      component: 'tippy' // => <tippy/>
+    });
 
     element.provide('api', this);
     element.config.globalProperties.api = this;

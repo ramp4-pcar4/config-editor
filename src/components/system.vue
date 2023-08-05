@@ -27,7 +27,6 @@ onBeforeMount(() => {
     <div class="mt-5 flex items-center">
       <input
         type="checkbox"
-        class="border-2 border-black cursor-pointer mr-2"
         id="animate"
         v-model="store.configs[store.editingLang].system!.animate"
         :checked="store.configs[store.editingLang].system?.animate !== false"

@@ -25,7 +25,7 @@ export const enum LayerType {
   SUBLAYER = 'sublayer'
 }
 
-export const enum LayerIdentifyMode {
+export enum LayerIdentifyMode {
   GEOMETRIC = 'geometric', // uses geometric intersection; feature symbology is not considered
   SYMBOLIC = 'symbolic', // uses symbol intersection; not applicable for raster layers
   HYBRID = 'hybrid', // combines geometric and symbolic results
@@ -33,25 +33,25 @@ export const enum LayerIdentifyMode {
 }
 
 export interface EpsgLookup {
-  (code: string | number): Promise<string>
+  (code: string | number): Promise<string>;
 }
 
 export interface DrawOrder {
-  field: string
-  ascending: boolean // true means smaller values are drawn ON TOP of larger values. false is the opposite
+  field: string;
+  ascending: boolean; // true means smaller values are drawn ON TOP of larger values. false is the opposite
 }
 
 export interface ScaleHelper {
-  units: string
-  isImperialScale: boolean
-  pixels: number
-  distance: number
+  units: string;
+  isImperialScale: boolean;
+  pixels: number;
+  distance: number;
 }
 
 // Contains properties needed to display mouse/crosshairs co-ords on the map-caption bar
 export interface MapCoords {
-  disabled?: boolean
-  formattedString?: string
+  disabled?: boolean;
+  formattedString?: string;
 }
 
 // ----------------------- CLIENT CONFIG INTERFACES -----------------------------------
@@ -59,7 +59,7 @@ export interface MapCoords {
 // TODO migrate these to /geo/api/geo-common ? if we need config interfaces before creating an instance,
 //      having them defined here might cause circular reference.
 
-export const enum LayerControl {
+export enum LayerControl {
   BoundaryZoom = 'boundaryZoom',
   Datatable = 'datatable',
   Identify = 'identify',
@@ -75,187 +75,187 @@ export const enum LayerControl {
 
 // Attribution interface that contains all the core attributes of the attribution node
 export interface Attribution {
-  text: { disabled?: boolean; value?: string }
+  text: { disabled?: boolean; value?: string };
   logo: {
-    disabled?: boolean
-    altText?: string
-    value?: string
-    link?: string
-  }
+    disabled?: boolean;
+    altText?: string;
+    value?: string;
+    link?: string;
+  };
 }
 
 // Contains properties needed to display scale on the map-caption bar
 export interface ScaleBar {
-  disabled?: boolean
-  label?: string
-  width?: string
-  isImperialScale?: boolean
+  disabled?: boolean;
+  label?: string;
+  width?: string;
+  isImperialScale?: boolean;
 }
 
 export interface RampSpatialReference {
-  wkid?: number
-  latestWkid?: number
-  wkt?: string
+  wkid?: number;
+  latestWkid?: number;
+  wkt?: string;
 }
 
 export interface RampLayerStateConfig {
-  visibility?: boolean
-  opacity?: number
-  identify?: boolean
-  hovertips?: boolean
+  visibility?: boolean;
+  opacity?: number;
+  identify?: boolean;
+  hovertips?: boolean;
 }
 
 export interface RampLayerFieldInfoConfig {
-  name: string
-  alias?: string
+  name: string;
+  alias?: string;
 }
 
 export interface RampLayerFieldMetadataConfig {
-  fieldInfo?: Array<RampLayerFieldInfoConfig>
-  exclusiveFields?: boolean // default to false. if true, means we only recognize and download field in fieldInfo. if false, we download all fields, and fieldInfo provides additional data as needed
+  fieldInfo?: Array<RampLayerFieldInfoConfig>;
+  exclusiveFields?: boolean; // default to false. if true, means we only recognize and download field in fieldInfo. if false, we download all fields, and fieldInfo provides additional data as needed
 }
 
 // i.e. a dynamic layer child
 export interface RampLayerMapImageSublayerConfig {
   // A+ name
-  index: number
-  name?: string
-  nameField?: string
-  state?: RampLayerStateConfig
+  index: number;
+  name?: string;
+  nameField?: string;
+  state?: RampLayerStateConfig;
   // following items need to be flushed out
-  extent?: RampExtentConfig
-  controls?: Array<LayerControl>
-  disabledControls?: Array<LayerControl>
-  cosmetic?: boolean
-  fieldMetadata?: RampLayerFieldMetadataConfig
-  initialFilteredQuery?: string
-  permanentFilteredQuery?: string
-  customRenderer?: any
-  fixtures?: any // layer-based fixture config
+  extent?: RampExtentConfig;
+  controls?: Array<LayerControl>;
+  disabledControls?: Array<LayerControl>;
+  cosmetic?: boolean;
+  fieldMetadata?: RampLayerFieldMetadataConfig;
+  initialFilteredQuery?: string;
+  permanentFilteredQuery?: string;
+  customRenderer?: any;
+  fixtures?: any; // layer-based fixture config
 }
 
 // i.e. a wms layer child
 export interface RampLayerWmsSublayerConfig {
-  id: string // this is the "name" on the service
-  name?: string // this is display name in ramp. would override "title" on the service
-  state?: RampLayerStateConfig
+  id: string; // this is the "name" on the service
+  name?: string; // this is display name in ramp. would override "title" on the service
+  state?: RampLayerStateConfig;
   // following items need to be flushed out
-  controls?: Array<LayerControl>
-  disabledControls?: Array<LayerControl>
-  currentStyle?: string // style to be used
-  styleLegends?: Array<{ name: string; url: string }> // map of styles to legend graphic url. overrides service urls.
-  fixtures?: any // layer-based fixture config
+  controls?: Array<LayerControl>;
+  disabledControls?: Array<LayerControl>;
+  currentStyle?: string; // style to be used
+  styleLegends?: Array<{ name: string; url: string }>; // map of styles to legend graphic url. overrides service urls.
+  fixtures?: any; // layer-based fixture config
 }
 
 // TODO investigate if we want to make a fancy interface heirarchy instead of pile-of-?-properties
 export interface RampLayerConfig {
-  id: string
-  layerType: LayerType
-  url: string // really this should be optional. Graphic layers & raw geojson don't use it. But then we would need undefined checks in majority of code.
-  name?: string
-  state?: RampLayerStateConfig
-  customRenderer?: any
+  id: string;
+  layerType: LayerType;
+  url: string; // really this should be optional. Graphic layers & raw geojson don't use it. But then we would need undefined checks in majority of code.
+  name?: string;
+  state?: RampLayerStateConfig;
+  customRenderer?: any;
   // NOTE would uncomment if issue #1019 gets done
-  // refreshInterval?: number;
-  expectedDrawTime?: number
-  expectedLoadTime?: number
-  fieldMetadata?: RampLayerFieldMetadataConfig
-  nameField?: string
-  tooltipField?: string
-  featureInfoMimeType?: string // used by WMS layer
-  controls?: Array<LayerControl>
-  disabledControls?: Array<LayerControl>
-  sublayers?: Array<RampLayerMapImageSublayerConfig> | Array<RampLayerWmsSublayerConfig>
-  extent?: RampExtentConfig
-  latField?: string // csv coord field
-  longField?: string // csv coord field
-  mouseTolerance?: number // mouse tolerance
-  touchTolerance?: number // touch tolerance
-  metadata?: { url: string; name?: string }
-  catalogueUrl?: string
-  fixtures?: any // layer-based fixture config
-  cosmetic?: boolean
-  colour?: string
-  imageFormat?: string
-  initialFilteredQuery?: string
-  permanentFilteredQuery?: string
-  drawOrder?: Array<DrawOrder> // feature drawing order
-  identifyMode?: LayerIdentifyMode
-  caching?: boolean // whether to preserve raw data in file and WFS layers
-  rawData?: any // used for static data, like geojson string, shapefile guts
+  refreshInterval?: number;
+  expectedDrawTime?: number;
+  expectedLoadTime?: number;
+  fieldMetadata?: RampLayerFieldMetadataConfig;
+  nameField?: string;
+  tooltipField?: string;
+  featureInfoMimeType?: string; // used by WMS layer
+  controls?: Array<LayerControl>;
+  disabledControls?: Array<LayerControl>;
+  sublayers?: Array<RampLayerMapImageSublayerConfig> | Array<RampLayerWmsSublayerConfig>;
+  extent?: RampExtentConfig;
+  latField?: string; // csv coord field
+  longField?: string; // csv coord field
+  mouseTolerance?: number; // mouse tolerance
+  touchTolerance?: number; // touch tolerance
+  metadata?: { url: string; name?: string };
+  catalogueUrl?: string;
+  fixtures?: any; // layer-based fixture config
+  cosmetic?: boolean;
+  colour?: string;
+  imageFormat?: string;
+  initialFilteredQuery?: string;
+  permanentFilteredQuery?: string;
+  drawOrder?: Array<DrawOrder>; // feature drawing order
+  identifyMode?: LayerIdentifyMode;
+  caching?: boolean; // whether to preserve raw data in file and WFS layers
+  rawData?: any; // used for static data, like geojson string, shapefile guts
 }
 
 export interface RampExtentConfig {
-  xmin: number
-  xmax: number
-  ymin: number
-  ymax: number
-  spatialReference: RampSpatialReference
+  xmin: number;
+  xmax: number;
+  ymin: number;
+  ymax: number;
+  spatialReference: RampSpatialReference;
 }
 
 export interface RampExtentSetConfig {
-  id: string
-  default: RampExtentConfig
-  full?: RampExtentConfig
-  maximum?: RampExtentConfig
+  id: string;
+  default: RampExtentConfig;
+  full?: RampExtentConfig;
+  maximum?: RampExtentConfig;
 }
 
 export interface RampBasemapLayerConfig {
-  id: string
-  layerType: LayerType
-  url: string
-  opacity?: number
+  id: string;
+  layerType: LayerType;
+  url: string;
+  opacity?: number;
 }
 
 export interface RampBasemapConfig {
-  id: string
-  name: string
-  description: string
-  altText: string
-  hideThumbnail?: boolean
-  thumbnailUrl?: string
-  tileSchemaId: string
-  layers: Array<RampBasemapLayerConfig>
-  attribution?: Attribution
+  id: string;
+  name: string;
+  description: string;
+  altText: string;
+  hideThumbnail?: boolean;
+  thumbnailUrl?: string;
+  tileSchemaId: string;
+  layers: Array<RampBasemapLayerConfig>;
+  attribution?: Attribution;
 }
 
 export interface RampTileSchemaConfig {
-  id: string
-  name: string
-  extentSetId: string
-  lodSetId: string
-  thumbnailTileUrls: Array<string>
-  hasNorthPole?: boolean
+  id: string;
+  name: string;
+  extentSetId: string;
+  lodSetId: string;
+  thumbnailTileUrls: Array<string>;
+  hasNorthPole?: boolean;
 }
 
 export interface RampLodSetConfig {
-  id: string
-  lods: Array<RampLodConfig>
+  id: string;
+  lods: Array<RampLodConfig>;
 }
 
 export interface RampLodConfig {
-  level: number
-  resolution: number
-  scale: number
+  level: number;
+  resolution: number;
+  scale: number;
 }
 
 // Contains properties for compoents on the map caption bar
 export interface MapCaptionConfig {
-  mapCoords: { disabled?: boolean; formatter?: string }
-  scaleBar: { disabled?: boolean; imperialScale?: boolean }
+  mapCoords: { disabled?: boolean; formatter?: string };
+  scaleBar: { disabled?: boolean; imperialScale?: boolean };
 }
 
 // actual ramp config is kinda wonky, split over lots of classes
 // for now this will just serve as a nice type for the config
 export interface RampMapConfig {
-  lodSets: Array<RampLodSetConfig>
-  extentSets: Array<RampExtentSetConfig>
-  basemaps: Array<RampBasemapConfig>
-  tileSchemas: Array<RampTileSchemaConfig>
-  initialBasemapId: string
-  caption?: MapCaptionConfig
-  pointZoomScale?: number
-  mapMouseThrottle?: number
+  lodSets: Array<RampLodSetConfig>;
+  extentSets: Array<RampExtentSetConfig>;
+  basemaps: Array<RampBasemapConfig>;
+  tileSchemas: Array<RampTileSchemaConfig>;
+  initialBasemapId: string;
+  caption?: MapCaptionConfig;
+  pointZoomScale?: number;
+  mapMouseThrottle?: number;
 }
 
 /**
@@ -264,21 +264,21 @@ export interface RampMapConfig {
  * @interface RampConfig
  */
 export interface RampConfig {
-  map: RampMapConfig
-  layers: RampLayerConfig[]
-  fixtures: { [key: string]: any }
+  map: RampMapConfig;
+  layers: RampLayerConfig[];
+  fixtures: { [key: string]: any };
   panels?: {
     open?: {
-      id: string
-      screen?: string
-      pin?: boolean
-    }[]
-    reorderable?: boolean
-  }
+      id: string;
+      screen?: string;
+      pin?: boolean;
+    }[];
+    reorderable?: boolean;
+  };
   system?: {
-    proxyUrl?: string
-    animate?: boolean
-  }
+    proxyUrl?: string;
+    animate?: boolean;
+  };
 }
 
 /**
@@ -288,14 +288,14 @@ export interface RampConfig {
  * @interface RampConfigs
  */
 export interface RampConfigs {
-  startingFixtures?: string[]
+  startingFixtures?: string[];
   configs: {
-    [key: string]: RampConfig
-  }
+    [key: string]: RampConfig;
+  };
 }
 
 export interface RampOptions {
-  loadDefaultFixtures?: boolean
-  loadDefaultEvents?: boolean
-  startRequired?: boolean
+  loadDefaultFixtures?: boolean;
+  loadDefaultEvents?: boolean;
+  startRequired?: boolean;
 }
