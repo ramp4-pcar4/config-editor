@@ -5,7 +5,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "lib": ["DOM", "DOM.Iterable", "ES2020"],
+      "pretty": true
     }
   },
 

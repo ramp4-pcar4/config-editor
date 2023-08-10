@@ -20,7 +20,7 @@ onMounted(() => {
       <span class="font-bold">Note:</span> If the RAMP instance does not initialize as expected, it
       is likely that you missed a required value and/or specified an invalid value somewhere. You
       will need to go back to your config, check that all the values are correct, and then try
-      previewing again.
+      previewing again. Until we come up with a vaildator that tells you where you messed up.
     </p>
     <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
   </div>

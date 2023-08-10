@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import InputHeader from './input-header.vue';
 
 const expanded = ref<boolean>(false);
 const el = ref<HTMLElement>();
 
-defineProps(['title', 'thickBorder']);
+defineProps(['title', 'description', 'thickBorder', 'required']);
 </script>
 
 <template>
@@ -38,7 +39,7 @@ defineProps(['title', 'thickBorder']);
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
           </svg>
         </button>
-        <h1 class="text-lg">{{ title }}</h1>
+        <InputHeader :title="title" :description="description" type="header" :required="required" />
       </slot>
     </div>
     <div v-if="expanded">

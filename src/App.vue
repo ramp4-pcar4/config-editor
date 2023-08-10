@@ -3,6 +3,7 @@ import Loading from '@/components/loading.vue';
 import Navbar from './components/navbar.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';
 import LayersEditor from '@/components/layers/layers.vue';
+import MapEditor from '@/components/map/map.vue';
 import PanelsEditor from '@/components/panels.vue';
 import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
@@ -35,6 +36,7 @@ onMounted(() => {
 const editors: { [key: string]: any } = {
   'starting-fixtures': StartingFixturesEditor,
   layers: LayersEditor,
+  map: MapEditor,
   panels: PanelsEditor,
   system: SystemEditor,
   options: OptionsEditor,

@@ -215,10 +215,4 @@ watch(sublayers, () => {
   </Collapsible>
 </template>
 
-<style lang="scss" scoped>
-.draw-order-grid {
-  display: grid;
-  grid-template-columns: 24px 1fr 1fr 24px;
-  gap: 16px;
-}
-</style>
+<style lang="scss" scoped></style>

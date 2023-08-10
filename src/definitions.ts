@@ -75,8 +75,8 @@ export enum LayerControl {
 
 // Attribution interface that contains all the core attributes of the attribution node
 export interface Attribution {
-  text: { disabled?: boolean; value?: string };
-  logo: {
+  text?: { disabled?: boolean; value?: string };
+  logo?: {
     disabled?: boolean;
     altText?: string;
     value?: string;
@@ -195,27 +195,27 @@ export interface RampExtentConfig {
 
 export interface RampExtentSetConfig {
   id: string;
-  default: RampExtentConfig;
+  default?: RampExtentConfig;
   full?: RampExtentConfig;
   maximum?: RampExtentConfig;
 }
 
 export interface RampBasemapLayerConfig {
-  id: string;
-  layerType: LayerType;
-  url: string;
+  id?: string;
+  layerType?: LayerType;
+  url?: string;
   opacity?: number;
 }
 
 export interface RampBasemapConfig {
   id: string;
-  name: string;
-  description: string;
-  altText: string;
+  name?: string;
+  description?: string;
+  altText?: string;
   hideThumbnail?: boolean;
   thumbnailUrl?: string;
-  tileSchemaId: string;
-  layers: Array<RampBasemapLayerConfig>;
+  tileSchemaId?: string;
+  layers?: Array<RampBasemapLayerConfig>;
   attribution?: Attribution;
 }
 
@@ -224,19 +224,19 @@ export interface RampTileSchemaConfig {
   name: string;
   extentSetId: string;
   lodSetId: string;
-  thumbnailTileUrls: Array<string>;
+  thumbnailTileUrls?: Array<string>;
   hasNorthPole?: boolean;
 }
 
 export interface RampLodSetConfig {
   id: string;
-  lods: Array<RampLodConfig>;
+  lods?: Array<RampLodConfig>;
 }
 
 export interface RampLodConfig {
-  level: number;
-  resolution: number;
-  scale: number;
+  level?: number;
+  resolution?: number;
+  scale?: number;
 }
 
 // Contains properties for compoents on the map caption bar

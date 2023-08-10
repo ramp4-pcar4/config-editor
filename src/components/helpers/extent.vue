@@ -9,6 +9,10 @@ const props = defineProps({
     type: String,
     required: false
   },
+  description: {
+    type: String,
+    required: false
+  },
   modelValue: {
     type: Object as PropType<RampExtentConfig>,
     required: true,
@@ -35,6 +39,8 @@ const onInput = (e: Event) => {
     newExtent.spatialReference = newExtent.spatialReference ?? {};
     if (val === '') {
       delete newExtent.spatialReference[key];
+    } else if (key === 'wkt') {
+      newExtent.spatialReference[key] = val;
     } else {
       newExtent.spatialReference[key] = Number(val);
     }
@@ -69,12 +75,14 @@ const onInput = (e: Event) => {
           <input type="number" name="ymax" :value="props.modelValue?.ymax" @input="onInput" />
         </div>
       </div>
-      <h1 class="mt-5">Spatial Reference</h1>
-      <h2 class="text-xs">
-        Properties to help define map projection. One of the wkt, wkid, and latestWkid must be
-        specified.
-      </h2>
-      <div class="input-table mt-5">
+      <InputHeader
+        class="my-4"
+        type="header"
+        title="Spatial Reference"
+        description="Properties to help define map projection. One of the wkt, wkid, and latestWkid must be
+        specified."
+      />
+      <div class="input-table">
         <div>
           <input-header title="wkid" description="A well known ESRI id denoting a projection." />
           <input

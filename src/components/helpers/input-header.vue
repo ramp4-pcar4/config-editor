@@ -22,9 +22,12 @@ defineProps({
 <template>
   <div
     class="flex items-center"
-    :class="{ 'mb-1': type !== 'checkbox', 'h-full': type === 'checkbox' }"
+    :class="{
+      'mb-1': type !== 'checkbox' && type !== 'header',
+      'h-full': type === 'checkbox' || type === 'header'
+    }"
   >
-    <p class="mr-2" :class="{ required: required }">
+    <p class="mr-2" :class="{ required: required, 'text-lg': type === 'header' }">
       {{ title }}
     </p>
     <button
@@ -34,6 +37,7 @@ defineProps({
         placement: 'top',
         trigger: 'click focus'
       }"
+      @click.stop
     >
       <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M0 0h24v24H0z" fill="none"></path>
