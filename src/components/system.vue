@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
 import { onBeforeMount, watch } from 'vue';
+import InputHeader from '@/components/helpers/input-header.vue';
 
 const store = useStore();
 
@@ -14,28 +15,37 @@ onBeforeMount(() => {
 <template>
   <div>
     <h1 class="text-2xl font-bold">System</h1>
-    <p class="mt-5">Proxy URL:</p>
+    <InputHeader
+      class="mt-5"
+      title="Proxy URL"
+      description="An optional proxy to be used for dealing with same-origin issues. URL must either be a
+      relative path on the same server or an absolute path on a server which sets CORS headers.
+      Applies only to map services."
+    />
     <input
-      class="mt-2 border-2 border-black p-3 w-full sm:w-[500px]"
+      class="border-2 border-black p-2 w-full sm:w-[500px]"
       v-model="store.configs[store.editingLang].system!.proxyUrl"
     />
-    <p class="mt-1 text-sm">
-      An optional proxy to be used for dealing with same-origin issues. URL must either be a
-      relative path on the same server or an absolute path on a server which sets CORS headers.
-      Applies only to map services.
-    </p>
     <div class="mt-5 flex items-center">
       <input
         type="checkbox"
-        id="animate"
         v-model="store.configs[store.editingLang].system!.animate"
         :checked="store.configs[store.editingLang].system?.animate !== false"
       />
-      <label for="animate">Enable visual animations</label>
+      <InputHeader
+        title="Animate"
+        description="Will enable visual animation when using the site, such as control transitions."
+        type="checkbox"
+      />
     </div>
-    <p class="text-sm">
-      Will enable visual animation when using the site, such as control transitions.
-    </p>
+    <div class="mt-5 flex items-center">
+      <input type="checkbox" v-model="store.configs[store.editingLang].system!.exposeOid" />
+      <InputHeader
+        title="Expose OID"
+        description="Determines whether or not to include a feature's object ID field when viewing data on the site (e.g. within the details panel when identifying a feature)."
+        type="checkbox"
+      />
+    </div>
   </div>
 </template>
 

@@ -278,6 +278,7 @@ export interface RampConfig {
   system?: {
     proxyUrl?: string;
     animate?: boolean;
+    exposeOid?: boolean;
   };
 }
 
