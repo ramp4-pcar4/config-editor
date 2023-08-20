@@ -300,3 +300,19 @@ export interface RampOptions {
   loadDefaultEvents?: boolean;
   startRequired?: boolean;
 }
+
+/** Type definitions exclusive to config editor */
+
+export interface Field {
+  type: string;
+  // Either one of property or property + value + onInput should be specified.
+  // If property is specified, v-model will be used. Otherwise, initial value and onInput function will be used.
+  // onInput function takes index of item edited as first param, value as second param and is used to set custom stuff on the parent
+  property?: string;
+  value?: string;
+  onInput?: Function;
+  title: string;
+  description?: string;
+  required?: boolean;
+  fields?: Array<Field>; // only applies iff type === object. Too lazy to make more interfaces to make this clearer.
+}
