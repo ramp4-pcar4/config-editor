@@ -93,10 +93,6 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     font-family: $font-list;
     line-height: 1.5;
   }
-
-  input[type='checkbox'] {
-    @apply border-2 border-black mr-2 cursor-pointer text-black;
-  }
 }
 
 .input-table {

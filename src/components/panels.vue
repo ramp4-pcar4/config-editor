@@ -7,10 +7,6 @@ import { watch } from 'vue';
 
 const store = useStore();
 
-if (!store.configs[store.editingLang].panels) {
-  store.configs[store.editingLang].panels = {};
-}
-
 watch(
   () => store.configs[store.editingLang].panels?.open,
   (newVal) => {

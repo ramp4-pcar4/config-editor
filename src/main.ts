@@ -7,6 +7,7 @@ import App from './App.vue';
 import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import { useStore } from './store';
 import VueTippy from 'vue-tippy';
+import merge from 'deepmerge';
 
 export class API {
   readonly $vApp: ComponentPublicInstance;
@@ -50,8 +51,7 @@ export class API {
     store.startingFixtures = configs?.startingFixtures ?? [];
     store.options = options ?? {};
 
-    // TODO: Add better defaulting?
-    store.configs = configs?.configs ?? {
+    const defaultConfig = {
       en: {
         map: {
           lodSets: [],
@@ -61,7 +61,8 @@ export class API {
           initialBasemapId: ''
         },
         fixtures: {},
-        layers: []
+        layers: [],
+        panels: {}
       },
       fr: {
         map: {
@@ -72,9 +73,18 @@ export class API {
           initialBasemapId: ''
         },
         fixtures: {},
-        layers: []
+        layers: [],
+        panels: {}
       }
     };
+
+    if (configs?.configs && Object.keys(configs.configs).length > 0) {
+      Object.keys(configs.configs).forEach((lang: string) => {
+        store.configs[lang] = merge(defaultConfig['en'], configs.configs[lang]);
+      });
+    } else {
+      store.configs = defaultConfig;
+    }
   }
 
   /**
