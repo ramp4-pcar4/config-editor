@@ -140,7 +140,7 @@ const fieldToInputType: { [key: string]: string } = {
           v-for="field in itemFields"
           :key="field.title"
           :title="field.title"
-          :description="description"
+          :description="field.description"
           :required="field.required"
           type="checkbox"
         />

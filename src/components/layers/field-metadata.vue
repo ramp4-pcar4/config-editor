@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { type PropType, reactive, watch, ref } from 'vue';
+import { type PropType, reactive, watch } from 'vue';
 
-import draggable from 'vuedraggable';
 import List from '@/components/helpers/list.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
@@ -64,11 +63,3 @@ watch(fieldMetadata, () => {
     />
   </Collapsible>
 </template>
-
-<style lang="scss" scoped>
-.field-info-grid {
-  display: grid;
-  grid-template-columns: 24px 1fr 1fr 24px;
-  gap: 16px;
-}
-</style>

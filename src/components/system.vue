@@ -16,7 +16,7 @@ onBeforeMount(() => {
   <div>
     <h1 class="text-2xl font-bold">System</h1>
     <InputHeader
-      class="mt-5"
+      class="mt-4"
       title="Proxy URL"
       description="An optional proxy to be used for dealing with same-origin issues. URL must either be a
       relative path on the same server or an absolute path on a server which sets CORS headers.
@@ -26,7 +26,7 @@ onBeforeMount(() => {
       class="border-2 border-black p-2 w-full sm:w-[500px]"
       v-model="store.configs[store.editingLang].system!.proxyUrl"
     />
-    <div class="mt-5 flex items-center">
+    <div class="mt-4 flex items-center">
       <input
         type="checkbox"
         v-model="store.configs[store.editingLang].system!.animate"
@@ -38,7 +38,7 @@ onBeforeMount(() => {
         type="checkbox"
       />
     </div>
-    <div class="mt-5 flex items-center">
+    <div class="mt-4 flex items-center">
       <input type="checkbox" v-model="store.configs[store.editingLang].system!.exposeOid" />
       <InputHeader
         title="Expose OID"
