@@ -4,6 +4,8 @@ This is an interactive config creator and editor for RAMP4 config files.
 
 :construction: Currently does not have 100% coverage of all configuration options :construction:
 
+[Basic Live Demo](https://ramp4-pcar4.github.io/config-editor/)
+
 ## Usage
 
 When you start up the app, you will notice a fancy loading screen that says waiting for config. You need to use the app's API in order to "start" the app.
