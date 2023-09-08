@@ -3,11 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RAMP4 Config Editor</title>
+    <title>RAMP4 Config Editor - Super Fun Demo Version</title>
+    <script type="module" crossorigin src="/assets/index-69eea000.js"></script>
+    <link rel="stylesheet" href="/assets/index-3c0962be.css" />
   </head>
   <body>
     <div id="app" style="height: 100vh"></div>
-    <script type="module" src="/src/lib/ramp.js"></script>
-    <script type="module" src="/src/main.ts"></script>
+
+    <script>
+      // fake load
+      setTimeout(() => {
+        window.ramp4EditorAPI.initialize();
+      }, 1000);
+    </script>
   </body>
 </html>
