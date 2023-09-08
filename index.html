@@ -10,11 +10,17 @@
   <body>
     <div id="app" style="height: 100vh"></div>
 
+    <div id="msg">Wait a bit while the huge library downloads thx.</div>
+
     <script>
       // fake load
-      setTimeout(() => {
-        window.ramp4EditorAPI.initialize();
-      }, 1000);
+      let waiter = setInterval(() => {
+        if (window.ramp4EditorAPI) {
+          clearInterval(waiter);
+          window.ramp4EditorAPI.initialize();
+          document.getElementById("msg").innerHTML = "";
+        }
+      }, 500);
     </script>
   </body>
 </html>
