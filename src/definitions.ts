@@ -308,8 +308,12 @@ export interface Field {
   // Either one of property or property + value + onInput should be specified.
   // If property is specified, v-model will be used. Otherwise, initial value and onInput function will be used.
   // onInput function takes index of item edited as first param, value as second param and is used to set custom stuff on the parent
-  property?: string;
+  property: string; // string, boolean, number, enum
   value?: string;
+  options?: Array<{ value: any; label: string }>; // options for if property type is enum
+  placeholder?: string;
+  min?: number;
+  max?: number;
   onInput?: Function;
   title: string;
   description?: string;
