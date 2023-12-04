@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Field } from '@/definitions';
-import { type PropType, watch, computed, reactive } from 'vue';
+import { type PropType, watch, computed, reactive, useSlots, ref } from 'vue';
 
 import draggable from 'vuedraggable';
 import InputHeader from '@/components/helpers/input-header.vue';
@@ -49,30 +49,47 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  editDisabled: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 });
 
+const slots = useSlots();
 const emit = defineEmits(['update:modelValue']);
 
-const list = reactive<Array<any>>(props.modelValue ?? []);
+const list = computed({
+  get() {
+    return props.modelValue ?? [];
+  },
+  set(value) {
+    emit('update:modelValue', value);
+  }
+});
 
 const add = () => {
-  if (!!props.add) {
+  if (props.editDisabled) {
+    return;
+  } else if (!!props.add) {
     props.add();
   } else {
-    list?.push({});
+    list.value?.push({});
   }
 };
 
 const remove = (idx: number) => {
-  if (!!props.remove) {
+  if (props.editDisabled) {
+    return;
+  } else if (!!props.remove) {
     props.remove(idx);
   } else {
-    list?.splice(idx, 1);
+    list.value?.splice(idx, 1);
   }
 };
 
-const length = computed<number>(() => list?.length ?? 0);
+const length = computed<number>(() => list.value?.length ?? 0);
 
 // for items, we use the table layout instead of the collapsible layout iff
 //      - the user doesn't want a custom item template
@@ -80,14 +97,11 @@ const length = computed<number>(() => list?.length ?? 0);
 //      - only string or boolean or number fields are present (no fancy nested objects)
 const useTableLayout = computed<boolean>(
   () =>
-    !props.customOnly &&
+    !slots.item &&
     length.value > 0 &&
     !!props.itemFields &&
     props.itemFields.length > 0 &&
-    props.itemFields.length < 4 &&
-    props.itemFields
-      .map((f) => f.type)
-      .every((t) => ['string', 'boolean', 'number', 'enum', 'object'].includes(t.toLowerCase()))
+    props.itemFields.length < 4
 );
 
 // for items, we use the collapsible layout instead of the table layout iff
@@ -101,13 +115,10 @@ const useCollapsibleLayout = computed<boolean>(
 const fieldToInputType: { [key: string]: string } = {
   string: 'text',
   object: 'text',
+  array: 'text',
   number: 'number',
   boolean: 'checkbox'
 };
-
-watch(list, () => {
-  emit('update:modelValue', length.value === 0 ? undefined : list);
-});
 </script>
 
 <template>
@@ -127,7 +138,11 @@ watch(list, () => {
       <!-- add item button -->
       <button
         @click.stop="add"
-        class="bg-black cursor-pointer hover:bg-gray-800 ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
+        :class="{
+          'cursor-not-allowed bg-gray-500': props.editDisabled,
+          'bg-black cursor-pointer hover:bg-gray-800': !props.editDisabled
+        }"
+        class="ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
       >
         <svg
           class="relative bottom-[2px]"
@@ -163,7 +178,11 @@ watch(list, () => {
               <div>
                 <hr class="border-solid border-t border-gray-300 my-2" />
                 <div :class="`grid cols-${itemFields?.length} gap-4`">
-                  <button class="cursor-move handle">
+                  <button
+                    :disabled="editDisabled"
+                    :class="{ handle: !editDisabled }"
+                    class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -185,8 +204,9 @@ watch(list, () => {
                     class="flex items-center justify-center"
                   >
                     <input
-                      v-if="!field.onInput && field.type !== 'enum' && field.type !== 'object'"
+                      v-if="!['enum', 'object', 'array'].includes(field.type)"
                       :type="fieldToInputType[field.type]"
+                      :disabled="editDisabled"
                       :class="{
                         'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
                         'cursor-pointer': field.type.toLowerCase() === 'boolean'
@@ -194,8 +214,9 @@ watch(list, () => {
                       v-model="element[field.property]"
                     />
                     <select
-                      v-else-if="!field.onInput && field.type === 'enum'"
+                      v-else-if="field.type === 'enum'"
                       class="w-full max-w-xs"
+                      :disabled="editDisabled"
                       v-model="element[field.property]"
                     >
                       <option
@@ -207,45 +228,32 @@ watch(list, () => {
                       </option>
                     </select>
                     <input
-                      v-else-if="field.type !== 'enum'"
+                      v-else
                       :type="fieldToInputType[field.type]"
                       :class="{
                         'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
                         'cursor-pointer': field.type.toLowerCase() === 'boolean'
                       }"
+                      :disabled="editDisabled"
                       :value="
                         field.type === 'object'
                           ? JSON.stringify(element[field.property])
-                          : element[field.property]
+                          : element[field.property]?.join(',') ?? ''
                       "
                       @input="e => {
-                        if (field.onInput) {
-                            field.onInput(index, (e.target as HTMLInputElement).value)
-                        }
-                        else if (field.type === 'object') {
+                        if (field.type === 'object') {
                           element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
+                        } else {
+                          element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map((s) => s.trim());
                         }
                     }"
                     />
-                    <select
-                      v-else
-                      class="w-full max-w-xs"
-                      :value="element[field.property]"
-                      @input="e => {
-                      if (field.onInput) {
-                          field.onInput(index, (e.target as HTMLInputElement).value)
-                      }}"
-                    >
-                      <option
-                        v-for="option in field.options"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
-                      </option>
-                    </select>
                   </div>
-                  <button @click="remove(index)">
+                  <button
+                    @click="remove(index)"
+                    :disabled="editDisabled"
+                    class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -267,7 +275,12 @@ watch(list, () => {
             <div v-else-if="useCollapsibleLayout">
               <Collapsible>
                 <template #header>
-                  <button class="cursor-move handle mr-1 sm:mr-3" @click.stop>
+                  <button
+                    :disabled="editDisabled"
+                    :class="{ handle: !editDisabled }"
+                    class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-1 sm:mr-3"
+                    @click.stop
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -294,10 +307,14 @@ watch(list, () => {
                     </svg>
                   </button>
                   <span class="mr-1 sm:mr-5 sm:text-lg">{{
-                    element.id ??
+                    element.id ||
                     `${props.title?.slice(0, props.title.length - 1)} ${element.index ?? index + 1}`
                   }}</span>
-                  <button @click.stop="remove(index)" class="ml-auto">
+                  <button
+                    @click.stop="remove(index)"
+                    :disabled="editDisabled"
+                    class="disabled:text-gray-500 disabled:cursor-not-allowed ml-auto"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -326,20 +343,22 @@ watch(list, () => {
                         :required="field.required"
                       />
                       <input
-                        v-if="!field.onInput && field.type !== 'enum' && field.type !== 'object'"
+                        v-if="!['enum', 'object', 'array'].includes(field.type)"
                         :type="fieldToInputType[field.type]"
                         :class="{
                           'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
                           'cursor-pointer': field.type.toLowerCase() === 'boolean'
                         }"
+                        :disabled="editDisabled"
                         v-model="element[field.property]"
                         :placeholder="field.placeholder"
                         :min="field.min"
                         :max="field.max"
                       />
                       <select
-                        v-else-if="!field.onInput && field.type === 'enum'"
+                        v-else-if="field.type === 'enum'"
                         class="w-full max-w-xs"
+                        :disabled="editDisabled"
                         v-model="element[field.property]"
                       >
                         <option
@@ -351,43 +370,26 @@ watch(list, () => {
                         </option>
                       </select>
                       <input
-                        v-else-if="field.type !== 'enum'"
+                        v-else
                         :type="fieldToInputType[field.type]"
                         class="w-full max-w-xs"
                         :value="
                           field.type === 'object'
                             ? JSON.stringify(element[field.property])
-                            : element[field.property]
+                            : element[field.property]?.join(',') ?? ''
                         "
+                        :disabled="editDisabled"
                         @input="e => {
-                          if (field.onInput) {
-                              field.onInput(index, (e.target as HTMLInputElement).value)
-                          }
-                          else if (field.type === 'object') {
+                          if (field.type === 'object') {
                             element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
+                          } else {
+                            element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map((s) => s.trim());
                           }
                         }"
                         :placeholder="field.placeholder"
                         :min="field.min"
                         :max="field.max"
                       />
-                      <select
-                        v-else
-                        class="w-full max-w-xs"
-                        :value="element[field.property]"
-                        @input="e => {
-                        if (field.onInput) {
-                            field.onInput(index, (e.target as HTMLInputElement).value)
-                        }}"
-                      >
-                        <option
-                          v-for="option in field.options"
-                          :key="option.value"
-                          :value="option.value"
-                        >
-                          {{ option.label }}
-                        </option>
-                      </select>
                     </div>
                   </div>
                   <div
@@ -397,19 +399,8 @@ watch(list, () => {
                   >
                     <input
                       type="checkbox"
-                      v-if="!field.onInput"
                       v-model="element[field.property]"
-                    />
-                    <input
-                      type="checkbox"
-                      class="cursor-pointer"
-                      v-else
-                      :value="element[field.property]"
-                      @input="e => {
-                          if (field.onInput) {
-                              field.onInput(index, (e.target as HTMLInputElement).checked)
-                          }
-                        }"
+                      :disabled="editDisabled"
                     />
                     <InputHeader
                       :title="field.title"

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { type PropType, reactive, watch } from 'vue';
 
-import draggable from 'vuedraggable';
 import InputHeader from '@/components/helpers/input-header.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 
@@ -14,26 +13,6 @@ const props = defineProps({
     required: false
   }
 });
-
-const addBasemap = () => {
-  basemaps.push({ id: '' });
-};
-
-const removeBasemap = (idx: number) => {
-  basemaps?.splice(idx, 1);
-};
-
-const addBasemapLayer = (idx: number) => {
-  if (!basemaps[idx].layers) {
-    basemaps[idx].layers = [];
-  }
-
-  basemaps[idx].layers?.push({});
-};
-
-const removeBasemapLayer = (basemapIdx: number, layerIdx: number) => {
-  basemaps[basemapIdx].layers?.splice(layerIdx, 1);
-};
 
 const onAttributionInput = (
   idx: number,
