@@ -7,6 +7,9 @@
   input[type='checkbox'] {
     @apply border-2 border-black mr-2 cursor-pointer text-black;
   }
+  input[type='radio'] {
+    @apply border-2 border-black mr-2 cursor-pointer text-black;
+  }
 }
 
 .tippy-box[data-theme~='ramp4Editor'] {

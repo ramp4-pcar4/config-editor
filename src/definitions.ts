@@ -301,16 +301,50 @@ export interface RampOptions {
   startRequired?: boolean;
 }
 
+export interface PanelTeleportObject {
+  /**
+   * The element to teleport the panel to. Can be the actual element or a query selector string.
+   *
+   * @type string | Element
+   * @memberof PanelTeleportObject
+   */
+  target?: string | Element;
+
+  /**
+   * Whether or not to show the panel header.
+   *
+   * @type boolean
+   * @memberof PanelTeleportObject
+   */
+  showHeader?: boolean;
+
+  /**
+   * Whether or not opening/closing the panel will show/hide an appbar button for it.
+   * Will only apply to temporary appbar buttons.
+   *
+   * @type boolean
+   * @memberof PanelTeleportObject
+   */
+  showAppbarButton?: boolean;
+
+  /**
+   * Custom class breakpoints for the teleported panel.
+   *
+   * @type object
+   * @memberof PanelTeleportObject
+   */
+  breakpoints?: { [key: string]: number };
+}
+
 /** Type definitions exclusive to config editor */
 
 export interface Field {
   type: string;
-  // Either one of property or property + value + onInput should be specified.
-  // If property is specified, v-model will be used. Otherwise, initial value and onInput function will be used.
-  // onInput function takes index of item edited as first param, value as second param and is used to set custom stuff on the parent
-  property?: string;
-  value?: string;
-  onInput?: Function;
+  property: string; // string, boolean, number, enum, object, array
+  options?: Array<{ value: any; label: string }>; // options for if property type is enum
+  placeholder?: string;
+  min?: number;
+  max?: number;
   title: string;
   description?: string;
   required?: boolean;
