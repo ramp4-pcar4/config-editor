@@ -35,6 +35,7 @@ const props = defineProps({
     type: String,
     required: false
   },
+  singular: { type: String, required: false },
   required: {
     type: Boolean,
     required: false,
@@ -74,8 +75,10 @@ const add = () => {
     return;
   } else if (!!props.add) {
     props.add();
+  } else if (!props.modelValue) {
+    list.value = [...list.value, {}];
   } else {
-    list.value?.push({});
+    list.value.push({});
   }
 };
 
@@ -102,14 +105,6 @@ const useTableLayout = computed<boolean>(
     !!props.itemFields &&
     props.itemFields.length > 0 &&
     props.itemFields.length < 4
-);
-
-// for items, we use the collapsible layout instead of the table layout iff
-//         - the user doesn't want a custom item template
-//         - number of fields > 0
-//         - one of the other conditions of using a table layout does not apply
-const useCollapsibleLayout = computed<boolean>(
-  () => !props.customOnly && !!props.itemFields && props.itemFields.length > 0
 );
 
 const fieldToInputType: { [key: string]: string } = {
@@ -272,7 +267,7 @@ const fieldToInputType: { [key: string]: string } = {
                 </div>
               </div>
             </div>
-            <div v-else-if="useCollapsibleLayout">
+            <div v-else>
               <Collapsible>
                 <template #header>
                   <button
@@ -308,7 +303,10 @@ const fieldToInputType: { [key: string]: string } = {
                   </button>
                   <span class="mr-1 sm:mr-5 sm:text-lg">{{
                     element.id ||
-                    `${props.title?.slice(0, props.title.length - 1)} ${element.index ?? index + 1}`
+                    element.name ||
+                    `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
+                      element.index ?? index + 1
+                    }`
                   }}</span>
                   <button
                     @click.stop="remove(index)"

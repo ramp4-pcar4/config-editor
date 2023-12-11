@@ -7,15 +7,6 @@ import { watch } from 'vue';
 
 const store = useStore();
 
-watch(
-  () => store.configs[store.editingLang].panels?.open,
-  (newVal) => {
-    if (!newVal) {
-      delete store.configs[store.editingLang].panels?.open;
-    }
-  }
-);
-
 const itemFields: Array<Field> = [
   {
     type: 'string',

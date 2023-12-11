@@ -102,7 +102,7 @@ const breakpointFields: Array<Field> = [
       v-model="breakpoints"
       :item-fields="breakpointFields"
       title="Breakpoints"
-      description="An object of type { className<string>: minWidth<number>} pairs. If you add duplicate class name(s), the latest entry will be used as the breakpoint."
+      description="An object of type { className<string>: minWidth<number>} pairs. If you add duplicate class name(s), the latest entry will be used as the breakpoint. Only non-empty class names and minimum widths will be saved."
       add-prompt="Add breakpoint"
     />
   </Collapsible>
