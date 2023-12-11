@@ -304,6 +304,7 @@ const fieldToInputType: { [key: string]: string } = {
                   <span class="mr-1 sm:mr-5 sm:text-lg">{{
                     element.id ||
                     element.name ||
+                    element.layerId ||
                     `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
                       element.index ?? index + 1
                     }`
