@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, type PropType, onBeforeMount, watch } from 'vue';
+import { ref, type PropType, onBeforeMount, watch, computed } from 'vue';
 import { LayerControl } from '@/definitions';
 
 import Collapsible from '@/components/helpers/collapsible.vue';
@@ -7,6 +7,14 @@ import Collapsible from '@/components/helpers/collapsible.vue';
 const props = defineProps({
   modelValue: {
     type: Object as PropType<Array<LayerControl>>,
+    required: false
+  },
+  title: {
+    type: String,
+    required: false
+  },
+  description: {
+    type: String,
     required: false
   },
   disabled: {
@@ -35,6 +43,8 @@ const controls = ref<Array<LayerControl>>(
   props.modelValue ?? (props.disabled ? [] : JSON.parse(JSON.stringify(allControls)))
 );
 
+const title = computed<string>(() => props.title || 'Controls');
+
 watch(controls, () => {
   emit(
     'update:modelValue',
@@ -50,7 +60,7 @@ watch(controls, () => {
 </script>
 
 <template>
-  <Collapsible :title="disabled ? 'Disabled Controls' : 'Controls'">
+  <Collapsible :title="disabled ? `Disabled ${title}` : title" :description="description">
     <div class="input-table">
       <div class="flex items-center" v-for="ctrl in Object.keys(LayerControl)">
         <input
