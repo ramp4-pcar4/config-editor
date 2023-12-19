@@ -339,8 +339,8 @@ export interface PanelTeleportObject {
 /** Type definitions exclusive to config editor */
 
 export interface Field {
-  type: string;
-  property: string; // string, boolean, number, enum, object, array
+  type: string; // string, boolean, number, enum, object, array
+  property: string;
   options?: Array<{ value: any; label: string }>; // options for if property type is enum
   placeholder?: string;
   min?: number;

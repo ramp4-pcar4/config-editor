@@ -305,6 +305,7 @@ const fieldToInputType: { [key: string]: string } = {
                     element.id ||
                     element.name ||
                     element.layerId ||
+                    element.gridId ||
                     `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
                       element.index ?? index + 1
                     }`
