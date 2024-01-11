@@ -11,19 +11,19 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-const basemap = reactive<any>(props.modelValue ?? {});
+const layerReorder = reactive<any>(props.modelValue ?? {});
 
-watch(basemap, () => {
-  emit('update:modelValue', basemap.panelTeleport ? basemap : undefined);
+watch(layerReorder, () => {
+  emit('update:modelValue', layerReorder.panelTeleport ? layerReorder : undefined);
 });
 </script>
 
 <template>
   <Collapsible
     :thick-border="true"
-    title="Basemap"
-    description="Provides configuration to the basemap fixture."
+    title="Layer Reorder"
+    description="Provides configuration to the layer reorder fixture."
   >
-    <PanelTeleport v-model="basemap.panelTeleport" />
+    <PanelTeleport v-model="layerReorder.panelTeleport" />
   </Collapsible>
 </template>
