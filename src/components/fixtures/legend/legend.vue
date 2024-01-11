@@ -29,7 +29,7 @@ watch(legend, () => {
   <Collapsible
     :thick-border="true"
     title="Legend"
-    description="Provides configuration to the legend. If not supplied, a blank legend is displayed."
+    description="Provides configuration to the legend fixture. If not supplied, a blank legend is displayed."
   >
     <div class="input-table">
       <div>

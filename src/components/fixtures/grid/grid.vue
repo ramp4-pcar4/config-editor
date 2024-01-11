@@ -25,7 +25,7 @@ watch(grid, () => {
   <Collapsible
     :thick-border="true"
     title="Grid"
-    description="Provides configuration to the grid. If not supplied, a default grid is displayed for each layer."
+    description="Provides configuration to the grid fixture. If not supplied, a default grid is displayed for each layer."
   >
     <div class="input-table">
       <div>
