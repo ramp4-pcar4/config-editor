@@ -9,6 +9,14 @@ const props = defineProps({
   modelValue: {
     type: Object as PropType<PanelTeleportObject>,
     required: false
+  },
+  title: {
+    type: String,
+    required: false
+  },
+  description: {
+    type: String,
+    required: false
   }
 });
 
@@ -17,7 +25,7 @@ const teleport = reactive<PanelTeleportObject>(props.modelValue ?? {});
 const breakpoints = reactive<Array<{ className?: string; minWidth?: number }>>(
   props.modelValue?.breakpoints
     ? Object.keys(props.modelValue.breakpoints).map((k) => {
-        return { className: k, breakpoint: props.modelValue!.breakpoints![k] };
+        return { className: k, minWidth: props.modelValue!.breakpoints![k] };
       })
     : []
 );
@@ -32,11 +40,13 @@ watch(breakpoints, () => {
 
   if (Object.keys(newBreakpoints).length > 0) {
     teleport.breakpoints = newBreakpoints;
+  } else {
+    delete teleport.breakpoints;
   }
 });
 
 watch(teleport, () => {
-  emit('update:modelValue', teleport);
+  emit('update:modelValue', teleport.target ? teleport : undefined);
 });
 
 const breakpointFields: Array<Field> = [
@@ -61,8 +71,11 @@ const breakpointFields: Array<Field> = [
 
 <template>
   <Collapsible
-    title="Panel Teleport"
-    description="Determines where to render the panel instead of its usual spot in the panel stack."
+    :title="title ?? 'Panel Teleport'"
+    :description="
+      description ??
+      'Determines where to render the panel instead of its usual spot in the panel stack. Note that the target must be specified to save the configuration.'
+    "
   >
     <div class="input-table">
       <div>
