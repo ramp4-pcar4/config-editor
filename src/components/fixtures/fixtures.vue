@@ -4,6 +4,7 @@ import Appbar from '@/components/fixtures/appbar.vue';
 import AreasOfInterest from '@/components/fixtures/areas-of-interest.vue';
 import Basemap from '@/components/fixtures/basemap/basemap.vue';
 import Details from '@/components/fixtures/details/details.vue';
+import Export from '@/components/fixtures/export/export.vue';
 import LayerReorder from '@/components/fixtures/layer-reorder/layer-reorder.vue';
 import Legend from '@/components/fixtures/legend/legend.vue';
 import Geosearh from '@/components/fixtures/geosearch/geosearch.vue';
@@ -19,6 +20,7 @@ const store = useStore();
     <h1 class="text-2xl font-bold">Fixtures</h1>
     <Basemap v-model="store.configs[store.editingLang].fixtures.basemap" />
     <Details v-model="store.configs[store.editingLang].fixtures.details" />
+    <Export v-model="store.configs[store.editingLang].fixtures.export" />
     <Geosearh v-model="store.configs[store.editingLang].fixtures.geosearch" />
     <Grid v-model="store.configs[store.editingLang].fixtures.grid" />
     <LayerReorder v-model="store.configs[store.editingLang].fixtures['layer-reorder']" />
