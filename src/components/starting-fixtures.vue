@@ -12,9 +12,7 @@ onBeforeMount(() => {
 const onInput = (e: Event) => {
   startingFixturesInput.value = (e.target as HTMLInputElement).value;
   store.startingFixtures =
-    startingFixturesInput.value === ''
-      ? []
-      : startingFixturesInput.value.split(',').map((fixtureId) => fixtureId.trim());
+    startingFixturesInput.value === '' ? [] : startingFixturesInput.value.split(',');
 };
 </script>
 

@@ -3,6 +3,7 @@ import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import ServiceUrls from '@/components/fixtures/geosearch/service-urls.vue';
+import Settings from '@/components/fixtures/geosearch/settings.vue';
 
 const props = defineProps({
   modelValue: {
@@ -30,5 +31,6 @@ watch(geosearch, () => {
   >
     <PanelTeleport v-model="geosearch.panelTeleport" />
     <ServiceUrls v-model="geosearch.serviceUrls" />
+    <Settings v-model="geosearch.settings" />
   </Collapsible>
 </template>

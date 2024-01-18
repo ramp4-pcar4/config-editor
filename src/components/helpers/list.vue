@@ -239,7 +239,7 @@ const fieldToInputType: { [key: string]: string } = {
                         if (field.type === 'object') {
                           element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
                         } else {
-                          element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map((s) => s.trim());
+                          element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
                         }
                     }"
                     />
@@ -383,7 +383,7 @@ const fieldToInputType: { [key: string]: string } = {
                           if (field.type === 'object') {
                             element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
                           } else {
-                            element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map((s) => s.trim());
+                            element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
                           }
                         }"
                         :placeholder="field.placeholder"
