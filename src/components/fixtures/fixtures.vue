@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
-import Appbar from '@/components/fixtures/appbar.vue';
+import Appbar from '@/components/fixtures/appbar/appbar.vue';
 import AreasOfInterest from '@/components/fixtures/areas-of-interest/areas-of-interest.vue';
 import Basemap from '@/components/fixtures/basemap/basemap.vue';
 import Details from '@/components/fixtures/details/details.vue';
@@ -9,6 +9,7 @@ import LayerReorder from '@/components/fixtures/layer-reorder/layer-reorder.vue'
 import Legend from '@/components/fixtures/legend/legend.vue';
 import Geosearh from '@/components/fixtures/geosearch/geosearch.vue';
 import Grid from '@/components/fixtures/grid/grid.vue';
+import Help from '@/components/fixtures/help/help.vue';
 import Settings from '@/components/fixtures/settings/settings.vue';
 import Scrollguard from '@/components/fixtures/scrollguard/scrollguard.vue';
 import Wizard from '@/components/fixtures/wizard/wizard.vue';
@@ -19,12 +20,14 @@ const store = useStore();
 <template>
   <div>
     <h1 class="text-2xl font-bold">Fixtures</h1>
+    <Appbar v-model="store.configs[store.editingLang].fixtures.appbar" />
     <AreasOfInterest v-model="store.configs[store.editingLang].fixtures['areas-of-interest']" />
     <Basemap v-model="store.configs[store.editingLang].fixtures.basemap" />
     <Details v-model="store.configs[store.editingLang].fixtures.details" />
     <Export v-model="store.configs[store.editingLang].fixtures.export" />
     <Geosearh v-model="store.configs[store.editingLang].fixtures.geosearch" />
     <Grid v-model="store.configs[store.editingLang].fixtures.grid" />
+    <Help v-model="store.configs[store.editingLang].fixtures.help" />
     <LayerReorder v-model="store.configs[store.editingLang].fixtures['layer-reorder']" />
     <Legend v-model="store.configs[store.editingLang].fixtures.legend" />
     <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
