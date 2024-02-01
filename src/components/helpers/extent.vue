@@ -13,6 +13,10 @@ const props = defineProps({
     type: String,
     required: false
   },
+  required: {
+    type: Boolean,
+    required: false
+  },
   modelValue: {
     type: Object as PropType<RampExtentConfig>,
     required: true,
@@ -55,7 +59,7 @@ const onInput = (e: Event) => {
 </script>
 
 <template>
-  <Collapsible :title="props.title">
+  <Collapsible :title="props.title" :required="required" :description="description">
     <div>
       <div class="input-table">
         <div>
