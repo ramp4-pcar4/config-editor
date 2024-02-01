@@ -10,6 +10,7 @@ import Legend from '@/components/fixtures/legend/legend.vue';
 import Geosearh from '@/components/fixtures/geosearch/geosearch.vue';
 import Grid from '@/components/fixtures/grid/grid.vue';
 import Help from '@/components/fixtures/help/help.vue';
+import Hilight from '@/components/fixtures/hilight/hilight.vue';
 import Settings from '@/components/fixtures/settings/settings.vue';
 import Scrollguard from '@/components/fixtures/scrollguard/scrollguard.vue';
 import Wizard from '@/components/fixtures/wizard/wizard.vue';
@@ -28,6 +29,7 @@ const store = useStore();
     <Geosearh v-model="store.configs[store.editingLang].fixtures.geosearch" />
     <Grid v-model="store.configs[store.editingLang].fixtures.grid" />
     <Help v-model="store.configs[store.editingLang].fixtures.help" />
+    <Hilight v-model="store.configs[store.editingLang].fixtures.hilight" />
     <LayerReorder v-model="store.configs[store.editingLang].fixtures['layer-reorder']" />
     <Legend v-model="store.configs[store.editingLang].fixtures.legend" />
     <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
