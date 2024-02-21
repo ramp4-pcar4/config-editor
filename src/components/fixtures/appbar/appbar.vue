@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
 import { reactive, type PropType, watch } from 'vue';
-import Items from '@/components/fixtures/appbar/items.vue';
+import Groups from '@/components/fixtures/appbar/groups.vue';
 
 const props = defineProps({
   modelValue: {
@@ -25,6 +25,6 @@ watch(appbar, () => {
     title="Appbar"
     description="Provides configuration to the appbar. If not supplied, default appbar controls (legend, geosearch, basemap) are displayed."
   >
-    <Items v-model="appbar.items" isRoot />
+    <Groups v-model="appbar.items" />
   </Collapsible>
 </template>

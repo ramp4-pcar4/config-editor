@@ -66,6 +66,7 @@ const list = computed({
     return props.modelValue ?? [];
   },
   set(value) {
+    console.log('Setting items', value);
     emit('update:modelValue', value);
   }
 });
@@ -306,6 +307,7 @@ const fieldToInputType: { [key: string]: string } = {
                     element.name ||
                     element.layerId ||
                     element.gridId ||
+                    element.panelId ||
                     `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
                       element.index ?? index + 1
                     }`
