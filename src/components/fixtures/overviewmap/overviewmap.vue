@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Basemaps from '@/components/map/basemaps.vue';
 
 import { reactive, type PropType, watch } from 'vue';
 
@@ -13,8 +14,13 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 const overviewMap = reactive<any>(props.modelValue ?? {});
+const basemaps = reactive<Array<any>>(
+  props.modelValue?.basemaps
+    ? Object.keys(props.modelValue?.basemaps).map((k) => props.modelValue?.basemaps[k])
+    : []
+);
 
-watch(overviewMap, () => {
+const update = () => {
   if (overviewMap.expandFactor === '') {
     delete overviewMap.expandFactor;
   }
@@ -30,7 +36,24 @@ watch(overviewMap, () => {
   if (!overviewMap.areaColour) {
     delete overviewMap.areaColour;
   }
+
   emit('update:modelValue', Object.keys(overviewMap).length === 0 ? undefined : overviewMap);
+};
+
+watch(overviewMap, update);
+watch(basemaps, () => {
+  const newBasemaps: { [key: string]: any } = {};
+  basemaps.forEach((bm: any) => {
+    if (bm.tileSchemaId) {
+      newBasemaps[bm.tileSchemaId] = bm;
+    }
+  });
+  console.log(basemaps, newBasemaps);
+  if (Object.keys(newBasemaps).length > 0) {
+    overviewMap.basemaps = newBasemaps;
+  } else {
+    delete overviewMap.basemaps;
+  }
 });
 </script>
 
@@ -89,5 +112,6 @@ watch(overviewMap, () => {
         type="checkbox"
       />
     </div>
+    <Basemaps v-model="basemaps" is-overview />
   </Collapsible>
 </template>
