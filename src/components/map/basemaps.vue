@@ -11,6 +11,9 @@ const props = defineProps({
   modelValue: {
     type: Object as PropType<Array<RampBasemapConfig>>,
     required: false
+  },
+  isOverview: {
+    type: Boolean
   }
 });
 
@@ -57,63 +60,123 @@ watch(basemaps, () => {
   emit('update:modelValue', basemaps.length === 0 ? undefined : basemaps);
 });
 
-const basemapFields: Array<Field> = [
-  {
-    property: 'id',
-    title: 'ID',
-    description: 'A unique id identifying the basemap.',
-    type: 'string',
-    required: true
-  },
-  {
-    property: 'name',
-    title: 'Name',
-    description: 'Name of the basemap used for labeling.',
-    type: 'string',
-    required: true
-  },
-  {
-    property: 'tileSchemaId',
-    title: 'Tile Schema ID',
-    description: 'The tile schema associated with this basemap.',
-    required: true,
-    type: 'string'
-  },
-  {
-    property: 'description',
-    title: 'Description',
-    description: 'Description of the basemap. Becomes visible when basemap selector is expanded.',
-    required: true,
-    type: 'string'
-  },
-  {
-    property: 'altText',
-    title: 'Alt Text',
-    description: 'Alt text for the basemap thumbnail image.',
-    required: true,
-    type: 'string'
-  },
-  {
-    property: 'backgroundColour',
-    title: 'Background Colour',
-    description: 'The hex code representing the background colour of the basemap.',
-    placeholder: '#FFFFFF',
-    type: 'string'
-  },
-  {
-    property: 'thumbnailUrl',
-    title: 'Thumbnail URL',
-    description: 'Path to image file to display in the basemap selector.',
-    type: 'string'
-  },
-  {
-    property: 'hideThumbnail',
-    title: 'Hide Thumbnail',
-    description:
-      'When enabled, hides the basemap thumbnail image, leaving just the text component.',
-    type: 'boolean'
-  }
-];
+const basemapFields: Array<Field> = props.isOverview
+  ? [
+      {
+        property: 'tileSchemaId',
+        title: 'Tile Schema ID',
+        description: 'The tile schema associated with this basemap.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'id',
+        title: 'ID',
+        description: 'A unique id identifying the basemap.',
+        type: 'string',
+        required: true
+      },
+      {
+        property: 'name',
+        title: 'Name',
+        description: 'Name of the basemap used for labeling.',
+        type: 'string',
+        required: true
+      },
+      {
+        property: 'description',
+        title: 'Description',
+        description:
+          'Description of the basemap. Becomes visible when basemap selector is expanded.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'altText',
+        title: 'Alt Text',
+        description: 'Alt text for the basemap thumbnail image.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'backgroundColour',
+        title: 'Background Colour',
+        description: 'The hex code representing the background colour of the basemap.',
+        placeholder: '#FFFFFF',
+        type: 'string'
+      },
+      {
+        property: 'thumbnailUrl',
+        title: 'Thumbnail URL',
+        description: 'Path to image file to display in the basemap selector.',
+        type: 'string'
+      },
+      {
+        property: 'hideThumbnail',
+        title: 'Hide Thumbnail',
+        description:
+          'When enabled, hides the basemap thumbnail image, leaving just the text component.',
+        type: 'boolean'
+      }
+    ]
+  : [
+      {
+        property: 'id',
+        title: 'ID',
+        description: 'A unique id identifying the basemap.',
+        type: 'string',
+        required: true
+      },
+      {
+        property: 'name',
+        title: 'Name',
+        description: 'Name of the basemap used for labeling.',
+        type: 'string',
+        required: true
+      },
+      {
+        property: 'tileSchemaId',
+        title: 'Tile Schema ID',
+        description: 'The tile schema associated with this basemap.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'description',
+        title: 'Description',
+        description:
+          'Description of the basemap. Becomes visible when basemap selector is expanded.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'altText',
+        title: 'Alt Text',
+        description: 'Alt text for the basemap thumbnail image.',
+        required: true,
+        type: 'string'
+      },
+      {
+        property: 'backgroundColour',
+        title: 'Background Colour',
+        description: 'The hex code representing the background colour of the basemap.',
+        placeholder: '#FFFFFF',
+        type: 'string'
+      },
+      {
+        property: 'thumbnailUrl',
+        title: 'Thumbnail URL',
+        description: 'Path to image file to display in the basemap selector.',
+        type: 'string'
+      },
+      {
+        property: 'hideThumbnail',
+        title: 'Hide Thumbnail',
+        description:
+          'When enabled, hides the basemap thumbnail image, leaving just the text component.',
+        type: 'boolean'
+      }
+    ];
 
 const layerFields: Array<Field> = [
   {
@@ -164,13 +227,17 @@ const layerFields: Array<Field> = [
 
 <template>
   <List
-    top-level
+    :top-level="!isOverview"
     :item-fields="basemapFields"
     v-model="basemaps"
     title="Basemaps"
-    description="The list of basemaps to be made available via the basemap selector. Minimum one is required."
+    :description="
+      isOverview
+        ? `Key-value dictionary where the key is the tile schema id and the value is the basemap. When duplicate tile schema id's are provided, the latest entry will be used.`
+        : 'The list of basemaps to be made available via the basemap selector. Minimum one is required.'
+    "
     add-prompt="Add basemap"
-    required
+    :required="!isOverview"
   >
     <template #item="{ index }">
       <List

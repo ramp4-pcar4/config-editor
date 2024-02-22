@@ -14,6 +14,7 @@ import Legend from '@/components/fixtures/legend/legend.vue';
 import Mapnav from '@/components/fixtures/mapnav/mapnav.vue';
 import Metadata from '@/components/fixtures/metadata/metadata.vue';
 import NorthArrow from '@/components/fixtures/northarrow/northarrow.vue';
+import OverviewMap from '@/components/fixtures/overviewmap/overviewmap.vue';
 import Settings from '@/components/fixtures/settings/settings.vue';
 import Scrollguard from '@/components/fixtures/scrollguard/scrollguard.vue';
 import Wizard from '@/components/fixtures/wizard/wizard.vue';
@@ -38,6 +39,7 @@ const store = useStore();
     <Mapnav v-model="store.configs[store.editingLang].fixtures.mapnav" />
     <Metadata v-model="store.configs[store.editingLang].fixtures.metadata" />
     <NorthArrow v-model="store.configs[store.editingLang].fixtures.northarrow" />
+    <OverviewMap v-model="store.configs[store.editingLang].fixtures.overviewmap" />
     <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
     <Scrollguard v-model="store.configs[store.editingLang].fixtures.scrollguard" />
     <Wizard v-model="store.configs[store.editingLang].fixtures.wizard" />
