@@ -11,6 +11,7 @@ import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
 
 import '@/styles.css';
+import '@/lib/ramp.css';
 import { useI18n } from 'vue-i18n';
 import type { API } from './main';
 import { inject, onMounted } from 'vue';
@@ -133,5 +134,15 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
 .required:after {
   content: ' *';
   color: red;
+}
+
+.ramp-styles {
+  .p-5 {
+    padding: 5px;
+  }
+
+  div:has(> button[content='About RAMP']) {
+    @apply sm:hidden;
+  }
 }
 </style>

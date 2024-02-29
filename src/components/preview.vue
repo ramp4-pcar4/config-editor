@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // @ts-ignore
 import { createInstance } from '@/lib/ramp.esm';
-import '@/lib/ramp.css';
 import type { API } from '@/main';
 import { inject, onMounted, ref } from 'vue';
 
