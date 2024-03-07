@@ -93,6 +93,11 @@ const remove = (idx: number) => {
   }
 };
 
+const reorder = (idx: number, direction: number) => {
+  const [elem] = list.value?.splice(idx, 1);
+  list.value?.splice(idx + direction, 0, elem);
+};
+
 const length = computed<number>(() => list.value?.length ?? 0);
 
 // for items, we use the table layout instead of the collapsible layout iff
@@ -207,13 +212,13 @@ const fieldToInputType: { [key: string]: string } = {
                         'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
                         'cursor-pointer': field.type.toLowerCase() === 'boolean'
                       }"
-                      v-model="element[field.property]"
+                      v-model="list[index][field.property]"
                     />
                     <select
                       v-else-if="field.type === 'enum'"
                       class="w-full max-w-xs"
                       :disabled="editDisabled"
-                      v-model="element[field.property]"
+                      v-model="list[index][field.property]"
                     >
                       <option
                         v-for="option in field.options"
@@ -233,38 +238,82 @@ const fieldToInputType: { [key: string]: string } = {
                       :disabled="editDisabled"
                       :value="
                         field.type === 'object'
-                          ? JSON.stringify(element[field.property])
-                          : element[field.property]?.join(',') ?? ''
+                          ? JSON.stringify(list[index][field.property])
+                          : list[index][field.property]?.join(',') ?? ''
                       "
                       @input="e => {
                         if (field.type === 'object') {
-                          element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
+                          list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
                         } else {
-                          element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
+                          list[index][field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
                         }
                     }"
                     />
                   </div>
-                  <button
-                    @click="remove(index)"
-                    :disabled="editDisabled"
-                    class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6"
+                  <div class="flex ml-auto">
+                    <button
+                      @click.stop="remove(index)"
+                      :disabled="editDisabled"
+                      class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                      </svg>
+                    </button>
+                    <div class="flex flex-col">
+                      <button
+                        @click.stop="reorder(index, -1)"
+                        :disabled="editDisabled || index === 0"
+                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        @click.stop="reorder(index, 1)"
+                        :disabled="editDisabled || index === list.length - 1"
+                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -303,35 +352,79 @@ const fieldToInputType: { [key: string]: string } = {
                     </svg>
                   </button>
                   <span class="mr-1 sm:mr-5 sm:text-lg">{{
-                    element.id ||
-                    element.name ||
-                    element.layerId ||
-                    element.gridId ||
-                    element.panelId ||
+                    list[index].id ||
+                    list[index].name ||
+                    list[index].layerId ||
+                    list[index].gridId ||
+                    list[index].panelId ||
                     `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
-                      element.index ?? index + 1
+                      list[index].index ?? index + 1
                     }`
                   }}</span>
-                  <button
-                    @click.stop="remove(index)"
-                    :disabled="editDisabled"
-                    class="disabled:text-gray-500 disabled:cursor-not-allowed ml-auto"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      class="w-6 h-6"
+                  <div class="flex justify-center ml-auto">
+                    <button
+                      @click.stop="remove(index)"
+                      :disabled="editDisabled"
+                      class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
                     >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                      />
-                    </svg>
-                  </button>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                      </svg>
+                    </button>
+                    <div class="flex flex-col">
+                      <button
+                        @click.stop="reorder(index, -1)"
+                        :disabled="editDisabled || index === 0"
+                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        @click.stop="reorder(index, 1)"
+                        :disabled="editDisabled || index === list.length - 1"
+                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </template>
                 <template #default>
                   <div v-if="!customOnly" class="input-table">
@@ -352,7 +445,7 @@ const fieldToInputType: { [key: string]: string } = {
                           'cursor-pointer': field.type.toLowerCase() === 'boolean'
                         }"
                         :disabled="editDisabled"
-                        v-model="element[field.property]"
+                        v-model="list[index][field.property]"
                         :placeholder="field.placeholder"
                         :min="field.min"
                         :max="field.max"
@@ -361,7 +454,7 @@ const fieldToInputType: { [key: string]: string } = {
                         v-else-if="field.type === 'enum'"
                         class="w-full max-w-xs"
                         :disabled="editDisabled"
-                        v-model="element[field.property]"
+                        v-model="list[index][field.property]"
                       >
                         <option
                           v-for="option in field.options"
@@ -377,15 +470,15 @@ const fieldToInputType: { [key: string]: string } = {
                         class="w-full max-w-xs"
                         :value="
                           field.type === 'object'
-                            ? JSON.stringify(element[field.property])
-                            : element[field.property]?.join(',') ?? ''
+                            ? JSON.stringify(list[index][field.property])
+                            : list[index][field.property]?.join(',') ?? ''
                         "
                         :disabled="editDisabled"
                         @input="e => {
                           if (field.type === 'object') {
-                            element[field.property] = JSON.parse((e.target as HTMLInputElement).value)
+                            list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
                           } else {
-                            element[field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
+                            list[index][field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',');
                           }
                         }"
                         :placeholder="field.placeholder"
@@ -401,7 +494,7 @@ const fieldToInputType: { [key: string]: string } = {
                   >
                     <input
                       type="checkbox"
-                      v-model="element[field.property]"
+                      v-model="list[index][field.property]"
                       :disabled="editDisabled"
                     />
                     <InputHeader
@@ -411,7 +504,7 @@ const fieldToInputType: { [key: string]: string } = {
                       type="checkbox"
                     />
                   </div>
-                  <slot name="item" :index="index" :element="element"></slot>
+                  <slot name="item" :index="index" :element="list[index]"></slot>
                 </template>
               </Collapsible>
             </div>
@@ -424,10 +517,10 @@ const fieldToInputType: { [key: string]: string } = {
 
 <style lang="scss" scoped>
 .cols-2 {
-  grid-template-columns: 24px 1fr 1fr 24px;
+  grid-template-columns: 24px 1fr 1fr 48px;
 }
 
 .cols-3 {
-  grid-template-columns: 24px 1fr 1fr 1fr 24px;
+  grid-template-columns: 24px 1fr 1fr 1fr 48px;
 }
 </style>

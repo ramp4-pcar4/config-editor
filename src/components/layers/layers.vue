@@ -62,6 +62,14 @@ const removeLayer = (idx: number) => {
   store.configs[store.editingLang].layers.splice(idx, 1);
   expanded.value.splice(idx, 1);
 };
+
+const reorderLayer = (idx: number, direction: number) => {
+  const [elem] = store.configs[store.editingLang].layers.splice(idx, 1);
+  store.configs[store.editingLang].layers.splice(idx + direction, 0, elem);
+
+  const [exp] = expanded.value.splice(idx, 1);
+  expanded.value.splice(idx + direction, 0, exp);
+};
 </script>
 
 <template>
@@ -129,22 +137,66 @@ const removeLayer = (idx: number) => {
               <span class="mr-1 sm:mr-5 sm:text-lg">{{
                 element.id ? element.id : `Layer ${index + 1}`
               }}</span>
-              <button @click.stop="removeLayer(index)" class="ml-auto">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                  />
-                </svg>
-              </button>
+              <div class="flex ml-auto">
+                <button @click.stop="removeLayer(index)" class="mr-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                    />
+                  </svg>
+                </button>
+                <div class="flex flex-col">
+                  <button
+                    @click.stop="reorderLayer(index, -1)"
+                    :disabled="index === 0"
+                    class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    @click.stop="reorderLayer(index, 1)"
+                    :disabled="index === store.configs[store.editingLang].layers.length - 1"
+                    class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </template>
             <template #default>
               <div class="input-table table mt-5">
