@@ -1,6 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/App.vue", "src/main.ts"],
   "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
   "compilerOptions": {
     "baseUrl": ".",
@@ -8,7 +9,9 @@
       "@/*": ["./src/*"],
       "lib": ["DOM", "DOM.Iterable", "ES2020"]
     },
-    "pretty": true
+    "pretty": true,
+    "outDir": "dist",
+    "declaration": true
   },
 
   "references": [

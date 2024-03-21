@@ -75,5 +75,3 @@ const itemFields: Array<Field> = [
     required
   />
 </template>
-
-<style lang="scss" scoped></style>

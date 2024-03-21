@@ -45,11 +45,3 @@ const itemFields: Array<Field> = [
     description="List of map of all styles to legend graphic URL for layer entry in the WMS. Overrides the URLs from the WMS service. Mappings to non-default styles are currently not supported."
   />
 </template>
-
-<style lang="scss" scoped>
-.style-legends-grid {
-  display: grid;
-  grid-template-columns: 24px 1fr 1fr 24px;
-  gap: 16px;
-}
-</style>
