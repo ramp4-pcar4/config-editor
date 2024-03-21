@@ -35,7 +35,6 @@ const zoomIdx = computed<number>(() => controls.findIndex((c) => c.type === 'zoo
 const detailsIdx = computed<number>(() => controls.findIndex((c) => c.type === 'details'));
 
 watch(controls, () => {
-  console.log(controls);
   controls.forEach((control) => {
     if (control.type !== 'custom') {
       delete control.actionEvent;

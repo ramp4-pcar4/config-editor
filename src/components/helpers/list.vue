@@ -66,7 +66,6 @@ const list = computed({
     return props.modelValue ?? [];
   },
   set(value) {
-    console.log('Setting items', value);
     emit('update:modelValue', value);
   }
 });
@@ -514,13 +513,3 @@ const fieldToInputType: { [key: string]: string } = {
     </template>
   </collapsible>
 </template>
-
-<style lang="scss" scoped>
-.cols-2 {
-  grid-template-columns: 24px 1fr 1fr 48px;
-}
-
-.cols-3 {
-  grid-template-columns: 24px 1fr 1fr 1fr 48px;
-}
-</style>

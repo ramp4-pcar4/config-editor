@@ -47,7 +47,6 @@ const addGroup = () => {
 };
 
 const addItem = (idx: number) => {
-  console.log(groups);
   groups[idx].items.push({ type: 'panel' });
 };
 

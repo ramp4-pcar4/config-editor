@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import { useStore } from '@/store';
 import InputHeader from '@/components/helpers/input-header.vue';
 import type { Field } from '@/definitions';
 import List from '@/components/helpers/list.vue';
-import { watch } from 'vue';
+import type { PropType } from 'vue';
 
-const store = useStore();
+const panels = defineModel({
+  type: Object as PropType<{
+    open?: {
+      id: string;
+      screen?: string;
+      pin?: boolean;
+    }[];
+    reorderable?: boolean;
+  }>
+});
 
 const itemFields: Array<Field> = [
   {
@@ -33,12 +41,12 @@ const itemFields: Array<Field> = [
 
 <template>
   <div>
-    <h1 class="text-2xl font-bold">Panels</h1>
+    <h1 class="text-2xl font-semibold">Panels</h1>
     <div class="mt-5 flex items-center">
       <input
         type="checkbox"
-        v-model="store.configs[store.editingLang].panels!.reorderable"
-        :checked="store.configs[store.editingLang].panels!.reorderable !== false"
+        v-model="panels!.reorderable"
+        :checked="panels!.reorderable !== false"
       />
       <InputHeader
         title="Reorderable"
@@ -47,7 +55,7 @@ const itemFields: Array<Field> = [
       />
     </div>
     <List
-      v-model="store.configs[store.editingLang].panels!.open"
+      v-model="panels!.open"
       :item-fields="itemFields"
       title="Open"
       add-prompt="Add panel"

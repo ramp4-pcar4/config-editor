@@ -48,7 +48,6 @@ watch(basemaps, () => {
       newBasemaps[bm.tileSchemaId] = bm;
     }
   });
-  console.log(basemaps, newBasemaps);
   if (Object.keys(newBasemaps).length > 0) {
     overviewMap.basemaps = newBasemaps;
   } else {

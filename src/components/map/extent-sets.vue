@@ -60,5 +60,3 @@ const itemFields: Array<Field> = [
     </template>
   </List>
 </template>
-
-<style lang="scss" scoped></style>

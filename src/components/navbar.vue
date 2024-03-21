@@ -1,23 +1,36 @@
 <script setup lang="ts">
-import { useStore } from '@/store';
-import { onMounted, ref } from 'vue';
+import type { RampConfig } from '@/definitions';
+import { onMounted, ref, type PropType } from 'vue';
 
 const sections = ['Map', 'Layers', 'Fixtures', 'Panels', 'System'];
 
 const configsExpanded = ref<boolean>(false);
 const langsExpanded = ref<{ [key: string]: boolean }>({});
 
-const store = useStore();
+const props = defineProps({
+  configs: {
+    type: Object as PropType<{ [key: string]: RampConfig }>,
+    required: true
+  },
+  editingTemplate: {
+    type: String
+  },
+  editingLang: {
+    type: String
+  }
+});
+
+const emit = defineEmits(['templateUpdated', 'langUpdated']);
 
 const setTemplate = (template: string, lang?: string) => {
-  store.editingTemplate = template;
+  emit('templateUpdated', template);
   if (lang) {
-    store.editingLang = lang;
+    emit('langUpdated', lang);
   }
 };
 
 onMounted(() => {
-  Object.keys(store.configs).forEach((lang) => {
+  Object.keys(props.configs!).forEach((lang) => {
     langsExpanded.value[lang] = false;
   });
 });
@@ -28,15 +41,15 @@ onMounted(() => {
     class="flex flex-col items-center border-black border-2 sm:text-lg divide-y divide-slate-200"
   >
     <div
-      class="w-full p-1 sm:p-3 menu-item border-gray-800"
-      :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
+      class="w-full p-1 sm:p-3 hover:bg-gray-200 cursor-pointer border-gray-800"
+      :class="{ 'bg-gray-200': editingTemplate === 'starting-fixtures' }"
       @click="setTemplate('starting-fixtures')"
     >
       Starting Fixtures
     </div>
     <div class="w-full">
       <div
-        class="flex items-center menu-item w-full p-1 sm:p-3"
+        class="flex items-center hover:bg-gray-200 cursor-pointer w-full p-1 sm:p-3"
         @click="
           () => {
             configsExpanded = !configsExpanded;
@@ -55,9 +68,9 @@ onMounted(() => {
         </svg>
         Configs
       </div>
-      <div v-if="configsExpanded" v-for="lang in Object.keys(store.configs)" class="ml-2 sm:ml-5">
+      <div v-if="configsExpanded" v-for="lang in Object.keys(configs)" class="ml-2 sm:ml-5">
         <div
-          class="flex items-center menu-item"
+          class="flex items-center hover:bg-gray-200 cursor-pointer"
           @click="
             () => {
               langsExpanded[lang] = !langsExpanded[lang];
@@ -79,10 +92,9 @@ onMounted(() => {
         <div
           v-if="langsExpanded[lang]"
           v-for="section in sections"
-          class="menu-item ml-1 sm:ml-3 pl-1 sm:pl-2"
+          class="hover:bg-gray-200 cursor-pointer ml-1 sm:ml-3 pl-1 sm:pl-2"
           :class="{
-            'bg-gray-200':
-              store.editingTemplate === section.toLowerCase() && store.editingLang === lang
+            'bg-gray-200': editingTemplate === section.toLowerCase() && editingLang === lang
           }"
           @click="setTemplate(section.toLowerCase(), lang)"
         >
@@ -91,8 +103,8 @@ onMounted(() => {
       </div>
     </div>
     <div
-      class="menu-item w-full p-1 sm:p-3"
-      :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
+      class="hover:bg-gray-200 cursor-pointer w-full p-1 sm:p-3"
+      :class="{ 'bg-gray-200': editingTemplate === 'options' }"
       @click="setTemplate('options')"
     >
       Options
@@ -107,9 +119,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.menu-item {
-  @apply hover:bg-gray-200 cursor-pointer;
-}
-</style>

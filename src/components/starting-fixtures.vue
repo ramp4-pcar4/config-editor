@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import { useStore } from '@/store';
-import { onBeforeMount, ref } from 'vue';
+import { ref } from 'vue';
 
-const startingFixturesInput = ref<string>('');
-const store = useStore();
+const startingFixtures = defineModel({ type: Array<String> });
 
-onBeforeMount(() => {
-  startingFixturesInput.value = store.startingFixtures.join(', ');
-});
+const startingFixturesInput = ref<string>(startingFixtures.value?.join(', ') ?? '');
 
 const onInput = (e: Event) => {
   startingFixturesInput.value = (e.target as HTMLInputElement).value;
-  store.startingFixtures =
+  startingFixtures.value =
     startingFixturesInput.value === '' ? [] : startingFixturesInput.value.split(',');
 };
 </script>
 
 <template>
   <div>
-    <h1 class="text-2xl font-bold">Starting Fixtures</h1>
+    <h1 class="text-2xl font-semibold">Starting Fixtures</h1>
     <p class="mt-5">Comma separated fixture IDs:</p>
     <input
       class="mt-2 border-2 border-black p-3 w-full sm:w-[500px]"
@@ -27,5 +23,3 @@ const onInput = (e: Event) => {
     />
   </div>
 </template>
-
-<style lang="scss scoped"></style>
