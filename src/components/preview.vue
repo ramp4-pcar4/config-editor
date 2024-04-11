@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // @ts-ignore
-import { createInstance } from '@/lib/ramp.esm';
+import { createInstance } from '@/lib/ramp.browser.es.prod';
 import { onMounted, ref } from 'vue';
 
 const rampInstance = ref<HTMLDivElement>();

@@ -42,7 +42,7 @@ watch(settings, () => {
         <input
           type="text"
           :value="settings.categories?.join(',') ?? ''"
-          @input="(e) => {settings.categories = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',')}"
+          @input="(e) => {settings.categories = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim())}"
         />
       </div>
       <div>
@@ -53,7 +53,7 @@ watch(settings, () => {
         <input
           type="text"
           :value="settings.sortOrder?.join(',') ?? ''"
-          @input="(e) => {settings.sortOrder = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',')}"
+          @input="(e) => {settings.sortOrder = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim())}"
         />
       </div>
       <div>

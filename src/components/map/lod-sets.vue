@@ -2,7 +2,7 @@
 import { type PropType, reactive, watch, ref } from 'vue';
 
 // @ts-ignore
-import { geo } from '@/lib/ramp.esm';
+import { geo } from '@/lib/ramp.browser.es.prod';
 
 import List from '@/components/helpers/list.vue';
 
