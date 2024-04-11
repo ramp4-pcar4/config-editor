@@ -3,12 +3,14 @@ import { ref } from 'vue';
 
 const startingFixtures = defineModel({ type: Array<String> });
 
-const startingFixturesInput = ref<string>(startingFixtures.value?.join(', ') ?? '');
+const startingFixturesInput = ref<string>(startingFixtures.value?.join(',') ?? '');
 
 const onInput = (e: Event) => {
   startingFixturesInput.value = (e.target as HTMLInputElement).value;
   startingFixtures.value =
-    startingFixturesInput.value === '' ? [] : startingFixturesInput.value.split(',');
+    startingFixturesInput.value === ''
+      ? []
+      : startingFixturesInput.value.split(',').map((s) => s.trim());
 };
 </script>
 

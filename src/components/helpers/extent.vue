@@ -5,7 +5,7 @@ import type { RampExtentConfig } from '@/definitions';
 import { ref, type PropType, onMounted, inject, watch } from 'vue';
 
 // @ts-ignore
-import { createInstance, geo } from '@/lib/ramp.esm';
+import { createInstance, geo } from '@/lib/ramp.browser.es.prod';
 
 const props = defineProps({
   title: {
