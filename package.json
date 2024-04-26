@@ -1,6 +1,6 @@
 {
   "name": "ramp-config-editor_editeur-config-pcar",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "files": [
     "dist"
   ],
@@ -18,7 +18,9 @@
   "types": "./dist/types.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run generate:types",
+    "build": "vite build",
+    "build:lib": "vite build --mode lib && npm run generate:types",
+    "build:lib-legacy": "vite build --mode lib-legacy && npm run generate:types",
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",

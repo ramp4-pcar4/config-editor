@@ -16,10 +16,20 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const onInput = (section: 'mapCoords' | 'scaleBar', key: string, val: string | boolean) => {
-  const newCaption: MapCaptionConfig = { ...{ mapCoords: {}, scaleBar: {} }, ...props.modelValue };
+const onInput = (
+  section: 'mapCoords' | 'scaleBar' | 'langToggle',
+  key: string,
+  val: string | boolean
+) => {
+  const newCaption: MapCaptionConfig = {
+    ...{ mapCoords: {}, scaleBar: {}, langToggle: {} },
+    ...props.modelValue
+  };
   // @ts-ignore
   newCaption[section][key] = val;
+  if (newCaption.langToggle && Object.keys(newCaption.langToggle).length === 0) {
+    delete newCaption.langToggle;
+  }
   emit('update:modelValue', newCaption);
 };
 </script>
@@ -87,6 +97,20 @@ const onInput = (section: 'mapCoords' | 'scaleBar', key: string, val: string | b
         <InputHeader
           title="Disabled"
           description="Specifies if the scale bar is disabled."
+          type="checkbox"
+        />
+      </div>
+    </Collapsible>
+    <Collapsible title="Language Toggle" description="Configuration for the language toggle.">
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          :checked="props.modelValue?.langToggle?.disabled"
+          @input="e => onInput('langToggle', 'disabled', (e.target as HTMLInputElement).checked)"
+        />
+        <InputHeader
+          title="Disabled"
+          description="Whether to disable language toggle within RAMP."
           type="checkbox"
         />
       </div>
