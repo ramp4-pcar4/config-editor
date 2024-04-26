@@ -15,7 +15,7 @@ The API is available on the `window` object via the `ramp4EditorAPI` property. Y
 To start the app, you'll want to open the console in your browser and do:
 
 ```javascript
-window.ramp4EditorAPI.initialize(ramp4Config, ramp4Options)
+window.ramp4EditorAPI.initialize(ramp4Config, ramp4Options);
 ```
 
 The app will be started with the initial config and options if you provide them. Otherwise, respectful defaults will be used.
@@ -23,32 +23,19 @@ The app will be started with the initial config and options if you provide them.
 Anytime you go into any of the sections and edit any property, the change is reflected immediately, without the need to press any save button. You can view your current config via:
 
 ```javascript
-window.ramp4EditorAPI.getConfig()
+window.ramp4EditorAPI.getConfig();
 ```
 
 ## Updating the RAMP build
 
-Whenever you want to update the RAMP4 build to the latest and greatest, just replace the files in the `src/lib` folder. 
+Whenever you want to update the RAMP4 build to the latest and greatest, just replace the files in the `src/lib` folder.
 
-:warning: Caution: You need to perform one additional step to get stuff to work, thanks to Vite being disrespectful.
-
-Go to the `ramp.js` file, and at the very end, add the line:
-
-```javascript
-window.RAMP = RAMP;
-```
+````
 
 ## Storylines Integration
 
-The easiest and best way to integrate this is by creating a build of the app via `npm run build`, and then embedding the build into Storylines via `<iframe>` trickery.
-
-Then, you can access the API via the following:
-
-```javascript
-const api = myIframeElement.contentWindow.ramp4EditorAPI
-```
-
-Once you have access the API, you can easily set the default config at the start, and then get the updated config when the user edits it via the instructions mentioned above.
+The easiest and best way to integrate this is by creating a build of the app via `npm run build:lib-legacy`, republishing the plugin via `npm publish`, and then updating the
+plugin in the Storylines Editor repo to the newest version. Note that the legacy option can be removed once the Storylines Editor migrates to Vite or a newer version of Vue CLI.
 
 ## Recommended IDE Setup
 
@@ -61,8 +48,8 @@ TypeScript cannot handle type information for `.vue` imports by default, so we r
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ## Customize configuration
@@ -87,8 +74,16 @@ npm run dev
 npm run build
 ```
 
+### Build Plugin
+
+```sh
+npm run build:lib
+npm run build:lib-legacy # (for apps with older builds)
+```
+
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+````

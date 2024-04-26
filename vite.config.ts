@@ -3,10 +3,21 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig((viteConfig) => {
+  const { command, mode } = viteConfig;
+  if (command === 'build' && mode.includes('lib')) {
+    if (mode === 'lib-legacy') {
+      libConfig.build.target = 'es2015';
+    }
+    return libConfig;
+  } else {
+    return regConfig;
+  }
+});
+
+const libConfig = {
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
@@ -18,7 +29,7 @@ export default defineConfig({
     _global: {}
   },
   build: {
-    target: 'es2015',
+    target: 'esnext',
     lib: {
       // src/indext.ts is where we have exported the component(s)
       entry: resolve(__dirname, 'src/index.ts'),
@@ -33,4 +44,13 @@ export default defineConfig({
       }
     }
   }
-});
+};
+
+const regConfig = {
+  plugins: [vue(), vueJsx()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
+};

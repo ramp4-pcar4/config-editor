@@ -243,6 +243,7 @@ export interface RampLodConfig {
 export interface MapCaptionConfig {
   mapCoords: { disabled?: boolean; formatter?: string };
   scaleBar: { disabled?: boolean; imperialScale?: boolean };
+  langToggle?: { disabled?: boolean };
 }
 
 // actual ramp config is kinda wonky, split over lots of classes
