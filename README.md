@@ -30,8 +30,6 @@ window.ramp4EditorAPI.getConfig();
 
 Whenever you want to update the RAMP4 build to the latest and greatest, just replace the files in the `src/lib` folder.
 
-````
-
 ## Storylines Integration
 
 The easiest and best way to integrate this is by creating a build of the app via `npm run build:lib-legacy`, republishing the plugin via `npm publish`, and then updating the
@@ -78,7 +76,7 @@ npm run build
 
 ```sh
 npm run build:lib
-npm run build:lib-legacy # (for apps with older builds)
+npm run build:lib-legacy (for apps with older builds)
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
@@ -86,4 +84,3 @@ npm run build:lib-legacy # (for apps with older builds)
 ```sh
 npm run lint
 ```
-````
