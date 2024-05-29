@@ -136,7 +136,7 @@ const rampConfig = {
             }
           }
         ],
-        initialBasemapId: 'baseEsriWorld'
+        initialBasemapId: 'baseNrCan'
       },
       layers: [],
       fixtures: {
