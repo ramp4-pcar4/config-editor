@@ -1,14 +1,14 @@
 <script setup lang="ts">
 // @ts-ignore
 import { createInstance } from '@/lib/ramp.browser.es.prod';
+import { useStore } from '@/store';
 import { onMounted, ref } from 'vue';
 
 const rampInstance = ref<HTMLDivElement>();
-
-const props = defineProps(['config', 'options']);
+const store = useStore()
 
 onMounted(() => {
-  createInstance(rampInstance.value, props.config, props.options);
+  createInstance(rampInstance.value, { startingFixtures: store.startingFixtures, configs: store.configs }, store.options);
 });
 </script>
 

@@ -2,18 +2,9 @@
 import InputHeader from '@/components/helpers/input-header.vue';
 import type { Field } from '@/definitions';
 import List from '@/components/helpers/list.vue';
-import type { PropType } from 'vue';
+import { useStore } from '@/store';
 
-const panels = defineModel({
-  type: Object as PropType<{
-    open?: {
-      id: string;
-      screen?: string;
-      pin?: boolean;
-    }[];
-    reorderable?: boolean;
-  }>
-});
+const store = useStore()
 
 const itemFields: Array<Field> = [
   {
@@ -45,8 +36,8 @@ const itemFields: Array<Field> = [
     <div class="mt-5 flex items-center">
       <input
         type="checkbox"
-        v-model="panels!.reorderable"
-        :checked="panels!.reorderable !== false"
+        v-model="store.configs[store.editingLang].panels!.reorderable"
+        :checked="store.configs[store.editingLang].panels!.reorderable !== false"
       />
       <InputHeader
         title="Reorderable"
@@ -55,7 +46,7 @@ const itemFields: Array<Field> = [
       />
     </div>
     <List
-      v-model="panels!.open"
+      v-model="store.configs[store.editingLang].panels!.open"
       :item-fields="itemFields"
       title="Open"
       add-prompt="Add panel"

@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type { RampOptions } from '@/definitions';
-import type { PropType } from 'vue';
+import { useStore } from '@/store';
 
-const options = defineModel({ type: Object as PropType<RampOptions> });
+const store = useStore()
 </script>
 
 <template>
@@ -12,8 +11,8 @@ const options = defineModel({ type: Object as PropType<RampOptions> });
       <input
         type="checkbox"
         id="loadDefaultEvents"
-        v-model="options!.loadDefaultEvents"
-        :checked="options!.loadDefaultEvents !== false"
+        v-model="store.options!.loadDefaultEvents"
+        :checked="store.options!.loadDefaultEvents !== false"
       />
       <label for="loadDefaultEvents">Load default events</label>
     </div>
@@ -21,13 +20,13 @@ const options = defineModel({ type: Object as PropType<RampOptions> });
       <input
         type="checkbox"
         id="loadDefaultFixtures"
-        v-model="options!.loadDefaultFixtures"
-        :checked="options!.loadDefaultFixtures !== false"
+        v-model="store.options!.loadDefaultFixtures"
+        :checked="store.options!.loadDefaultFixtures !== false"
       />
       <label for="loadDefaultFixtures">Load default fixtures</label>
     </div>
     <div class="mt-5 flex items-center">
-      <input type="checkbox" id="startRequired" v-model="options!.startRequired" />
+      <input type="checkbox" id="startRequired" v-model="store.options!.startRequired" />
       <label for="startRequired">Prevent initializing the map automatically</label>
     </div>
   </div>

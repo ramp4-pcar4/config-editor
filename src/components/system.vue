@@ -1,18 +1,8 @@
 <script setup lang="ts">
 import InputHeader from '@/components/helpers/input-header.vue';
-import type { PropType } from 'vue';
+import { useStore } from '@/store';
 
-const system = defineModel({
-  type: Object as PropType<{
-    proxyUrl?: string;
-    zoomIcon?: string;
-    animate?: boolean;
-    exposeOid?: boolean;
-    suppressNumberLocalization?: boolean;
-    exposeMeasurements?: boolean;
-    scrollToInstance?: boolean;
-  }>
-});
+const store = useStore()
 </script>
 
 <template>
@@ -25,15 +15,15 @@ const system = defineModel({
       relative path on the same server or an absolute path on a server which sets CORS headers.
       Applies only to map services."
     />
-    <input class="border-2 border-black p-2 w-full sm:w-[500px]" v-model="system!.proxyUrl" />
+    <input class="border-2 border-black p-2 w-full sm:w-[500px]" v-model="store.configs[store.editingLang].system!.proxyUrl" />
     <InputHeader
       class="mt-4"
       title="Zoom Icon"
       description="Determines which icon to display for the zoom button in the grid and details panels. Can be 'globe', 'magnify', or a custom icon. Defaults to globe."
     />
-    <input class="border-2 border-black p-2 w-full sm:w-[500px]" v-model="system!.zoomIcon" />
+    <input class="border-2 border-black p-2 w-full sm:w-[500px]" v-model="store.configs[store.editingLang].system!.zoomIcon" />
     <div class="mt-4 flex items-center">
-      <input type="checkbox" v-model="system!.animate" :checked="system!.animate !== false" />
+      <input type="checkbox" v-model="store.configs[store.editingLang].system!.animate" :checked="store.configs[store.editingLang].system!.animate !== false" />
       <InputHeader
         title="Animate"
         description="Will enable visual animation when using the site, such as control transitions."
@@ -41,7 +31,7 @@ const system = defineModel({
       />
     </div>
     <div class="mt-4 flex items-center">
-      <input type="checkbox" v-model="system!.exposeOid" />
+      <input type="checkbox" v-model="store.configs[store.editingLang].system!.exposeOid" />
       <InputHeader
         title="Expose OID"
         description="Determines whether or not to include a feature's object ID field when viewing data on the site (e.g. within the details panel when identifying a feature)."
@@ -51,8 +41,8 @@ const system = defineModel({
     <div class="mt-4 flex items-center">
       <input
         type="checkbox"
-        v-model="system!.exposeMeasurements"
-        :checked="system!.exposeMeasurements !== false"
+        v-model="store.configs[store.editingLang].system!.exposeMeasurements"
+        :checked="store.configs[store.editingLang].system!.exposeMeasurements !== false"
       />
       <InputHeader
         title="Expose Measurements"
@@ -61,7 +51,7 @@ const system = defineModel({
       />
     </div>
     <div class="mt-4 flex items-center">
-      <input type="checkbox" v-model="system!.suppressNumberLocalization" />
+      <input type="checkbox" v-model="store.configs[store.editingLang].system!.suppressNumberLocalization" />
       <InputHeader
         title="Suppress Number Localization"
         description="Determines whether to display numbers in plain decimal format instead of formatting them based on the app language."
@@ -69,7 +59,7 @@ const system = defineModel({
       />
     </div>
     <div class="mt-4 flex items-center">
-      <input type="checkbox" v-model="system!.scrollToInstance" />
+      <input type="checkbox" v-model="store.configs[store.editingLang].system!.scrollToInstance" />
       <InputHeader
         title="Scroll To Instance"
         description="Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed."

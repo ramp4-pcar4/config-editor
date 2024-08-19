@@ -5,6 +5,8 @@ import { i18n } from './lang';
 import ConfigEditor from './config-editor.vue';
 import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import VueTippy from 'vue-tippy';
+import { useStore } from '@/store';
+import merge from 'deepmerge';
 
 class API {
   readonly $vApp: ComponentPublicInstance;
@@ -35,8 +37,49 @@ class API {
    * @param options the default RAMP options to be used
    */
   initialize(configs?: RampConfigs, options?: RampOptions) {
-    // @ts-ignore
-    return this.$vApp.$root.initialize(configs, options);
+    const store = useStore(this.$vApp.$pinia)
+    
+    store.startingFixtures = configs?.startingFixtures ?? [];
+    store.options = options ?? {};
+
+    const defaultConfig = {
+      en: {
+        map: {
+          lodSets: [],
+          extentSets: [],
+          tileSchemas: [],
+          basemaps: [],
+          initialBasemapId: ''
+        },
+        fixtures: {},
+        layers: [],
+        panels: {},
+        system: {}
+      },
+      fr: {
+        map: {
+          lodSets: [],
+          extentSets: [],
+          tileSchemas: [],
+          basemaps: [],
+          initialBasemapId: ''
+        },
+        fixtures: {},
+        layers: [],
+        panels: {},
+        system: {}
+      }
+    };
+
+    if (configs?.configs && Object.keys(configs.configs).length > 0) {
+      Object.keys(configs.configs).forEach((lang: string) => {
+        store.configs[lang] = merge(defaultConfig['en'], configs.configs[lang]);
+      });
+    } else {
+      store.configs = defaultConfig;
+    }
+
+    store.initialized = true
   }
 
   /**
@@ -46,8 +89,10 @@ class API {
    * @returns the requested RAMP config, or all the RAMP configs.
    */
   getConfig(lang?: string): RampConfigs | RampConfig {
-    // @ts-ignore
-    return this.$vApp.$root!.getConfig(lang);
+    const store = useStore(this.$vApp.$pinia)
+    return lang
+    ? store.configs[lang]
+    : { startingFixtures: store.startingFixtures, configs: store.configs };
   }
 
   /**
@@ -56,8 +101,7 @@ class API {
    * @returns the RAMP options
    */
   getOptions(): RampOptions {
-    // @ts-ignore
-    return this.$vApp.$root!.getOptions();
+    return useStore(this.$vApp.$pinia).options;
   }
 }
 

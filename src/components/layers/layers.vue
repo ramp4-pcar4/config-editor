@@ -13,8 +13,9 @@ import DrawOrder from '@/components/layers/draw-order.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
 import Sublayers from '@/components/layers/sublayers.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
+import { useStore } from '@/store';
 
-const layers = defineModel({ type: Array<RampLayerConfig> });
+const store = useStore()
 
 const expanded = ref<Array<boolean>>([]);
 const typeOptions = ref([
@@ -49,7 +50,7 @@ const onMoveEnd = (evt: any) => {
 };
 
 const addLayer = () => {
-  layers.value!.push({
+  store.configs[store.editingLang].layers.push({
     id: '',
     layerType: LayerType.FEATURE,
     url: ''
@@ -58,13 +59,13 @@ const addLayer = () => {
 };
 
 const removeLayer = (idx: number) => {
-  layers.value!.splice(idx, 1);
+  store.configs[store.editingLang].layers.splice(idx, 1);
   expanded.value.splice(idx, 1);
 };
 
 const reorderLayer = (idx: number, direction: number) => {
-  const [elem] = layers.value!.splice(idx, 1);
-  layers.value!.splice(idx + direction, 0, elem);
+  const [elem] = store.configs[store.editingLang].layers.splice(idx, 1);
+  store.configs[store.editingLang].layers.splice(idx + direction, 0, elem);
 
   const [exp] = expanded.value.splice(idx, 1);
   expanded.value.splice(idx + direction, 0, exp);
@@ -74,7 +75,7 @@ const reorderLayer = (idx: number, direction: number) => {
 <template>
   <div>
     <div class="flex items-center">
-      <h1 class="text-2xl font-semibold">Layers ({{ layers!.length }})</h1>
+      <h1 class="text-2xl font-semibold">Layers ({{ store.configs[store.editingLang].layers.length }})</h1>
       <!-- add item button -->
       <button
         class="bg-black cursor-pointer hover:bg-gray-800 ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
@@ -95,8 +96,8 @@ const reorderLayer = (idx: number, direction: number) => {
     </div>
     <div>
       <draggable
-        v-if="layers!.length > 0"
-        :list="layers"
+        v-if="store.configs[store.editingLang].layers.length > 0"
+        :list="store.configs[store.editingLang].layers"
         item-key="fake"
         handle=".handle"
         @change="onMoveEnd"
@@ -174,7 +175,7 @@ const reorderLayer = (idx: number, direction: number) => {
                   </button>
                   <button
                     @click.stop="reorderLayer(index, 1)"
-                    :disabled="index === layers!.length - 1"
+                    :disabled="index === store.configs[store.editingLang].layers.length - 1"
                     class="disabled:text-gray-500 disabled:cursor-not-allowed"
                   >
                     <svg
