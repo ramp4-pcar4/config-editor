@@ -31,7 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const sublayers = reactive<Array<any>>(props.modelValue ?? []);
+let sublayers = reactive<Array<any>>(props.modelValue ?? []);
 
 watch(sublayers, () => {
   emit('update:modelValue', sublayers.length === 0 ? undefined : sublayers);

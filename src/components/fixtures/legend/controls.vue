@@ -18,7 +18,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const allControls = ['visibilityButton', 'expandButton'];
 
-const controls = ref<Array<string>>(
+let controls = ref<Array<string>>(
   props.modelValue ?? (props.disabled ? [] : JSON.parse(JSON.stringify(allControls)))
 );
 

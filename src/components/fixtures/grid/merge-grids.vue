@@ -16,7 +16,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const mergeGrids = reactive<Array<any>>(props.modelValue ?? []);
+let mergeGrids = reactive<Array<any>>(props.modelValue ?? []);
 
 watch(mergeGrids, () => {
   emit('update:modelValue', mergeGrids.length === 0 ? undefined : mergeGrids);

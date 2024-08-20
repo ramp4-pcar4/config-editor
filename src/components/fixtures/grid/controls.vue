@@ -12,7 +12,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const controls = reactive<Array<any>>(
+let controls = reactive<Array<any>>(
   props.modelValue?.map((control) => {
     if (typeof control === 'object') {
       control.type = 'custom';

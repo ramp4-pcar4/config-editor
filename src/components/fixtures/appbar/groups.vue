@@ -12,7 +12,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const groups = reactive<Array<any>>(
+let groups = reactive<Array<any>>(
   props.modelValue && props.modelValue.length > 0
     ? Array.isArray(props.modelValue[0])
       ? props.modelValue.map((group: any) => {

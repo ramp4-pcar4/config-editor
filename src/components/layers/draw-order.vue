@@ -31,7 +31,7 @@ const itemFields: Array<Field> = [
 
 const emit = defineEmits(['update:modelValue']);
 
-const drawOrder = reactive<Array<DrawOrder>>(props.modelValue ?? []);
+let drawOrder = reactive<Array<DrawOrder>>(props.modelValue ?? []);
 
 watch(drawOrder, () => {
   emit('update:modelValue', drawOrder.length === 0 ? undefined : drawOrder);

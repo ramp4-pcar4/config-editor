@@ -49,7 +49,7 @@ const onAttributionInput = (
 
 const emit = defineEmits(['update:modelValue']);
 
-const basemaps = reactive<Array<RampBasemapConfig>>(props.modelValue ?? []);
+let basemaps = reactive<Array<RampBasemapConfig>>(props.modelValue ?? []);
 
 watch(basemaps, () => {
   basemaps.forEach((bm) => {

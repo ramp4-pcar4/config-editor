@@ -14,8 +14,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-
-const extentSets = reactive<Array<RampExtentSetConfig>>(props.modelValue ?? []);
+let extentSets = reactive<Array<RampExtentSetConfig>>(props.modelValue ?? []);
 
 watch(extentSets, () => {
   emit('update:modelValue', extentSets.length === 0 ? undefined : extentSets);

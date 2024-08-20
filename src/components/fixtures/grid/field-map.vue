@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-const fieldMap = reactive<Array<any>>(props.modelValue ?? []);
+let fieldMap = reactive<Array<any>>(props.modelValue ?? []);
 
 watch(fieldMap, () => {
   emit('update:modelValue', fieldMap.length === 0 ? undefined : fieldMap);

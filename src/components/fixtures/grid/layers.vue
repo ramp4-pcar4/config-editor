@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-const layers = reactive<Array<any>>(props.modelValue ?? []);
+let layers = reactive<Array<any>>(props.modelValue ?? []);
 
 watch(layers, () => {
   const layersCopy = JSON.parse(JSON.stringify(layers));

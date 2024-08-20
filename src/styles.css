@@ -6,10 +6,18 @@
 
   @layer base {
     input[type='checkbox'] {
-      @apply border-2 border-black mr-2 cursor-pointer text-black;
+      border-width: 2px;
+      border-color: black;
+      margin-right: 8px;
+      cursor: pointer;
+      color: black;
     }
     input[type='radio'] {
-      @apply border-2 border-black mr-2 cursor-pointer text-black;
+      border-width: 2px;
+      border-color: black;
+      margin-right: 8px;
+      cursor: pointer;
+      color: black;
     }
   }
 

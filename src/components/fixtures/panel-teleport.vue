@@ -22,7 +22,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 const teleport = reactive<PanelTeleportObject>(props.modelValue ?? {});
-const breakpoints = reactive<Array<{ className?: string; minWidth?: number }>>(
+let breakpoints = reactive<Array<{ className?: string; minWidth?: number }>>(
   props.modelValue?.breakpoints
     ? Object.keys(props.modelValue.breakpoints).map((k) => {
         return { className: k, minWidth: props.modelValue!.breakpoints![k] };

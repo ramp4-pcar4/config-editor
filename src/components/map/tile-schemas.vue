@@ -13,7 +13,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const tileSchemas = reactive<Array<RampTileSchemaConfig>>(props.modelValue ?? []);
+let tileSchemas = reactive<Array<RampTileSchemaConfig>>(props.modelValue ?? []);
 
 watch(tileSchemas, () => {
   tileSchemas.forEach((ts) => {

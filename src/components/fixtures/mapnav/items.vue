@@ -23,7 +23,7 @@ const allItems = [
   'legend'
 ];
 
-const items = ref<Array<string>>(
+let items = ref<Array<string>>(
   props.modelValue ?? ['fullscreen', 'help', 'home', 'geolocator', 'basemap']
 );
 
