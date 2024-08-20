@@ -15,7 +15,7 @@ import Sublayers from '@/components/layers/sublayers.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import { useStore } from '@/store';
 
-const store = useStore()
+const store = useStore();
 
 const expanded = ref<Array<boolean>>([]);
 const typeOptions = ref([
@@ -27,7 +27,7 @@ const typeOptions = ref([
   { text: 'Geojson', value: LayerType.GEOJSON },
   { text: 'Shapefile', value: LayerType.SHAPEFILE }
 ]);
-
+const updatedLegend = ref<boolean>(false);
 const imgFormatOpts = ref(['png', 'png8', 'png24', 'png32', 'jpg', 'pdf', 'bmp', 'gif', 'svg']);
 
 const onMoveEnd = (evt: any) => {
@@ -70,29 +70,147 @@ const reorderLayer = (idx: number, direction: number) => {
   const [exp] = expanded.value.splice(idx, 1);
   expanded.value.splice(idx + direction, 0, exp);
 };
+
+const legendEntryExists = (root: any, layerId: string): boolean => {
+  if (root.layerId === layerId) {
+    return true;
+  } else {
+    return root?.children?.some((child: any) => legendEntryExists(child, layerId));
+  }
+};
+
+const removeLayerItems = (children: Array<any>) => {
+  // remove item
+  children = children.filter(
+    (child) =>
+      child.layerId === undefined ||
+      store.configs[store.editingLang].layers.some(
+        (layerConf: RampLayerConfig) => layerConf.id === child.layerId
+      )
+  );
+
+  // recursively check child legend items
+  children.forEach((child: any) => {
+    if (child.children && child.children.length > 0) {
+      child.children = removeLayerItems(child.children);
+    }
+  });
+
+  return children;
+};
+
+const updateLegend = () => {
+  if (store.configs[store.editingLang].layers.length === 0 || updatedLegend.value) {
+    return;
+  }
+  if (!store.configs[store.editingLang].fixtures.legend) {
+    store.configs[store.editingLang].fixtures.legend = { root: { children: [] } };
+  } else if (!store.configs[store.editingLang].fixtures.legend.root) {
+    store.configs[store.editingLang].fixtures.legend.root = { children: [] };
+  } else if (!store.configs[store.editingLang].fixtures.legend.root.children) {
+    store.configs[store.editingLang].fixtures.legend.root.children = [];
+  }
+  store.configs[store.editingLang].layers.forEach((layerConf: RampLayerConfig) => {
+    if (!legendEntryExists(store.configs[store.editingLang].fixtures.legend.root, layerConf.id)) {
+      store.configs[store.editingLang].fixtures.legend.root.children.push({
+        layerId: layerConf.id
+      });
+    }
+  });
+
+  store.configs[store.editingLang].fixtures.legend.root.children = removeLayerItems(
+    store.configs[store.editingLang].fixtures.legend.root.children
+  );
+
+  updatedLegend.value = true;
+  setTimeout(() => {
+    updatedLegend.value = false;
+  }, 2000);
+};
 </script>
 
 <template>
   <div>
     <div class="flex items-center">
-      <h1 class="text-2xl font-semibold">Layers ({{ store.configs[store.editingLang].layers.length }})</h1>
-      <!-- add item button -->
-      <button
-        class="bg-black cursor-pointer hover:bg-gray-800 ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
-        @click="addLayer"
-      >
-        <svg
-          class="relative bottom-[2px]"
-          fill="white"
-          height="18px"
-          width="18px"
-          viewBox="0 0 23 21"
-          xmlns="http://www.w3.org/2000/svg"
+      <h1 class="text-2xl font-semibold">
+        Layers ({{ store.configs[store.editingLang].layers.length }})
+      </h1>
+      <div class="flex ml-auto">
+        <button
+          class="bg-black hover:bg-gray-800 p-1 text-white flex-shrink-0 flex items-center justify-center"
+          :class="updatedLegend ? 'cursor-default' : 'cursor-pointer'"
+          @click="updateLegend"
         >
-          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-        </svg>
-        <span class="px-2"> Add layer </span>
-      </button>
+          <svg
+            v-if="updatedLegend"
+            data-slot="icon"
+            fill="none"
+            stroke-width="1.5"
+            width="20px"
+            height="20px"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+          </svg>
+          <svg
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+            height="20px"
+            width="20px"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"
+            />
+          </svg>
+          <span class="px-2">
+            {{ updatedLegend ? 'Updated Legend!' : 'Autopopulate Legend' }}
+          </span>
+          <button
+            v-if="!updatedLegend"
+            content="Updates the legend by creating entries in the top root level for any layers 
+            that do not have one and removing entries for layers not present in the layers config."
+            v-tippy="{
+              placement: 'top',
+              trigger: 'click focus'
+            }"
+            @click.stop
+          >
+            <svg
+              class="fill-current w-5 h-5"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+              />
+            </svg>
+          </button>
+        </button>
+        <!-- add item button -->
+        <button
+          class="bg-black cursor-pointer hover:bg-gray-800 ml-2 p-1 text-white flex-shrink-0 flex items-center justify-center"
+          @click="addLayer"
+        >
+          <svg
+            class="relative bottom-[2px]"
+            fill="white"
+            height="18px"
+            width="18px"
+            viewBox="0 0 23 21"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+          </svg>
+          <span class="px-2"> Add Layer </span>
+        </button>
+      </div>
     </div>
     <div>
       <draggable
@@ -209,7 +327,8 @@ const reorderLayer = (idx: number, direction: number) => {
                 <div>
                   <input-header
                     title="ID"
-                    description="ID of the layer. Should be unique for every layer."
+                    description="ID of the layer. Should be unique for every layer. 
+                    Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists."
                     required
                   />
                   <input type="text" v-model="element.id" />
