@@ -71,6 +71,21 @@ const reorderLayer = (idx: number, direction: number) => {
   expanded.value.splice(idx + direction, 0, exp);
 };
 
+const getLegendEntry = (root: any, layerId: string): any => {
+  if (root.layerId === layerId) {
+    return root;
+  } else {
+    let result = undefined;
+    root?.children?.forEach((child: any) => {
+      const entry = getLegendEntry(child, layerId);
+      if (!!entry) {
+        result = entry;
+      }
+    });
+    return result;
+  }
+};
+
 const legendEntryExists = (root: any, layerId: string): boolean => {
   if (root.layerId === layerId) {
     return true;
@@ -126,6 +141,20 @@ const updateLegend = () => {
   setTimeout(() => {
     updatedLegend.value = false;
   }, 2000);
+};
+
+const onLayerIdChange = (e: InputEvent, idx: number) => {
+  const layerConf = store.configs[store.editingLang].layers[idx];
+  if (store.configs[store.editingLang].fixtures.legend?.root?.children) {
+    const legendEntry = getLegendEntry(
+      store.configs[store.editingLang].fixtures.legend?.root,
+      layerConf.id
+    );
+    if (legendEntry) {
+      legendEntry.layerId = (e.target as HTMLInputElement).value;
+    }
+  }
+  layerConf.id = (e.target as HTMLInputElement).value;
 };
 </script>
 
@@ -331,7 +360,11 @@ const updateLegend = () => {
                     Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists."
                     required
                   />
-                  <input type="text" v-model="element.id" />
+                  <input
+                    type="text"
+                    :value="element.id"
+                    @input="($event) => onLayerIdChange($event as InputEvent, index)"
+                  />
                 </div>
                 <div>
                   <input-header title="Name" description="Display name of the layer." />
