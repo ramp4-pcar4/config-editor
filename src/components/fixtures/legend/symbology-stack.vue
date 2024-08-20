@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-const symbologyStack = reactive<Array<any>>(props.modelValue ?? []);
+let symbologyStack = reactive<Array<any>>(props.modelValue ?? []);
 
 watch(symbologyStack, () => {
   emit('update:modelValue', symbologyStack.length === 0 ? undefined : symbologyStack);

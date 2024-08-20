@@ -16,7 +16,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const children = reactive<Array<any>>(
+let children = reactive<Array<any>>(
   props.modelValue?.map((child) => {
     if (child.layerId) {
       child.type = 'layer';

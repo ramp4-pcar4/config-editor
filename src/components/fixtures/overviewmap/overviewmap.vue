@@ -13,8 +13,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
-const overviewMap = reactive<any>(props.modelValue ?? {});
-const basemaps = reactive<Array<any>>(
+let overviewMap = reactive<any>(props.modelValue ?? {});
+let basemaps = reactive<Array<any>>(
   props.modelValue?.basemaps
     ? Object.keys(props.modelValue?.basemaps).map((k) => props.modelValue?.basemaps[k])
     : []

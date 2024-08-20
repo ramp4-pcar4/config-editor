@@ -14,7 +14,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const allControls = ['wizard', 'layerReorder', 'groupToggle', 'visibilityToggle'];
 
-const headerControls = ref<Array<string>>(
+let headerControls = ref<Array<string>>(
   props.modelValue ?? JSON.parse(JSON.stringify(allControls))
 );
 
