@@ -1,13 +1,14 @@
 <script setup lang="ts">
+import { useStore } from '@/store';
 import { ref } from 'vue';
 
-const startingFixtures = defineModel({ type: Array<String> });
+const store = useStore()
 
-const startingFixturesInput = ref<string>(startingFixtures.value?.join(',') ?? '');
+const startingFixturesInput = ref<string>(store.startingFixtures?.join(',') ?? '');
 
 const onInput = (e: Event) => {
   startingFixturesInput.value = (e.target as HTMLInputElement).value;
-  startingFixtures.value =
+  store.startingFixtures =
     startingFixturesInput.value === ''
       ? []
       : startingFixturesInput.value.split(',').map((s) => s.trim());

@@ -1,36 +1,24 @@
 <script setup lang="ts">
-import type { RampConfig } from '@/definitions';
-import { onMounted, ref, type PropType } from 'vue';
+import { useStore } from '@/store';
+import { onMounted, ref} from 'vue';
 
+const store = useStore()
 const sections = ['Map', 'Layers', 'Fixtures', 'Panels', 'System'];
 
 const configsExpanded = ref<boolean>(false);
 const langsExpanded = ref<{ [key: string]: boolean }>({});
 
-const props = defineProps({
-  configs: {
-    type: Object as PropType<{ [key: string]: RampConfig }>,
-    required: true
-  },
-  editingTemplate: {
-    type: String
-  },
-  editingLang: {
-    type: String
-  }
-});
-
 const emit = defineEmits(['templateUpdated', 'langUpdated']);
 
 const setTemplate = (template: string, lang?: string) => {
-  emit('templateUpdated', template);
+  store.editingTemplate = template
   if (lang) {
-    emit('langUpdated', lang);
+    store.editingLang = lang
   }
 };
 
 onMounted(() => {
-  Object.keys(props.configs!).forEach((lang) => {
+  Object.keys(store.configs).forEach((lang) => {
     langsExpanded.value[lang] = false;
   });
 });
@@ -42,7 +30,7 @@ onMounted(() => {
   >
     <div
       class="w-full p-1 sm:p-3 hover:bg-gray-200 cursor-pointer border-gray-800"
-      :class="{ 'bg-gray-200': editingTemplate === 'starting-fixtures' }"
+      :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
       @click="setTemplate('starting-fixtures')"
     >
       Starting Fixtures
@@ -68,7 +56,7 @@ onMounted(() => {
         </svg>
         Configs
       </div>
-      <div v-if="configsExpanded" v-for="lang in Object.keys(configs)" class="ml-2 sm:ml-5">
+      <div v-if="configsExpanded" v-for="lang in Object.keys(store.configs)" class="ml-2 sm:ml-5">
         <div
           class="flex items-center hover:bg-gray-200 cursor-pointer"
           @click="
@@ -94,7 +82,7 @@ onMounted(() => {
           v-for="section in sections"
           class="hover:bg-gray-200 cursor-pointer ml-1 sm:ml-3 pl-1 sm:pl-2"
           :class="{
-            'bg-gray-200': editingTemplate === section.toLowerCase() && editingLang === lang
+            'bg-gray-200': store.editingTemplate === section.toLowerCase() && store.editingLang === lang
           }"
           @click="setTemplate(section.toLowerCase(), lang)"
         >
@@ -104,7 +92,7 @@ onMounted(() => {
     </div>
     <div
       class="hover:bg-gray-200 cursor-pointer w-full p-1 sm:p-3"
-      :class="{ 'bg-gray-200': editingTemplate === 'options' }"
+      :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
       @click="setTemplate('options')"
     >
       Options

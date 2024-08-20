@@ -9,25 +9,16 @@ import PanelsEditor from '@/components/panels.vue';
 import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
-import merge from 'deepmerge';
 
 import '@/styles.css';
 import '@/lib/ramp.css';
 import { useI18n } from 'vue-i18n';
-import { onMounted, ref, type PropType, watch } from 'vue';
+import { onMounted } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
-import type { RampConfig, RampConfigs, RampOptions } from '@/definitions';
+import { useStore } from '@/store';
 
 const { t } = useI18n();
-
-const props = defineProps({
-  config: {
-    type: Object as PropType<RampConfigs>
-  },
-  options: {
-    type: Object as PropType<RampOptions>
-  }
-});
+const store = useStore()
 
 const editors: { [key: string]: any } = {
   fixtures: FixturesEditor,
@@ -50,118 +41,12 @@ onMounted(() => {
     offset: [0, 5]
   });
 });
-
-const initialized = ref<boolean>(!!props.config);
-const editingTemplate = ref<string>('');
-const editingLang = ref<string>('');
-const startingFixtures = ref<Array<string>>(props.config?.startingFixtures ?? []);
-const configs = ref<{ [key: string]: RampConfig }>({});
-const options = ref<RampOptions>({});
-
-/**
- * Initializes the editor with the configs and options provided by setting respective values.
- * Defaulting will be used in case nothing is provided.
- *
- * @param configs the default RAMP configs to be used
- * @param options the default RAMP options to be used
- */
-const initialize = (confs?: RampConfigs, opts?: RampOptions) => {
-  initialized.value = true;
-  startingFixtures.value = confs?.startingFixtures ?? [];
-  options.value = opts ?? {};
-
-  const defaultConfig = {
-    en: {
-      map: {
-        lodSets: [],
-        extentSets: [],
-        tileSchemas: [],
-        basemaps: [],
-        initialBasemapId: ''
-      },
-      fixtures: {},
-      layers: [],
-      panels: {},
-      system: {}
-    },
-    fr: {
-      map: {
-        lodSets: [],
-        extentSets: [],
-        tileSchemas: [],
-        basemaps: [],
-        initialBasemapId: ''
-      },
-      fixtures: {},
-      layers: [],
-      panels: {},
-      system: {}
-    }
-  };
-
-  if (confs?.configs && Object.keys(confs.configs).length > 0) {
-    Object.keys(confs.configs).forEach((lang: string) => {
-      configs.value[lang] = merge(defaultConfig['en'], confs.configs[lang]);
-    });
-  } else {
-    configs.value = defaultConfig;
-  }
-  watch(startingFixtures, () => {
-    const event = new Event('ramp4-config-edited');
-    window.dispatchEvent(event);
-  });
-
-  watch(
-    configs,
-    () => {
-      const event = new Event('ramp4-config-edited');
-      window.dispatchEvent(event);
-    },
-    { deep: true }
-  );
-
-  watch(
-    options,
-    () => {
-      const event = new Event('ramp4-config-edited');
-      window.dispatchEvent(event);
-    },
-    { deep: true }
-  );
-};
-
-if (props.config) {
-  initialize(props.config, props.options);
-}
-
-/**
- * Gets the current RAMP config for the specified language, or all the RAMP configs if no language is specified.
- *
- * @param lang
- * @returns the requested RAMP config, or all the RAMP configs.
- */
-const getConfig = (lang?: string): RampConfigs | RampConfig => {
-  return lang
-    ? configs.value[lang]
-    : { startingFixtures: startingFixtures.value, configs: configs.value };
-};
-
-/**
- * Return the currently specified options.
- *
- * @returns the RAMP options
- */
-const getOptions = (): RampOptions => {
-  return options.value;
-};
-
-defineExpose({ initialize, getConfig, getOptions });
 </script>
 
 <template>
   <div class="ramp4-config-editor h-full">
     <div
-      v-if="!initialized"
+      v-if="!store.initialized"
       class="w-full h-full bg-[#1c1717] box-border flex items-center justify-center"
     >
       <Loading />
@@ -170,29 +55,20 @@ defineExpose({ initialize, getConfig, getOptions });
       <h1 class="flex-none h-9 text-3xl font-semibold">{{ t('title') }}</h1>
       <div class="grow mt-3 flex overflow-y-scroll">
         <Navbar
-          :configs="configs"
-          :editing-lang="editingLang"
-          @lang-updated="(lang) => (editingLang = lang)"
-          :editing-template="editingTemplate"
-          @template-updated="(template) => (editingTemplate = template)"
           class="basis-1/5 h-full"
         />
         <div class="basis-4/5 h-full px-5">
           <StartingFixturesEditor
-            v-if="editingTemplate === 'starting-fixtures'"
-            v-model="startingFixtures"
+            v-if="store.editingTemplate === 'starting-fixtures'"
           />
-          <OptionsEditor v-else-if="editingTemplate === 'options'" v-model="options" />
+          <OptionsEditor v-else-if="store.editingTemplate === 'options'" />
           <Preview
-            v-else-if="editingTemplate === 'preview'"
-            :config="getConfig()"
-            :options="getOptions()"
+            v-else-if="store.editingTemplate === 'preview'"
           />
           <component
-            v-else-if="editingLang !== ''"
-            :is="editors[editingTemplate]"
-            :key="`${editingTemplate}-${editingLang}`"
-            v-model="configs[editingLang][editingTemplate as 'map']"
+            v-else-if="store.editingLang !== ''"
+            :is="editors[store.editingTemplate]"
+            :key="`${store.editingTemplate}-${store.editingLang}`"
           ></component>
         </div>
       </div>

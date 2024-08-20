@@ -278,8 +278,12 @@ export interface RampConfig {
   };
   system?: {
     proxyUrl?: string;
+    zoomIcon?: string;
     animate?: boolean;
     exposeOid?: boolean;
+    suppressNumberLocalization?: boolean;
+    exposeMeasurements?: boolean;
+    scrollToInstance?: boolean;
   };
 }
 

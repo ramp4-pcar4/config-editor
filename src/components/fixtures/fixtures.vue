@@ -17,30 +17,31 @@ import OverviewMap from '@/components/fixtures/overviewmap/overviewmap.vue';
 import Settings from '@/components/fixtures/settings/settings.vue';
 import Scrollguard from '@/components/fixtures/scrollguard/scrollguard.vue';
 import Wizard from '@/components/fixtures/wizard/wizard.vue';
+import { useStore } from '@/store';
 
-const fixtures = defineModel({ type: Object });
+const store = useStore()
 </script>
 
 <template>
   <div>
     <h1 class="text-2xl font-semibold">Fixtures</h1>
-    <Appbar v-model="fixtures.appbar" />
-    <AreasOfInterest v-model="fixtures['areas-of-interest']" />
-    <Basemap v-model="fixtures.basemap" />
-    <Details v-model="fixtures.details" />
-    <Export v-model="fixtures.export" />
-    <Geosearh v-model="fixtures.geosearch" />
-    <Grid v-model="fixtures.grid" />
-    <Help v-model="fixtures.help" />
-    <Hilight v-model="fixtures.hilight" />
-    <LayerReorder v-model="fixtures['layer-reorder']" />
-    <Legend v-model="fixtures.legend" />
-    <Mapnav v-model="fixtures.mapnav" />
-    <Metadata v-model="fixtures.metadata" />
-    <NorthArrow v-model="fixtures.northarrow" />
-    <OverviewMap v-model="fixtures.overviewmap" />
-    <Settings v-model="fixtures.settings" />
-    <Scrollguard v-model="fixtures.scrollguard" />
-    <Wizard v-model="fixtures.wizard" />
+    <Appbar v-model="store.configs[store.editingLang].fixtures.appbar" />
+    <AreasOfInterest v-model="store.configs[store.editingLang].fixtures['areas-of-interest']" />
+    <Basemap v-model="store.configs[store.editingLang].fixtures.basemap" />
+    <Details v-model="store.configs[store.editingLang].fixtures.details" />
+    <Export v-model="store.configs[store.editingLang].fixtures.export" />
+    <Geosearh v-model="store.configs[store.editingLang].fixtures.geosearch" />
+    <Grid v-model="store.configs[store.editingLang].fixtures.grid" />
+    <Help v-model="store.configs[store.editingLang].fixtures.help" />
+    <Hilight v-model="store.configs[store.editingLang].fixtures.hilight" />
+    <LayerReorder v-model="store.configs[store.editingLang].fixtures['layer-reorder']" />
+    <Legend v-model="store.configs[store.editingLang].fixtures.legend" />
+    <Mapnav v-model="store.configs[store.editingLang].fixtures.mapnav" />
+    <Metadata v-model="store.configs[store.editingLang].fixtures.metadata" />
+    <NorthArrow v-model="store.configs[store.editingLang].fixtures.northarrow" />
+    <OverviewMap v-model="store.configs[store.editingLang].fixtures.overviewmap" />
+    <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
+    <Scrollguard v-model="store.configs[store.editingLang].fixtures.scrollguard" />
+    <Wizard v-model="store.configs[store.editingLang].fixtures.wizard" />
   </div>
 </template>
