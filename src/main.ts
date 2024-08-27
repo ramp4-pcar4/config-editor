@@ -5,8 +5,7 @@ import {
   configUpgrade,
   layerConfigUpgrade,
   version
-  // @ts-ignore
-} from '@/lib/ramp.browser.es.prod';
+} from 'ramp-pcar';
 
 // Put the editor's API on the window.
 // Since this is a standalone app and pages will be integrating this using <iframe>, this will not result in multiple instances not having their
