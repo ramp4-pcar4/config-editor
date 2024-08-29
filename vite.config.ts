@@ -8,9 +8,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 export default defineConfig((viteConfig) => {
   const { command, mode } = viteConfig;
   if (command === 'build' && mode.includes('lib')) {
-    if (mode === 'lib-legacy') {
-      libConfig.build.target = 'es2015';
-    }
     return libConfig;
   } else {
     return regConfig;

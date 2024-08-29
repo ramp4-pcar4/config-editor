@@ -37,6 +37,7 @@ class API {
    * @param options the default RAMP options to be used
    */
   initialize(configs?: RampConfigs, options?: RampOptions) {
+    // @ts-ignore seriously ts
     const store = useStore(this.$vApp.$pinia)
     
     store.startingFixtures = configs?.startingFixtures ?? [];
@@ -89,6 +90,7 @@ class API {
    * @returns the requested RAMP config, or all the RAMP configs.
    */
   getConfig(lang?: string): RampConfigs | RampConfig {
+    // @ts-ignore seriously ts
     const store = useStore(this.$vApp.$pinia)
     return lang
     ? store.configs[lang]
@@ -101,6 +103,7 @@ class API {
    * @returns the RAMP options
    */
   getOptions(): RampOptions {
+    // @ts-ignore seriously ts
     return useStore(this.$vApp.$pinia).options;
   }
 }
