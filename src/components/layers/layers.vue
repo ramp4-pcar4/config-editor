@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { LayerIdentifyMode, LayerType, type RampLayerConfig } from '@/definitions';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import draggable from 'vuedraggable';
 
 import InputHeader from '@/components/helpers/input-header.vue';
@@ -29,6 +29,17 @@ const typeOptions = ref([
 ]);
 const updatedLegend = ref<boolean>(false);
 const imgFormatOpts = ref(['png', 'png8', 'png24', 'png32', 'jpg', 'pdf', 'bmp', 'gif', 'svg']);
+
+const allHaveId = computed<boolean>(() =>
+  store.configs[store.editingLang].layers.every((layerConf) => !!layerConf.id)
+);
+const allUniqueIds = computed<boolean>(() => {
+  const layerIds = store.configs[store.editingLang].layers
+    .map((layerConf) => layerConf.id)
+    .filter((id) => !!id);
+  const checkSet = new Set(layerIds);
+  return layerIds.length === checkSet.size;
+});
 
 const onMoveEnd = (evt: any) => {
   if (!evt.moved) {
@@ -201,11 +212,21 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
             {{ updatedLegend ? 'Updated Legend!' : 'Autopopulate Legend' }}
           </span>
           <button
+            class="relative bottom-[1.5px]"
+            v-if="!updatedLegend && (!allHaveId || !allUniqueIds)"
+            content="A unique ID must be specified for each layer for the legend to update correctly."
+            v-tippy="{
+              trigger: 'click focus'
+            }"
+            @click.stop
+          >
+            ⚠
+          </button>
+          <button
             v-if="!updatedLegend"
             content="Updates the legend by creating entries in the top root level for any layers 
             that do not have one and removing entries for layers not present in the layers config."
             v-tippy="{
-              placement: 'top',
               trigger: 'click focus'
             }"
             @click.stop
