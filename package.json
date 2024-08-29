@@ -1,6 +1,6 @@
 {
   "name": "ramp-config-editor_editeur-config-pcar",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "files": [
     "dist"
   ],
@@ -30,6 +30,7 @@
   "dependencies": {
     "deepmerge": "^4.3.1",
     "pinia": "^2.0.32",
+    "ramp-pcar": "^4.6.0",
     "vue": "^3.4.15",
     "vue-i18n": "^9.2.2",
     "vue-tippy": "^6.2.0",

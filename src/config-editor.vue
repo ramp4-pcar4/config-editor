@@ -11,14 +11,14 @@ import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
 
 import '@/styles.css';
-import '@/lib/ramp.css';
+import 'ramp-pcar/dist/lib/ramp.css';
 import { useI18n } from 'vue-i18n';
 import { onMounted } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
 const { t } = useI18n();
-const store = useStore()
+const store = useStore();
 
 const editors: { [key: string]: any } = {
   fixtures: FixturesEditor,
@@ -54,17 +54,11 @@ onMounted(() => {
     <div v-else class="h-full flex flex-col">
       <h1 class="flex-none h-9 text-3xl font-semibold">{{ t('title') }}</h1>
       <div class="grow mt-3 flex overflow-y-scroll">
-        <Navbar
-          class="basis-1/5 h-full"
-        />
+        <Navbar class="basis-1/5 h-full" />
         <div class="basis-4/5 h-full px-5">
-          <StartingFixturesEditor
-            v-if="store.editingTemplate === 'starting-fixtures'"
-          />
+          <StartingFixturesEditor v-if="store.editingTemplate === 'starting-fixtures'" />
           <OptionsEditor v-else-if="store.editingTemplate === 'options'" />
-          <Preview
-            v-else-if="store.editingTemplate === 'preview'"
-          />
+          <Preview v-else-if="store.editingTemplate === 'preview'" />
           <component
             v-else-if="store.editingLang !== ''"
             :is="editors[store.editingTemplate]"
