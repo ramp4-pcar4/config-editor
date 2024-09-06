@@ -35,8 +35,12 @@ const libConfig = {
       fileName: 'ramp4-editor'
     },
     rollupOptions: {
+      external: ['ramp-pcar'],
       output: {
         inlineDynamicImports: true,
+        globals: {
+          vue: 'Vue'
+        },
         dir: 'dist'
       }
     }
