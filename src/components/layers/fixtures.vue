@@ -41,7 +41,12 @@ watch(fixtures, () => {
           description="Custom Vue component name to render as details template"
           required
         />
-        <input class="w-full" type="text" v-model="fixtures.details.template" />
+        <input
+          class="w-full"
+          type="text"
+          v-model="fixtures.details.template"
+          aria-label="Template"
+        />
       </div>
     </Collapsible>
     <Collapsible title="Settings">

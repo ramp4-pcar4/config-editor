@@ -4,7 +4,7 @@ import type { Field } from '@/definitions';
 import List from '@/components/helpers/list.vue';
 import { useStore } from '@/store';
 
-const store = useStore()
+const store = useStore();
 
 const itemFields: Array<Field> = [
   {
@@ -35,6 +35,7 @@ const itemFields: Array<Field> = [
     <h1 class="text-2xl font-semibold">Panels</h1>
     <div class="mt-5 flex items-center">
       <input
+        aria-label="Reorderable"
         type="checkbox"
         v-model="store.configs[store.editingLang].panels!.reorderable"
         :checked="store.configs[store.editingLang].panels!.reorderable !== false"

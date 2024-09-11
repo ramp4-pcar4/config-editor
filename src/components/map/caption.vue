@@ -49,6 +49,7 @@ const onInput = (
         <div>
           <InputHeader title="Formatter" description="ID of the initial mouse point formatter" />
           <select
+            aria-label="Formatter"
             :value="props.modelValue?.mapCoords?.formatter"
             @input="e => onInput('mapCoords', 'formatter', (e.target as HTMLSelectElement).options[(e.target as HTMLSelectElement).selectedIndex].text)"
           >
@@ -67,6 +68,7 @@ const onInput = (
           type="checkbox"
           :checked="props.modelValue?.mapCoords?.disabled"
           @input="e => onInput('mapCoords', 'disabled', (e.target as HTMLInputElement).checked)"
+          aria-label="Disabled"
         />
         <InputHeader
           title="Disabled"
@@ -81,6 +83,7 @@ const onInput = (
           type="checkbox"
           :checked="props.modelValue?.scaleBar?.imperialScale"
           @input="e => onInput('scaleBar', 'imperialScale', (e.target as HTMLInputElement).checked)"
+          aria-label="Imperial Scale"
         />
         <InputHeader
           title="Imperial Scale"
@@ -93,6 +96,7 @@ const onInput = (
           type="checkbox"
           :checked="props.modelValue?.scaleBar?.disabled"
           @input="e => onInput('scaleBar', 'disabled', (e.target as HTMLInputElement).checked)"
+          aria-label="Disabled"
         />
         <InputHeader
           title="Disabled"
@@ -107,6 +111,7 @@ const onInput = (
           type="checkbox"
           :checked="props.modelValue?.langToggle?.disabled"
           @input="e => onInput('langToggle', 'disabled', (e.target as HTMLInputElement).checked)"
+          aria-label="Disabled"
         />
         <InputHeader
           title="Disabled"

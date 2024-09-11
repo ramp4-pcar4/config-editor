@@ -61,11 +61,11 @@ watch(xport, () => {
           title="Panel Width"
           description="Determines the width of the export panel in pixels."
         />
-        <input type="number" v-model="xport.panelWidth" min="0" />
+        <input type="number" v-model="xport.panelWidth" min="0" aria-label="Panel Width" />
       </div>
       <div>
         <InputHeader title="File Name" description="The filename of the exported image." />
-        <input type="text" v-model="xport.fileName" />
+        <input type="text" v-model="xport.fileName" aria-label="File Name" />
       </div>
     </div>
     <PanelTeleport v-model="xport.panelTeleport" />
@@ -78,7 +78,12 @@ watch(xport, () => {
       <div class="input-table">
         <div>
           <InputHeader title="Value" description="The value of the title text." />
-          <input type="text" v-model="xport.title.value" placeholder="RAMP-Map / PCAR-Carte" />
+          <input
+            type="text"
+            v-model="xport.title.value"
+            placeholder="RAMP-Map / PCAR-Carte"
+            aria-label="Value"
+          />
         </div>
       </div>
     </ExportComponent>
@@ -106,7 +111,8 @@ watch(xport, () => {
             title="Column Width"
             description="Value in pixels to be used as the column width for the exported legend."
           />
-          <input type="number" v-model="xport.legend.columnWidth" min="0" />
+
+          type="number" v-model="xport.legend.columnWidth" min="0" aria-label="Column Width" />
         </div>
       </div>
     </ExportComponent>
@@ -119,7 +125,7 @@ watch(xport, () => {
       <div class="input-table">
         <div>
           <InputHeader title="Value" description="The value of the footnote text." />
-          <input type="text" v-model="xport.footnote.value" />
+          <input type="text" v-model="xport.footnote.value" aria-label="Value" />
         </div>
       </div>
     </ExportComponent>

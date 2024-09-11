@@ -68,35 +68,62 @@ watch(basemaps, () => {
           title="Expand Factor"
           description="The ratio of the overview map's extent size compared to the main map's extent size"
         />
-        <input type="number" v-model="overviewMap.expandFactor" placeholder="1.5" />
+        <input
+          type="number"
+          v-model="overviewMap.expandFactor"
+          placeholder="1.5"
+          aria-label="Expand Factor"
+        />
       </div>
       <div>
         <InputHeader
           title="Border Colour"
           description="The hex code representing the area rectangle border colour."
         />
-        <input type="text" v-model="overviewMap.borderColour" placeholder="#FF0000" />
+        <input
+          type="text"
+          v-model="overviewMap.borderColour"
+          placeholder="#FF0000"
+          aria-label="Border Colour"
+        />
       </div>
       <div>
         <InputHeader
           title="Border Width"
           description="The pixel width of the area rectangle border."
         />
-        <input type="number" v-model="overviewMap.borderWidth" placeholder="1" />
+        <input
+          type="number"
+          v-model="overviewMap.borderWidth"
+          placeholder="1"
+          aria-label="Border Width"
+        />
       </div>
       <div>
         <InputHeader
           title="Area Colour"
           description="The hex code representing the area rectangle colour."
         />
-        <input type="text" v-model="overviewMap.areaColour" placeholder="#000000" />
+        <input
+          type="text"
+          v-model="overviewMap.areaColour"
+          placeholder="#000000"
+          aria-label="Area Colour"
+        />
       </div>
       <div>
         <InputHeader
           title="Area Opacity"
           description="The opacity value of the area rectangle. Accepts decimal values between 0 and 1."
         />
-        <input type="number" v-model="overviewMap.areaOpacity" min="0" max="1" placeholder="0.25" />
+        <input
+          type="number"
+          v-model="overviewMap.areaOpacity"
+          min="0"
+          max="1"
+          placeholder="0.25"
+          aria-label="Area Opacity"
+        />
       </div>
     </div>
     <div class="flex items-center mt-4">
@@ -104,6 +131,7 @@ watch(basemaps, () => {
         type="checkbox"
         v-model="overviewMap.startMinimized"
         :checked="overviewMap.startMinimized !== false"
+        aria-label="Start Minimized"
       />
       <InputHeader
         title="Start Minimized"

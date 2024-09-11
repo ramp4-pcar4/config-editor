@@ -31,11 +31,11 @@ watch(types, () => {
         <input
           type="checkbox"
           class="border-2 border-black cursor-pointer text-black mr-2"
-          :id="typ"
           :value="typ"
           v-model="types"
+          aria-label="Disabled Search Types"
         />
-        <label :for="typ">{{ typ }}</label>
+        <label>{{ typ }}</label>
       </div>
     </div>
   </Collapsible>

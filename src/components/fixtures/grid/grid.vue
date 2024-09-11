@@ -33,7 +33,7 @@ watch(grid, () => {
           title="Panel Width"
           description="Determines the width of the grid panel in pixels."
         />
-        <input type="number" v-model="grid.panelWidth" min="0" />
+        <input type="number" v-model="grid.panelWidth" min="0" aria-label="Panel Width" />
       </div>
     </div>
     <PanelTeleport v-model="grid.panelTeleport" />

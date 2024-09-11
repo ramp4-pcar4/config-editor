@@ -25,7 +25,12 @@ watch(state, () => {
   <Collapsible title="State">
     <div>
       <div class="flex items-center mb-4">
-        <input type="checkbox" v-model="state.visibility" :checked="state.visibility !== false" />
+        <input
+          type="checkbox"
+          v-model="state.visibility"
+          :checked="state.visibility !== false"
+          aria-label="Visibility"
+        />
         <InputHeader
           title="Visibility"
           description="Initial visibility of layer on map."
@@ -33,7 +38,12 @@ watch(state, () => {
         />
       </div>
       <div class="flex items-center mb-4">
-        <input type="checkbox" v-model="state.identify" :checked="state.identify !== false" />
+        <input
+          type="checkbox"
+          v-model="state.identify"
+          :checked="state.identify !== false"
+          aria-label="Identify"
+        />
         <InputHeader
           title="Identify"
           description="Specifies whether or not to allow identify requests."
@@ -41,7 +51,12 @@ watch(state, () => {
         />
       </div>
       <div class="flex items-center mb-4">
-        <input type="checkbox" v-model="state.hovertips" :checked="state.hovertips !== false" />
+        <input
+          type="checkbox"
+          v-model="state.hovertips"
+          :checked="state.hovertips !== false"
+          aria-label="Hovertips"
+        />
         <InputHeader
           title="Hovertips"
           description="Specifies whether or not to disable hovertips."
@@ -55,7 +70,14 @@ watch(state, () => {
           title="Opacity"
           description="Initial opacity value of layer. Must be a decimal value between 0 and 1."
         />
-        <input type="number" v-model="state.opacity" placeholder="1" min="0" max="1" />
+        <input
+          type="number"
+          v-model="state.opacity"
+          placeholder="1"
+          min="0"
+          max="1"
+          aria-label="Opacity"
+        />
       </div>
     </div>
   </Collapsible>

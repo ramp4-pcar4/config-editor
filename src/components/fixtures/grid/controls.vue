@@ -77,7 +77,7 @@ watch(controls, () => {
             description="Either 'zoom' or 'details', the default grid buttons, or 'custom'. Note that the default grid buttons can only be selected once."
             required
           />
-          <select v-model="controls[index].type">
+          <select v-model="controls[index].type" aria-label="Control Type">
             <option v-if="zoomIdx === index || zoomIdx === -1" value="zoom">Zoom</option>
             <option v-if="detailsIdx === index || detailsIdx === -1" value="details">
               Details
@@ -97,11 +97,11 @@ watch(controls, () => {
             description="The name of the event to raise when the button is clicked."
             required
           />
-          <input type="text" v-model="controls[index].actionEvent" />
+          <input type="text" v-model="controls[index].actionEvent" aria-label="Action Event" />
         </div>
         <div>
           <InputHeader title="Icon" description="The icon to display for the button." required />
-          <input type="text" v-model="controls[index].icon" />
+          <input type="text" v-model="controls[index].icon" aria-label="Icon" />
         </div>
         <div>
           <InputHeader
@@ -109,14 +109,14 @@ watch(controls, () => {
             description="The tooltip to display when the button is hovered."
             required
           />
-          <input type="text" v-model="controls[index].tooltip" />
+          <input type="text" v-model="controls[index].tooltip" aria-label="Tooltip" />
         </div>
         <div>
           <InputHeader
             title="Display On"
             description="Which layer format this button should appear for."
           />
-          <select v-model="controls[index].displayOn">
+          <select v-model="controls[index].displayOn" aria-label="Display On">
             <option value="all">All</option>
             <option value="geo">Map Layers</option>
             <option value="data">Data Layers</option>

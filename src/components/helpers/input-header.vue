@@ -33,6 +33,7 @@ defineProps({
     <button
       v-if="!!description"
       :content="description"
+      :aria-label="description"
       v-tippy="{
         placement: 'top',
         trigger: 'click focus'

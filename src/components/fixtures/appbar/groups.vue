@@ -105,7 +105,7 @@ watch(groups, () => {
           <div class="input-table">
             <div>
               <InputHeader title="Item Type" required />
-              <select v-model="element.type">
+              <select v-model="element.type" aria-label="Item Type">
                 <option value="panel">Linked to a panel</option>
                 <option value="custom">Custom component</option>
               </select>
@@ -121,18 +121,18 @@ watch(groups, () => {
                 description="The ID of the panel that the appbar button will be linked to."
                 required
               />
-              <input type="text" v-model="element.panelId" />
+              <input type="text" v-model="element.panelId" aria-label="Panel ID" />
             </div>
             <div v-if="element.type === 'custom'">
               <InputHeader title="ID" description="The ID of the custom component." />
-              <input type="text" v-model="element.id" />
+              <input type="text" v-model="element.id" aria-label="ID" />
             </div>
             <div v-if="element.type === 'custom'">
               <InputHeader
                 title="Component Name"
                 description="The name of the Vue component to render as the appbar button."
               />
-              <input type="text" v-model="element.componentId" />
+              <input type="text" v-model="element.componentId" aria-label="Component Name" />
             </div>
           </div>
         </template>

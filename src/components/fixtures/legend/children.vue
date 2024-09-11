@@ -78,7 +78,7 @@ watch(children, () => {
       <div class="input-table">
         <div>
           <InputHeader title="Item Type" required />
-          <select v-model="children[index].type">
+          <select v-model="children[index].type" aria-label="Item Type">
             <option value="section">Section Item</option>
             <option value="layer">Layer Item</option>
           </select>
@@ -93,14 +93,14 @@ watch(children, () => {
             title="Name"
             description="Title of the legend item. Defaults to layer name for layer items, undefined for section items."
           />
-          <input type="text" v-model="children[index].name" />
+          <input type="text" v-model="children[index].name" aria-label="Name" />
         </div>
         <div v-if="children[index].type === 'section'">
           <InputHeader
             title="Info Type"
             description="Type of custom content to display instead of the item name. Defaults to title."
           />
-          <select v-model="children[index].infoType">
+          <select v-model="children[index].infoType" aria-label="Info Type">
             <option value="title">Title</option>
             <option value="image">Image</option>
             <option value="text">Text</option>
@@ -113,7 +113,7 @@ watch(children, () => {
             title="Content"
             description="Custom content to display instead of item name - description of title/text, URL to image file, or HTML for template."
           />
-          <input type="text" v-model="children[index].content" />
+          <input type="text" v-model="children[index].content" aria-label="Content" />
         </div>
         <div v-if="children[index].type === 'layer'">
           <InputHeader
@@ -121,42 +121,49 @@ watch(children, () => {
             description="ID of a layer defined in the layers section of config that this layer item will be linked to."
             required
           />
-          <input type="text" v-model="children[index].layerId" />
+          <input type="text" v-model="children[index].layerId" aria-label="Layer ID" />
         </div>
         <div v-if="children[index].type === 'layer'">
           <InputHeader
             title="Sublayer Index"
             description="Index of the sublayer to link this item to in the case of a map image layer. If not defined, will result in tree grow of the whole MIL. If group index defined, will result in tree grow of the specified group."
           />
-          <input type="number" v-model="children[index].sublayerIndex" />
+          <input
+            type="number"
+            v-model="children[index].sublayerIndex"
+            aria-label="Sublayer Index"
+          />
         </div>
         <div v-if="children[index].type === 'layer'">
           <InputHeader
             title="Cover Icon"
             description="Custom icon used to represent the layer item's symbology stack. Should be a URL to an image."
           />
-          <input type="text" v-model="children[index].coverIcon" />
+          <input type="text" v-model="children[index].coverIcon" aria-label="Cover Icon" />
         </div>
         <div v-if="children[index].type === 'layer'">
           <InputHeader
             title="Description"
             description="Optional description displayed above the symbology stack when it is expanded."
           />
-          <input type="text" v-model="children[index].description" />
+          <input type="text" v-model="children[index].description" aria-label="Description" />
         </div>
         <div v-if="children[index].type === 'layer'">
           <InputHeader
             title="Symbology Render Style"
             description="Describes how the symbology stack should be rendered. Icons makes the images icon-sized, images makes the images full-sized. Defaults to icons."
           />
-          <select v-model="children[index].symbologyRenderStyle">
+          <select
+            v-model="children[index].symbologyRenderStyle"
+            aria-label="Symbology Render Style"
+          >
             <option value="icons">Icons</option>
             <option value="images">Images</option>
           </select>
         </div>
       </div>
       <div class="flex items-center mt-4">
-        <input type="checkbox" v-model="children[index].hidden" />
+        <input type="checkbox" v-model="children[index].hidden" aria-label="Hidden" />
         <InputHeader
           title="Hidden"
           description="Indicates that the legend item will be hidden from the UI."
@@ -168,6 +175,7 @@ watch(children, () => {
           type="checkbox"
           v-model="children[index].expanded"
           :checked="children[index].expanded != false"
+          aria-label="Expanded"
         />
         <InputHeader
           title="Expanded"
@@ -176,7 +184,7 @@ watch(children, () => {
         />
       </div>
       <div class="flex items-center mt-4">
-        <input type="checkbox" v-model="children[index].exclusive" />
+        <input type="checkbox" v-model="children[index].exclusive" aria-label="Exclusive" />
         <InputHeader
           title="Exclusive"
           description="Specifies that children of this item form an exclusive set."
@@ -184,7 +192,11 @@ watch(children, () => {
         />
       </div>
       <div v-if="children[index].type === 'layer'" class="flex items-center mt-4">
-        <input type="checkbox" v-model="children[index].symbologyExpanded" />
+        <input
+          type="checkbox"
+          v-model="children[index].symbologyExpanded"
+          aria-label="Symbology Expanded"
+        />
         <InputHeader
           title="Symbology Expanded"
           description="Specifies if the symbology stack is expanded by default."

@@ -47,7 +47,11 @@ watch(fieldMetadata, () => {
 <template>
   <Collapsible title="Field Metadata">
     <div class="flex items-center mb-4">
-      <input type="checkbox" v-model="fieldMetadata.exclusiveFields" />
+      <input
+        type="checkbox"
+        v-model="fieldMetadata.exclusiveFields"
+        aria-label="Exclusive Fields"
+      />
       <InputHeader
         title="Exclusive Fields"
         description="If true, only fields in fieldInfo are recognized and downloaded. Otherwise, all fields are used."

@@ -50,7 +50,7 @@ watch(mode, update);
           title="Mode"
           description="The hilight mode to use. The default mode is glow."
         />
-        <select v-model="mode">
+        <select v-model="mode" aria-label="Mode">
           <option value="glow">Glow</option>
           <option value="lift">Lift</option>
           <option value="fog">Fog</option>
@@ -62,14 +62,28 @@ watch(mode, update);
           title="On Opacity"
           description="Opacity of the fog that obscures non-highlighted features when a feature is highlighted."
         />
-        <input type="number" placeholder="0.75" min="0" max="1" v-model="options.onOpacity" />
+        <input
+          type="number"
+          placeholder="0.75"
+          min="0"
+          max="1"
+          v-model="options.onOpacity"
+          aria-label="On Opacity"
+        />
       </div>
       <div v-if="mode === 'fog'">
         <InputHeader
           title="Off Opacity"
           description="Opacity of the fog that obscures non-highlighted features when no feature is highlighted."
         />
-        <input type="number" placeholder="0.02" min="0" max="1" v-model="options.offOpacity" />
+        <input
+          type="number"
+          placeholder="0.02"
+          min="0"
+          max="1"
+          v-model="options.offOpacity"
+          aria-label="Off Opacity"
+        />
       </div>
     </div>
   </Collapsible>

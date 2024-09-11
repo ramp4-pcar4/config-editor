@@ -7,7 +7,7 @@ import Basemaps from '@/components/map/basemaps.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
 import { useStore } from '@/store';
 
-const store = useStore()
+const store = useStore();
 </script>
 
 <template>
@@ -19,21 +19,37 @@ const store = useStore()
           title="Initial Basemap ID"
           description="Initial basemap to load. If not supplied, viewer will select the first basemap in the basemaps list."
         />
-        <input type="text" v-model="store.configs[store.editingLang].map.initialBasemapId" />
+        <input
+          type="text"
+          v-model="store.configs[store.editingLang].map.initialBasemapId"
+          aria-label="Initial Basemap ID"
+        />
       </div>
       <div>
         <InputHeader
           title="Point Zoom Scale"
           description="The zoom level when zooming to a point feature (e.g. when using the zoom button in the datagrid). Must be a positive integer."
         />
-        <input type="number" placeholder="50000" min="1" v-model="store.configs[store.editingLang].map.pointZoomScale" />
+        <input
+          type="number"
+          placeholder="50000"
+          min="1"
+          v-model="store.configs[store.editingLang].map.pointZoomScale"
+          aria-label="Point Zoom Scale"
+        />
       </div>
       <div>
         <InputHeader
           title="Map Mouse Throttle"
           description="The amount of throttling (in milliseconds) to be used for the map mouse move event. A value of 0 means no throttle."
         />
-        <input type="number" placeholder="0" min="0" v-model="store.configs[store.editingLang].map.mapMouseThrottle" />
+        <input
+          type="number"
+          placeholder="0"
+          min="0"
+          v-model="store.configs[store.editingLang].map.mapMouseThrottle"
+          aria-label="Map Mouse Throttle"
+        />
       </div>
     </div>
     <TileSchemas v-model="store.configs[store.editingLang].map.tileSchemas" />

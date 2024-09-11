@@ -41,6 +41,7 @@ watch(settings, () => {
         />
         <input
           type="text"
+          aria-label="Categories"
           :value="settings.categories?.join(',') ?? ''"
           @input="(e) => {settings.categories = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim())}"
         />
@@ -52,6 +53,7 @@ watch(settings, () => {
         />
         <input
           type="text"
+          aria-label="Sort Order"
           :value="settings.sortOrder?.join(',') ?? ''"
           @input="(e) => {settings.sortOrder = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim())}"
         />
@@ -61,11 +63,16 @@ watch(settings, () => {
           title="Max Results"
           description="The maximum number of results to return per request. The Canadian GeoNames Search Service API has a 1000 search limit which will be used as an upper limit of results returned unless another service is being used with a higher limit."
         />
-        <input type="number" v-model="settings.maxResults" placeholder="100" />
+        <input
+          type="number"
+          aria-label="Max Results"
+          v-model="settings.maxResults"
+          placeholder="100"
+        />
       </div>
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="settings.officialOnly" />
+      <input type="checkbox" v-model="settings.officialOnly" aria-label="Official Only" />
       <InputHeader
         title="Official Only"
         description="Whether to return only official names for the geographic names. Default is false which will return both official names and formerly official names."

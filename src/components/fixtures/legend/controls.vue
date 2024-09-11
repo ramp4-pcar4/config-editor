@@ -53,11 +53,11 @@ watch(controls, () => {
         <input
           type="checkbox"
           class="border-2 border-black cursor-pointer text-black mr-2"
-          :id="ctrl"
           :value="ctrl"
           v-model="controls"
+          :aria-label="valToLabel(ctrl)"
         />
-        <label :for="ctrl">{{ valToLabel(ctrl) }}</label>
+        <label>{{ valToLabel(ctrl) }}</label>
       </div>
     </div>
   </Collapsible>

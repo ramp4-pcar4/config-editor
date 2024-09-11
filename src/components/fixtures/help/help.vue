@@ -41,14 +41,14 @@ watch(help, () => {
           title="Panel Width"
           description="Determines the width of the help panel in pixels."
         />
-        <input type="number" v-model="help.panelWidth" min="0" />
+        <input type="number" v-model="help.panelWidth" min="0" aria-label="Panel Width" />
       </div>
       <div>
         <InputHeader
           title="Location"
           description="Relative path or URL to the help directory, which contains the help content and images. Markdown files must be named for the language they support, e.g. en.md, fr.md. Images must be placed in a subfolder named images."
         />
-        <input type="text" v-model="help.location" placeholder="./help" />
+        <input type="text" v-model="help.location" placeholder="./help" aria-label="Location" />
       </div>
     </div>
     <PanelTeleport v-model="help.panelTeleport" />

@@ -108,18 +108,23 @@ watch(options, () => {
     <div class="input-table">
       <div>
         <InputHeader title="Title" description="Title of the datatable." />
-        <input type="text" v-model="options.title" />
+        <input type="text" v-model="options.title" aria-label="Title" />
       </div>
       <div>
         <InputHeader
           title="Search Filter"
           description="Specifies the default filter to apply to a table (for global search)."
         />
-        <input type="text" v-model="options.searchFilter" />
+        <input type="text" v-model="options.searchFilter" aria-label="Search Filter" />
       </div>
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.search" :checked="options.search !== false" />
+      <input
+        type="checkbox"
+        v-model="options.search"
+        :checked="options.search !== false"
+        aria-label="Search"
+      />
       <InputHeader
         title="Search"
         description="Specifies if global search is enabled by default."
@@ -127,7 +132,12 @@ watch(options, () => {
       />
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.showFilter" :checked="options.showFilter !== false" />
+      <input
+        type="checkbox"
+        v-model="options.showFilter"
+        :checked="options.showFilter !== false"
+        aria-label="Show Filter"
+      />
       <InputHeader
         title="Show Filter"
         description="Specifies if the column filters are displayed on table load."
@@ -135,7 +145,7 @@ watch(options, () => {
       />
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.applyToMap" />
+      <input type="checkbox" v-model="options.applyToMap" aria-label="Apply To Map" />
       <InputHeader
         title="Apply To Map"
         description="Specifies if column filters are applied to the map by default."
@@ -143,7 +153,7 @@ watch(options, () => {
       />
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.filterByExtent" />
+      <input type="checkbox" v-model="options.filterByExtent" aria-label="Filter By Extent" />
       <InputHeader
         title="Filter By Extent"
         description="Specifies if the table should filter rows by extent by default."
@@ -168,7 +178,7 @@ watch(options, () => {
                 title="Type"
                 description="Specifies the filter type to use for a column. Defaults to being filtered as a string."
               />
-              <select v-model="element.filter.type">
+              <select v-model="element.filter.type" aria-label="Type">
                 <option value="string" selected>string</option>
                 <option value="number">number</option>
                 <option value="date">date</option>
@@ -183,6 +193,7 @@ watch(options, () => {
               <input
                 :type="element.filter.type === 'number' ? 'number' : 'text'"
                 v-model="element.filter.min"
+                aria-label="Min"
               />
             </div>
             <div v-if="element.filter.type === 'number' || element.filter.type === 'date'">
@@ -193,6 +204,7 @@ watch(options, () => {
               <input
                 :type="element.filter.type === 'number' ? 'number' : 'text'"
                 v-model="element.filter.max"
+                aria-label="Max"
               />
             </div>
             <div v-else>
@@ -200,11 +212,11 @@ watch(options, () => {
                 title="Value"
                 description="Specifies the initial filter value for string or selector types."
               />
-              <input type="text" v-model="element.filter.value" />
+              <input type="text" v-model="element.filter.value" aria-label="Value" />
             </div>
           </div>
           <div class="flex items-center mt-4">
-            <input type="checkbox" v-model="element.filter.static" />
+            <input type="checkbox" v-model="element.filter.static" aria-label="Static" />
             <InputHeader
               title="Static"
               description="Specifies if column filter is modifiable."

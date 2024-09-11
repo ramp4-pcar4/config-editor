@@ -24,7 +24,12 @@ defineProps({
   <Collapsible :title="title" :description="description">
     <slot></slot>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="selected" :checked="selected != false" />
+      <input
+        type="checkbox"
+        v-model="selected"
+        :checked="selected != false"
+        aria-label="Selected"
+      />
       <InputHeader
         title="Selected"
         description="Indicates if this component is selected on startup."
@@ -32,7 +37,12 @@ defineProps({
       />
     </div>
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="selectable" :checked="selectable != false" />
+      <input
+        type="checkbox"
+        v-model="selectable"
+        :checked="selectable != false"
+        aria-label="Selectable"
+      />
       <InputHeader
         title="Selectable"
         description="Indicates if this component is selectable."
