@@ -2,7 +2,7 @@
 import { useStore } from '@/store';
 import { ref } from 'vue';
 
-const store = useStore()
+const store = useStore();
 
 const startingFixturesInput = ref<string>(store.startingFixtures?.join(',') ?? '');
 
@@ -20,6 +20,7 @@ const onInput = (e: Event) => {
     <h1 class="text-2xl font-semibold">Starting Fixtures</h1>
     <p class="mt-5">Comma separated fixture IDs:</p>
     <input
+      aria-label="Starting Fixtures"
       class="mt-2 border-2 border-black p-3 w-full sm:w-[500px]"
       :value="startingFixturesInput"
       @input="onInput"

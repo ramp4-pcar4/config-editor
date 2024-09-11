@@ -37,7 +37,7 @@ watch(legend, () => {
           title="Panel Width"
           description="Determines the width of the legend panel in pixels."
         />
-        <input type="number" v-model="legend.panelWidth" min="0" />
+        <input type="number" v-model="legend.panelWidth" min="0" aria-label="Panel Width" />
       </div>
     </div>
     <HeaderControls v-model="legend.headerControls" />

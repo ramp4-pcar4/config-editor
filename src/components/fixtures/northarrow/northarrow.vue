@@ -37,14 +37,14 @@ watch(northArrow, () => {
           title="Arrow Icon"
           description="The graphical icon url/data url of the north arrow."
         />
-        <input type="text" v-model="northArrow.arrowIcon" />
+        <input type="text" v-model="northArrow.arrowIcon" aria-label="Arrow Icon" />
       </div>
       <div>
         <InputHeader
           title="Pole Icon"
           description="The graphical icon url/data url of the north pole that replaces north arrow when it's on north pole."
         />
-        <input type="text" v-model="northArrow.poleIcon" />
+        <input type="text" v-model="northArrow.poleIcon" aria-label="Pole Icon" />
       </div>
     </div>
   </Collapsible>

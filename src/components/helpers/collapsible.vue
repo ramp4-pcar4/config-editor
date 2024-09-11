@@ -28,7 +28,7 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
       "
     >
       <slot name="header">
-        <button class="mr-1 sm:mr-3">
+        <button class="mr-1 sm:mr-3" :aria-label="expanded ? 'Collapse' : 'Expand'">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="20"

@@ -36,7 +36,7 @@ watch(mergeGrids, () => {
       <div class="mt-4 input-table">
         <div>
           <InputHeader title="Grid ID" description="The unique ID of the grid." required />
-          <input type="text" v-model="mergeGrids[index].gridId" />
+          <input type="text" v-model="mergeGrids[index].gridId" aria-label="Grid ID" />
         </div>
       </div>
       <Layers v-model="mergeGrids[index].layers" />

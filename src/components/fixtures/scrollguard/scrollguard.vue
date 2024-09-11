@@ -25,7 +25,7 @@ watch(scrollguard, () => {
     description="Provides configuration to the scrollguard fixture."
   >
     <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="scrollguard.enabled" />
+      <input type="checkbox" v-model="scrollguard.enabled" aria-label="Enabled" />
       <InputHeader
         title="Enabled"
         description="Specifies if the scrollguard is enabled on startup."

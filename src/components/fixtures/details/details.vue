@@ -91,21 +91,21 @@ watch(templates, () => {
             title="Default"
             description="The default panel width for all details panels."
           />
-          <input type="number" v-model="panelWidth.default" />
+          <input type="number" v-model="panelWidth.default" aria-label="Default" />
         </div>
         <div>
           <InputHeader
             title="Details Items"
             description="The overriding panel width for the details items panel."
           />
-          <input type="number" v-model="panelWidth['details-items']" />
+          <input type="number" v-model="panelWidth['details-items']" aria-label="Details Items" />
         </div>
         <div>
           <InputHeader
             title="Details Layers"
             description="The overriding panel width for the details layers panel."
           />
-          <input type="number" v-model="panelWidth['details-layers']" />
+          <input type="number" v-model="panelWidth['details-layers']" aria-label="Details Layers" />
         </div>
       </div>
     </Collapsible>
@@ -131,27 +131,27 @@ watch(templates, () => {
       <div class="input-table">
         <div>
           <InputHeader title="ESRI" />
-          <input type="text" v-model="templates.esri" />
+          <input type="text" v-model="templates.esri" aria-label="ESRI" />
         </div>
         <div>
           <InputHeader title="Text" />
-          <input type="text" v-model="templates.text" />
+          <input type="text" v-model="templates.text" aria-label="Text" />
         </div>
         <div>
           <InputHeader title="Image" />
-          <input type="text" v-model="templates.image" />
+          <input type="text" v-model="templates.image" aria-label="Image" />
         </div>
         <div>
           <InputHeader title="HTML" />
-          <input type="text" v-model="templates.html" />
+          <input type="text" v-model="templates.html" aria-label="HTML" />
         </div>
         <div>
           <InputHeader title="XML" />
-          <input type="text" v-model="templates.xml" />
+          <input type="text" v-model="templates.xml" aria-label="XML" />
         </div>
         <div>
           <InputHeader title="JSON" />
-          <input type="text" v-model="templates.json" />
+          <input type="text" v-model="templates.json" aria-label="JSON" />
         </div>
       </div>
     </Collapsible>

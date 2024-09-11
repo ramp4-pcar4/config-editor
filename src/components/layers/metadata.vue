@@ -36,14 +36,14 @@ watch(metadata, () => {
     <div class="input-table">
       <div>
         <input-header title="URL" description="Metadata url of the layer service." required />
-        <input type="text" v-model="metadata.url" />
+        <input type="text" v-model="metadata.url" aria-label="URL" />
       </div>
       <div>
         <input-header
           title="Name"
           description="Name to be displayed as the header of the metadata panel."
         />
-        <input type="text" v-model="metadata.name" />
+        <input type="text" v-model="metadata.name" aria-label="Name" />
       </div>
     </div>
   </Collapsible>

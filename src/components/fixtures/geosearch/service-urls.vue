@@ -38,19 +38,19 @@ watch(serviceUrls, () => {
     <div class="input-table">
       <div>
         <InputHeader title="Geo Names" description="Endpoint URL for Geo Names service." />
-        <input type="text" v-model="serviceUrls.geoNames" />
+        <input type="text" v-model="serviceUrls.geoNames" aria-label="Geo Names" />
       </div>
       <div>
         <InputHeader title="Geo Location" description="Endpoint URL for Geo Location service." />
-        <input type="text" v-model="serviceUrls.geoLocation" />
+        <input type="text" v-model="serviceUrls.geoLocation" aria-label="Geo Location" />
       </div>
       <div>
         <InputHeader title="Geo Province" description="Endpoint url for Geo Province service." />
-        <input type="text" v-model="serviceUrls.geoProvince" />
+        <input type="text" v-model="serviceUrls.geoProvince" aria-label="Geo Province" />
       </div>
       <div>
         <InputHeader title="Geo Types" description="Endpoint URL for Geo Types service." />
-        <input type="text" v-model="serviceUrls.geoTypes" />
+        <input type="text" v-model="serviceUrls.geoTypes" aria-label="Geo Types" />
       </div>
     </div>
   </Collapsible>

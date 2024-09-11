@@ -267,6 +267,7 @@ const layerFields: Array<Field> = [
                 type="text"
                 :value="basemaps[index]?.attribution?.text?.value"
                 @input="e => onAttributionInput(index, 'text', 'value', (e.target as HTMLInputElement).value)"
+                aria-label="Value"
               />
             </div>
           </div>
@@ -275,6 +276,7 @@ const layerFields: Array<Field> = [
               type="checkbox"
               :checked="basemaps[index]?.attribution?.text?.disabled"
               @input="e => onAttributionInput(index, 'text', 'disabled', (e.target as HTMLInputElement).checked)"
+              aria-label="Disabled"
             />
             <InputHeader
               title="Disabled"
@@ -295,6 +297,7 @@ const layerFields: Array<Field> = [
                 type="text"
                 :value="basemaps[index]?.attribution?.logo?.value"
                 @input="e => onAttributionInput(index, 'logo', 'value', (e.target as HTMLInputElement).value)"
+                aria-label="Value"
               />
             </div>
             <div>
@@ -303,12 +306,14 @@ const layerFields: Array<Field> = [
                 type="text"
                 :value="basemaps[index]?.attribution?.logo?.altText"
                 @input="e => onAttributionInput(index, 'logo', 'altText', (e.target as HTMLInputElement).value)"
+                aria-label="Alt Text"
               />
             </div>
             <div>
               <InputHeader title="Link" description="URL to go to when image is clicked." />
               <input
                 type="text"
+                aria-label="Link"
                 :value="basemaps[index]?.attribution?.logo?.link"
                 @input="e => onAttributionInput(index, 'logo', 'link', (e.target as HTMLInputElement).value)"
               />
@@ -317,6 +322,7 @@ const layerFields: Array<Field> = [
           <div class="flex items-center mt-4">
             <input
               type="checkbox"
+              aria-label="Disabled"
               :checked="basemaps[index]?.attribution?.logo?.disabled"
               @input="e => onAttributionInput(index, 'logo', 'disabled', (e.target as HTMLInputElement).checked)"
             />

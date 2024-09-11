@@ -31,7 +31,7 @@ watch(mapnav, () => {
           title="Zoom Option"
           description="Specifies between zoom buttons or zoom sliders. The default is buttons."
         />
-        <select v-model="mapnav.zoomOption">
+        <select v-model="mapnav.zoomOption" aria-label="Zoom Option">
           <option value="all">All</option>
           <option value="buttons">Buttons</option>
           <option value="slider">Slider</option>

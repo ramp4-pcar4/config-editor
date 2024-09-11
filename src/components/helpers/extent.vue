@@ -223,19 +223,43 @@ const onInput = (e: Event) => {
       <div class="input-table">
         <div>
           <input-header title="xmin" required />
-          <input type="number" name="xmin" :value="props.modelValue?.xmin" @input="onInput" />
+          <input
+            type="number"
+            name="xmin"
+            :value="props.modelValue?.xmin"
+            @input="onInput"
+            aria-label="xmin"
+          />
         </div>
         <div>
           <input-header title="xmax" required />
-          <input type="number" name="xmax" :value="props.modelValue?.xmax" @input="onInput" />
+          <input
+            type="number"
+            name="xmax"
+            :value="props.modelValue?.xmax"
+            @input="onInput"
+            aria-label="xmax"
+          />
         </div>
         <div>
           <input-header title="ymin" required />
-          <input type="number" name="ymin" :value="props.modelValue?.ymin" @input="onInput" />
+          <input
+            type="number"
+            name="ymin"
+            :value="props.modelValue?.ymin"
+            @input="onInput"
+            aria-label="ymin"
+          />
         </div>
         <div>
           <input-header title="ymax" required />
-          <input type="number" name="ymax" :value="props.modelValue?.ymax" @input="onInput" />
+          <input
+            type="number"
+            name="ymax"
+            :value="props.modelValue?.ymax"
+            @input="onInput"
+            aria-label="ymax"
+          />
         </div>
       </div>
       <InputHeader
@@ -253,6 +277,7 @@ const onInput = (e: Event) => {
             name="wkid"
             :value="props.modelValue?.spatialReference?.wkid"
             @input="onInput"
+            aria-label="wkid"
           />
         </div>
         <div>
@@ -265,6 +290,7 @@ const onInput = (e: Event) => {
             name="latestWkid"
             :value="props.modelValue?.spatialReference?.latestWkid"
             @input="onInput"
+            aria-label="latestWkid"
           />
         </div>
         <div>
@@ -274,6 +300,7 @@ const onInput = (e: Event) => {
             name="wkt"
             :value="props.modelValue?.spatialReference?.wkt"
             @input="onInput"
+            aria-label="wkt"
           />
         </div>
       </div>

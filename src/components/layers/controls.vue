@@ -66,11 +66,11 @@ watch(controls, () => {
         <input
           type="checkbox"
           class="border-2 border-black cursor-pointer text-black mr-2"
-          :id="ctrl"
           :value="LayerControl[<'Identify'>ctrl]"
           v-model="controls"
+          :aria-label="ctrl.replace(/([A-Z])/g, ' $1').trim()"
         />
-        <label :for="ctrl">{{ ctrl.replace(/([A-Z])/g, ' $1').trim() }}</label>
+        <label>{{ ctrl.replace(/([A-Z])/g, ' $1').trim() }}</label>
       </div>
     </div>
   </Collapsible>

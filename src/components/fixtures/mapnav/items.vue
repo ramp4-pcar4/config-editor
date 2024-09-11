@@ -39,11 +39,11 @@ watch(items, () => {
         <input
           type="checkbox"
           class="border-2 border-black cursor-pointer text-black mr-2"
-          :id="item"
           :value="item"
           v-model="items"
+          :aria-label="item[0].toUpperCase() + item.slice(1)"
         />
-        <label :for="item">{{ item[0].toUpperCase() + item.slice(1) }}</label>
+        <label>{{ item[0].toUpperCase() + item.slice(1) }}</label>
       </div>
     </div>
   </Collapsible>

@@ -84,11 +84,12 @@ const breakpointFields: Array<Field> = [
           description="The target container where the panel will be rendered. Must be a string query selector."
           required
         />
-        <input type="text" v-model="teleport.target" />
+        <input type="text" v-model="teleport.target" aria-label="Target" />
       </div>
     </div>
     <div class="flex items-center mt-4">
       <input
+        aria-label="Show Header"
         type="checkbox"
         v-model="teleport.showHeader"
         :checked="teleport.showHeader !== false"
@@ -104,6 +105,7 @@ const breakpointFields: Array<Field> = [
         type="checkbox"
         v-model="teleport.showAppbarButton"
         :checked="teleport.showAppbarButton !== false"
+        aria-label="Show Appbar Button"
       />
       <InputHeader
         title="Show Appbar Button"

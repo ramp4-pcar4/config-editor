@@ -180,6 +180,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
           class="bg-black hover:bg-gray-800 p-1 text-white flex-shrink-0 flex items-center justify-center"
           :class="updatedLegend ? 'cursor-default' : 'cursor-pointer'"
           @click="updateLegend"
+          :aria-label="updatedLegend ? 'Updated Legend!' : 'Autopopulate Legend'"
         >
           <svg
             v-if="updatedLegend"
@@ -225,6 +226,8 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
           <button
             v-if="!updatedLegend"
             content="Updates the legend by creating entries in the top root level for any layers 
+            that do not have one and removing entries for layers not present in the layers config."
+            aria-label="Updates the legend by creating entries in the top root level for any layers 
             that do not have one and removing entries for layers not present in the layers config."
             v-tippy="{
               trigger: 'click focus'
@@ -273,7 +276,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
         <template #item="{ element, index }">
           <Collapsible :thick-border="true">
             <template #header>
-              <button class="cursor-move handle mr-1 sm:mr-5" @click.stop>
+              <button class="cursor-move handle mr-1 sm:mr-5" @click.stop aria-label="Reorder">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -289,7 +292,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                   />
                 </svg>
               </button>
-              <button class="mr-1 sm:mr-5">
+              <button class="mr-1 sm:mr-5" :aria-label="expanded[index] ? 'Collapse' : 'Expand'">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="20"
@@ -304,7 +307,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                 element.id ? element.id : `Layer ${index + 1}`
               }}</span>
               <div class="flex ml-auto">
-                <button @click.stop="removeLayer(index)" class="mr-1">
+                <button @click.stop="removeLayer(index)" class="mr-1" aria-label="Remove">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -325,6 +328,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     @click.stop="reorderLayer(index, -1)"
                     :disabled="index === 0"
                     class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                    aria-label="Move up"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -345,6 +349,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     @click.stop="reorderLayer(index, 1)"
                     :disabled="index === store.configs[store.editingLang].layers.length - 1"
                     class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                    aria-label="Move down"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -368,7 +373,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
               <div class="input-table mt-5">
                 <div>
                   <input-header title="Type" required />
-                  <select v-model="element.layerType">
+                  <select v-model="element.layerType" aria-label="Type">
                     <option v-for="option in typeOptions" :key="option.value" :value="option.value">
                       {{ option.text }}
                     </option>
@@ -382,6 +387,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     required
                   />
                   <input
+                    aria-label="ID"
                     type="text"
                     :value="element.id"
                     @input="($event) => onLayerIdChange($event as InputEvent, index)"
@@ -389,7 +395,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                 </div>
                 <div>
                   <input-header title="Name" description="Display name of the layer." />
-                  <input type="text" v-model="element.name" />
+                  <input type="text" v-model="element.name" aria-label="Name" />
                 </div>
                 <div>
                   <input-header
@@ -397,7 +403,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     description="Service endpoint of the layer. Should match the layer type."
                     required
                   />
-                  <input type="text" v-model="element.url" />
+                  <input type="text" v-model="element.url" aria-label="URL" />
                 </div>
                 <div
                   v-if="
@@ -405,7 +411,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                   "
                 >
                   <input-header title="Name Field" description="Display field of the layer." />
-                  <input type="text" v-model="element.nameField" />
+                  <input type="text" v-model="element.nameField" aria-label="Name Field" />
                 </div>
                 <div
                   v-if="
@@ -417,7 +423,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     description="Field to be used for tooltips. If not present, the viewer will use name field, if
                   provided."
                   />
-                  <input type="text" v-model="element.tooltipField" />
+                  <input type="text" v-model="element.tooltipField" aria-label="Tooltip Field" />
                 </div>
                 <div
                   v-if="
@@ -437,6 +443,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     max="100"
                     v-model="element.refreshInterval"
                     placeholder="0"
+                    aria-label="Refresh Interval"
                   />
                 </div>
                 <div>
@@ -450,6 +457,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     min="0"
                     v-model="element.expectedDrawTime"
                     placeholder="10000"
+                    aria-label="Expected Draw Time"
                   />
                 </div>
                 <div>
@@ -463,6 +471,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     min="0"
                     v-model="element.expectedLoadTime"
                     placeholder="4000"
+                    aria-label="Expected Load Time"
                   />
                 </div>
                 <div>
@@ -471,7 +480,13 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     description="The time (in milliseconds) a layer can load for before entering the error state.
                   Zero allows perpetual loading."
                   />
-                  <input type="number" min="0" v-model="element.maxLoadTime" placeholder="20000" />
+                  <input
+                    type="number"
+                    min="0"
+                    v-model="element.maxLoadTime"
+                    placeholder="20000"
+                    aria-label="Max Load Time"
+                  />
                 </div>
                 <div
                   v-if="
@@ -484,7 +499,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Catalogue URL"
                     description="Catalogue url of the layer service. Currently not supported."
                   />
-                  <input type="text" v-model="element.catalogueUrl" />
+                  <input type="text" v-model="element.catalogueUrl" aria-label="Catalogue URL" />
                 </div>
                 <div
                   v-if="
@@ -497,32 +512,44 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Colour"
                     description="The hex code representing the layer symbology colour."
                   />
-                  <input type="text" v-model="element.colour" />
+                  <input type="text" v-model="element.colour" aria-label="Colour" />
                 </div>
                 <div v-if="element.layerType === LayerType.CSV">
                   <input-header title="Lat Field" description="The latitude field of the layer." />
-                  <input type="text" v-model="element.latField" />
+                  <input type="text" v-model="element.latField" aria-label="Lat Field" />
                 </div>
                 <div v-if="element.layerType === LayerType.CSV">
                   <input-header
                     title="Long Field"
                     description="The longitude field of the layer."
                   />
-                  <input type="text" v-model="element.longField" />
+                  <input type="text" v-model="element.longField" aria-label="Long Field" />
                 </div>
                 <div v-if="element.layerType !== LayerType.WMS">
                   <input-header
                     title="Mouse Tolerance"
                     description="Tolerance in pixels when determining if a feature was clicked."
                   />
-                  <input type="number" v-model="element.mouseTolerance" min="0" placeholder="5" />
+                  <input
+                    type="number"
+                    v-model="element.mouseTolerance"
+                    min="0"
+                    placeholder="5"
+                    aria-label="Mouse Tolerance"
+                  />
                 </div>
                 <div v-if="element.layerType !== LayerType.WMS">
                   <input-header
                     title="Touch Tolerance"
                     description="Tolerance in pixels when determining if a feature was tapped."
                   />
-                  <input type="number" v-model="element.touchTolerance" min="0" placeholder="15" />
+                  <input
+                    type="number"
+                    v-model="element.touchTolerance"
+                    min="0"
+                    placeholder="15"
+                    aria-label="Touch Tolerance"
+                  />
                 </div>
                 <div
                   v-if="
@@ -533,7 +560,11 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Initial Filtered Query"
                     description="Initial filter query to be applied to the layer. SQL WHERE clause format."
                   />
-                  <input type="text" v-model="element.initialFilteredQuery" />
+                  <input
+                    type="text"
+                    v-model="element.initialFilteredQuery"
+                    aria-label="Initial Filtered Query"
+                  />
                 </div>
                 <div
                   v-if="
@@ -544,7 +575,11 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Permanent Filtered Query"
                     description="Permanent filter query to be applied to the layer. Only passing data will be downloaded. SQL WHERE clause format."
                   />
-                  <input type="text" v-model="element.permanentFilteredQuery" />
+                  <input
+                    type="text"
+                    v-model="element.permanentFilteredQuery"
+                    aria-label="Permanent Filtered Query"
+                  />
                 </div>
                 <div
                   v-if="
@@ -555,7 +590,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Identify Mode"
                     description="Determines how features should be identified. By geometry, by symbol, or both."
                   />
-                  <select v-model="element.identifyMode">
+                  <select v-model="element.identifyMode" aria-label="Identify Mode">
                     <option
                       v-for="mode in Object.keys(LayerIdentifyMode)
                       .map((m) => (<any>LayerIdentifyMode)[m])
@@ -572,7 +607,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Image Format"
                     description="The format of the layer image output. Default service setting used if not supplied (usually png32)."
                   />
-                  <select v-model="element.imageFormat">
+                  <select v-model="element.imageFormat" aria-label="Image Format">
                     <option v-for="format in imgFormatOpts" :key="format" :value="format">
                       {{ format }}
                     </option>
@@ -591,6 +626,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     type="text"
                     :value="JSON.stringify(element.customRenderer)"
                     @input="e => element.customRenderer = JSON.parse((e.target as HTMLInputElement).value)"
+                    aria-label="Custom Renderer"
                   />
                 </div>
                 <div v-if="element.layerType === LayerType.GEOJSON">
@@ -602,6 +638,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     type="text"
                     :value="JSON.stringify(element.rawData)"
                     @input="e => element.rawData = JSON.parse((e.target as HTMLInputElement).value)"
+                    aria-label="Raw Data"
                   />
                 </div>
                 <div v-else-if="element.layerType === LayerType.CSV">
@@ -609,11 +646,15 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                     title="Raw Data"
                     description="Optional content to use as the layer source (instead of loading via the url property). CSV accepts string."
                   />
-                  <input type="text" v-model="element.rawData" />
+                  <input type="text" v-model="element.rawData" aria-label="Raw Data" />
                 </div>
               </div>
               <div v-if="element.layerType === LayerType.MAPIMAGE" class="flex items-center mt-4">
-                <input type="checkbox" v-model="element.singleEntryCollapse" />
+                <input
+                  type="checkbox"
+                  v-model="element.singleEntryCollapse"
+                  aria-label="Single Entry Collapse"
+                />
                 <InputHeader
                   title="Single Entry Collapse"
                   description="Indicates that the map image layer with a single layer entry should be rendered without the root group. Currently not supported."
@@ -621,7 +662,11 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                 />
               </div>
               <div v-if="element.layerType === LayerType.WFS" class="flex items-center mt-4">
-                <input type="checkbox" v-model="element.xyInAttribs" />
+                <input
+                  type="checkbox"
+                  v-model="element.xyInAttribs"
+                  aria-label="XY In Attributes"
+                />
                 <InputHeader
                   title="XY In Attributes"
                   description="Indicates if the point co-ords should be copied to the feature attributes. Ignored for lines and polygons."
@@ -636,7 +681,7 @@ const onLayerIdChange = (e: InputEvent, idx: number) => {
                 "
                 class="flex items-center mt-4"
               >
-                <input type="checkbox" v-model="element.caching" />
+                <input type="checkbox" v-model="element.caching" aria-label="Caching" />
                 <InputHeader
                   title="Caching"
                   description="Indicates whether to preserve the layer's raw data after initiation. If set to true, reloading will not refresh data from the server."
