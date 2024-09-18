@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { type PropType, reactive, watch } from 'vue';
 
-import InputHeader from '@/components/helpers/input-header.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
+import Input from '@/components/helpers/input.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import type { RampLayerStateConfig } from '@/definitions';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -12,9 +14,10 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
-const state = reactive<RampLayerStateConfig>({});
+const state = reactive<RampLayerStateConfig>(props.modelValue ?? {});
 
 watch(state, () => {
   emit('update:modelValue', Object.keys(state).length === 0 ? undefined : state);
@@ -22,63 +25,35 @@ watch(state, () => {
 </script>
 
 <template>
-  <Collapsible title="State">
-    <div>
-      <div class="flex items-center mb-4">
-        <input
-          type="checkbox"
-          v-model="state.visibility"
-          :checked="state.visibility !== false"
-          aria-label="Visibility"
-        />
-        <InputHeader
-          title="Visibility"
-          description="Initial visibility of layer on map."
-          type="checkbox"
-        />
-      </div>
-      <div class="flex items-center mb-4">
-        <input
-          type="checkbox"
-          v-model="state.identify"
-          :checked="state.identify !== false"
-          aria-label="Identify"
-        />
-        <InputHeader
-          title="Identify"
-          description="Specifies whether or not to allow identify requests."
-          type="checkbox"
-        />
-      </div>
-      <div class="flex items-center mb-4">
-        <input
-          type="checkbox"
-          v-model="state.hovertips"
-          :checked="state.hovertips !== false"
-          aria-label="Hovertips"
-        />
-        <InputHeader
-          title="Hovertips"
-          description="Specifies whether or not to disable hovertips."
-          type="checkbox"
-        />
-      </div>
-    </div>
-    <div class="input-table">
-      <div>
-        <InputHeader
-          title="Opacity"
-          description="Initial opacity value of layer. Must be a decimal value between 0 and 1."
-        />
-        <input
-          type="number"
-          v-model="state.opacity"
-          placeholder="1"
-          min="0"
-          max="1"
-          aria-label="Opacity"
-        />
-      </div>
+  <Collapsible :title="t('layer.state')">
+    <Checkbox
+      :title="t('layer.state.visibility.title')"
+      :description="t('layer.state.visibility.description')"
+      checked
+      v-model="state.visibility"
+    />
+    <Checkbox
+      :title="t('layer.state.identify.title')"
+      :description="t('layer.state.identify.description')"
+      checked
+      v-model="state.identify"
+    />
+    <Checkbox
+      :title="t('layer.state.hovertips.title')"
+      :description="t('layer.state.hovertips.description')"
+      checked
+      v-model="state.hovertips"
+    />
+    <div class="input-table mt-4">
+      <Input
+        :title="t('layer.state.opacity.title')"
+        :description="t('layer.state.opacity.description')"
+        type="number"
+        v-model="state.opacity"
+        placeholder="1"
+        min="0"
+        max="1"
+      />
     </div>
   </Collapsible>
 </template>

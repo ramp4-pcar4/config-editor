@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
 
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -11,6 +12,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const northArrow = reactive<any>(props.modelValue ?? {});
 
@@ -26,26 +28,18 @@ watch(northArrow, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="North Arrow"
-    description="Provides configuration to the north arrow fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('northArrow.title')" :description="t('northArrow.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Arrow Icon"
-          description="The graphical icon url/data url of the north arrow."
-        />
-        <input type="text" v-model="northArrow.arrowIcon" aria-label="Arrow Icon" />
-      </div>
-      <div>
-        <InputHeader
-          title="Pole Icon"
-          description="The graphical icon url/data url of the north pole that replaces north arrow when it's on north pole."
-        />
-        <input type="text" v-model="northArrow.poleIcon" aria-label="Pole Icon" />
-      </div>
+      <Input
+        :title="t('northArrow.arrowIcon.title')"
+        :description="t('northArrow.arrowIcon.description')"
+        v-model="northArrow.arrowIcon"
+      />
+      <Input
+        :title="t('northArrow.poleIcon.title')"
+        :description="t('northArrow.poleIcon.description')"
+        v-model="northArrow.poleIcon"
+      />
     </div>
   </Collapsible>
 </template>

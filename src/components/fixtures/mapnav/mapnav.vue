@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { reactive, ref, type PropType, watch } from 'vue';
+import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Select from '@/components/helpers/select.vue';
 
 import Items from '@/components/fixtures/mapnav/items.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -12,6 +14,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const mapnav = reactive<any>(props.modelValue ?? {});
 watch(mapnav, () => {
@@ -20,23 +23,18 @@ watch(mapnav, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Mapnav"
-    description="Provides configuration to the mapnav fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('mapnav.title')" :description="t('mapnav.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Zoom Option"
-          description="Specifies between zoom buttons or zoom sliders. The default is buttons."
-        />
-        <select v-model="mapnav.zoomOption" aria-label="Zoom Option">
-          <option value="all">All</option>
-          <option value="buttons">Buttons</option>
-          <option value="slider">Slider</option>
-        </select>
-      </div>
+      <Select
+        :title="t('mapnav.zoomOption.title')"
+        :description="t('mapnav.zoomOption.description')"
+        v-model="mapnav.zoomOption"
+        :options="[
+          { value: 'all', label: t('mapnav.zoomOption.all') },
+          { value: 'buttons', label: t('mapnav.zoomOption.buttons') },
+          { value: 'slider', label: t('mapnav.zoomOption.slider') }
+        ]"
+      />
     </div>
     <Items v-model="mapnav.items" />
   </Collapsible>

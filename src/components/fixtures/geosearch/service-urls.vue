@@ -2,6 +2,8 @@
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +12,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const serviceUrls = reactive<any>(props.modelValue ?? {});
 
@@ -31,27 +34,28 @@ watch(serviceUrls, () => {
 </script>
 
 <template>
-  <Collapsible
-    title="Service URLs"
-    description="Set of URLs for lookup services. Defaults align with GeoGratis APIs."
-  >
+  <Collapsible :title="t('geosearch.serviceUrls.title')" :description="t('geosearch.serviceUrls.description')">
     <div class="input-table">
-      <div>
-        <InputHeader title="Geo Names" description="Endpoint URL for Geo Names service." />
-        <input type="text" v-model="serviceUrls.geoNames" aria-label="Geo Names" />
-      </div>
-      <div>
-        <InputHeader title="Geo Location" description="Endpoint URL for Geo Location service." />
-        <input type="text" v-model="serviceUrls.geoLocation" aria-label="Geo Location" />
-      </div>
-      <div>
-        <InputHeader title="Geo Province" description="Endpoint url for Geo Province service." />
-        <input type="text" v-model="serviceUrls.geoProvince" aria-label="Geo Province" />
-      </div>
-      <div>
-        <InputHeader title="Geo Types" description="Endpoint URL for Geo Types service." />
-        <input type="text" v-model="serviceUrls.geoTypes" aria-label="Geo Types" />
-      </div>
+      <Input
+        :title="t('geosearch.serviceUrls.geoNames.title')"
+        :description="t('geosearch.serviceUrls.geoNames.description')"
+        v-model="serviceUrls.geoNames"
+      />
+      <Input
+        :title="t('geosearch.serviceUrls.geoLocation.title')"
+        :description="t('geosearch.serviceUrls.geoLocation.description')"
+        v-model="serviceUrls.geoLocation"
+      />
+      <Input
+        :title="t('geosearch.serviceUrls.geoProvince.title')"
+        :description="t('geosearch.serviceUrls.geoProvince.description')"
+        v-model="serviceUrls.geoProvince"
+      />
+      <Input
+        :title="t('geosearch.serviceUrls.geoTypes.title')"
+        :description="t('geosearch.serviceUrls.geoTypes.description')"
+        v-model="serviceUrls.geoTypes"
+      />
     </div>
   </Collapsible>
 </template>

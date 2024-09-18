@@ -2,6 +2,7 @@
 import List from '@/components/helpers/list.vue';
 import type { Field } from '@/definitions';
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 let layers = reactive<Array<any>>(props.modelValue ?? []);
 
@@ -34,16 +36,15 @@ watch(layers, () => {
 const itemFields: Array<Field> = [
   {
     property: 'layerId',
-    title: 'Layer ID',
-    description: 'The layer ID.',
+    title: 'grid.mergeGrid.layer.layerId.title',
+    description: 'grid.mergeGrid.layer.layerId.description',
     type: 'string',
     required: true
   },
   {
     property: 'sublayers',
-    title: 'Sublayers',
-    description:
-      'The IDs of the sublayers when the provided layer is a map image layer. Must be a comma-separated list of integers.',
+    title: 'grid.mergeGrid.layer.sublayers.title',
+    description: 'grid.mergeGrid.layer.sublayers.description',
     type: 'array'
   }
 ];
@@ -53,8 +54,10 @@ const itemFields: Array<Field> = [
   <List
     v-model="layers"
     :item-fields="itemFields"
-    title="Layers"
-    description="A collection of the layers present in the grid."
-    add-prompt="Add layer"
+    :title="t('grid.mergeGrid.layers.title')"
+    :description="t('grid.mergeGrid.layers.description')"
+    :add-prompt="t('grid.mergeGrid.layers.add')"
+    :remove-prompt="t('grid.mergeGrid.layers.remove')"
+    :singular="t('grid.mergeGrid.layers.singular')"
   />
 </template>

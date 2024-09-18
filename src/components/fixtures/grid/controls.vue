@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { reactive, type PropType, watch, computed } from 'vue';
 import List from '@/components/helpers/list.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Select from '@/components/helpers/select.vue';
+import Input from '@/components/helpers/input.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,10 +12,11 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let controls = reactive<Array<any>>(
-  props.modelValue?.map((control) => {
+  props.modelValue?.map(control => {
     if (typeof control === 'object') {
       control.type = 'custom';
       return control;
@@ -27,15 +30,13 @@ const addControl = () => {
   controls.push({ type: 'custom' });
 };
 
-const isDefault = computed<boolean>(
-  () => controls.length === 2 && zoomIdx.value !== -1 && detailsIdx.value !== -1
-);
+const isDefault = computed<boolean>(() => controls.length === 2 && zoomIdx.value !== -1 && detailsIdx.value !== -1);
 
-const zoomIdx = computed<number>(() => controls.findIndex((c) => c.type === 'zoom'));
-const detailsIdx = computed<number>(() => controls.findIndex((c) => c.type === 'details'));
+const zoomIdx = computed<number>(() => controls.findIndex(c => c.type === 'zoom'));
+const detailsIdx = computed<number>(() => controls.findIndex(c => c.type === 'details'));
 
 watch(controls, () => {
-  controls.forEach((control) => {
+  controls.forEach(control => {
     if (control.type !== 'custom') {
       delete control.actionEvent;
       delete control.icon;
@@ -64,64 +65,63 @@ watch(controls, () => {
   <List
     v-model="controls"
     :add="addControl"
-    title="Controls"
-    description="Which action buttons to display for each rows. Pre-defined strings are 'zoom' and 'details'. Other entries may be an object containing an event name, an icon and a tooltip."
-    add-prompt="Add control"
+    :title="t('grid.mergeGrid.options.controls.title')"
+    :description="t('grid.mergeGrid.options.controls.description')"
+    :add-prompt="t('grid.mergeGrid.options.controls.add')"
+    :remove-prompt="t('grid.mergeGrid.options.controls.remove')"
+    :singular="t('grid.mergeGrid.options.controls.singular')"
     custom-only
   >
     <template #item="{ element, index }">
       <div class="input-table">
-        <div>
-          <InputHeader
-            title="Control Type"
-            description="Either 'zoom' or 'details', the default grid buttons, or 'custom'. Note that the default grid buttons can only be selected once."
-            required
-          />
-          <select v-model="controls[index].type" aria-label="Control Type">
-            <option v-if="zoomIdx === index || zoomIdx === -1" value="zoom">Zoom</option>
-            <option v-if="detailsIdx === index || detailsIdx === -1" value="details">
-              Details
-            </option>
-            <option value="custom">Custom</option>
-          </select>
-        </div>
+        <Select
+          :title="t('grid.mergeGrid.options.control.type.title')"
+          :description="t('grid.mergeGrid.options.control.type.description')"
+          required
+          v-model="controls[index].type"
+          :options="
+            (zoomIdx === index || zoomIdx === -1
+              ? [{ value: 'zoom', label: t('grid.mergeGrid.options.control.type.zoom') }]
+              : []
+            ).concat(
+              detailsIdx === index || detailsIdx === -1
+                ? [{ value: 'details', label: t('grid.mergeGrid.options.control.type.details') }]
+                : [],
+              [{ value: 'custom', label: t('grid.mergeGrid.options.control.type.custom') }]
+            )
+          "
+        />
       </div>
-      <p class="mt-1">
-        ⚠️ Warning! Changing the control type from custom to zoom or details will result in custom
-        properties being erased.
-      </p>
+      <p class="mt-1">⚠️ {{ t('grid.mergeGrid.options.control.type.warning') }}</p>
       <div class="mt-4 input-table" v-if="controls[index].type === 'custom'">
-        <div>
-          <InputHeader
-            title="Action Event"
-            description="The name of the event to raise when the button is clicked."
-            required
-          />
-          <input type="text" v-model="controls[index].actionEvent" aria-label="Action Event" />
-        </div>
-        <div>
-          <InputHeader title="Icon" description="The icon to display for the button." required />
-          <input type="text" v-model="controls[index].icon" aria-label="Icon" />
-        </div>
-        <div>
-          <InputHeader
-            title="Tooltip"
-            description="The tooltip to display when the button is hovered."
-            required
-          />
-          <input type="text" v-model="controls[index].tooltip" aria-label="Tooltip" />
-        </div>
-        <div>
-          <InputHeader
-            title="Display On"
-            description="Which layer format this button should appear for."
-          />
-          <select v-model="controls[index].displayOn" aria-label="Display On">
-            <option value="all">All</option>
-            <option value="geo">Map Layers</option>
-            <option value="data">Data Layers</option>
-          </select>
-        </div>
+        <Input
+          v-model="controls[index].actionEvent"
+          :title="t('grid.mergeGrid.options.control.actionEvent.title')"
+          :description="t('grid.mergeGrid.options.control.actionEvent.description')"
+          required
+        />
+        <Input
+          v-model="controls[index].icon"
+          :title="t('grid.mergeGrid.options.control.icon.title')"
+          :description="t('grid.mergeGrid.options.control.icon.description')"
+          required
+        />
+        <Input
+          v-model="controls[index].tooltip"
+          :title="t('grid.mergeGrid.options.control.tooltip.title')"
+          :description="t('grid.mergeGrid.options.control.tooltip.description')"
+          required
+        />
+        <Select
+          v-model="controls[index].displayOn"
+          :title="t('grid.mergeGrid.options.control.displayOn.title')"
+          :description="t('grid.mergeGrid.options.control.displayOn.description')"
+          :options="[
+            { value: 'all', label: t('grid.mergeGrid.options.control.displayOn.all') },
+            { value: 'geo', label: t('grid.mergeGrid.options.control.displayOn.geo') },
+            { value: 'data', label: t('grid.mergeGrid.options.control.displayOn.data') }
+          ]"
+        />
       </div>
     </template>
   </List>

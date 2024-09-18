@@ -2,6 +2,7 @@
 import { type PropType, reactive, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
 import type { Field } from '@/definitions';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let styleLegends = reactive<Array<{ name: string; url: string }>>(props.modelValue ?? []);
@@ -23,15 +25,15 @@ const itemFields: Array<Field> = [
     type: 'string',
     property: 'name',
     required: true,
-    title: 'Name',
-    description: 'The name of the style.'
+    title: 'layer.styleLegend.name.title',
+    description: 'layer.styleLegend.name.description'
   },
   {
     type: 'string',
     property: 'url',
     required: true,
-    title: 'URL',
-    description: 'The URL to the legend graphic.'
+    title: 'layer.styleLegend.url.title',
+    description: 'layer.styleLegend.url.description'
   }
 ];
 </script>
@@ -40,8 +42,9 @@ const itemFields: Array<Field> = [
   <List
     v-model="styleLegends"
     :item-fields="itemFields"
-    title="Style Legends"
-    add-prompt="Add style legend"
-    description="List of map of all styles to legend graphic URL for layer entry in the WMS. Overrides the URLs from the WMS service. Mappings to non-default styles are currently not supported."
+    :title="t('layer.styleLegends.title')"
+    :add-prompt="t('layer.styleLegends.add')"
+    :remove-prompt="t('layer.styleLegends.remove')"
+    :description="t('layer.styleLegends.description')"
   />
 </template>

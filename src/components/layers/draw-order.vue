@@ -3,6 +3,7 @@ import { type PropType, reactive, watch } from 'vue';
 
 import List from '@/components/helpers/list.vue';
 import type { DrawOrder, Field } from '@/definitions';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -15,20 +16,20 @@ const itemFields: Array<Field> = [
   {
     type: 'string',
     property: 'field',
-    title: 'Field',
-    description: 'Layer field name contianing the value to order by.',
+    title: 'layer.drawOrder.field.title',
+    description: 'layer.drawOrder.field.description',
     required: true
   },
   {
     type: 'boolean',
     property: 'ascending',
-    title: 'Ascending',
-    description:
-      'Direction to order in. True means smaller values are on top of larger values. False is the opposite.',
+    title: 'layer.drawOrder.ascending.title',
+    description: 'layer.drawOrder.ascending.description',
     required: true
   }
 ];
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let drawOrder = reactive<Array<DrawOrder>>(props.modelValue ?? []);
@@ -42,8 +43,9 @@ watch(drawOrder, () => {
   <List
     v-model="drawOrder"
     :item-fields="itemFields"
-    title="Draw Order"
-    add-prompt="Add draw order"
-    description="Attribute fields used to control drawing order on the map for vector features. Note ESRI currently only supports one field."
+    :title="t('layer.drawOrder.title')"
+    :add-prompt="t('layer.drawOrder.add')"
+    :remove-prompt="t('layer.drawOrder.remove')"
+    :description="t('layer.drawOrder.description')"
   />
 </template>

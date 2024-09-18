@@ -7,6 +7,7 @@ import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import VueTippy from 'vue-tippy';
 import { useStore } from '@/store';
 import merge from 'deepmerge';
+import { I18n } from 'vue-i18n';
 
 class API {
   readonly $vApp: ComponentPublicInstance;
@@ -105,6 +106,14 @@ class API {
   getOptions(): RampOptions {
     // @ts-ignore seriously ts
     return useStore(this.$vApp.$pinia).options;
+  }
+
+
+  setLanguage(newLang: string) {
+    if (newLang !== 'en' && newLang !== 'fr') {
+      console.error('RAMP4 Config Editor only supports English and French.')
+    }
+    i18n.global.locale.value = newLang
   }
 }
 

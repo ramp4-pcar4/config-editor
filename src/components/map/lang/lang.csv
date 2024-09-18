@@ -1,0 +1,131 @@
+key,enValue,enValid,frValue,frValid
+map.initialBasemapId.title,Initial Basemap ID,1,,0
+map.initialBasemapId.description,"Initial basemap to load. If not supplied, viewer will select the first basemap in the basemaps list.",1,,0
+map.pointZoomScale.title,Point Zoom Scale,1,,0
+map.pointZoomScale.description,The zoom level when zooming to a point feature (e.g. when using the zoom button in the datagrid). Must be a positive integer.,1,,0
+map.mapMouseThrottle.title,Map Mouse Throttle,1,,0
+map.mapMouseThrottle.description,The amount of throttling (in milliseconds) to be used for the map mouse move event. A value of 0 means no throttle.,1,,0
+basemaps.title,Basemaps,1,,0
+basemaps.description,The list of basemaps to be made available via the basemap selector. Minimum one is required.,1,,0
+basemaps.description.overview,"Key-value dictionary where the key is the tile schema id and the value is the basemap. When duplicate tile schema id's are provided, the latest entry will be used.",1,,0
+basemaps.add,Add basemap,1,,0
+basemaps.remove,Remove basemap,1,,0
+basemaps.singular,Basemap,1,,0
+basemap.tileSchemaId.title,Tile Schema ID,1,,0
+basemap.tileSchemaId.description,The tile schema associated with this basemap.,1,,0
+basemap.id.title,ID,1,,0
+basemap.id.description,A unique id identifying the basemap.,1,,0
+basemap.name.title,Name,1,,0
+basemap.name.description,Name of the basemap used for labeling.,1,,0
+basemap.description.title,Description,1,,0
+basemap.description.description,Description of the basemap. Becomes visible when basemap selector is expanded.,1,,0
+basemap.altText.title,Alt Text,1,,0
+basemap.altText.description,Alt text for the basemap thumbnail image.,1,,0
+basemap.backgroundColour.title,Background Colour,1,,0
+basemap.backgroundColour.description,The hex code representing the background colour of the basemap.,1,,0
+basemap.thumbnailUrl.title,Thumbnail URL,1,,0
+basemap.thumbnailUrl.description,Path to image file to display in the basemap selector.,1,,0
+basemap.hideThumbnail.title,Hide Thumbnail,1,,0
+basemap.hideThumbnail.description,"When enabled, hides the basemap thumbnail image, leaving just the text component.",1,,0
+basemap.layers.title,Layers,1,,0
+basemap.layers.description,"A set of URLs which should be composited to form a basemap entry. Stacked in ascending order, i.e. the first layer sits at the bottom and the last layer at the top.",1,,0
+basemap.layers.add,Add layer,1,,0
+basemap.layers.remove,Remove layer,1,,0
+basemap.layers.singular,Layer,1,,0
+basemap.layer.id.title,ID,1,,0
+basemap.layer.id.description,A unique id identifying the basemap's layer.,1,,0
+basemap.layer.type.title,Type,1,,0
+basemap.layer.type.mapImage,Map Image,1,,0
+basemap.layer.type.esriTile,ESRI Tile,1,,0
+basemap.layer.type.osmTile,OSM Tile,1,,0
+basemap.layer.url.title,URL,1,,0
+basemap.layer.url.description,The basemap layer's URL.,1,,0
+basemap.layer.opacity.title,Opacity,1,,0
+basemap.layer.opacity.description,The basemap layer's opacity. Must be a number between 0 and 1.,1,,0
+basemap.attribution.title,Attribution,1,,0
+basemap.attribution.description,Custom attribution and logo for associated basemap when selected.,1,,0
+basemap.attribution.text.title,Text,1,,0
+basemap.attribution.text.description,Properties to help define attribution text.,1,,0
+basemap.attribution.text.value.title,Value,1,,0
+basemap.attribution.text.value.description,"Contains the attribution value. If empty, it will use copyright text from the server.",1,,0
+basemap.attribution.text.disabled.title,Disabled,1,,0
+basemap.attribution.text.disabled.description,Specifies if basemap attribution text is disabled.,1,,0
+basemap.attribution.logo.title,Logo,1,,0
+basemap.attribution.logo.description,Properties to help define attribution logo.,1,,0
+basemap.attribution.logo.value.title,Value,1,,0
+basemap.attribution.logo.value.description,URL for the image.,1,,0
+basemap.attribution.logo.altText.title,Alt Text,1,,0
+basemap.attribution.logo.altText.description,Alternate text for the image.,1,,0
+basemap.attribution.logo.link.title,Link,1,,0
+basemap.attribution.logo.link.description,URL to go to when image is clicked.,1,,0
+basemap.attribution.logo.disabled.title,Disabled,1,,0
+basemap.attribution.logo.disabled.description,Specifies if basemap attribution logo is disabled.,1,,0
+tileSchemas.title,Tile Schemas,1,,0
+tileSchemas.description,A unique combination of an LOD and an extent set (each basemap must fit into a tile schema).,1,,0
+tileSchemas.add,Add tile schema,1,,0
+tileSchemas.remove,Remove tile schema,1,,0
+tileSchemas.singular,Tile Schema,1,,0
+tileSchema.id.title,ID,1,,0
+tileSchema.id.description,A unique id identifying the tile schema.,1,,0
+tileSchema.name.title,Name,1,,0
+tileSchema.name.description,The name to display in the basemap selector for the set of basemaps referencing this schema.,1,,0
+tileSchema.extentSetId.title,Extent Set ID,1,,0
+tileSchema.extentSetId.description,Identification link to extent set data defined in map.extentSets.,1,,0
+tileSchema.lodSetId.title,Lod Set ID,1,,0
+tileSchema.lodSetId.description,Identification link to lod set data defined in map.lodSets.,1,,0
+tileSchema.thumbnailTileUrls.title,Thumbnail Tile URLs,1,,0
+tileSchema.thumbnailTileUrls.description,The comma separated list of two horizontally-adjacent tile URLs used to create the basemap thumbnail. URLs take the form of '/tile/LOD ID/VERTICAL TILE INDEX/HORIZONTAL TILE INDEX'.,1,,0
+lodSets.title,Lod Sets,1,,0
+lodSets.description,The levels of detail (zoom scales) available for the map.,1,,0
+lodSets.add,Add lod set,1,,0
+lodSets.remove,Remove lod set,1,,0
+lodSets.singular,Lod Set,1,,0
+lodSets.useDefaultLambert,Use default lambert lods,1,,0
+lodSets.useDefaultMercator,Use default mercator lods,1,,0
+lodSets.lods.title,Lods,1,,0
+lodSets.lods.description,Level of details for a tile schema (i.e. zoom scales).,1,,0
+lodSets.lods.add,Add lod,1,,0
+lodSets.lods.remove,Remove lod,1,,0
+lodSet.id.title,ID,1,,0
+lodSet.id.description,A unique id identifying the lod set.,1,,0
+lod.level,Level,1,,0
+lod.scale,Scale,1,,0
+lod.resolution,Resolution,1,,0
+extentSets.title,Extent Sets,1,,0
+extentSets.description,"The default, full and maximum extents of the map.",1,,0
+extentSets.add,Add extent set,1,,0
+extentSets.remove,Remove extent set,1,,0
+extentSets.singular,Extent Set,1,,0
+extentSet.id.title,ID,1,,0
+extentSet.id.description,A unique id identifying the extent set.,1,,0
+extentSet.default.title,Default,1,,0
+extentSet.default.description,The default (starting) extent.,1,,0
+extentSet.full.title,Full,1,,0
+extentSet.full.description,The full extent; default will be used if not supplied.,1,,0
+extentSet.maximum.title,Maximum,1,,0
+extentSet.maximum.description,The maximum extent; full or default extents will be used if not supplied.,1,,0
+caption.title,Caption,1,,0
+caption.description,Configuration for the components in the map caption bar,1,,0
+caption.coords.title,Map Coords,1,,0
+caption.coords.description,Configuration for mouse/crosshairs co-ords,1,,0
+caption.coords.formatter.title,Formatter,1,,0
+caption.coords.formatter.description,ID of the initial mouse point formatter,1,,0
+caption.coords.formatter.latLongDms,Latitude Longitude Degrees Minutes Seconds,1,,0
+caption.coords.formatter.latLongDd,Latitude Longitude Decimal Degrees,1,,0
+caption.coords.formatter.latLongDdm,Latitude Longitude Degrees Decimal Minutes,1,,0
+caption.coords.formatter.webMercator,Web Mercator,1,,0
+caption.coords.formatter.canadaAtlasLambert,Canada Atlas Lambert,1,,0
+caption.coords.formatter.utm,Universal Transverse Mercator,1,,0
+caption.coords.formatter.basemap,Active Basemap,1,,0
+caption.coords.disabled.title,Disabled,1,,0
+caption.coords.disabled.description,Specifies if map coordinates are disabled,1,,0
+caption.scaleBar.title,Scale Bar,1,,0
+caption.scaleBar.description,Configuration for scale bar,1,,0
+caption.scaleBar.imperialScale.title,Imperial Scale,1,,0
+caption.scaleBar.imperialScale.description,Specifies if the scale bar should use imperial scale units,1,,0
+caption.scaleBar.disabled.title,Disabled,1,,0
+caption.scaleBar.disabled.description,Specifies if the scale bar is disabled,1,,0
+caption.langToggle.title,Language Toggle,1,,0
+caption.langToggle.description,Configuration for language toggle,1,,0
+caption.langToggle.disabled.title,Disabled,1,,0
+caption.langToggle.disabled.description,Whether to disable language toggle within RAMP,1,,0

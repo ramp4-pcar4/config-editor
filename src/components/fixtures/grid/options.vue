@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import List from '@/components/helpers/list.vue';
+import Input from '@/components/helpers/input.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
+import Select from '@/components/helpers/select.vue';
 import Controls from '@/components/fixtures/grid/controls.vue';
 import type { Field } from '@/definitions';
 
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -22,6 +25,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const options = reactive<any>({
   ...props.modelValue,
@@ -46,55 +50,54 @@ const columnFields: Array<Field> = [
   {
     type: 'string',
     property: 'field',
-    title: 'Field',
-    description: 'Unique identifier for the column. Aligns with the layer field name.'
+    title: 'grid.mergeGrid.options.column.field.title',
+    description: 'grid.mergeGrid.options.column.field.description'
   },
   {
     type: 'string',
     property: 'title',
-    title: 'Title',
-    description: 'Column title, uses the layer column name or alias if missing.'
+    title: 'grid.mergeGrid.options.column.title.title',
+    description: 'grid.mergeGrid.options.column.title.description'
   },
   {
     type: 'number',
     property: 'width',
-    title: 'Width',
+    title: 'grid.mergeGrid.options.column.width.title',
     placeholder: '400',
     min: 0,
-    description: 'Specifies the column width in pixels.'
+    description: 'grid.mergeGrid.options.column.width.description'
   },
   {
     type: 'enum',
     property: 'sort',
-    title: 'Sort',
-    description:
-      'Specifies if column requires to be sorted, either in ascending, descending, or no order.',
+    title: 'grid.mergeGrid.options.column.sort.title',
+    description: 'grid.mergeGrid.options.column.sort.description',
     options: [
       {
         value: 'asc',
-        label: 'ascending'
+        label: 'grid.mergeGrid.options.column.sort.asc'
       },
       {
         value: 'desc',
-        label: 'descending'
+        label: 'grid.mergeGrid.options.column.sort.desc'
       },
       {
         value: 'none',
-        label: 'none'
+        label: 'grid.mergeGrid.options.column.sort.none'
       }
     ]
   },
   {
     type: 'boolean',
     property: 'visible',
-    title: 'Visible',
-    description: 'Specifies if the column is visible by default.'
+    title: 'grid.mergeGrid.options.column.visible.title',
+    description: 'grid.mergeGrid.options.column.visible.description'
   },
   {
     type: 'boolean',
     property: 'searchable',
-    title: 'Searchable',
-    description: 'Specifies if the column is searchable by default.'
+    title: 'grid.mergeGrid.options.column.searchable.title',
+    description: 'grid.mergeGrid.options.column.searchable.description'
   }
 ];
 
@@ -106,123 +109,91 @@ watch(options, () => {
 <template>
   <Collapsible :title="title" :description="description">
     <div class="input-table">
-      <div>
-        <InputHeader title="Title" description="Title of the datatable." />
-        <input type="text" v-model="options.title" aria-label="Title" />
-      </div>
-      <div>
-        <InputHeader
-          title="Search Filter"
-          description="Specifies the default filter to apply to a table (for global search)."
-        />
-        <input type="text" v-model="options.searchFilter" aria-label="Search Filter" />
-      </div>
-    </div>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="options.search"
-        :checked="options.search !== false"
-        aria-label="Search"
+      <Input
+        :title="t('grid.mergeGrid.options.title.title')"
+        :description="t('grid.mergeGrid.options.title.description')"
+        v-model="options.title"
       />
-      <InputHeader
-        title="Search"
-        description="Specifies if global search is enabled by default."
-        type="checkbox"
+      <Input
+        :title="t('grid.mergeGrid.options.searchFilter.title')"
+        :description="t('grid.mergeGrid.options.searchFilter.description')"
+        v-model="options.searchFilter"
       />
     </div>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="options.showFilter"
-        :checked="options.showFilter !== false"
-        aria-label="Show Filter"
-      />
-      <InputHeader
-        title="Show Filter"
-        description="Specifies if the column filters are displayed on table load."
-        type="checkbox"
-      />
-    </div>
-    <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.applyToMap" aria-label="Apply To Map" />
-      <InputHeader
-        title="Apply To Map"
-        description="Specifies if column filters are applied to the map by default."
-        type="checkbox"
-      />
-    </div>
-    <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="options.filterByExtent" aria-label="Filter By Extent" />
-      <InputHeader
-        title="Filter By Extent"
-        description="Specifies if the table should filter rows by extent by default."
-        type="checkbox"
-      />
-    </div>
+    <Checkbox
+      :title="t('grid.mergeGrid.options.search.title')"
+      :description="t('grid.mergeGrid.options.search.description')"
+      v-model="options.search"
+      checked
+    />
+    <Checkbox
+      :title="t('grid.mergeGrid.options.showFilter.title')"
+      :description="t('grid.mergeGrid.options.showFilter.description')"
+      v-model="options.showFilter"
+      checked
+    />
+    <Checkbox
+      :title="t('grid.mergeGrid.options.applyToMap.title')"
+      :description="t('grid.mergeGrid.options.applyToMap.description')"
+      v-model="options.applyToMap"
+    />
+    <Checkbox
+      :title="t('grid.mergeGrid.options.filterByExtent.title')"
+      :description="t('grid.mergeGrid.options.filterByExtent.description')"
+      v-model="options.filterByExtent"
+    />
     <Controls v-model="options.controls" />
     <List
       :add="addColumn"
       :remove="removeColumn"
       v-model="options.columns"
       :item-fields="columnFields"
-      title="Columns"
-      description="Specify how the columns (properties) of the table are defined. If a column is not present in the array, it will be shown using default values. If the property is not defined, all layer attributes will be shown using default values."
-      add-prompt="Add column"
+      :title="t('grid.mergeGrid.options.columns.title')"
+      :description="t('grid.mergeGrid.options.columns.description')"
+      :add-prompt="t('grid.mergeGrid.options.columns.add')"
+      :remove-prompt="t('grid.mergeGrid.options.columns.remove')"
+      :singular="t('grid.mergeGrid.options.columns.singular')"
     >
       <template #item="{ element }">
-        <Collapsible title="Filter">
+        <Collapsible :title="t('grid.mergeGrid.options.column.filter')">
           <div class="input-table">
-            <div>
-              <InputHeader
-                title="Type"
-                description="Specifies the filter type to use for a column. Defaults to being filtered as a string."
-              />
-              <select v-model="element.filter.type" aria-label="Type">
-                <option value="string" selected>string</option>
-                <option value="number">number</option>
-                <option value="date">date</option>
-                <option value="selector">selector</option>
-              </select>
-            </div>
-            <div v-if="element.filter.type === 'number' || element.filter.type === 'date'">
-              <InputHeader
-                title="Min"
-                description="Specifies the initial lower bound filter value for number or date types."
-              />
-              <input
-                :type="element.filter.type === 'number' ? 'number' : 'text'"
-                v-model="element.filter.min"
-                aria-label="Min"
-              />
-            </div>
-            <div v-if="element.filter.type === 'number' || element.filter.type === 'date'">
-              <InputHeader
-                title="Max"
-                description="Specifies the initial upper bound filter value for number or date types."
-              />
-              <input
-                :type="element.filter.type === 'number' ? 'number' : 'text'"
-                v-model="element.filter.max"
-                aria-label="Max"
-              />
-            </div>
-            <div v-else>
-              <InputHeader
-                title="Value"
-                description="Specifies the initial filter value for string or selector types."
-              />
-              <input type="text" v-model="element.filter.value" aria-label="Value" />
-            </div>
-          </div>
-          <div class="flex items-center mt-4">
-            <input type="checkbox" v-model="element.filter.static" aria-label="Static" />
-            <InputHeader
-              title="Static"
-              description="Specifies if column filter is modifiable."
-              type="checkbox"
+            <Select
+              :title="t('grid.mergeGrid.options.column.filter.type.title')"
+              :description="t('grid.mergeGrid.options.column.filter.type.description')"
+              v-model="element.filter.type"
+              :options="[
+                { value: 'string', label: t('grid.mergeGrid.options.column.filter.type.string') },
+                { value: 'number', label: t('grid.mergeGrid.options.column.filter.type.number') },
+                { value: 'date', label: t('grid.mergeGrid.options.column.filter.type.date') },
+                { value: 'selector', label: t('grid.mergeGrid.options.column.filter.type.selector') }
+              ]"
+            />
+            <Input
+              v-if="element.filter.type === 'number' || element.filter.type === 'date'"
+              :type="element.filter.type === 'number' ? 'number' : 'text'"
+              v-model="element.filter.min"
+              :title="t('grid.mergeGrid.options.column.filter.min.title')"
+              :description="t('grid.mergeGrid.options.column.filter.min.description')"
+            />
+            <Input
+              v-if="element.filter.type === 'number' || element.filter.type === 'date'"
+              :type="element.filter.type === 'number' ? 'number' : 'text'"
+              v-model="element.filter.max"
+              :title="t('grid.mergeGrid.options.column.filter.max.title')"
+              :description="t('grid.mergeGrid.options.column.filter.max.description')"
+            />
+            <Input
+              v-else
+              v-model="element.filter.value"
+              :title="t('grid.mergeGrid.options.column.filter.value.title')"
+              :description="t('grid.mergeGrid.options.column.filter.value.description')"
             />
           </div>
+          <Checkbox
+            v-model="element.filter.static"
+            :title="t('grid.mergeGrid.options.column.filter.static.title')"
+            :description="t('grid.mergeGrid.options.column.filter.static.description')"
+          />
         </Collapsible>
       </template>
     </List>

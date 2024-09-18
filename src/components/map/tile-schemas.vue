@@ -3,7 +3,9 @@ import { type PropType, reactive, watch } from 'vue';
 
 import type { Field, RampTileSchemaConfig } from '@/definitions';
 import List from '@/components/helpers/list.vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const props = defineProps({
   modelValue: {
     type: Object as PropType<Array<RampTileSchemaConfig>>,
@@ -16,7 +18,7 @@ const emit = defineEmits(['update:modelValue']);
 let tileSchemas = reactive<Array<RampTileSchemaConfig>>(props.modelValue ?? []);
 
 watch(tileSchemas, () => {
-  tileSchemas.forEach((ts) => {
+  tileSchemas.forEach(ts => {
     if (ts.thumbnailTileUrls && ts.thumbnailTileUrls.length === 0) {
       delete ts.thumbnailTileUrls;
     }
@@ -27,38 +29,36 @@ watch(tileSchemas, () => {
 const itemFields: Array<Field> = [
   {
     property: 'id',
-    title: 'ID',
-    description: 'A unique id identifying the tile schema.',
+    title: 'tileSchema.id.title',
+    description: 'tileSchema.id.description',
     type: 'string',
     required: true
   },
   {
     property: 'name',
-    title: 'Name',
-    description:
-      'The name to display in the basemap selector for the set of basemaps referencing this schema.',
+    title: 'tileSchema.name.title',
+    description: 'tileSchema.name.description',
     type: 'string',
     required: true
   },
   {
     property: 'extentSetId',
-    title: 'Extent Set ID',
-    description: 'Identification link to extent set data defined in map.extentSets.',
+    title: 'tileSchema.extentSetId.title',
+    description: 'tileSchema.extentSetId.description',
     type: 'string',
     required: true
   },
   {
     property: 'lodSetId',
-    title: 'Lod Set ID',
-    description: 'Identification link to lod set data defined in map.lodSets.',
+    title: 'tileSchema.lodSetId.title',
+    description: 'tileSchema.lodSetId.description',
     type: 'string',
     required: true
   },
   {
     property: 'thumbnailTileUrls',
-    title: 'Thumbnail Tile URLs',
-    description:
-      "The comma separated list of two horizontally-adjacent tile URLs used to create the basemap thumbnail. URLs take the form of '/tile/<LOD_ID>/<VERTICAL_TILE_INDEX>/<HORIZONTAL_TILE_INDEX>'.",
+    title: 'tileSchema.thumbnailTileUrls.title',
+    description: 'tileSchema.thumbnailTileUrls.description',
     type: 'array'
   }
 ];
@@ -69,9 +69,11 @@ const itemFields: Array<Field> = [
     top-level
     :item-fields="itemFields"
     v-model="tileSchemas"
-    title="Tile Schemas"
-    add-prompt="Add tile schema"
-    description="A unique combination of an LOD and an extent set (each basemap must fit into a tile schema)."
+    :title="t('tileSchemas.title')"
+    :add-prompt="t('tileSchemas.add')"
+    :remove-prompt="t('tileSchemas.remove')"
+    :singular="t('tileSchemas.singular')"
+    :description="t('tileSchemas.description')"
     required
   />
 </template>

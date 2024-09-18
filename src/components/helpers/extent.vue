@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
 import type { RampExtentConfig } from '@/definitions';
 import { ref, type PropType, onMounted, inject, watch } from 'vue';
 
 // @ts-ignore
 import { createInstance, geo } from 'ramp-pcar';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   title: {
@@ -28,6 +29,8 @@ const props = defineProps({
     }
   }
 });
+
+const { t } = useI18n();
 
 const rampConfig = {
   startingFixtures: ['appbar', 'basemap', 'mapnav', 'help'],
@@ -183,27 +186,22 @@ const saveExtent = () => {
 const rampInstance = ref<HTMLDivElement>();
 const emit = defineEmits(['update:modelValue']);
 
-const onInput = (e: Event) => {
+const onInput = (key: string, val: string) => {
   const newExtent = <any>props.modelValue;
-  const key = (e.target as HTMLInputElement).name;
-  const val = (e.target as HTMLInputElement).value;
 
   if (['xmin', 'xmax', 'ymin', 'ymax'].includes(key)) {
-    if (val === '') {
+    if (val === undefined) {
       delete newExtent[key];
     } else {
-      newExtent[key] = Number(val);
+      newExtent[key] = val;
     }
   } else {
     newExtent.spatialReference = newExtent.spatialReference ?? {};
-    if (val === '') {
+    if (val === undefined) {
       delete newExtent.spatialReference[key];
-    } else if (key === 'wkt') {
-      newExtent.spatialReference[key] = val;
     } else {
-      newExtent.spatialReference[key] = Number(val);
+      newExtent.spatialReference[key] = val;
     }
-
     if (Object.keys(newExtent.spatialReference).length === 0) {
       delete newExtent.spatialReference;
     }
@@ -216,94 +214,62 @@ const onInput = (e: Event) => {
 <template>
   <Collapsible :title="props.title" :required="required" :description="description">
     <div ref="rampInstance" class="w-full max-w-2xl h-96"></div>
-    <button @click="saveExtent" class="mt-2 bg-black text-white p-1 hover:bg-gray-800">
-      Set Map Extent As Config
-    </button>
+    <button @click="saveExtent" class="mt-2 bg-black text-white p-1 hover:bg-gray-800">{{ t('extent.save') }}</button>
     <div class="mt-4">
       <div class="input-table">
-        <div>
-          <input-header title="xmin" required />
-          <input
-            type="number"
-            name="xmin"
-            :value="props.modelValue?.xmin"
-            @input="onInput"
-            aria-label="xmin"
-          />
-        </div>
-        <div>
-          <input-header title="xmax" required />
-          <input
-            type="number"
-            name="xmax"
-            :value="props.modelValue?.xmax"
-            @input="onInput"
-            aria-label="xmax"
-          />
-        </div>
-        <div>
-          <input-header title="ymin" required />
-          <input
-            type="number"
-            name="ymin"
-            :value="props.modelValue?.ymin"
-            @input="onInput"
-            aria-label="ymin"
-          />
-        </div>
-        <div>
-          <input-header title="ymax" required />
-          <input
-            type="number"
-            name="ymax"
-            :value="props.modelValue?.ymax"
-            @input="onInput"
-            aria-label="ymax"
-          />
-        </div>
+        <Input
+          :title="t('extent.xmin')"
+          type="number"
+          required
+          :model-value="props.modelValue?.xmin"
+          @update:model-value="(val) => onInput('xmin', val)"
+        />
+        <Input
+          :title="t('extent.xmax')"
+          type="number"
+          required
+          :model-value="props.modelValue?.xmax"
+          @update:model-value="(val) => onInput('xmax', val)"
+        />
+        <Input
+          :title="t('extent.ymin')"
+          type="number"
+          required
+          :model-value="props.modelValue?.ymin"
+          @update:model-value="(val) => onInput('ymin', val)"
+        />
+        <Input
+          :title="t('extent.ymax')"
+          type="number"
+          required
+          :model-value="props.modelValue?.ymax"
+          @update:model-value="(val) => onInput('ymax', val)"
+        />
       </div>
-      <InputHeader
-        class="my-4"
-        type="header"
-        title="Spatial Reference"
-        description="Properties to help define map projection. One of the wkt, wkid, and latestWkid must be
-        specified."
-      />
-      <div class="input-table">
-        <div>
-          <input-header title="wkid" description="A well known ESRI id denoting a projection." />
-          <input
+      <Collapsible :title="t('extent.spatialReference.title')" :description="t('extent.spatialReference.description')">
+        <div class="input-table">
+          <Input
+            :title="t('extent.spatialReference.wkid.title')"
+            :description="t('extent.spatialReference.wkid.description')"
             type="number"
-            name="wkid"
-            :value="props.modelValue?.spatialReference?.wkid"
-            @input="onInput"
-            aria-label="wkid"
+            :model-value="props.modelValue?.spatialReference?.wkid"
+            @update:model-value="(val) => onInput('wkid', val)"
           />
-        </div>
-        <div>
-          <input-header
-            title="latestWkid"
-            description="A well known ESRI id denoting a projection."
-          />
-          <input
+          <Input
+            :title="t('extent.spatialReference.latestWkid.title')"
+            :description="t('extent.spatialReference.latestWkid.description')"
             type="number"
-            name="latestWkid"
-            :value="props.modelValue?.spatialReference?.latestWkid"
-            @input="onInput"
-            aria-label="latestWkid"
+            :model-value="props.modelValue?.spatialReference?.latestWkid"
+            @update:model-value="(val) => onInput('latestWkid', val)"
+          />
+          <Input
+            :title="t('extent.spatialReference.wkt.title')"
+            :description="t('extent.spatialReference.wkt.description')"
+            :model-value="props.modelValue?.spatialReference?.wkt"
+            @update:model-value="(val) => onInput('wkt', val)"
           />
         </div>
-        <div>
-          <input-header title="wkt" description="A well known type projection definition." />
-          <input
-            type="text"
-            name="wkt"
-            :value="props.modelValue?.spatialReference?.wkt"
-            @input="onInput"
-            aria-label="wkt"
-          />
-        </div>
-      </div>
+      </Collapsible>
     </div>
   </Collapsible>
 </template>

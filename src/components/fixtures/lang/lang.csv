@@ -1,0 +1,355 @@
+key,enValue,enValid,frValue,frValid
+teleport.title,Panel Teleport,1,,0
+teleport.description,Determines where to render the panel instead of its usual spot in the panel stack.,1,,0
+teleport.target.title,Target,1,,0
+teleport.target.description,The target container where the panel will be rendered. Must be a string query selector.,1,,0
+teleport.showHeader.title,Show Header,1,,0
+teleport.showHeader.description,Whether to show the panel header or not,1,,0
+teleport.showAppbarButton.title,Show Appbar Button,1,,0
+teleport.showAppbarButton.description,Whether to show the appbar button for the panel or not. Only applies to temporary appbar buttons.,1,,0
+teleport.breakpoints.title,Breakpoints,1,,0
+teleport.breakpoints.description,"An object of type className(string): minWidth(number) pairs. If you add duplicate class name(s), the latest entry will be used as the breakpoint. Only non-empty class names will be saved.",1,,0
+teleport.breakpoints.add,Add breakpoint,1,,0
+teleport.breakpoints.remove,Remove breakpoint,1,,0
+teleport.breakpoint.className.title,Class Name,1,,0
+teleport.breakpoint.className.description,The class that will be applied as a CSS class when the container width is greater than or equal to the breakpoint minWidth.,1,,0
+teleport.breakpoint.minWidth.title,Minimum Width,1,,0
+teleport.breakpoint.minWidth.description,The minimum width (in pixels) where the breakpoint will be applied.,1,,0
+panelWidth.title,Panel Width,1,,0
+panelWidth.description,Determines the width of the panel in pixels,1,,0
+appbar.title,Appbar,1,,0
+appbar.description,"Provides configuration to the appbar. If not supplied, default appbar controls (legend, geosearch, basemap) are displayed.",1,,0
+appbar.groups.title,Groups,1,,0
+appbar.groups.description,The groups that the appbar items will be split up over,1,,0
+appbar.groups.add,Add group,1,,0
+appbar.groups.remove,Remove group,1,,0
+appbar.groups.singular,Group,1,,0
+appbar.group.items.title,Items,1,,0
+appbar.group.items.description,Provides configuration to the items of this group,1,,0
+appbar.group.items.add,Add item,1,,0
+appbar.group.items.remove,Remove item,1,,0
+appbar.group.items.singular,Item,1,,0
+appbar.group.item.type,Type,1,,0
+appbar.group.item.type.panel,Linked to a panel,1,,0
+appbar.group.item.type.custom,Custom component,1,,0
+appbar.group.item.type.warning,Warning! Changing the item type will result in loss of current item config.,1,,0
+appbar.group.item.panelId.title,Panel ID,1,,0
+appbar.group.item.panelId.description,The ID of the panel that the appbar button will be linked to,1,,0
+appbar.group.item.id.title,ID,1,,0
+appbar.group.item.id.description,The ID of the custom component,1,,0
+appbar.group.item.componentId.title,Component Name,1,,0
+appbar.group.item.componentId.description,The name of the Vue component to render as the appbar button,1,,0
+aoi.title,Areas Of Interest,1,,0
+aoi.description,Provides configuration to the areas of interest fixture,1,,0
+aoi.areas.title,Areas,1,,0
+aoi.areas.description,The areas to be displayed in the areas of interest fixture,1,,0
+aoi.areas.add,Add area,1,,0
+aoi.areas.remove,Remove area,1,,0
+aoi.areas.singular,Area,1,,0
+aoi.area.title.title,Title,1,,0
+aoi.area.title.description,The title for this area of interest,1,,0
+aoi.area.thumbnail.title,Thumbnail,1,,0
+aoi.area.thumbnail.description,The URL or base64 for the image to be used as the thumbnail graphic for this area of interest,1,,0
+aoi.area.altText.title,Alt Text,1,,0
+aoi.area.altText.description,The alt text for the thumbnail,1,,0
+aoi.area.description.title,Description,1,,0
+aoi.area.description.description,The description blurb for this area of interest,1,,0
+aoi.area.extent.description,The map extent for this area of interest,1,,0
+basemap.title,Basemap,1,,0
+basemap.description,Provides configuration to the basemap fixture,1,,0
+details.title,Details,1,,0
+details.description,"Provides default template configuration to the details fixture. If not supplied, RAMP default templates wil be used.",1,,0
+details.templates.title,Templates,1,,0
+details.templates.description,Specifies a Vue component name to render as the default details template for each identify result format,1,,0
+details.templates.esri,ESRI,1,,0
+details.templates.text,Text,1,,0
+details.templates.image,Image,1,,0
+details.templates.html,HTML,1,,0
+details.templates.xml,XML,1,,0
+details.templates.json,JSON,1,,0
+export.title,Export,1,,0
+export.description,Provides configuration to the export fixture,1,,0
+export.fileName.title,File Name,1,,0
+export.fileName.description,The file name of the exported image,1,,0
+export.title.title,Title,1,,0
+export.title.description,Configuration for the title,1,,0
+export.title.value.title,Value,1,,0
+export.title.value.description,The value of the title text,1,,0
+export.map.title,Map,1,,0
+export.map.description,Configuration for the map,1,,0
+export.mapElements.title,Map Elements,1,,0
+export.mapElements.description,Configuration for the map elements,1,,0
+export.legend.title,Legend,1,,0
+export.legend.description,Configuration for the legend,1,,0
+export.legend.columnWidth.title,Column Width,1,,0
+export.legend.columnWidth.description,Value in pixels to be used as the column width for the exported legend,1,,0
+export.footnote.title,Footnote,1,,0
+export.footnote.description,Configuration for the footnote,1,,0
+export.footnote.value.title,Value,1,,0
+export.footnote.value.description,The value of the footnote text,1,,0
+export.timestamp.title,Timestamp,1,,0
+export.timestamp.description,Configuration for the timestamp,1,,0
+export.selected.title,Selected,1,,0
+export.selected.description,Indicates if this component is selected on startup,1,,0
+export.selectable.title,Selectable,1,,0
+export.selectable.description,Indicates if this component is selectable,1,,0
+geosearch.title,Geosearch,1,,0
+geosearch.description,Provides configuration to the geosearch fixture,1,,0
+geosearch.serviceUrls.title,Service URLs,1,,0
+geosearch.serviceUrls.description,Set of URLs for lookup services. Defaults align with GeoGratis APIs.,1,,0
+geosearch.serviceUrls.geoNames.title,Geo Names,1,,0
+geosearch.serviceUrls.geoNames.description,Endpoint URL for Geo Names service,1,,0
+geosearch.serviceUrls.geoLocation.title,Geo Location,1,,0
+geosearch.serviceUrls.geoLocation.description,Endpoint URL for Geo Location service,1,,0
+geosearch.serviceUrls.geoProvince.title,Geo Province,1,,0
+geosearch.serviceUrls.geoProvince.description,Endpoint URL for Geo Province service,1,,0
+geosearch.serviceUrls.geoTypes.title,Geo Types,1,,0
+geosearch.serviceUrls.geoTypes.description,Endpoint URL for Geo Types service,1,,0
+geosearch.settings.title,Settings,1,,0
+geosearch.settings.description,Various settings for the geosearch fixture,1,,0
+geosearch.settings.categories.title,Categories,1,,0
+geosearch.settings.categories.description,Comma separated  that filters the search results based on the type of the geographical names. Allowed values can be found here (if using the Canadian GeoNames Search Service API): http://geogratis.gc.ca/services/geoname/en/codes /concise. Street address type ('ADDR') is also valid.,1,,0
+geosearch.settings.sortOrder.title,Sort Order,1,,0
+geosearch.settings.sortOrder.description,Comma separated list indicating the sort order of the defined 'categories'. Any missing categories are appended to the bottom of the sorted list. The results can still be sorted through this option even if there are no categories being filtered.,1,,0
+geosearch.settings.maxResults.title,Max Results,1,,0
+geosearch.settings.maxResults.description,The maximum number of results to return per request. The Canadian GeoNames Search Service API has a 1000 search limit which will be used as an upper limit of results returned unless another service is being used with a higher limit.,1,,0
+geosearch.settings.officialOnly.title,Official Only,1,,0
+geosearch.settings.officialOnly.description,Whether to return only official names for the geographic names. Default is false which will return both official names and formerly official names.,1,,0
+geosearch.settings.disabledSearchTypes.title,Disabled Search Types,1,,0
+geosearch.settings.disabledSearchTypes.description,Disable specific types of searches,1,,0
+geosearch.settings.disabledSearchTypes.nts,NTS (National Topographic System),1,,0
+geosearch.settings.disabledSearchTypes.fsa,FSA (Forward Sortation Area),1,,0
+geosearch.settings.disabledSearchTypes.lat/lng,Latitude/Logitude,1,,0
+grid.title,Grid,1,,0
+grid.description,Provides configuration to the grid fixture,1,,0
+grid.mergeGrids.title,Merge Grids,1,,0
+grid.mergeGrids.description,"Provides specifications for merge grids. Can also be used to configure single-layer grids, but the 'gridOption' property within the layer configuration object is preferred.",1,,0
+grid.mergeGrids.add,Add merge grid,1,,0
+grid.mergeGrids.remove,Remove merge grid,1,,0
+grid.mergeGrids.singular,Grid,1,,0
+grid.mergeGrid.gridId.title,Grid ID,1,,0
+grid.mergeGrid.gridId.description,The unique ID of the grid,1,,0
+grid.mergeGrid.layers.title,Layers,1,,0
+grid.mergeGrid.layers.description,A collection of the layers present in the grid,1,,0
+grid.mergeGrid.layers.add,Add layer,1,,0
+grid.mergeGrid.layers.remove,Remove layer,1,,0
+grid.mergeGrid.layers.singular,Layer,1,,0
+grid.mergeGrid.layer.layerId.title,Layer ID,1,,0
+grid.mergeGrid.layer.layerId.description,The ID of a layer in the layers configuration,1,,0
+grid.mergeGrid.layer.sublayers.title,Sublayers,1,,0
+grid.mergeGrid.layer.sublayers.description,The indices of the sublayers when the provided layer is a map image layer. Must be a comma-separated list of integers.,1,,0
+grid.mergeGrid.fieldMap.title,Field Mappings,1,,0
+grid.mergeGrid.fieldMap.description,Defines mappings between layer fields for merging layers with varying column names,1,,0
+grid.mergeGrid.fieldMap.add,Add mapping,1,,0
+grid.mergeGrid.fieldMap.remove,Remove mapping,1,,0
+grid.mergeGrid.fieldMap.singular,Mapping,1,,0
+grid.mergeGrid.fieldMap.field.title,Field,1,,0
+grid.mergeGrid.fieldMap.field.description,The name of the field the column names are mapped to,1,,0
+grid.mergeGrid.fieldMap.sources.title,Sources,1,,0
+grid.mergeGrid.fieldMap.sources.description,The names of the columns that are mapped to the destination field. Must be a comma-separated list of strings.,1,,0
+grid.mergeGrid.options.title,Options,1,,0
+grid.mergeGrid.options.description,Optional properties configuration for the merge grid,1,,0
+grid.mergeGrid.options.title.title,Title,1,,0
+grid.mergeGrid.options.title.description,Title of the datatable,1,,0
+grid.mergeGrid.options.searchFilter.title,Search Filter,1,,0
+grid.mergeGrid.options.searchFilter.description,Specifies the default filter to apply to a table (for global search),1,,0
+grid.mergeGrid.options.search.title,Search,1,,0
+grid.mergeGrid.options.search.description,Specifies if global search is enabled by default,1,,0
+grid.mergeGrid.options.showFilter.title,Show Filter,1,,0
+grid.mergeGrid.options.showFilter.description,Specifies if the column filters are displayed on table load,1,,0
+grid.mergeGrid.options.applyToMap.title,Apply To Map,1,,0
+grid.mergeGrid.options.applyToMap.description,Specifies if column filters are applied to the map by default,1,,0
+grid.mergeGrid.options.filterByExtent.title,Filter By Extent,1,,0
+grid.mergeGrid.options.filterByExtent.description,Specifies if the table should filter rows by extent by default,1,,0
+grid.mergeGrid.options.controls.title,Controls,1,,0
+grid.mergeGrid.options.controls.description,"Which action buttons to display for each rows. Pre-defined strings are 'zoom' and 'details'. Other entries may be an object containing an event name, an icon and a tooltip.",1,,0
+grid.mergeGrid.options.controls.add,Add control,1,,0
+grid.mergeGrid.options.controls.remove,Remove control,1,,0
+grid.mergeGrid.options.controls.singular,Control,1,,0
+grid.mergeGrid.options.control.type.title,Type,1,,0
+grid.mergeGrid.options.control.type.description,"Either 'zoom' or 'details', the default grid buttons, or 'custom'. Note that the default grid buttons can only be selected once.",1,,0
+grid.mergeGrid.options.control.type.zoom,Zoom,1,,0
+grid.mergeGrid.options.control.type.details,Details,1,,0
+grid.mergeGrid.options.control.type.custom,Custom,1,,0
+grid.mergeGrid.options.control.type.warning,Warning! Changing the control type from custom to zoom or details will result in custom properties being erased.,1,,0
+grid.mergeGrid.options.control.actionEvent.title,Action Event,1,,0
+grid.mergeGrid.options.control.actionEvent.description,The name of the event to raise when the button is clicked,1,,0
+grid.mergeGrid.options.control.icon.title,Icon,1,,0
+grid.mergeGrid.options.control.icon.description,The icon to display for the button,1,,0
+grid.mergeGrid.options.control.tooltip.title,Tooltip,1,,0
+grid.mergeGrid.options.control.tooltip.description,The tooltip to display when the button is hovered,1,,0
+grid.mergeGrid.options.control.displayOn.title,Display On,1,,0
+grid.mergeGrid.options.control.displayOn.description,Which layer format this button should appear for,1,,0
+grid.mergeGrid.options.control.displayOn.all,All,1,,0
+grid.mergeGrid.options.control.displayOn.geo,Map Layers,1,,0
+grid.mergeGrid.options.control.displayOn.data,Data Layers,1,,0
+grid.mergeGrid.options.columns.title,Columns,1,,0
+grid.mergeGrid.options.columns.description,"Specify how the columns (properties) of the table are defined. If a column is not present in the array, it will be shown using default values. If the property is not defined, all layer attributes will be shown using default values.",1,,0
+grid.mergeGrid.options.columns.add,Add column,1,,0
+grid.mergeGrid.options.columns.remove,Remove column,1,,0
+grid.mergeGrid.options.columns.singular,Column,1,,0
+grid.mergeGrid.options.column.field.title,Field,1,,0
+grid.mergeGrid.options.column.field.description,Unique identifier for the column. Aligns with the layer field name.,1,,0
+grid.mergeGrid.options.column.title.title,Title,1,,0
+grid.mergeGrid.options.column.title.description,"Column title, uses the layer column name or alias if missing",1,,0
+grid.mergeGrid.options.column.width.title,Width,1,,0
+grid.mergeGrid.options.column.width.description,Specifies the column width in pixels,1,,0
+grid.mergeGrid.options.column.sort.title,Sort,1,,0
+grid.mergeGrid.options.column.sort.description,"Specifies if column requires to be sorted, either in ascending, descending, or no order",1,,0
+grid.mergeGrid.options.column.sort.asc,Ascending,1,,0
+grid.mergeGrid.options.column.sort.desc,Descending,1,,0
+grid.mergeGrid.options.column.sort.none,None,1,,0
+grid.mergeGrid.options.column.visible.title,Visible,1,,0
+grid.mergeGrid.options.column.visible.description,Specifies if the column is visible by default,1,,0
+grid.mergeGrid.options.column.searchable.title,Searchable,1,,0
+grid.mergeGrid.options.column.searchable.description,Specifies if the column is searchable by default,1,,0
+grid.mergeGrid.options.column.filter,Filter,1,,0
+grid.mergeGrid.options.column.filter.type.title,Type,1,,0
+grid.mergeGrid.options.column.filter.type.description,Specifies the filter type to use for a column. Defaults to being filtered as a string.,1,,0
+grid.mergeGrid.options.column.filter.type.string,String,1,,0
+grid.mergeGrid.options.column.filter.type.number,Number,1,,0
+grid.mergeGrid.options.column.filter.type.date,Date,1,,0
+grid.mergeGrid.options.column.filter.type.selector,Selector,1,,0
+grid.mergeGrid.options.column.filter.min.title,Min,1,,0
+grid.mergeGrid.options.column.filter.min.description,Specifies the initial lower bound filter value for number or date types,1,,0
+grid.mergeGrid.options.column.filter.max.title,Max,1,,0
+grid.mergeGrid.options.column.filter.max.description,Specifies the initial upper bound filter value for number or date types,1,,0
+grid.mergeGrid.options.column.filter.value.title,Value,1,,0
+grid.mergeGrid.options.column.filter.value.description,Specifies the initial filter value for string or selector types,1,,0
+grid.mergeGrid.options.column.filter.static.title,Static,1,,0
+grid.mergeGrid.options.column.filter.static.description,Specifies if column filter is modifiable,1,,0
+help.title,Help,1,,0
+help.description,Provides configuration to the help fixture,1,,0
+help.location.title,Location,1,,0
+help.location.description,"Relative path or URL to the help directory, which contains the help content and images. Markdown files must be named for the language they support, e.g. en.md, fr.md. Images must be placed in a subfolder named images.",1,,0
+hilight.title,Hilight,1,,0
+hilight.description,Provides configuration to the hilight fixture,1,,0
+hilight.mode.title,Mode,1,,0
+hilight.mode.description,The hilight mode to use. The default mode is glow.,1,,0
+hilight.mode.glow,Glow,1,,0
+hilight.mode.lift,Lift,1,,0
+hilight.mode.fog,Fog,1,,0
+hilight.mode.none,None,1,,0
+hilight.onOpacity.title,On Opacity,1,,0
+hilight.onOpacity.description,Opacity of the fog that obscures non-highlighted features when a feature is highlighted,1,,0
+hilight.offOpacity.title,Off Opacity,1,,0
+hilight.offOpacity.description,Opacity of the fog that obscures non-highlighted features when no feature is highlighted,1,,0
+layerReorder.title,Layer Reorder,1,,0
+layerReorder.description,Provides configuration to the layer reorder fixture,1,,0
+legend.title,Legend,1,,0
+legend.description,"Provides configuration to the legend fixture. If not supplied, a blank legend is displayed.",1,,0
+legend.root.title,Root,1,,0
+legend.root.description,Provides configuration to the legend's tree structure,1,,0
+legend.headerControls.title,Header Controls,1,,0
+legend.headerControls.description,All possible controls to show in the legend header,1,,0
+legend.headerControl.wizard,Wizard,1,,0
+legend.headerControl.layerReorder,Layer Reorder,1,,0
+legend.headerControl.groupToggle,Group Toggle,1,,0
+legend.headerControl.visibilityToggle,Visibility Toggle,1,,0
+legend.children.title,Children,1,,0
+legend.children.description,Provides configuration to the child legend items of this item,1,,0
+legend.children.add,Add child,1,,0
+legend.children.remove,Remove child,1,,0
+legend.children.singular,Child,1,,0
+legend.item.type,Type,1,,0
+legend.item.type.section,Section Item,1,,0
+legend.item.type.layer,Layer Item,1,,0
+legend.item.type.warning,Warning! Changing the item type will result in type-specific properties being deleted.,1,,0
+legend.item.name.title,Name,1,,0
+legend.item.name.description,"Title of the legend item. Defaults to layer name for layer items, undefined for section items.",1,,0
+legend.item.infoType.title,Info Type,1,,0
+legend.item.infoType.description,Type of custom content to display instead of the item name. Defaults to title.,1,,0
+legend.item.infoType.type.title,Title,1,,0
+legend.item.infoType.type.image,Image,1,,0
+legend.item.infoType.type.text,Text,1,,0
+legend.item.infoType.type.markdown,Markdown,1,,0
+legend.item.infoType.type.template,HTML Template,1,,0
+legend.item.content.title,Content,1,,0
+legend.item.content.description,"Custom content to display instead of item name - description of title/text, URL to image file, or HTML for template.",1,,0
+legend.item.layerId.title,Layer ID,1,,0
+legend.item.layerId.description,ID of a layer defined in the layers section of config that this layer item will be linked to,1,,0
+legend.item.sublayerIndex.title,Sublayer Index,1,,0
+legend.item.sublayerIndex.description,"Index of the sublayer to link this item to in the case of a map image layer. If not defined, will result in tree grow of the whole MIL. If group index defined, will result in tree grow of the specified group.",1,,0
+legend.item.coverIcon.title,Cover Icon,1,,0
+legend.item.coverIcon.description,Custom icon used to represent the layer item's symbology stack. Should be a URL to an image.,1,,0
+legend.item.description.title,Description,1,,0
+legend.item.description.description,Optional description displayed above the symbology stack when it is expanded,1,,0
+legend.item.symbologyRenderStyle.title,Symbology Render Style,1,,0
+legend.item.symbologyRenderStyle.description,"Describes how the symbology stack should be rendered. Icons makes the images icon-sized, images makes the images full-sized. Defaults to icons.",1,,0
+legend.item.symbologyRenderStyle.icons,Icons,1,,0
+legend.item.symbologyRenderStyle.images,Images,1,,0
+legend.item.hidden.title,Hidden,1,,0
+legend.item.hidden.description,Indicates that the legend item will be hidden from the UI,1,,0
+legend.item.expanded.title,Expanded,1,,0
+legend.item.expanded.description,Specifies if the legend item is expanded by default,1,,0
+legend.item.exclusive.title,Exclusive,1,,0
+legend.item.exclusive.description,Specifies that children of this item form an exclusive set,1,,0
+legend.item.symbologyExpanded.title,Symbology Expanded,1,,0
+legend.item.symbologyExpanded.description,Specifies if the symbology stack is expanded by default,1,,0
+legend.item.layerControls.title,Layer Controls,1,,0
+legend.item.layerControls.description,All possible controls to be enabled on the legend layer item. Defaults to controls defined in layer config if missing.,1,,0
+legend.item.disabledLayerControls.title,Disabled Layer Controls,1,,0
+legend.item.disabledLayerControls.description,All possible controls to be disabled on the legend layer item. Defaults to disabled controls defined in layer config if missing.,1,,0
+legend.item.controls.title,Controls,1,,0
+legend.item.controls.description,Controls whether to enable the expand toggle and visibility checkbox for the legend item,1,,0
+legend.item.disabledControls.title,Disabled Controls,1,,0
+legend.item.disabledControls.description,Controls whether to disable the expand toggle and visibility checkbox for the legend item,1,,0
+legend.item.control.visibilityButton,Visibility Button,1,,0
+legend.item.control.expandButton,Expand Button,1,,0
+legend.item.symbologyStack.title,Symbology Stack,1,,0
+legend.item.symbologyStack.description,A collection of image-label pairings making up a layer's symbology stack,1,,0
+legend.item.symbologyStack.add,Add symbol,1,,0
+legend.item.symbologyStack.remove,Remove symbol,1,,0
+legend.item.symbologyStack.singular,Symbol,1,,0
+legend.item.symbol.image.title,Image,1,,0
+legend.item.symbol.image.description,Either a data URL or a URL to a source that supports CORS headers,1,,0
+legend.item.symbol.text.title,Text,1,,0
+legend.item.symbol.text.description,Description of a layer feature,1,,0
+legend.item.symbol.sqlQuery.title,SQL Query,1,,0
+legend.item.symbol.sqlQuery.description,An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbology stack should cover all attributes for that layer.,1,,0
+mapnav.title,Mapnav,1,,0
+mapnav.description,Provides configuration to the mapnav fixture,1,,0
+mapnav.zoomOption.title,Zoom Option,1,,0
+mapnav.zoomOption.description,Specifies between zoom buttons or zoom sliders. The default is buttons. Currently not supported.,1,,0
+mapnav.zoomOption.all,All,1,,0
+mapnav.zoomOption.buttons,Buttons,1,,0
+mapnav.zoomOption.slider,Slider,1,,0
+mapnav.items.title,Items,1,,0
+mapnav.items.description,"Map navigation buttons to be displayed on the mapnav. These will be displayed in addition to the zoom buttons, which are always visible.",1,,0
+mapnav.item.home,Home,1,,0
+mapnav.item.fullscreen,Fullscreen,1,,0
+mapnav.item.geolocator,Geolocator,1,,0
+mapnav.item.help,Help,1,,0
+mapnav.item.basemap,Basemap,1,,0
+mapnav.item.geosearch,Geosearch,1,,0
+mapnav.item.legend,Legend,1,,0
+metadata.title,Metadata,1,,0
+metadata.description,Provides configuration to the metadata fixture,1,,0
+northArrow.title,North Arrow,1,,0
+northArrow.description,Provides configuration to the north arrow fixture,1,,0
+northArrow.arrowIcon.title,Arrow Icon,1,,0
+northArrow.arrowIcon.description,The graphical icon url/data url of the north arrow,1,,0
+northArrow.poleIcon.title,Pole Icon,1,,0
+northArrow.poleIcon.description,The graphical icon url/data url of the north pole that replaces the north arrow when it's on the north pole,1,,0
+overviewMap.title,Overview Map,1,,0
+overviewMap.description,Provides configuration to the scrollguard fixture,1,,0
+overviewMap.expandFactor.title,Expand Factor,1,,0
+overviewMap.expandFactor.description,The ratio of the overview map's extent size compared to the main map's extent size,1,,0
+overviewMap.borderColour.title,Border Colour,1,,0
+overviewMap.borderColour.description,The hex code representing the area rectangle border colour,1,,0
+overviewMap.borderWidth.title,Border Width,1,,0
+overviewMap.borderWidth.description,The pixel width of the area rectangle border,1,,0
+overviewMap.areaColour.title,Area Colour,1,,0
+overviewMap.areaColour.description,The hex code representing the area rectangle background colour,1,,0
+overviewMap.areaOpacity.title,Area Opacity,1,,0
+overviewMap.areaOpacity.description,The opacity value of the area rectangle. Accepts decimal values between 0 and 1.,1,,0
+overviewMap.startMinimized.title,Start Minimized,1,,0
+overviewMap.startMinimized.description,Specifies if the overview map is minimized on startup,1,,0
+scrollguard.title,Scrollguard,1,,0
+scrollguard.description,Provides configuration to the scrollguard fixture,1,,0
+scrollguard.enabled.title,Enabled,1,,0
+scrollguard.enabled.description,Specifies if the scrollguard is enabled on startup,1,,0
+settings.title,Settings,1,,0
+settings.description,Provides configuration to the settings fixture,1,,0
+wizard.title,Wizard,1,,0
+wizard.description,Provides configuration to the wizard fixture,1,,0

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type PropType, watch } from 'vue';
-
-import Collapsible from '@/components/helpers/collapsible.vue';
+import MultiSelect from '@/components/helpers/multi-select.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -14,18 +14,11 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 const allControls = ['visibilityButton', 'expandButton'];
-
-let controls = ref<Array<string>>(
-  props.modelValue ?? (props.disabled ? [] : JSON.parse(JSON.stringify(allControls)))
-);
-
-const valToLabel = (s: string) => {
-  const result = s.replace(/([A-Z])/g, ' $1');
-  return result.charAt(0).toUpperCase() + result.slice(1);
-};
+let controls = ref<Array<string>>(props.modelValue ?? (props.disabled ? [] : JSON.parse(JSON.stringify(allControls))));
 
 watch(controls, () => {
   emit(
@@ -42,23 +35,14 @@ watch(controls, () => {
 </script>
 
 <template>
-  <Collapsible
-    :title="disabled ? 'Disabled Controls' : 'Controls'"
-    :description="`Controls whether to ${
-      disabled ? 'disable' : 'enable'
-    }  the expand toggle and visibility checkbox for the legend item.`"
-  >
-    <div class="input-table">
-      <div class="flex items-center" v-for="ctrl in allControls">
-        <input
-          type="checkbox"
-          class="border-2 border-black cursor-pointer text-black mr-2"
-          :value="ctrl"
-          v-model="controls"
-          :aria-label="valToLabel(ctrl)"
-        />
-        <label>{{ valToLabel(ctrl) }}</label>
-      </div>
-    </div>
-  </Collapsible>
+  <MultiSelect
+    :title="disabled ? t('legend.item.disabledControls.title') : t('legend.item.controls.title')"
+    :description="disabled ? t('legend.item.disabledControls.description') : t('legend.item.controls.description')"
+    v-model="controls"
+    :options="
+      allControls.map((ctrl) => {
+        return { value: ctrl, label: t(`legend.item.control.${ctrl}`) };
+      })
+    "
+  />
 </template>

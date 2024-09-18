@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
 import List from '@/components/helpers/list.vue';
 import type { Field, PanelTeleportObject } from '@/definitions';
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -20,20 +23,21 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const teleport = reactive<PanelTeleportObject>(props.modelValue ?? {});
-let breakpoints = reactive<Array<{ className?: string; minWidth?: number }>>(
+let breakpoints = reactive<Array<{ className?: string; minWidth?: number | undefined }>>(
   props.modelValue?.breakpoints
-    ? Object.keys(props.modelValue.breakpoints).map((k) => {
+    ? Object.keys(props.modelValue.breakpoints).map(k => {
         return { className: k, minWidth: props.modelValue!.breakpoints![k] };
       })
     : []
 );
 
 watch(breakpoints, () => {
-  const newBreakpoints: { [key: string]: number } = {};
-  breakpoints.forEach((bp) => {
-    if (bp.className && bp.minWidth) {
+  const newBreakpoints: { [key: string]: number | undefined } = {};
+  breakpoints.forEach(bp => {
+    if (bp.className) {
       newBreakpoints![bp.className] = bp.minWidth;
     }
   });
@@ -46,22 +50,21 @@ watch(breakpoints, () => {
 });
 
 watch(teleport, () => {
-  emit('update:modelValue', teleport.target ? teleport : undefined);
+  emit('update:modelValue', teleport);
 });
 
 const breakpointFields: Array<Field> = [
   {
     property: 'className',
-    title: 'Class Name',
-    description:
-      'The class that will be applied as a CSS class when the container width is greater than or equal to the breakpoint minWidth.',
+    title: 'teleport.breakpoint.className.title',
+    description: 'teleport.breakpoint.className.description',
     type: 'string',
     required: true
   },
   {
     property: 'minWidth',
-    title: 'Minimum Width',
-    description: 'The minimum width (in pixels) where the breakpoint will be applied.',
+    title: 'teleport.breakpoint.minWidth.title',
+    description: 'teleport.breakpoint.minWidth.description',
     type: 'number',
     min: 0,
     required: true
@@ -70,55 +73,34 @@ const breakpointFields: Array<Field> = [
 </script>
 
 <template>
-  <Collapsible
-    :title="title ?? 'Panel Teleport'"
-    :description="
-      description ??
-      'Determines where to render the panel instead of its usual spot in the panel stack. Note that the target must be specified to save the configuration.'
-    "
-  >
+  <Collapsible :title="title ?? t('teleport.title')" :description="description ?? t('teleport.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Target"
-          description="The target container where the panel will be rendered. Must be a string query selector."
-          required
-        />
-        <input type="text" v-model="teleport.target" aria-label="Target" />
-      </div>
-    </div>
-    <div class="flex items-center mt-4">
-      <input
-        aria-label="Show Header"
-        type="checkbox"
-        v-model="teleport.showHeader"
-        :checked="teleport.showHeader !== false"
-      />
-      <InputHeader
-        title="Show Header"
-        description="Whether to show the panel header or not."
-        type="checkbox"
+      <Input
+        :title="t('teleport.target.title')"
+        :description="t('teleport.target.description')"
+        required
+        v-model="teleport.target"
       />
     </div>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="teleport.showAppbarButton"
-        :checked="teleport.showAppbarButton !== false"
-        aria-label="Show Appbar Button"
-      />
-      <InputHeader
-        title="Show Appbar Button"
-        description="Whether to show the appbar button for the panel or not. Only applies to temporary appbar buttons."
-        type="checkbox"
-      />
-    </div>
+    <Checkbox
+      :title="t('teleport.showHeader.title')"
+      :description="t('teleport.showHeader.description')"
+      checked
+      v-model="teleport.showHeader"
+    />
+    <Checkbox
+      :title="t('teleport.showAppbarButton.title')"
+      :description="t('teleport.showAppbarButton.description')"
+      checked
+      v-model="teleport.showAppbarButton"
+    />
     <List
       v-model="breakpoints"
       :item-fields="breakpointFields"
-      title="Breakpoints"
-      description="An object of type { className<string>: minWidth<number>} pairs. If you add duplicate class name(s), the latest entry will be used as the breakpoint. Only non-empty class names and minimum widths will be saved."
-      add-prompt="Add breakpoint"
+      :title="t('teleport.breakpoints.title')"
+      :description="t('teleport.breakpoints.description')"
+      :add-prompt="t('teleport.breakpoints.add')"
+      :remove-prompt="t('teleport.breakpoints.remove')"
     />
   </Collapsible>
 </template>

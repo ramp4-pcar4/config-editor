@@ -5,6 +5,7 @@ import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import List from '@/components/helpers/list.vue';
 import Extent from '@/components/helpers/extent.vue';
 import type { Field } from '@/definitions';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -13,6 +14,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const areasOfInterest = reactive<any>(props.modelValue ?? {});
 
@@ -30,51 +32,48 @@ watch(areasOfInterest, () => {
 const itemFields: Array<Field> = [
   {
     property: 'title',
-    title: 'Title',
-    description: 'The title for this area of interest.',
+    title: 'aoi.area.title.title',
+    description: 'aoi.area.title.description',
     type: 'string',
     required: true
   },
   {
     property: 'thumbnail',
-    title: 'Thumbnail',
-    description:
-      'The URL or base64 for the image to be used as the thumbnail graphic for this area of interest.',
+    title: 'aoi.area.thumbnail.title',
+    description: 'aoi.area.thumbnail.description',
     type: 'string'
   },
   {
     property: 'altText',
-    title: 'Alt Text',
-    description: 'The alt text for the thumbnail.',
+    title: 'aoi.area.altText.title',
+    description: 'aoi.area.altText.description',
     type: 'string'
   },
   {
     property: 'description',
-    title: 'Description',
-    description: 'The description blurb for this area of interest.',
+    title: 'aoi.area.description.title',
+    description: 'aoi.area.description.description',
     type: 'string'
   }
 ];
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Areas Of Interest"
-    description="Provides configuration to the areas of interest fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('aoi.title')" :description="t('aoi.description')">
     <PanelTeleport v-model="areasOfInterest.panelTeleport" />
     <List
       :item-fields="itemFields"
       v-model="areasOfInterest.areas"
-      title="Areas"
-      description="The areas to be displayed in the areas of interest fixture."
-      add-prompt="Add area"
+      :title="t('aoi.areas.title')"
+      :description="t('aoi.areas.description')"
+      :add-prompt="t('aoi.areas.add')"
+      :remove-prompt="t('aoi.areas.remove')"
+      :singular="t('aoi.areas.singular')"
     >
       <template #item="{ index }">
         <Extent
-          title="Extent"
-          description="The map extent for this area of interest."
+          :title="t('layer.extent')"
+          :description="t('aoi.area.extent.description')"
           required
           v-model="areasOfInterest.areas[index].extent"
         />

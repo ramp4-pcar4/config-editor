@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Basemaps from '@/components/map/basemaps.vue';
+import Input from '@/components/helpers/input.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
 
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -12,22 +14,21 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 let overviewMap = reactive<any>(props.modelValue ?? {});
 let basemaps = reactive<Array<any>>(
-  props.modelValue?.basemaps
-    ? Object.keys(props.modelValue?.basemaps).map((k) => props.modelValue?.basemaps[k])
-    : []
+  props.modelValue?.basemaps ? Object.keys(props.modelValue?.basemaps).map((k) => props.modelValue?.basemaps[k]) : []
 );
 
 const update = () => {
-  if (overviewMap.expandFactor === '') {
+  if (overviewMap.expandFactor === undefined) {
     delete overviewMap.expandFactor;
   }
-  if (overviewMap.borderWidth === '') {
+  if (overviewMap.borderWidth === undefined) {
     delete overviewMap.borderWidth;
   }
-  if (overviewMap.areaOpacity === '') {
+  if (overviewMap.areaOpacity === undefined) {
     delete overviewMap.areaOpacity;
   }
   if (!overviewMap.borderColour) {
@@ -57,88 +58,51 @@ watch(basemaps, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Overview Map"
-    description="Provides configuration to the overview map fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('overviewMap.title')" :description="t('overviewMap.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Expand Factor"
-          description="The ratio of the overview map's extent size compared to the main map's extent size"
-        />
-        <input
-          type="number"
-          v-model="overviewMap.expandFactor"
-          placeholder="1.5"
-          aria-label="Expand Factor"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Border Colour"
-          description="The hex code representing the area rectangle border colour."
-        />
-        <input
-          type="text"
-          v-model="overviewMap.borderColour"
-          placeholder="#FF0000"
-          aria-label="Border Colour"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Border Width"
-          description="The pixel width of the area rectangle border."
-        />
-        <input
-          type="number"
-          v-model="overviewMap.borderWidth"
-          placeholder="1"
-          aria-label="Border Width"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Area Colour"
-          description="The hex code representing the area rectangle colour."
-        />
-        <input
-          type="text"
-          v-model="overviewMap.areaColour"
-          placeholder="#000000"
-          aria-label="Area Colour"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Area Opacity"
-          description="The opacity value of the area rectangle. Accepts decimal values between 0 and 1."
-        />
-        <input
-          type="number"
-          v-model="overviewMap.areaOpacity"
-          min="0"
-          max="1"
-          placeholder="0.25"
-          aria-label="Area Opacity"
-        />
-      </div>
-    </div>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="overviewMap.startMinimized"
-        :checked="overviewMap.startMinimized !== false"
-        aria-label="Start Minimized"
+      <Input
+        type="number"
+        :title="t('overviewMap.expandFactor.title')"
+        :description="t('overviewMap.expandFactor.description')"
+        v-model="overviewMap.expandFactor"
+        placeholder="1.5"
       />
-      <InputHeader
-        title="Start Minimized"
-        description="Specifies if the overview map is minimized on startup."
-        type="checkbox"
+      <Input
+        :title="t('overviewMap.borderColour.title')"
+        :description="t('overviewMap.borderColour.description')"
+        v-model="overviewMap.borderColour"
+        placeholder="#FF0000"
+      />
+      <Input
+        type="number"
+        :title="t('overviewMap.borderWidth.title')"
+        :description="t('overviewMap.borderWidth.description')"
+        v-model="overviewMap.borderWidth"
+        min="0"
+        placeholder="1"
+      />
+      <Input
+        :title="t('overviewMap.areaColour.title')"
+        :description="t('overviewMap.areaColour.description')"
+        v-model="overviewMap.areaColour"
+        placeholder="#000000"
+      />
+      <Input
+        type="number"
+        :title="t('overviewMap.areaOpacity.title')"
+        :description="t('overviewMap.areaOpacity.description')"
+        v-model="overviewMap.areaOpacity"
+        min="0"
+        max="1"
+        placeholder="0.25"
       />
     </div>
+    <Checkbox
+      v-model="overviewMap.startMinimized"
+      checked
+      :title="t('overviewMap.startMinimized.title')"
+      :description="t('overviewMap.startMinimized.description')"
+    />
     <Basemaps v-model="basemaps" is-overview />
   </Collapsible>
 </template>

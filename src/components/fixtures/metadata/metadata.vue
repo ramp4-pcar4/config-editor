@@ -2,6 +2,7 @@
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const metadata = reactive<any>(props.modelValue ?? {});
 
@@ -19,11 +21,7 @@ watch(metadata, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Metadata"
-    description="Provides configuration to the metadata fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('metadata.title')" :description="t('metadata.description')">
     <PanelTeleport v-model="metadata.panelTeleport" />
   </Collapsible>
 </template>

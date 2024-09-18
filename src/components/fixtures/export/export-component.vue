@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { type PropType, watch, ref } from 'vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import { useI18n } from 'vue-i18n';
 
-// @ts-ignore
 const selectable = defineModel('selectable', { type: Boolean });
-// @ts-ignore
 const selected = defineModel('selected', { type: Boolean });
+
+const { t } = useI18n();
 
 defineProps({
   title: {
@@ -23,31 +24,17 @@ defineProps({
 <template>
   <Collapsible :title="title" :description="description">
     <slot></slot>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="selected"
-        :checked="selected != false"
-        aria-label="Selected"
-      />
-      <InputHeader
-        title="Selected"
-        description="Indicates if this component is selected on startup."
-        type="checkbox"
-      />
-    </div>
-    <div class="flex items-center mt-4">
-      <input
-        type="checkbox"
-        v-model="selectable"
-        :checked="selectable != false"
-        aria-label="Selectable"
-      />
-      <InputHeader
-        title="Selectable"
-        description="Indicates if this component is selectable."
-        type="checkbox"
-      />
-    </div>
+    <Checkbox
+      v-model="selected"
+      :title="t('export.selected.title')"
+      :description="t('export.selected.description')"
+      checked
+    />
+    <Checkbox
+      v-model="selectable"
+      :title="t('export.selectable.title')"
+      :description="t('export.selectable.description')"
+      checked
+    />
   </Collapsible>
 </template>

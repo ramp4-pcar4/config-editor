@@ -1,0 +1,48 @@
+key,enValue,enValid,frValue,frValid
+editor.title,RAMP4 Config Editor,1,,0
+editor.loading,Waiting for config...,1,,0
+editor.reorder,Drag to reorder,1,,0
+editor.down,Move down,1,,0
+editor.up,Move up,1,,0
+editor.expand,Toggle expand,1,,0
+navbar.startingFixtures,Starting Fixtures,1,,0
+navbar.configs,Configs,1,,0
+navbar.options,Options,1,,0
+navbar.preview,Preview,1,,0
+navbar.map,Map,1,,0
+navbar.layers,Layers,1,,0
+navbar.fixtures,Fixtures,1,,0
+navbar.panels,Panels,1,,0
+navbar.system,System,1,,0
+options.defaultEvents,Load default events,1,,0
+options.defaultFixtures,Load default fixtures,1,,0
+options.startRequired,Prevent initializing the map automatically,1,,0
+panels.reorderable.title,Reorderable,1,,0
+panels.reorderable.description,Enables panel reorder controls,1,,0
+panels.open.title,Open,1,,0
+panels.open.description,The panels to open on startup. Panels with props are currently not supported.,1,,0
+panels.open.add,Add panel,1,,0
+panels.open.remove,Remove panel,1,,0
+panels.open.id.title,Panel ID,1,,0
+panels.open.id.description,"ID of the panel to open. Out-of-the-box panel IDs that are supported: basemap, export, geosearch, help, layer-reorder, legend, notifications, and wizard.",1,,0
+panels.open.screen.title,Screen ID,1,,0
+panels.open.screen.description,ID of the screen of the panel to show.,1,,0
+panels.open.pin.title,Pin,1,,0
+panels.open.pin.description,Whether to pin the panel as well.,1,,0
+preview.note,Note:,1,,0
+preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere. You will need to go back to your config, check that all the values are correct, and then try previewing again. Until we come up with a vaildator that tells you where you messed up.",1,,0
+startingFixtures.input,Comma separated fixture IDs:,1,,0
+system.proxyUrl.title,Proxy URL,1,,0
+system.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers. Applies only to map services.,1,,0
+system.zoomIcon.title,Zoom Icon,1,,0
+system.zoomIcon.description,"Determines which icon to display for the zoom button in the grid and details panels. Can be 'globe', 'magnify', or a custom icon. Defaults to globe.",1,,0
+system.animate.title,Animate,1,,0
+system.animate.description,"Will enable visual animation when using the site, such as control transitions.",1,,0
+system.exposeOid.title,Expose OID,1,,0
+system.exposeOid.description,Determines whether or not to include a feature's object ID field when viewing data on the site (e.g. within the details panel when identifying a feature).,1,,0
+system.exposeMeasurements.title,Expose Measurements,1,,0
+system.exposeMeasurements.description,Determines whether or not to include a feature's Shape_Length and Shape_Area (e.g. within the details panel when identifying a feature).,1,,0
+system.suppressNumberLocalization.title,Suppress Number Localization,1,,0
+system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,,0
+system.scrollToInstance.title,Scroll To Instance,1,,0
+system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,,0

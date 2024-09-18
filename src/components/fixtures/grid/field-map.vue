@@ -2,6 +2,7 @@
 import List from '@/components/helpers/list.vue';
 import type { Field } from '@/definitions';
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 let fieldMap = reactive<Array<any>>(props.modelValue ?? []);
 
@@ -20,15 +22,14 @@ watch(fieldMap, () => {
 const itemFields: Array<Field> = [
   {
     property: 'field',
-    title: 'Field',
-    description: 'The name of the field the column names are mapped to.',
+    title: 'grid.mergeGrid.fieldMap.field.title',
+    description: 'grid.mergeGrid.fieldMap.field.description',
     type: 'string'
   },
   {
     property: 'sources',
-    title: 'Sources',
-    description:
-      'The names of the columns that are mapped to the destination field. Must be a comma-separated list of strings.',
+    title: 'grid.mergeGrid.fieldMap.sources.title',
+    description: 'grid.mergeGrid.fieldMap.sources.description',
     type: 'array'
   }
 ];
@@ -38,8 +39,10 @@ const itemFields: Array<Field> = [
   <List
     v-model="fieldMap"
     :item-fields="itemFields"
-    title="Field Mappings"
-    description="Defines mappings between layer fields for merging layers with varying column names."
-    add-prompt="Add mapping"
+    :title="t('grid.mergeGrid.fieldMap.title')"
+    :description="t('grid.mergeGrid.fieldMap.description')"
+    :add-prompt="t('grid.mergeGrid.fieldMap.add')"
+    :remove-prompt="t('grid.mergeGrid.fieldMap.remove')"
+    :singular="t('grid.mergeGrid.fieldMap.singular')"
   />
 </template>

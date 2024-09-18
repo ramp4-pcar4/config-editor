@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import InputHeader from './input-header.vue';
+import { useI18n } from 'vue-i18n';
 
 const expanded = ref<boolean>(false);
 const el = ref<HTMLElement>();
+const { t } = useI18n();
 
 defineProps(['title', 'description', 'thickBorder', 'required']);
 </script>
 
 <template>
-  <div
-    class="mt-4 p-3 border-black rounded-md"
-    :class="{ 'border-2': thickBorder, border: !thickBorder }"
-    ref="el"
-  >
+  <div class="mt-4 p-3 border-black rounded-md" :class="{ 'border-2': thickBorder, border: !thickBorder }" ref="el">
     <div
       class="flex items-center cursor-pointer"
       @click="
@@ -28,7 +26,12 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
       "
     >
       <slot name="header">
-        <button class="mr-1 sm:mr-3" :aria-label="expanded ? 'Collapse' : 'Expand'">
+        <button
+          :content="t('editor.expand')"
+          v-tippy="{ trigger: 'mouseenter focus' }"
+          class="mr-1 sm:mr-3"
+          :aria-label="t('editor.expand')"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="20"

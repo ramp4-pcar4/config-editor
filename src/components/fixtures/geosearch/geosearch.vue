@@ -4,6 +4,7 @@ import Collapsible from '@/components/helpers/collapsible.vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import ServiceUrls from '@/components/fixtures/geosearch/service-urls.vue';
 import Settings from '@/components/fixtures/geosearch/settings.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -12,6 +13,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const geosearch = reactive<any>(props.modelValue ?? {});
 
@@ -24,11 +26,7 @@ watch(geosearch, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Geosearch"
-    description="Provides configuration to the geosearch fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('geosearch.title')" :description="t('geosearch.description')">
     <PanelTeleport v-model="geosearch.panelTeleport" />
     <ServiceUrls v-model="geosearch.serviceUrls" />
     <Settings v-model="geosearch.settings" />

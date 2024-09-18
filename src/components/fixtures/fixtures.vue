@@ -18,13 +18,15 @@ import Settings from '@/components/fixtures/settings/settings.vue';
 import Scrollguard from '@/components/fixtures/scrollguard/scrollguard.vue';
 import Wizard from '@/components/fixtures/wizard/wizard.vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 
-const store = useStore()
+const store = useStore();
+const { t } = useI18n();
 </script>
 
 <template>
   <div>
-    <h1 class="text-2xl font-semibold">Fixtures</h1>
+    <h1 class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h1>
     <Appbar v-model="store.configs[store.editingLang].fixtures.appbar" />
     <AreasOfInterest v-model="store.configs[store.editingLang].fixtures['areas-of-interest']" />
     <Basemap v-model="store.configs[store.editingLang].fixtures.basemap" />
@@ -40,8 +42,8 @@ const store = useStore()
     <Metadata v-model="store.configs[store.editingLang].fixtures.metadata" />
     <NorthArrow v-model="store.configs[store.editingLang].fixtures.northarrow" />
     <OverviewMap v-model="store.configs[store.editingLang].fixtures.overviewmap" />
-    <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
     <Scrollguard v-model="store.configs[store.editingLang].fixtures.scrollguard" />
+    <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
     <Wizard v-model="store.configs[store.editingLang].fixtures.wizard" />
   </div>
 </template>

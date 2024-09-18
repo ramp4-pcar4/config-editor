@@ -1,22 +1,16 @@
 <script setup lang="ts">
 import { type PropType, reactive, watch } from 'vue';
 
-import draggable from 'vuedraggable';
-import InputHeader from '@/components/helpers/input-header.vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
 import Controls from '@/components/layers/controls.vue';
 import Extent from '@/components/helpers/extent.vue';
 import State from '@/components/layers/state.vue';
 import FieldMetadata from '@/components/layers/field-metadata.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
 import StyleLegends from '@/components/layers/style-legends.vue';
-import type {
-  Field,
-  RampLayerMapImageSublayerConfig,
-  RampLayerWmsSublayerConfig
-} from '@/definitions';
+import type { Field, RampLayerMapImageSublayerConfig, RampLayerWmsSublayerConfig } from '@/definitions';
 import { LayerType } from '@/definitions';
 import List from '@/components/helpers/list.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -29,6 +23,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let sublayers = reactive<Array<any>>(props.modelValue ?? []);
@@ -41,50 +36,46 @@ const milFields: Array<Field> = [
   {
     property: 'index',
     type: 'number',
-    title: 'Index',
-    description: 'Index of the layer in the map service.',
+    title: 'layer.sublayer.index.title',
+    description: 'layer.sublayer.index.description',
     required: true,
     min: 0
   },
   {
     property: 'name',
     type: 'string',
-    title: 'Name',
-    description: 'A descriptive name for the layer, can override the name coming from the service.'
+    title: 'layer.name.title',
+    description: 'layer.name.description'
   },
   {
     property: 'nameField',
     type: 'string',
-    title: 'Name Field',
-    description:
-      'The display field of the layer. If it is not present the viewer will make an attempt to scrape this information.'
+    title: 'layer.nameField.title',
+    description: 'layer.nameField.description'
   },
   {
     property: 'initialFilteredQuery',
     type: 'string',
-    title: 'Initial Filtered Query',
-    description: 'Initial filter query to be applied to the layer. SQL WHERE clause format.'
+    title: 'layer.initialFilteredQuery.title',
+    description: 'layer.initialFilteredQuery.description'
   },
   {
     property: 'permanentFilteredQuery',
     type: 'string',
-    title: 'Permanent Filtered Query',
-    description:
-      'Permanent filter query to be applied to the layer. Only passing data will be downloaded. SQL WHERE clause format.'
+    title: 'layer.permanentFilteredQuery.title',
+    description: 'layer.permanentFilteredQuery.description'
   },
   {
     property: 'customRenderer',
     type: 'object',
-    title: 'Custom Renderer',
-    description:
-      'Optional renderer object to apply to the layer. Must be JSON that follows ESRI ArcGIS Server json convention.'
+    title: 'layer.customRenderer.title',
+    description: 'layer.customRenderer.description'
   },
   {
     property: 'cosmetic',
     type: 'boolean',
-    title: 'Cosmetic',
-    description:
-      'Indicates if this sublayer should only be drawn on the layer, but not be displayed or treated as an interactive layer on the UI.'
+    title: 'layer.sublayer.cosmetic.title',
+    description: 'layer.sublayer.cosmetic.description'
   }
 ];
 
@@ -92,21 +83,21 @@ const wmsFields: Array<Field> = [
   {
     property: 'id',
     type: 'string',
-    title: 'ID',
-    description: 'Identification of the layer name in the WMS.',
+    title: 'layer.id.title',
+    description: 'layer.sublayer.wms.id.description',
     required: true
   },
   {
     property: 'name',
     type: 'string',
-    title: 'Name',
-    description: 'A descriptive name for the layer, can override the name coming from the service.'
+    title: 'layer.name.title',
+    description: 'layer.name.description'
   },
   {
     property: 'currentStyle',
     type: 'string',
-    title: 'Current Style',
-    description: 'Current style for the layer entry in the WMS. Currently not supported.'
+    title: 'layer.sublayer.currentStyle.title',
+    description: 'layer.sublayer.currentStyle.description'
   }
 ];
 </script>
@@ -115,28 +106,27 @@ const wmsFields: Array<Field> = [
   <List
     v-model="sublayers"
     :item-fields="layerType === LayerType.MAPIMAGE ? milFields : wmsFields"
-    title="Sublayers"
+    :title="t('layer.sublayers.title')"
     :description="
       layerType === LayerType.MAPIMAGE
-        ? 'Layer entries rendered as part of the map image layer group.'
-        : 'Layer entries rendered as part of the WMS legend block.'
+        ? t('layer.sublayers.mapImage.description')
+        : t('layer.sublayers.wms.description')
     "
-    add-prompt="Add sublayer"
+    :add-prompt="t('layer.sublayers.add')"
+    :remove-prompt="t('layer.sublayers.remove')"
+    :singular="t('layer.sublayers.singular')"
   >
     <template #item="{ index }">
       <Extent
         v-if="props.layerType === LayerType.MAPIMAGE"
         v-model="sublayers[index].extent"
-        title="Extent"
+        :title="t('layer.extent')"
       />
       <StyleLegends v-else v-model="sublayers[index].styleLegends" />
       <Controls v-model="sublayers[index].controls" />
       <Controls v-model="sublayers[index].disabledControls" disabled />
       <State v-model="sublayers[index].state" />
-      <FieldMetadata
-        v-model="sublayers[index].fieldMetadata"
-        v-if="props.layerType === LayerType.MAPIMAGE"
-      />
+      <FieldMetadata v-model="sublayers[index].fieldMetadata" v-if="props.layerType === LayerType.MAPIMAGE" />
       <Fixtures
         v-if="props.layerType === LayerType.MAPIMAGE"
         v-model="sublayers[index].fixtures"

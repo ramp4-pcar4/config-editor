@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { type PropType, reactive, watch, ref } from 'vue';
 import List from '@/components/helpers/list.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
+import Select from '@/components/helpers/select.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +12,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let groups = reactive<Array<any>>(
@@ -30,7 +33,7 @@ let groups = reactive<Array<any>>(
       : [
           {
             items:
-              props.modelValue?.map((item) => {
+              props.modelValue?.map(item => {
                 if (typeof item === 'string') {
                   return { type: 'panel', panelId: item };
                 } else {
@@ -83,9 +86,11 @@ watch(groups, () => {
   <List
     v-model="groups"
     :add="addGroup"
-    title="Groups"
-    description="The groups that the appbar items will be split up over."
-    add-prompt="Add group"
+    :title="t('appbar.groups.title')"
+    :description="t('appbar.groups.description')"
+    :add-prompt="t('appbar.groups.add')"
+    :remove-prompt="t('appbar.groups.remove')"
+    :singular="t('appbar.groups.singular')"
   >
     <template #item="{ index }">
       <List
@@ -96,44 +101,46 @@ watch(groups, () => {
             addItem(index);
           }
         "
-        title="Items"
-        description="Provides configuration to the child legend items of this item."
-        add-prompt="Add item"
+        :title="t('appbar.group.items.title')"
+        :description="t('appbar.group.items.description')"
+        :add-prompt="t('appbar.group.items.add')"
+        :remove-prompt="t('appbar.group.items.remove')"
+        :singular="t('appbar.group.items.singular')"
         custom-only
       >
         <template #item="{ element }">
           <div class="input-table">
-            <div>
-              <InputHeader title="Item Type" required />
-              <select v-model="element.type" aria-label="Item Type">
-                <option value="panel">Linked to a panel</option>
-                <option value="custom">Custom component</option>
-              </select>
-            </div>
+            <Select
+              :title="t('appbar.group.item.type')"
+              v-model="element.type"
+              :options="[
+                { value: 'panel', label: t('appbar.group.item.type.panel') },
+                { value: 'custom', label: t('appbar.group.item.type.custom') }
+              ]"
+              required
+            />
           </div>
-          <p class="mt-1">
-            ⚠️ Warning! Changing the item type will result in loss of current item config.
-          </p>
-          <div class="input-table">
-            <div v-if="element.type === 'panel'">
-              <InputHeader
-                title="Panel ID"
-                description="The ID of the panel that the appbar button will be linked to."
-                required
-              />
-              <input type="text" v-model="element.panelId" aria-label="Panel ID" />
-            </div>
-            <div v-if="element.type === 'custom'">
-              <InputHeader title="ID" description="The ID of the custom component." />
-              <input type="text" v-model="element.id" aria-label="ID" />
-            </div>
-            <div v-if="element.type === 'custom'">
-              <InputHeader
-                title="Component Name"
-                description="The name of the Vue component to render as the appbar button."
-              />
-              <input type="text" v-model="element.componentId" aria-label="Component Name" />
-            </div>
+          <p class="mt-1">⚠️ {{ t('appbar.group.item.type.warning') }}</p>
+          <div class="mt-4 input-table">
+            <Input
+              v-model="element.panelId"
+              v-if="element.type === 'panel'"
+              :title="t('appbar.group.item.panelId.title')"
+              :description="t('appbar.group.item.panelId.description')"
+              required
+            />
+            <Input
+              v-model="element.id"
+              v-if="element.type === 'custom'"
+              :title="t('appbar.group.item.id.title')"
+              :description="t('appbar.group.item.id.description')"
+            />
+            <Input
+              v-model="element.componentId"
+              v-if="element.type === 'custom'"
+              :title="t('appbar.group.item.componentId.title')"
+              :description="t('appbar.group.item.componentId.description')"
+            />
           </div>
         </template>
       </List>

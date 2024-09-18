@@ -5,52 +5,39 @@ import ExtentSets from '@/components/map/extent-sets.vue';
 import LodSets from '@/components/map/lod-sets.vue';
 import Basemaps from '@/components/map/basemaps.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 
 const store = useStore();
+const { t } = useI18n();
 </script>
 
 <template>
   <div>
     <h1 class="text-2xl font-semibold">Map</h1>
     <div class="mt-4 input-table">
-      <div>
-        <InputHeader
-          title="Initial Basemap ID"
-          description="Initial basemap to load. If not supplied, viewer will select the first basemap in the basemaps list."
-        />
-        <input
-          type="text"
-          v-model="store.configs[store.editingLang].map.initialBasemapId"
-          aria-label="Initial Basemap ID"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Point Zoom Scale"
-          description="The zoom level when zooming to a point feature (e.g. when using the zoom button in the datagrid). Must be a positive integer."
-        />
-        <input
-          type="number"
-          placeholder="50000"
-          min="1"
-          v-model="store.configs[store.editingLang].map.pointZoomScale"
-          aria-label="Point Zoom Scale"
-        />
-      </div>
-      <div>
-        <InputHeader
-          title="Map Mouse Throttle"
-          description="The amount of throttling (in milliseconds) to be used for the map mouse move event. A value of 0 means no throttle."
-        />
-        <input
-          type="number"
-          placeholder="0"
-          min="0"
-          v-model="store.configs[store.editingLang].map.mapMouseThrottle"
-          aria-label="Map Mouse Throttle"
-        />
-      </div>
+      <Input
+        :title="t('map.initialBasemapId.title')"
+        :description="t('map.initialBasemapId.description')"
+        v-model="store.configs[store.editingLang].map.initialBasemapId"
+      />
+      <Input
+        :title="t('map.pointZoomScale.title')"
+        :description="t('map.pointZoomScale.description')"
+        type="number"
+        placeholder="50000"
+        min="1"
+        v-model="store.configs[store.editingLang].map.pointZoomScale"
+      />
+      <Input
+        :title="t('map.mapMouseThrottle.title')"
+        :description="t('map.mapMouseThrottle.description')"
+        type="number"
+        placeholder="0"
+        min="0"
+        v-model="store.configs[store.editingLang].map.mapMouseThrottle"
+      />
     </div>
     <TileSchemas v-model="store.configs[store.editingLang].map.tileSchemas" />
     <ExtentSets v-model="store.configs[store.editingLang].map.extentSets" />

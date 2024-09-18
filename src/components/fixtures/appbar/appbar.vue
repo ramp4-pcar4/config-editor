@@ -2,6 +2,7 @@
 import Collapsible from '@/components/helpers/collapsible.vue';
 import { reactive, type PropType, watch } from 'vue';
 import Groups from '@/components/fixtures/appbar/groups.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const appbar = reactive<any>(props.modelValue ?? {});
 
@@ -20,11 +22,7 @@ watch(appbar, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Appbar"
-    description="Provides configuration to the appbar. If not supplied, default appbar controls (legend, geosearch, basemap) are displayed."
-  >
+  <Collapsible :thick-border="true" :title="t('appbar.title')" :description="t('appbar.description')">
     <Groups v-model="appbar.items" />
   </Collapsible>
 </template>
