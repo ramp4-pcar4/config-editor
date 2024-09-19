@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vitejs.dev/config/
 export default defineConfig((viteConfig) => {
@@ -15,7 +16,7 @@ export default defineConfig((viteConfig) => {
 });
 
 const libConfig = {
-  plugins: [vue(), vueJsx()],
+  plugins: [vue(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -27,6 +28,7 @@ const libConfig = {
   },
   build: {
     target: 'esnext',
+    base: './',
     lib: {
       // src/indext.ts is where we have exported the component(s)
       entry: resolve(__dirname, 'src/index.ts'),
@@ -48,7 +50,8 @@ const libConfig = {
 };
 
 const regConfig = {
-  plugins: [vue(), vueJsx()],
+  plugins: [vue(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
