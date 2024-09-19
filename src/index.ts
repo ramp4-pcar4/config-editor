@@ -9,6 +9,7 @@ import { useStore } from '@/store';
 import merge from 'deepmerge';
 
 class API {
+  // FAKE CHANGES
   readonly $vApp: ComponentPublicInstance;
 
   constructor(el: HTMLElement, configs?: RampConfigs, options?: RampOptions) {
