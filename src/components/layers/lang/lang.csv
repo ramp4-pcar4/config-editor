@@ -1,143 +1,143 @@
 key,enValue,enValid,frValue,frValid
-layers.title,Layers,1,,0
-layers.autopopulateLegend.title,Autopopulate Legend,1,,0
-layers.autopopulateLegend.description,Updates the legend by creating entries in the top root level for any layers that do not have one and removing entries for layers not present in the layers config.,1,,0
-layers.updatedLegend.title,Updated Legend!,1,,0
-layers.idWarning,A unique ID must be specified for each layer for the legend to update correctly.,1,,0
-layers.add,Add layer,1,,0
-layers.remove,Remove layer,1,,0
-layer.title,Layer {0},1,,0
-layer.type,Type,1,,0
-layer.type.feature,Feature,1,,0
-layer.type.mapImage,Map Image,1,,0
-layer.type.wfs,WFS (OGC Web Feature Service),1,,0
-layer.type.wms,WMS (OGC Web Map Service),1,,0
-layer.type.csv,CSV,1,,0
-layer.type.geojson,Geojson,1,,0
-layer.type.shapefile,Shapefile,1,,0
-layer.id.title,ID,1,,0
-layer.id.description,"ID of the layer. Should be unique for every layer. Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists.",1,,0
-layer.name.title,Name,1,,0
-layer.name.description,Display name of the layer. Can override the name coming from the service.,1,,0
-layer.url.title,URL,1,,0
-layer.url.description,Service endpoint of the layer. Should match the layer type.,1,,0
-layer.nameField.title,Name Field,1,,0
-layer.nameField.description,The display field of the layer. If it is not present the viewer will make an attempt to scrape this information.,1,,0
-layer.tooltipField.title,Tooltip Field,1,,0
-layer.tooltipField.description,"Field to be used for tooltips. If not present, the viewer will use name field, if provided.",1,,0
-layer.refreshInterval.title,Refresh Interval,1,,0
-layer.refreshInterval.description,Automatic refresh interval of the layer (minutes). Max is 100. Zero disables refresh. Currently not supported.,1,,0
-layer.expectedDrawTime.title,Expected Draw Time,1,,0
-layer.expectedDrawTime.description,The time (in milliseconds) after which a 'slow-to-draw' notification is shown. Zero disables notifications.,1,,0
-layer.expectedLoadTime.title,Expected Load Time,1,,0
-layer.expectedLoadTime.description,The time (in milliseconds) after which a 'slow-to-load' notification is shown. Zero disables notifications.,1,,0
-layer.maxLoadTime.title,Max Load Time,1,,0
-layer.maxLoadTime.description,The time (in milliseconds) a layer can load for before entering the error state. Zero allows perpetual loading.,1,,0
-layer.catalogueUrl.title,Catalogue URL,1,,0
-layer.catalogueUrl.description,Catalogue URL of the layer service. Currently not supported.,1,,0
-layer.colour.title,Colour,1,,0
-layer.colour.description,The hex code representing the layer symbology colour,1,,0
-layer.latField.title,Lat Field,1,,0
-layer.latField.description,The latitude field of the layer,1,,0
-layer.longField.title,Long Field,1,,0
-layer.longField.description,The longitude field of the layer,1,,0
-layer.mouseTolerance.title,Mouse Tolerance,1,,0
-layer.mouseTolerance.description,Tolerance in pixels when determining if a feature was clicked,1,,0
-layer.touchTolerance.title,Touch Tolerance,1,,0
-layer.touchTolerance.description,Tolerance in pixels when determining if a feature was tapped,1,,0
-layer.initialFilteredQuery.title,Initial Filtered Query,1,,0
-layer.initialFilteredQuery.description,Initial filter query to be applied to the layer. SQL WHERE clause format,1,,0
-layer.permanentFilteredQuery.title,Permanent Filtered Query,1,,0
-layer.permanentFilteredQuery.description,Permanent filter query to be applied to the layer. Only passing data will be downloaded. SQL WHERE clause format,1,,0
-layer.identifyMode.title,Identify Mode,1,,0
-layer.identifyMode.description,"Determines how features should be identified. By geometry, by symbol, or both.",1,,0
-layer.identifyMode.geometric,Geometric,1,,0
-layer.identifyMode.symbolic,Symbolic,1,,0
-layer.identifyMode.hybrid,Hybrid,1,,0
-layer.imageFormat.title,Image Format,1,,0
-layer.imageFormat.description,The format of the layer image output. Default service setting used if not supplied (usually png32).,1,,0
-layer.customRenderer.title,Custom Renderer,1,,0
-layer.customRenderer.description,Optional renderer object to apply to the layer. Must be JSON that follows ESRI ArcGIS Server json convention.,1,,0
-layer.rawData.title,Raw Data,1,,0
-layer.rawData.geojson.description,Optional content to use as the layer source (instead of loading via the url property). GeoJSON accepts stringified object.,1,,0
-layer.rawData.csv.description,Optional content to use as the layer source (instead of loading via the url property). CSV accepts string.,1,,0
-layer.singleEntryCollapse.title,Single Entry Collapse,1,,0
-layer.singleEntryCollapse.description,Indicates that the map image layer with a single layer entry should be rendered without the root group. Currently not supported.,1,,0
-layer.xyInAttribs.title,XY In Attributes,1,,0
-layer.xyInAttribs.description,Indicates if the point co-ordinates should be copied to the feature attributes. Ignored for lines and polygons.,1,,0
-layer.caching.title,Caching,1,,0
-layer.caching.description,"Indicates whether to preserve the layer's raw data after initiation. If set to true, reloading will not refresh data from the server.",1,,0
-layer.extent,Extent,1,,0
-layer.controls,Controls,1,,0
-layer.disabledControls,Disabled Controls,1,,0
-layer.control.boundaryZoom,Boundary Zoom,1,,0
-layer.control.datatable,Datatable,1,,0
-layer.control.identify,Identify,1,,0
-layer.control.metadata,Metadata,1,,0
-layer.control.opacity,Opacity,1,,0
-layer.control.refresh,Refresh,1,,0
-layer.control.reload,Reload,1,,0
-layer.control.remove,Remove,1,,0
-layer.control.settings,Settings,1,,0
-layer.control.symbology,Symbology,1,,0
-layer.control.visibility,Visibility,1,,0
-layer.drawOrder.title,Draw Order,1,,0
-layer.drawOrder.description,Attribute fields used to control drawing order on the map for vector features. Note ESRI currently only supports one field.,1,,0
-layer.drawOrder.add,Add draw order,1,,0
-layer.drawOrder.remove,Remove draw order,1,,0
-layer.drawOrder.field.title,Field,1,,0
-layer.drawOrder.field.description,Layer field name contianing the value to order by,1,,0
-layer.drawOrder.ascending.title,Ascending,1,,0
-layer.drawOrder.ascending.description,Direction to order in. True means smaller values are on top of larger values. False is the opposite.,1,,0
-layer.fieldMetadata,Field Metadata,1,,0
-layer.fieldMetadata.exclusiveFields.title,Exclusive Fields,1,,0
-layer.fieldMetadata.exclusiveFields.description,"If true, only fields in fieldInfo are recognized and downloaded. Otherwise, all fields are used.",1,,0
-layer.fieldMetadata.fieldInfo.title,Field Info,1,,0
-layer.fieldMetadata.fieldInfo.description,Specifies field info for layer,1,,0
-layer.fieldMetadata.fieldInfo.add,Add field info,1,,0
-layer.fieldMetadata.fieldInfo.remove,Remove field info,1,,0
-layer.fieldMetadata.fieldInfo.name.title,Name,1,,0
-layer.fieldMetadata.fieldInfo.name.description,Specifies the field name to use to link to the identifier. Must exist in the layer.,1,,0
-layer.fieldMetadata.fieldInfo.alias.title,Alias,1,,0
-layer.fieldMetadata.fieldInfo.alias.description,"Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name.",1,,0
-layer.fixtures,Fixtures,1,,0
-layer.fixtures.details,Details,1,,0
-layer.fixtures.details.template.title,Template,1,,0
-layer.fixtures.details.template.description,Custom Vue component name to render as details template,1,,0
-layer.fixtures.settings,Settings,1,,0
-layer.fixtures.grid,Grid,1,,0
-layer.metadata,Metadata,1,,0
-layer.metadata.url.title,URL,1,,0
-layer.metadata.url.description,Metadata url of the layer service,1,,0
-layer.metadata.name.title,Name,1,,0
-layer.metadata.name.description,Name to be displayed as the header of the metadata panel,1,,0
-layer.state,State,1,,0
-layer.state.visibility.title,Visibility,1,,0
-layer.state.visibility.description,Initial visibility of layer on map,1,,0
-layer.state.identify.title,Identify,1,,0
-layer.state.identify.description,Specifies whether or not to allow identify requests,1,,0
-layer.state.hovertips.title,Hovertips,1,,0
-layer.state.hovertips.description,Specifies whether or not to enable hovertips,1,,0
-layer.state.opacity.title,Opacity,1,,0
-layer.state.opacity.description,Initial opacity value of layer. Must be a decimal value between 0 and 1.,1,,0
-layer.styleLegends.title,Style Legends,1,,0
-layer.styleLegends.description,List of map of all styles to legend graphic URL for layer entry in the WMS. Overrides the URLs from the WMS service. Mappings to non-default styles are currently not supported.,1,,0
-layer.styleLegends.add,Add style legend,1,,0
-layer.styleLegends.remove,Remove style legend,1,,0
-layer.styleLegend.name.title,Name,1,,0
-layer.styleLegend.name.description,The name of the style,1,,0
-layer.styleLegend.url.title,URL,1,,0
-layer.styleLegend.url.description,The URL to the legend graphic,1,,0
-layer.sublayers.title,Sublayers,1,,0
-layer.sublayers.mapImage.description,Layer entries rendered as part of the map image layer group,1,,0
-layer.sublayers.wms.description,Layer entries rendered as part of the WMS legend block,1,,0
-layer.sublayers.add,Add sublayer,1,,0
-layer.sublayers.remove,Remove sublayer,1,,0
-layer.sublayers.singular,Sublayer,1,,0
-layer.sublayer.index.title,Index,1,,0
-layer.sublayer.index.description,Index of the layer in the map service,1,,0
-layer.sublayer.cosmetic.title,Cosmetic,1,,0
-layer.sublayer.cosmetic.description,"Indicates if this sublayer should only be drawn on the layer, but not be displayed or treated as an interactive layer on the UI",1,,0
-layer.sublayer.wms.id.description,Identification of the layer name in the WMS,1,,0
-layer.sublayer.currentStyle.title,Current Style,1,,0
-layer.sublayer.currentStyle.description,Current style for the layer entry in the WMS. Currently not supported.,1,,0
+layers.title,Layers,1,Couches,1
+layers.autopopulateLegend.title,Autopopulate Legend,1,Légende de l'autopopulation,1
+layers.autopopulateLegend.description,Updates the legend by creating entries in the top root level for any layers that do not have one and removing entries for layers not present in the layers config.,1,Met à jour la légende en créant des entrées dans le niveau racine supérieur pour toutes les couches qui n'en ont pas et en supprimant les entrées pour les couches qui ne sont pas présentes dans la configuration des couches.,1
+layers.updatedLegend.title,Updated Legend!,1,Légende mise à jour!,1
+layers.idWarning,A unique ID must be specified for each layer for the legend to update correctly.,1,Un identifiant unique doit être spécifié pour chaque couche afin que la légende soit correctement mise à jour.,1
+layers.add,Add layer,1,Ajouter une couche,1
+layers.remove,Remove layer,1,Enlever la couche,1
+layer.title,Layer {0},1,Couche {0},1
+layer.type,Type,1,Type,1
+layer.type.feature,Feature,1,Caractéristique,1
+layer.type.mapImage,Map Image,1,Image de la carte,1
+layer.type.wfs,WFS (OGC Web Feature Service),1,WFS (Service d'entités géographiques Web OGC),1
+layer.type.wms,WMS (OGC Web Map Service),1,WMS (Service de cartes Web OGC),1
+layer.type.csv,CSV,1,CSV,1
+layer.type.geojson,Geojson,1,GeoJSON,1
+layer.type.shapefile,Shapefile,1,Shapefile,1
+layer.id.title,ID,1,Identifiant,1
+layer.id.description,"ID of the layer. Should be unique for every layer. Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists.",1,"ID de la couche. Il doit être unique pour chaque couche. La mise à jour de ce champ entraînera également la mise à jour automatique du champ d'identification de la couche pour l'entrée de la légende associée à cette couche, si elle existe.",1
+layer.name.title,Name,1,Nom,1
+layer.name.description,Display name of the layer. Can override the name coming from the service.,1,Nom d'affichage de la couche. Peut remplacer le nom provenant du service.,1
+layer.url.title,URL,1,URL,1
+layer.url.description,Service endpoint of the layer. Should match the layer type.,1,Point de terminaison du service de la couche. Doit correspondre au type de couche.,1
+layer.nameField.title,Name Field,1,Champ du nom,1
+layer.nameField.description,The display field of the layer. If it is not present the viewer will make an attempt to scrape this information.,1,"Le champ d'affichage de la couche. S'il n'est pas présent, le visualiseur tentera de récupérer cette information.",1
+layer.tooltipField.title,Tooltip Field,1,Champ d'info-bulle,1
+layer.tooltipField.description,"Field to be used for tooltips. If not present, the viewer will use name field, if provided.",1,"Champ à utiliser pour les infobulles. S'il n'est pas présent, le visualiseur utilisera le champ du nom, s'il est fourni.",1
+layer.refreshInterval.title,Refresh Interval,1,Intervalle de rafraîchissement,1
+layer.refreshInterval.description,Automatic refresh interval of the layer (minutes). Max is 100. Zero disables refresh. Currently not supported.,1,Intervalle de rafraîchissement automatique de la couche (minutes). Le maximum est de 100. Zéro désactive le rafraîchissement. Ce paramètre n'est pas pris en charge actuellement.,1
+layer.expectedDrawTime.title,Expected Draw Time,1,Temps de tirage prévu,1
+layer.expectedDrawTime.description,The time (in milliseconds) after which a 'slow-to-draw' notification is shown. Zero disables notifications.,1,Le temps (en millisecondes) après lequel une notification "lent à dessiner" est affichée. Zéro désactive les notifications.,1
+layer.expectedLoadTime.title,Expected Load Time,1,Temps de chargement prévu,1
+layer.expectedLoadTime.description,The time (in milliseconds) after which a 'slow-to-load' notification is shown. Zero disables notifications.,1,Le temps (en millisecondes) après lequel une notification "slow-to-load" est affichée. Zéro désactive les notifications.,1
+layer.maxLoadTime.title,Max Load Time,1,Temps de chargement maximum,1
+layer.maxLoadTime.description,The time (in milliseconds) a layer can load for before entering the error state. Zero allows perpetual loading.,1,Temps (en millisecondes) pendant lequel une couche peut être chargée avant d'entrer dans l'état d'erreur. Un zéro permet un chargement perpétuel.,1
+layer.catalogueUrl.title,Catalogue URL,1,URL du catalogue,1
+layer.catalogueUrl.description,Catalogue URL of the layer service. Currently not supported.,1,URL du catalogue du service de couche. Ce service n'est actuellement pas pris en charge.,1
+layer.colour.title,Colour,1,Couleur,1
+layer.colour.description,The hex code representing the layer symbology colour,1,Code hexagonal représentant la couleur de la symbologie de la couche,1
+layer.latField.title,Lat Field,1,Champ Lat,1
+layer.latField.description,The latitude field of the layer,1,Le champ de latitude de la couche,1
+layer.longField.title,Long Field,1,Champ long,1
+layer.longField.description,The longitude field of the layer,1,Le champ de longitude de la couche,1
+layer.mouseTolerance.title,Mouse Tolerance,1,Tolérance de la souris,1
+layer.mouseTolerance.description,Tolerance in pixels when determining if a feature was clicked,1,Tolérance en pixels pour déterminer si un élément a été cliqué,1
+layer.touchTolerance.title,Touch Tolerance,1,Tolérance tactile,1
+layer.touchTolerance.description,Tolerance in pixels when determining if a feature was tapped,1,Tolérance en pixels pour déterminer si un élément a été prélevé.,1
+layer.initialFilteredQuery.title,Initial Filtered Query,1,Requête initiale filtrée,1
+layer.initialFilteredQuery.description,Initial filter query to be applied to the layer. SQL WHERE clause format,1,Requête initiale de filtrage à appliquer à la couche. Format de la clause WHERE SQL,1
+layer.permanentFilteredQuery.title,Permanent Filtered Query,1,Requête filtrée permanente,1
+layer.permanentFilteredQuery.description,Permanent filter query to be applied to the layer. Only passing data will be downloaded. SQL WHERE clause format.,1,Requête de filtrage permanent à appliquer à la couche. Seules les données de passage seront téléchargées. Format de la clause SQL WHERE.,1
+layer.identifyMode.title,Identify Mode,1,Mode d'identification,1
+layer.identifyMode.description,"Determines how features should be identified. By geometry, by symbol, or both.",1,"Détermine la manière dont les éléments doivent être identifiés. Par la géométrie, par le symbole, ou les deux.",1
+layer.identifyMode.geometric,Geometric,1,Géométrique,1
+layer.identifyMode.symbolic,Symbolic,1,Symbolique,1
+layer.identifyMode.hybrid,Hybrid,1,Hybride,1
+layer.imageFormat.title,Image Format,1,Format de l'image,1
+layer.imageFormat.description,The format of the layer image output. Default service setting used if not supplied (usually png32).,1,Format de l'image de la couche en sortie. Le paramètre de service par défaut est utilisé s'il n'est pas fourni (habituellement png32).,1
+layer.customRenderer.title,Custom Renderer,1,Renderer personnalisé,1
+layer.customRenderer.description,Optional renderer object to apply to the layer. Must be JSON that follows ESRI ArcGIS Server json convention.,1,Objet de rendu facultatif à appliquer à la couche. Il doit s'agir de JSON qui suit la convention ESRI ArcGIS Server json.,1
+layer.rawData.title,Raw Data,1,Données brutes,1
+layer.rawData.geojson.description,Optional content to use as the layer source (instead of loading via the url property). GeoJSON accepts stringified object.,1,Contenu optionnel à utiliser comme source de la couche (au lieu d'un chargement via la propriété url). GeoJSON accepte les objets stringifiés.,1
+layer.rawData.csv.description,Optional content to use as the layer source (instead of loading via the url property). CSV accepts string.,1,Contenu optionnel à utiliser comme source de la couche (au lieu d'un chargement via la propriété url). CSV accepte les chaînes de caractères.,1
+layer.singleEntryCollapse.title,Single Entry Collapse,1,Effondrement à entrée unique,1
+layer.singleEntryCollapse.description,Indicates that the map image layer with a single layer entry should be rendered without the root group. Currently not supported.,1,Indique que la couche d'image de carte avec une seule entrée de couche doit être rendue sans le groupe racine. Ce paramètre n'est pas pris en charge actuellement.,1
+layer.xyInAttribs.title,XY In Attributes,1,XY en attributs,1
+layer.xyInAttribs.description,Indicates if the point co-ordinates should be copied to the feature attributes. Ignored for lines and polygons.,1,Indique si les coordonnées du point doivent être copiées dans les attributs de l'élément. Ignoré pour les lignes et les polygones.,1
+layer.caching.title,Caching,1,Mise en cache,1
+layer.caching.description,"Indicates whether to preserve the layer's raw data after initiation. If set to true, reloading will not refresh data from the server.",1,"Indique s'il faut préserver les données brutes de la couche après l'Initiative. Si la valeur est 'true', le rechargement ne rafraîchira pas les données du serveur.",1
+layer.extent,Extent,1,Étendue,1
+layer.controls,Controls,1,Contrôles,1
+layer.disabledControls,Disabled Controls,1,Contrôles désactivés,1
+layer.control.boundaryZoom,Boundary Zoom,1,Zoom sur les frontières,1
+layer.control.datatable,Datatable,1,Tableau de données,1
+layer.control.identify,Identify,1,Identifier,1
+layer.control.metadata,Metadata,1,Métadonnées,1
+layer.control.opacity,Opacity,1,Opacité,1
+layer.control.refresh,Refresh,1,Rafraîchir,1
+layer.control.reload,Reload,1,Recharge,1
+layer.control.remove,Remove,1,Retirer,1
+layer.control.settings,Settings,1,Paramètres,1
+layer.control.symbology,Symbology,1,Symbologie,1
+layer.control.visibility,Visibility,1,Visibilité,1
+layer.drawOrder.title,Draw Order,1,Ordre de tirage,1
+layer.drawOrder.description,Attribute fields used to control drawing order on the map for vector features. Note ESRI currently only supports one field.,1,Champs d'attributs utilisés pour contrôler l'ordre de dessin des entités vectorielles sur la carte. Remarque : ESRI ne prend actuellement en charge qu'un seul champ.,1
+layer.drawOrder.add,Add draw order,1,Ajouter un ordre de tirage,1
+layer.drawOrder.remove,Remove draw order,1,Supprimer l'ordre de tirage,1
+layer.drawOrder.field.title,Field,1,Domaine,1
+layer.drawOrder.field.description,Layer field name contianing the value to order by,1,Nom du champ de la couche contenant la valeur à classer par,1
+layer.drawOrder.ascending.title,Ascending,1,Ascendant,1
+layer.drawOrder.ascending.description,Direction to order in. True means smaller values are on top of larger values. False is the opposite.,1,Sens de la commande. Vrai signifie que les petites valeurs sont placées au-dessus des grandes. Faux signifie le contraire.,1
+layer.fieldMetadata,Field Metadata,1,Métadonnées de champ,1
+layer.fieldMetadata.exclusiveFields.title,Exclusive Fields,1,Domaines exclusifs,1
+layer.fieldMetadata.exclusiveFields.description,"If true, only fields in fieldInfo are recognized and downloaded. Otherwise, all fields are used.",1,"Si true, seuls les champs de fieldInfo sont reconnus et téléchargés. Sinon, tous les champs sont utilisés.",1
+layer.fieldMetadata.fieldInfo.title,Field Info,1,Informations sur le terrain,1
+layer.fieldMetadata.fieldInfo.description,Specifies field info for layer,1,Spécifie les informations de champ pour la couche,1
+layer.fieldMetadata.fieldInfo.add,Add field info,1,Ajouter des informations sur le champ,1
+layer.fieldMetadata.fieldInfo.remove,Remove field info,1,Supprimer les informations sur les champs,1
+layer.fieldMetadata.fieldInfo.name.title,Name,1,Nom,1
+layer.fieldMetadata.fieldInfo.name.description,Specifies the field name to use to link to the identifier. Must exist in the layer.,1,Spécifie le nom du champ à utiliser pour établir un lien avec l'identifiant. Ce champ doit exister dans la couche.,1
+layer.fieldMetadata.fieldInfo.alias.title,Alias,1,Alias,1
+layer.fieldMetadata.fieldInfo.alias.description,"Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name.",1,"Spécifie le titre du champ. S'il n'est pas renseigné, il tente d'utiliser l'alias du service, puis le nom du champ est utilisé par défaut.",1
+layer.fixtures,Fixtures,1,Appareils,1
+layer.fixtures.details,Details,1,Détails,1
+layer.fixtures.details.template.title,Template,1,Modèle,1
+layer.fixtures.details.template.description,Custom Vue component name to render as details template,1,Nom du composant Vue personnalisé à rendre comme modèle de détails,1
+layer.fixtures.settings,Settings,1,Paramètres,1
+layer.fixtures.grid,Grid,1,Grille,1
+layer.metadata,Metadata,1,Métadonnées,1
+layer.metadata.url.title,URL,1,URL,1
+layer.metadata.url.description,Metadata url of the layer service,1,URL des métadonnées du service de la couche,1
+layer.metadata.name.title,Name,1,Nom,1
+layer.metadata.name.description,Name to be displayed as the header of the metadata panel,1,Nom à afficher dans l'en-tête du panneau de métadonnées,1
+layer.state,State,1,État,1
+layer.state.visibility.title,Visibility,1,Visibilité,1
+layer.state.visibility.description,Initial visibility of layer on map,1,Visibilité initiale de la couche sur la carte,1
+layer.state.identify.title,Identify,1,Identifier,1
+layer.state.identify.description,Specifies whether or not to allow identify requests,1,Indique s'il faut ou non autoriser les demandes d'identification,1
+layer.state.hovertips.title,Hovertips,1,Infobulle,1
+layer.state.hovertips.description,Specifies whether or not to enable hovertips,1,Indique s'il faut ou non activer les surimpressions.,1
+layer.state.opacity.title,Opacity,1,Opacité,1
+layer.state.opacity.description,Initial opacity value of layer. Must be a decimal value between 0 and 1.,1,Valeur initiale de l'opacité du calque. Doit être une valeur décimale comprise entre 0 et 1.,1
+layer.styleLegends.title,Style Legends,1,Légendes du style,1
+layer.styleLegends.description,List of map of all styles to legend graphic URL for layer entry in the WMS. Overrides the URLs from the WMS service. Mappings to non-default styles are currently not supported.,1,Liste de cartes de tous les styles de légende URL graphique pour l'entrée de la couche dans le WMS. Remplace les URL du service WMS. Les correspondances avec des styles autres que ceux par défaut ne sont actuellement pas prises en charge.,1
+layer.styleLegends.add,Add style legend,1,Ajouter une légende de style,1
+layer.styleLegends.remove,Remove style legend,1,Supprimer la légende du style,1
+layer.styleLegend.name.title,Name,1,Nom,1
+layer.styleLegend.name.description,The name of the style,1,Le nom du style,1
+layer.styleLegend.url.title,URL,1,URL,1
+layer.styleLegend.url.description,The URL to the legend graphic,1,L'URL du graphique de la légende,1
+layer.sublayers.title,Sublayers,1,Sous-couches,1
+layer.sublayers.mapImage.description,Layer entries rendered as part of the map image layer group,1,Entrées de la couche rendues en tant que partie du groupe de couches de l'image de la carte,1
+layer.sublayers.wms.description,Layer entries rendered as part of the WMS legend block,1,Entrées de la couche rendues dans le cadre du bloc de légende du WMS,1
+layer.sublayers.add,Add sublayer,1,Ajouter une sous-couche,1
+layer.sublayers.remove,Remove sublayer,1,Supprimer la sous-couche,1
+layer.sublayers.singular,Sublayer,1,Sous-couche,1
+layer.sublayer.index.title,Index,1,Indice,1
+layer.sublayer.index.description,Index of the layer in the map service,1,Index de la couche dans le service de cartographie,1
+layer.sublayer.cosmetic.title,Cosmetic,1,Cosmétique,1
+layer.sublayer.cosmetic.description,"Indicates if this sublayer should only be drawn on the layer, but not be displayed or treated as an interactive layer on the UI",1,"Indique si cette sous-couche doit seulement être dessinée sur la couche, mais ne doit pas être affichée ou traitée comme une couche interactive dans l'interface utilisateur.",1
+layer.sublayer.wms.id.description,Identification of the layer name in the WMS,1,Identification du nom de la couche dans le WMS,1
+layer.sublayer.currentStyle.title,Current Style,1,Style actuel,1
+layer.sublayer.currentStyle.description,Current style for the layer entry in the WMS. Currently not supported.,1,Style actuel de l'entrée de la couche dans le WMS. Non pris en charge actuellement.,1

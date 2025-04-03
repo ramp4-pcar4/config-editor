@@ -1,48 +1,48 @@
 key,enValue,enValid,frValue,frValid
-editor.title,RAMP4 Config Editor,1,,0
-editor.loading,Waiting for config...,1,,0
-editor.reorder,Drag to reorder,1,,0
-editor.down,Move down,1,,0
-editor.up,Move up,1,,0
-editor.expand,Toggle expand,1,,0
-navbar.startingFixtures,Starting Fixtures,1,,0
-navbar.configs,Configs,1,,0
-navbar.options,Options,1,,0
-navbar.preview,Preview,1,,0
-navbar.map,Map,1,,0
-navbar.layers,Layers,1,,0
-navbar.fixtures,Fixtures,1,,0
-navbar.panels,Panels,1,,0
-navbar.system,System,1,,0
-options.defaultEvents,Load default events,1,,0
-options.defaultFixtures,Load default fixtures,1,,0
-options.startRequired,Prevent initializing the map automatically,1,,0
-panels.reorderable.title,Reorderable,1,,0
-panels.reorderable.description,Enables panel reorder controls,1,,0
-panels.open.title,Open,1,,0
-panels.open.description,The panels to open on startup. Panels with props are currently not supported.,1,,0
-panels.open.add,Add panel,1,,0
-panels.open.remove,Remove panel,1,,0
-panels.open.id.title,Panel ID,1,,0
-panels.open.id.description,"ID of the panel to open. Out-of-the-box panel IDs that are supported: basemap, export, geosearch, help, layer-reorder, legend, notifications, and wizard.",1,,0
-panels.open.screen.title,Screen ID,1,,0
-panels.open.screen.description,ID of the screen of the panel to show.,1,,0
-panels.open.pin.title,Pin,1,,0
-panels.open.pin.description,Whether to pin the panel as well.,1,,0
-preview.note,Note:,1,,0
-preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere. You will need to go back to your config, check that all the values are correct, and then try previewing again. Until we come up with a vaildator that tells you where you messed up.",1,,0
-startingFixtures.input,Comma separated fixture IDs:,1,,0
-system.proxyUrl.title,Proxy URL,1,,0
-system.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers. Applies only to map services.,1,,0
-system.zoomIcon.title,Zoom Icon,1,,0
-system.zoomIcon.description,"Determines which icon to display for the zoom button in the grid and details panels. Can be 'globe', 'magnify', or a custom icon. Defaults to globe.",1,,0
-system.animate.title,Animate,1,,0
-system.animate.description,"Will enable visual animation when using the site, such as control transitions.",1,,0
-system.exposeOid.title,Expose OID,1,,0
-system.exposeOid.description,Determines whether or not to include a feature's object ID field when viewing data on the site (e.g. within the details panel when identifying a feature).,1,,0
-system.exposeMeasurements.title,Expose Measurements,1,,0
-system.exposeMeasurements.description,Determines whether or not to include a feature's Shape_Length and Shape_Area (e.g. within the details panel when identifying a feature).,1,,0
-system.suppressNumberLocalization.title,Suppress Number Localization,1,,0
-system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,,0
-system.scrollToInstance.title,Scroll To Instance,1,,0
-system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,,0
+editor.title,RAMP4 Config Editor,1,Éditeur de configuration RAMP4,1
+editor.loading,Waiting for config...,1,En attendant la configuration...,1
+editor.reorder,Drag to reorder,1,Faites glisser pour réorganiser,1
+editor.down,Move down,1,Descendre,1
+editor.up,Move up,1,Monter,1
+editor.expand,Toggle expand,1,Basculer vers l'agrandissement,1
+navbar.startingFixtures,Starting Fixtures,1,Calendrier de départ,1
+navbar.configs,Configs,1,Configurations,1
+navbar.options,Options,1,Options,1
+navbar.preview,Preview,1,Aperçu,1
+navbar.map,Map,1,Carte,1
+navbar.layers,Layers,1,Couches,1
+navbar.fixtures,Fixtures,1,Appareils,1
+navbar.panels,Panels,1,Panneaux,1
+navbar.system,System,1,Système,1
+options.defaultEvents,Load default events,1,Charger les événements par défaut,1
+options.defaultFixtures,Load default fixtures,1,Charger les appareils par défaut,1
+options.startRequired,Prevent initializing the map automatically,1,Empêcher l'initialisation automatique de la carte,1
+panels.reorderable.title,Reorderable,1,Réassortissable,1
+panels.reorderable.description,Enables panel reorder controls,1,Active les contrôles de réorganisation des panneaux,1
+panels.open.title,Open,1,Ouvrir,1
+panels.open.description,The panels to open on startup. Panels with props are currently not supported.,1,Les panneaux à ouvrir au démarrage. Les panneaux avec accessoires ne sont actuellement pas pris en charge.,1
+panels.open.add,Add panel,1,Ajouter un panneau,1
+panels.open.remove,Remove panel,1,Retirer le panneau,1
+panels.open.id.title,Panel ID,1,ID du panneau,1
+panels.open.id.description,"ID of the panel to open. Out-of-the-box panel IDs that are supported: basemap, export, geosearch, help, layer-reorder, legend, notifications, and wizard.",1,"ID du panneau à ouvrir. Les ID de panneaux prêts à l'emploi qui sont pris en charge: basemap, export, geosearch, help, layer-reorder, legend, notifications et wizard.",1
+panels.open.screen.title,Screen ID,1,ID de l'écran,1
+panels.open.screen.description,ID of the screen of the panel to show.,1,ID de l'écran du panneau à afficher.,1
+panels.open.pin.title,Pin,1,Épinger,1
+panels.open.pin.description,Whether to pin the panel as well,1,Vous pouvez également épingler le panneau,1
+preview.note,Note:,1,Remarque:,1
+preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere. You will need to go back to your config, check that all the values are correct, and then try previewing again. Until we come up with a vaildator that tells you where you messed up.",1,"Si l'instance RAMP ne s'initialise pas comme prévu, il est probable que vous ayez oublié une valeur obligatoire et/ou spécifié une valeur invalide quelque part. Vous devrez revenir à votre configuration, vérifier que toutes les valeurs sont correctes, puis réessayer de prévisualiser. Jusqu'à ce que nous trouvions un indicateur qui vous dise où vous vous êtes trompé.",1
+startingFixtures.input,Comma separated fixture IDs:,1,ID des appareils séparés par des virgules:,1
+system.proxyUrl.title,Proxy URL,1,URL du proxy,1
+system.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers. Applies only to map services.,1,"Un proxy optionnel à utiliser pour traiter les problèmes de même origine. L'URL doit être soit un chemin relatif sur le même serveur, soit un chemin absolu sur un serveur qui définit des en-têtes CORS. Ne s'applique qu'aux services de cartographie.",1
+system.zoomIcon.title,Zoom Icon,1,Icône de zoom,1
+system.zoomIcon.description,"Determines which icon to display for the zoom button in the grid and details panels. Can be 'globe', 'magnify', or a custom icon. Defaults to globe.",1,"Détermine l'icône à afficher pour le bouton de zoom dans les panneaux grille et détails. Il peut s'agir d'un globe, d'une loupe ou d'une icône personnalisée. La valeur par défaut est globe.",1
+system.animate.title,Animate,1,Animer,1
+system.animate.description,"Will enable visual animation when using the site, such as control transitions.",1,"Permet de réaliser des animations visuelles lors de l'utilisation du site, telles que des transitions de contrôle.",1
+system.exposeOid.title,Expose OID,1,Exposer l'OID,1
+system.exposeOid.description,Determines whether or not to include a feature's object ID field when viewing data on the site (e.g. within the details panel when identifying a feature).,1,"Détermine s'il faut ou non inclure le champ d'identification de l'objet d'un élément lors de la visualisation des données sur le site (par exemple, dans le panneau des détails lors de l'identification d'un élément).",1
+system.exposeMeasurements.title,Expose Measurements,1,Exposer les mesures,1
+system.exposeMeasurements.description,Determines whether or not to include a feature's Shape_Length and Shape_Area (e.g. within the details panel when identifying a feature).,1,"Détermine s'il faut ou non inclure la longueur et la surface de la forme d'un élément (par exemple, dans le panneau des détails lors de l'identification d'un élément).",1
+system.suppressNumberLocalization.title,Suppress Number Localization,1,Suppression de la localisation du numéro,1
+system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,Détermine s'il faut afficher les nombres au format décimal simple au lieu de les formater en fonction de la langue de l'app.,1
+system.scrollToInstance.title,Scroll To Instance,1,Défilement vers l'instance,1
+system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,Détermine si le navigateur défile jusqu'à l'instance RAMP lorsqu'on appuie sur un bouton dans l'application.,1

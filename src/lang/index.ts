@@ -1,4 +1,4 @@
-type csvRows = { key: string; enValue: string; frValue: string }[];
+type csvRows = { key: string; enValue: string; frValue: string, enValid: string, frValid: string }[];
 interface LocaleMessages {
     [key: string]: { [name: string]: string };
 }
@@ -24,7 +24,7 @@ function fold(rows: csvRows): LocaleMessages {
         (map, item) => {
             map.en[item.key] = item.enValue;
             // TODO: Change this once we have French translations
-            map.fr[item.key] = `[FR] ${item.enValue}`;
+            map.fr[item.key] = item.frValid === '1' ? item.frValue : `[FR] ${item.enValue}`;
             return map;
         },
         { en: {}, fr: {} } as LocaleMessages

@@ -6,11 +6,11 @@ extent.ymin,ymin,1,,0
 extent.ymax,ymax,1,,0
 extent.spatialReference.title,Spatial Reference,1,,0
 extent.spatialReference.description,"Properties to help define map projection. One of the wkt, wkid, and latestWkid must be specified.",1,,0
-extent.spatialReference.wkid.title,kid,1,,0
+extent.spatialReference.wkid.title,Wkid,1,,0
 extent.spatialReference.wkid.description,A well known ESRI id denoting a projection,1,,0
 extent.spatialReference.latestWkid.title,latestWkid,1,,0
 extent.spatialReference.latestWkid.description,A well known ESRI id denoting a projection,1,,0
 extent.spatialReference.wkt.title,wkt,1,,0
 extent.spatialReference.wkt.description,A well known type projection definition,1,,0
-list.add,Add,1,,0
-list.remove,Remove,1,,0
+list.add,Add,1,Ajouter,1
+list.remove,Remove,1,Retirer,1
