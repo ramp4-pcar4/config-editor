@@ -83,17 +83,17 @@ export.legend.title,Legend,1,Légende,1
 export.legend.description,Configuration for the legend,1,Configuration de la légende,1
 export.legend.columnWidth.title,Column Width,1,Largeur de la colonne,1
 export.legend.columnWidth.description,Value in pixels to be used as the column width for the exported legend,1,Valeur en pixels à utiliser comme largeur de colonne pour la légende exportée.,1
-export.footnote.title,Footnote,1,,0
+export.footnote.title,Footnote,1,Note de bas pe page,1
 export.footnote.description,Configuration for the footnote,1,Configuration pour la note de bas de page,1
 export.footnote.value.title,Value,1,Valeur,1
 export.footnote.value.description,The value of the footnote text,1,Valeur du texte de la note de bas de page,1
-export.timestamp.title,Timestamp,1,,0
+export.timestamp.title,Timestamp,1,Horodatage,1
 export.timestamp.description,Configuration for the timestamp,1,Configuration de l'horodatage,1
 export.selected.title,Selected,1,Sélectionné,1
 export.selected.description,Indicates if this component is selected on startup,1,Indique si ce composant est sélectionné au démarrage,1
 export.selectable.title,Selectable,1,Sélectionnable,1
 export.selectable.description,Indicates if this component is selectable,1,Indique si ce composant est sélectionnable,1
-geosearch.title,Geosearch,1,,0
+geosearch.title,Geosearch,1,Geosearch,1
 geosearch.description,Provides configuration to the geosearch fixture,1,Fournit la configuration de l'appareil geosearch,1
 geosearch.serviceUrls.title,Service URLs,1,URL des services,1
 geosearch.serviceUrls.description,Set of URLs for lookup services. Defaults align with GeoGratis APIs.,1,Ensemble d'URL pour les services de consultation. Les valeurs par défaut sont alignées sur les API de GeoGratis.,1
@@ -116,10 +116,10 @@ geosearch.settings.maxResults.description,The maximum number of results to retur
 geosearch.settings.officialOnly.title,Official Only,1,Officiel seulement,1
 geosearch.settings.officialOnly.description,Whether to return only official names for the geographic names. Default is false which will return both official names and formerly official names.,1,"Indique si seuls les noms officiels doivent être renvoyés pour les noms géographiques. La valeur par défaut est false, ce qui renvoie à la fois les noms officiels et les anciens noms officiels.",1
 geosearch.settings.disabledSearchTypes.title,Disabled Search Types,1,Types de recherche désactivés,1
-geosearch.settings.disabledSearchTypes.description,Disable specific types of searches,1,,0
+geosearch.settings.disabledSearchTypes.description,Disable specific types of searches,1,Désactiver des types de recherche spécifiques,1
 geosearch.settings.disabledSearchTypes.nts,NTS (National Topographic System),1,SNRC (Système national de référence cartographique),1
 geosearch.settings.disabledSearchTypes.fsa,FSA (Forward Sortation Area),1,RTA (région de tri d'acheminement),1
-geosearch.settings.disabledSearchTypes.lat/lng,Latitude/Logitude,1,,0
+geosearch.settings.disabledSearchTypes.lat/lng,Latitude/Logitude,1,Latitude/Longitude,1
 grid.title,Grid,1,Grille,1
 grid.description,Provides configuration to the grid fixture,1,Fournit la configuration de la grille de fixation,1
 grid.mergeGrids.title,Merge Grids,1,Fusionner les grilles,1
@@ -134,7 +134,7 @@ grid.mergeGrid.layers.description,A collection of the layers present in the grid
 grid.mergeGrid.layers.add,Add layer,1,Ajouter une couche,1
 grid.mergeGrid.layers.remove,Remove layer,1,Enlever la couche,1
 grid.mergeGrid.layers.singular,Layer,1,Couche,1
-grid.mergeGrid.layer.layerId.title,Layer ID,1,,0
+grid.mergeGrid.layer.layerId.title,Layer ID,1,ID de la couche,1
 grid.mergeGrid.layer.layerId.description,The ID of a layer in the layers configuration,1,L'ID d'un calque dans la configuration des calques,1
 grid.mergeGrid.layer.sublayers.title,Sublayers,1,Sous-couches,1
 grid.mergeGrid.layer.sublayers.description,The indices of the sublayers when the provided layer is a map image layer. Must be a comma-separated list of integers.,1,"Les indices des sous-couches lorsque la couche fournie est une couche d'image cartographique. Il doit s'agir d'une liste d'entiers séparés par des virgules.",1
@@ -142,7 +142,7 @@ grid.mergeGrid.fieldMap.title,Field Mappings,1,Correspondance des champs,1
 grid.mergeGrid.fieldMap.description,Defines mappings between layer fields for merging layers with varying column names,1,Définit les correspondances entre les champs de la couche pour fusionner des couches dont les noms de colonnes varient.,1
 grid.mergeGrid.fieldMap.add,Add mapping,1,Ajouter une cartographie,1
 grid.mergeGrid.fieldMap.remove,Remove mapping,1,Supprimer la cartographie,1
-grid.mergeGrid.fieldMap.singular,Mapping,1,,0
+grid.mergeGrid.fieldMap.singular,Mapping,1,Cartographie,1
 grid.mergeGrid.fieldMap.field.title,Field,1,Domaine,1
 grid.mergeGrid.fieldMap.field.description,The name of the field the column names are mapped to,1,Le nom du champ auquel les noms de colonnes sont associés.,1
 grid.mergeGrid.fieldMap.sources.title,Sources,1,Sources d'information,1
@@ -153,11 +153,11 @@ grid.mergeGrid.options.title.title,Title,1,Titre,1
 grid.mergeGrid.options.title.description,Title of the datatable,1,Titre du tableau de données,1
 grid.mergeGrid.options.searchFilter.title,Search Filter,1,Filtre de recherche,1
 grid.mergeGrid.options.searchFilter.description,Specifies the default filter to apply to a table (for global search),1,Spécifie le filtre par défaut à appliquer à une table (pour la recherche globale),1
-grid.mergeGrid.options.search.title,Search,1,,0
+grid.mergeGrid.options.search.title,Search,1,Recherche,1
 grid.mergeGrid.options.search.description,Specifies if global search is enabled by default,1,Spécifie si la recherche globale est activée par défaut,1
 grid.mergeGrid.options.showFilter.title,Show Filter,1,Afficher le filtre,1
 grid.mergeGrid.options.showFilter.description,Specifies if the column filters are displayed on table load,1,Indique si les filtres de colonne sont affichés lors du chargement du tableau,1
-grid.mergeGrid.options.applyToMap.title,Apply To Map,1,,0
+grid.mergeGrid.options.applyToMap.title,Apply To Map,1,Appliquer à la carte,1
 grid.mergeGrid.options.applyToMap.description,Specifies if column filters are applied to the map by default,1,Indique si des filtres de colonne sont appliqués par défaut à la carte,1
 grid.mergeGrid.options.filterByExtent.title,Filter By Extent,1,Filtrer par étendue,1
 grid.mergeGrid.options.filterByExtent.description,Specifies if the table should filter rows by extent by default,1,Spécifie si le tableau doit filtrer les lignes par étendue par défaut,1
@@ -165,50 +165,50 @@ grid.mergeGrid.options.controls.title,Controls,1,Contrôles,1
 grid.mergeGrid.options.controls.description,"Which action buttons to display for each rows. Pre-defined strings are 'zoom' and 'details'. Other entries may be an object containing an event name, an icon and a tooltip.",1,"Les boutons d'action à afficher pour chaque ligne. Les chaînes prédéfinies sont 'zoom' et 'détails'. Les autres entrées peuvent être un objet contenant un nom d'événement, une icône et une infobulle.",1
 grid.mergeGrid.options.controls.add,Add control,1,Ajouter un contrôle,1
 grid.mergeGrid.options.controls.remove,Remove control,1,Retirer le contrôle,1
-grid.mergeGrid.options.controls.singular,Control,1,,0
+grid.mergeGrid.options.controls.singular,Control,1,Contrôle,1
 grid.mergeGrid.options.control.type.title,Type,1,Type,1
 grid.mergeGrid.options.control.type.description,"Either 'zoom' or 'details', the default grid buttons, or 'custom'. Note that the default grid buttons can only be selected once.",1,"Soit 'zoom', soit 'détails', soit les boutons de la grille par défaut, soit 'personnalisé'. Notez que les boutons de la grille par défaut ne peuvent être sélectionnés qu'une seule fois.",1
-grid.mergeGrid.options.control.type.zoom,Zoom,1,,0
+grid.mergeGrid.options.control.type.zoom,Zoom,1,Zoom,1
 grid.mergeGrid.options.control.type.details,Details,1,Détails,1
 grid.mergeGrid.options.control.type.custom,Custom,1,Sur mesure,1
 grid.mergeGrid.options.control.type.warning,Warning! Changing the control type from custom to zoom or details will result in custom properties being erased.,1,"Attention! Si vous changez le type de contrôle de personnalisé à zoom ou détails, les propriétés personnalisées seront effacées.",1
 grid.mergeGrid.options.control.actionEvent.title,Action Event,1,Événement d'action,1
 grid.mergeGrid.options.control.actionEvent.description,The name of the event to raise when the button is clicked,1,Le nom de l'événement à déclencher lorsque le bouton est cliqué,1
-grid.mergeGrid.options.control.icon.title,Icon,1,,0
+grid.mergeGrid.options.control.icon.title,Icon,1,Icône,1
 grid.mergeGrid.options.control.icon.description,The icon to display for the button,1,L'icône à afficher pour le bouton,1
 grid.mergeGrid.options.control.tooltip.title,Tooltip,1,Info-bulle,1
 grid.mergeGrid.options.control.tooltip.description,The tooltip to display when the button is hovered,1,L'info-bulle à afficher lorsque le bouton est survolé,1
 grid.mergeGrid.options.control.displayOn.title,Display On,1,Affichage activé,1
 grid.mergeGrid.options.control.displayOn.description,Which layer format this button should appear for,1,Format de couche pour lequel ce bouton doit apparaître,1
-grid.mergeGrid.options.control.displayOn.all,All,1,,0
+grid.mergeGrid.options.control.displayOn.all,All,1,Tout,1
 grid.mergeGrid.options.control.displayOn.geo,Map Layers,1,Couches de cartes,1
 grid.mergeGrid.options.control.displayOn.data,Data Layers,1,Couches de données,1
-grid.mergeGrid.options.columns.title,Columns,1,,0
+grid.mergeGrid.options.columns.title,Columns,1,Colonnes,1
 grid.mergeGrid.options.columns.description,"Specify how the columns (properties) of the table are defined. If a column is not present in the array, it will be shown using default values. If the property is not defined, all layer attributes will be shown using default values.",1,"Spécifiez comment les colonnes (propriétés) du tableau sont définies. Si une colonne n'est pas présente dans le tableau, elle sera affichée en utilisant les valeurs par défaut. Si la propriété n'est pas définie, tous les attributs de la couche seront affichés en utilisant les valeurs par défaut.",1
 grid.mergeGrid.options.columns.add,Add column,1,Ajouter une colonne,1
 grid.mergeGrid.options.columns.remove,Remove column,1,Supprimer la colonne,1
-grid.mergeGrid.options.columns.singular,Column,1,,0
+grid.mergeGrid.options.columns.singular,Column,1,Colonne,1
 grid.mergeGrid.options.column.field.title,Field,1,Domaine,1
 grid.mergeGrid.options.column.field.description,Unique identifier for the column. Aligns with the layer field name.,1,Identifiant unique de la colonne. S'aligne sur le nom du champ de la couche.,1
 grid.mergeGrid.options.column.title.title,Title,1,Titre,1
 grid.mergeGrid.options.column.title.description,"Column title, uses the layer column name or alias if missing",1,"Titre de la colonne, utilise le nom de la colonne de la couche ou son alias s'il n'existe pas.",1
-grid.mergeGrid.options.column.width.title,Width,1,,0
+grid.mergeGrid.options.column.width.title,Width,1,Largeur,1
 grid.mergeGrid.options.column.width.description,Specifies the column width in pixels,1,Spécifie la largeur de la colonne en pixels,1
-grid.mergeGrid.options.column.sort.title,Sort,1,,0
+grid.mergeGrid.options.column.sort.title,Sort,1,Tri,1
 grid.mergeGrid.options.column.sort.description,"Specifies if column requires to be sorted, either in ascending, descending, or no order",1,"Indique si la colonne doit être triée, soit par ordre croissant, soit par ordre décroissant, soit sans ordre.",1
-grid.mergeGrid.options.column.sort.asc,Ascending,1,Ascendant,1
-grid.mergeGrid.options.column.sort.desc,Descending,1,,0
-grid.mergeGrid.options.column.sort.none,None,1,,0
+grid.mergeGrid.options.column.sort.asc,Ascending,1,Croissant,1
+grid.mergeGrid.options.column.sort.desc,Descending,1,Décroissant,1
+grid.mergeGrid.options.column.sort.none,None,1,Néant,1
 grid.mergeGrid.options.column.visible.title,Visible,1,Visible,1
 grid.mergeGrid.options.column.visible.description,Specifies if the column is visible by default,1,Spécifie si la colonne est visible par défaut,1
 grid.mergeGrid.options.column.searchable.title,Searchable,1,Recherche possible,1
 grid.mergeGrid.options.column.searchable.description,Specifies if the column is searchable by default,1,Spécifie si la colonne est consultable par défaut,1
-grid.mergeGrid.options.column.filter,Filter,1,,0
+grid.mergeGrid.options.column.filter,Filter,1,Filtre,1
 grid.mergeGrid.options.column.filter.type.title,Type,1,Type,1
 grid.mergeGrid.options.column.filter.type.description,Specifies the filter type to use for a column. Defaults to being filtered as a string.,1,"Spécifie le type de filtre à utiliser pour une colonne. Par défaut, le filtre est une chaîne de caractères.",1
 grid.mergeGrid.options.column.filter.type.string,String,1,Chaîne,1
-grid.mergeGrid.options.column.filter.type.number,Number,1,,0
-grid.mergeGrid.options.column.filter.type.date,Date,1,,0
+grid.mergeGrid.options.column.filter.type.number,Number,1,Numéro,1
+grid.mergeGrid.options.column.filter.type.date,Date,1,Date,1
 grid.mergeGrid.options.column.filter.type.selector,Selector,1,Sélecteur,1
 grid.mergeGrid.options.column.filter.min.title,Min,1,Min,1
 grid.mergeGrid.options.column.filter.min.description,Specifies the initial lower bound filter value for number or date types,1,Spécifie la valeur initiale de la borne inférieure du filtre pour les types de nombres ou de dates,1
@@ -218,18 +218,18 @@ grid.mergeGrid.options.column.filter.value.title,Value,1,Valeur,1
 grid.mergeGrid.options.column.filter.value.description,Specifies the initial filter value for string or selector types,1,Spécifie la valeur initiale du filtre pour les types de chaînes ou de sélecteurs,1
 grid.mergeGrid.options.column.filter.static.title,Static,1,Statique,1
 grid.mergeGrid.options.column.filter.static.description,Specifies if column filter is modifiable,1,Indique si le filtre de la colonne est modifiable,1
-help.title,Help,1,,0
+help.title,Help,1,Aide,1
 help.description,Provides configuration to the help fixture,1,Permet de configurer le dispositif d'aide,1
-help.location.title,Location,1,,0
+help.location.title,Location,1,Lieu,1
 help.location.description,"Relative path or URL to the help directory, which contains the help content and images. Markdown files must be named for the language they support, e.g. en.md, fr.md. Images must be placed in a subfolder named images.",1,"Chemin relatif ou URL vers le répertoire d'aide, qui contient le contenu de l'aide et les images. Les fichiers Markdown doivent être nommés en fonction de la langue qu'ils supportent, par exemple en.md, fr.md. Les images doivent être placées dans un sous-dossier nommé images.",1
 hilight.title,Hilight,1,Mettre en lumière,1
 hilight.description,Provides configuration to the hilight fixture,1,Fournit la configuration de la lampe à incandescence,1
-hilight.mode.title,Mode,1,,0
+hilight.mode.title,Mode,1,Mode,1
 hilight.mode.description,The hilight mode to use. The default mode is glow.,1,Mode d'éclairage à utiliser. Le mode par défaut est la lueur.,1
 hilight.mode.glow,Glow,1,Lueur,1
 hilight.mode.lift,Lift,1,Ascenseur,1
-hilight.mode.fog,Fog,1,,0
-hilight.mode.none,None,1,,0
+hilight.mode.fog,Fog,1,Brouillard,1
+hilight.mode.none,None,1,Néant,1
 hilight.onOpacity.title,On Opacity,1,Sur l'opacité,1
 hilight.onOpacity.description,Opacity of the fog that obscures non-highlighted features when a feature is highlighted,1,Opacité du brouillard qui masque les éléments non mis en évidence lorsqu'un élément est mis en évidence,1
 hilight.offOpacity.title,Off Opacity,1,Désactivé Opacité,1
@@ -238,7 +238,7 @@ layerReorder.title,Layer Reorder,1,Réorganisation des couches,1
 layerReorder.description,Provides configuration to the layer reorder fixture,1,Permet de configurer le dispositif de réorganisation des couches.,1
 legend.title,Legend,1,Légende,1
 legend.description,"Provides configuration to the legend fixture. If not supplied, a blank legend is displayed.",1,"Fournit la configuration de la fixation de la légende. S'il n'est pas fourni, une légende vierge est affichée.",1
-legend.root.title,Root,1,,0
+legend.root.title,Root,1,Racine,1
 legend.root.description,Provides configuration to the legend's tree structure,1,Permet de configurer l'arborescence de la légende,1
 legend.headerControls.title,Header Controls,1,Contrôles de l'en-tête,1
 legend.headerControls.description,All possible controls to show in the legend header,1,Tous les contrôles possibles à afficher dans l'en-tête de la Légende,1
@@ -266,7 +266,7 @@ legend.item.infoType.type.markdown,Markdown,1,Markdown,1
 legend.item.infoType.type.template,HTML Template,1,Modèle HTML,1
 legend.item.content.title,Content,1,Contenu,1
 legend.item.content.description,"Custom content to display instead of item name - description of title/text, URL to image file, or HTML for template.",1,"Contenu personnalisé à afficher à la place du nom de l'article - description du titre/texte, URL du fichier image ou HTML du modèle.",1
-legend.item.layerId.title,Layer ID,1,,0
+legend.item.layerId.title,Layer ID,1,ID de la couche,1
 legend.item.layerId.description,ID of a layer defined in the layers section of config that this layer item will be linked to,1,ID d'une couche définie dans la section couches de la configuration à laquelle cet élément de couche sera lié,1
 legend.item.sublayerIndex.title,Sublayer Index,1,Index des sous-couches,1
 legend.item.sublayerIndex.description,"Index of the sublayer to link this item to in the case of a map image layer. If not defined, will result in tree grow of the whole MIL. If group index defined, will result in tree grow of the specified group.",1,"Index de la sous-couche à laquelle lier cet élément dans le cas d'une couche d'image cartographique. S'il n'est pas défini, l'arborescence sera celle de l'ensemble du MIL. Si l'index du groupe est défini, l'arborescence sera celle du groupe spécifié.",1
@@ -276,8 +276,8 @@ legend.item.description.title,Description,1,Description,1
 legend.item.description.description,Optional description displayed above the symbology stack when it is expanded,1,Description facultative affichée au-dessus de la pile de symboles lorsqu'elle est développée.,1
 legend.item.symbologyRenderStyle.title,Symbology Render Style,1,Style de rendu de la symbologie,1
 legend.item.symbologyRenderStyle.description,"Describes how the symbology stack should be rendered. Icons makes the images icon-sized, images makes the images full-sized. Defaults to icons.",1,"Décrit comment la pile de symboles doit être rendue. Icônes rend les images de la taille d'une icône, images rend les images de la taille normale. La valeur par défaut est icônes.",1
-legend.item.symbologyRenderStyle.icons,Icons,1,,0
-legend.item.symbologyRenderStyle.images,Images,1,,0
+legend.item.symbologyRenderStyle.icons,Icons,1,Icônes,1
+legend.item.symbologyRenderStyle.images,Images,1,Images,1
 legend.item.hidden.title,Hidden,1,Caché,1
 legend.item.hidden.description,Indicates that the legend item will be hidden from the UI,1,Indique que l'élément de légende sera caché de l'interface utilisateur,1
 legend.item.expanded.title,Expanded,1,Élargi,1
@@ -300,7 +300,7 @@ legend.item.symbologyStack.title,Symbology Stack,1,Pile de symboles,1
 legend.item.symbologyStack.description,A collection of image-label pairings making up a layer's symbology stack,1,Ensemble de paires image-étiquette constituant la pile de symboles d'une couche,1
 legend.item.symbologyStack.add,Add symbol,1,Ajouter un symbole,1
 legend.item.symbologyStack.remove,Remove symbol,1,Supprimer le symbole,1
-legend.item.symbologyStack.singular,Symbol,1,,0
+legend.item.symbologyStack.singular,Symbol,1,Symbole,1
 legend.item.symbol.image.title,Image,1,Image,1
 legend.item.symbol.image.description,Either a data URL or a URL to a source that supports CORS headers,1,"Soit une URL de données, soit une URL vers une source qui prend en charge les en-têtes CORS.",1
 legend.item.symbol.text.title,Text,1,Texte,1
@@ -311,17 +311,17 @@ mapnav.title,Mapnav,1,Mapnav,1
 mapnav.description,Provides configuration to the mapnav fixture,1,Fournit la configuration de l'appareil mapnav,1
 mapnav.zoomOption.title,Zoom Option,1,Option de zoom,1
 mapnav.zoomOption.description,Specifies between zoom buttons or zoom sliders. The default is buttons. Currently not supported.,1,"Indique s'il s'agit d'un bouton ou d'un curseur de zoom. La valeur par défaut est celle des boutons. Actuellement, cette option n'est pas prise en charge.",1
-mapnav.zoomOption.all,All,1,,0
+mapnav.zoomOption.all,All,1,Tout,1
 mapnav.zoomOption.buttons,Buttons,1,Boutons,1
 mapnav.zoomOption.slider,Slider,1,Curseur,1
-mapnav.items.title,Items,1,,0
+mapnav.items.title,Items,1,Éléments,1
 mapnav.items.description,"Map navigation buttons to be displayed on the mapnav. These will be displayed in addition to the zoom buttons, which are always visible.",1,"Boutons de navigation de la carte à afficher sur la mapnav. Ils seront affichés en plus des boutons de zoom, qui sont toujours visibles.",1
-mapnav.item.home,Home,1,,0
-mapnav.item.fullscreen,Fullscreen,1,,0
+mapnav.item.home,Home,1,Accueil,1
+mapnav.item.fullscreen,Fullscreen,1,Plein Écran,1
 mapnav.item.geolocator,Geolocator,1,Géolocateur,1
-mapnav.item.help,Help,1,,0
+mapnav.item.help,Help,1,Aide,1
 mapnav.item.basemap,Basemap,1,Carte de base,1
-mapnav.item.geosearch,Geosearch,1,,0
+mapnav.item.geosearch,Geosearch,1,Recherche géolocalisée,1
 mapnav.item.legend,Legend,1,Légende,1
 metadata.title,Metadata,1,Métadonnées,1
 metadata.description,Provides configuration to the metadata fixture,1,Fournit la configuration de la fixation des métadonnées,1
@@ -332,7 +332,7 @@ northArrow.arrowIcon.description,The graphical icon url/data url of the north ar
 northArrow.poleIcon.title,Pole Icon,1,Icône de pôle,1
 northArrow.poleIcon.description,The graphical icon url/data url of the north pole that replaces the north arrow when it's on the north pole,1,L'icône graphique url/data url du pôle nord qui remplace la flèche du nord lorsqu'elle se trouve sur le pôle nord.,1
 overviewMap.title,Overview Map,1,Carte d'ensemble,1
-overviewMap.description,Provides configuration to the overview map fixture,1,,0
+overviewMap.description,Provides configuration to the overview map fixture,1,Permet de configurer l'appareil de contrôle du défilement,1
 overviewMap.expandFactor.title,Expand Factor,1,Facteur d'expansion,1
 overviewMap.expandFactor.description,The ratio of the overview map's extent size compared to the main map's extent size,1,Le rapport entre la taille de l'étendue de la carte d'ensemble et la taille de l'étendue de la carte principale,1
 overviewMap.borderColour.title,Border Colour,1,Couleur de la bordure,1
@@ -347,7 +347,7 @@ overviewMap.startMinimized.title,Start Minimized,1,Démarrage Minimisé,1
 overviewMap.startMinimized.description,Specifies if the overview map is minimized on startup,1,Spécifie si la carte d'ensemble est réduite au démarrage.,1
 scrollguard.title,Scrollguard,1,Garde-chiourme,1
 scrollguard.description,Provides configuration to the scrollguard fixture,1,Permet de configurer l'appareil de contrôle du défilement.,1
-scrollguard.enabled.title,Enabled,1,,0
+scrollguard.enabled.title,Enabled,1,Activé,1
 scrollguard.enabled.description,Specifies if the scrollguard is enabled on startup,1,Spécifie si le scrollguard est activé au démarrage,1
 settings.title,Settings,1,Paramètres,1
 settings.description,Provides configuration to the settings fixture,1,Permet de configurer le dispositif de réglage,1
