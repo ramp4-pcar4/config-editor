@@ -36,7 +36,7 @@ defineProps({
       :aria-label="description"
       v-tippy="{
         placement: 'top',
-        trigger: 'click focus'
+        trigger: 'mouseenter manual focus click'
       }"
       @click.stop
     >

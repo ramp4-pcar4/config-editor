@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const scrollguard = reactive<any>(props.modelValue ?? {});
 
@@ -19,18 +21,11 @@ watch(scrollguard, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Scrollguard"
-    description="Provides configuration to the scrollguard fixture."
-  >
-    <div class="flex items-center mt-4">
-      <input type="checkbox" v-model="scrollguard.enabled" aria-label="Enabled" />
-      <InputHeader
-        title="Enabled"
-        description="Specifies if the scrollguard is enabled on startup."
-        type="checkbox"
-      />
-    </div>
+  <Collapsible :thick-border="true" :title="t('scrollguard.title')" :description="t('scrollguard.description')">
+    <Checkbox
+      v-model="scrollguard.enabled"
+      :title="t('scrollguard.enabled.title')"
+      :description="t('scrollguard.enabled.description')"
+    />
   </Collapsible>
 </template>

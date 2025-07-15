@@ -2,6 +2,7 @@
 import List from '@/components/helpers/list.vue';
 import type { Field } from '@/definitions';
 import { reactive, type PropType, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 let symbologyStack = reactive<Array<any>>(props.modelValue ?? []);
 
@@ -20,23 +22,22 @@ watch(symbologyStack, () => {
 const itemFields: Array<Field> = [
   {
     property: 'image',
-    title: 'Image',
-    description: 'Either a data URL or a URL to a source that supports CORS headers.',
+    title: 'legend.item.symbol.image.title',
+    description: 'legend.item.symbol.image.description',
     type: 'string',
     required: true
   },
   {
     property: 'text',
-    title: 'Text',
-    description: 'Description of a layer feature.',
+    title: 'legend.item.symbol.text.title',
+    description: 'legend.item.symbol.text.description',
     type: 'string',
     required: true
   },
   {
     property: 'sqlQuery',
-    title: 'SQL Query',
-    description:
-      'An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbology stack should cover all attributes for that layer.',
+    title: 'legend.item.symbol.sqlQuery.title',
+    description: 'legend.item.symbol.sqlQuery.description',
     type: 'string',
     required: false
   }
@@ -47,9 +48,10 @@ const itemFields: Array<Field> = [
   <List
     v-model="symbologyStack"
     :item-fields="itemFields"
-    title="Symbology Stack"
-    description="A collection of image-label pairings making up a layer's symbology stack."
-    add-prompt="Add symbol"
-    singular="Symbol"
+    :title="t('legend.item.symbologyStack.title')"
+    :description="t('legend.item.symbologyStack.description')"
+    :add-prompt="t('legend.item.symbologyStack.add')"
+    :remove-prompt="t('legend.item.symbologyStack.remove')"
+    :singular="t('legend.item.symbologyStack.singular')"
   />
 </template>

@@ -3,9 +3,11 @@
 import { createInstance } from 'ramp-pcar';
 import { useStore } from '@/store';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 const rampInstance = ref<HTMLDivElement>();
 const store = useStore();
+const { t } = useI18n();
 
 onMounted(() => {
   createInstance(
@@ -18,12 +20,9 @@ onMounted(() => {
 
 <template>
   <div class="h-full flex flex-col">
-    <h1 class="text-2xl font-semibold">Preview</h1>
+    <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
     <p class="mt-3">
-      <span class="font-semibold">Note:</span> If the RAMP instance does not initialize as expected,
-      it is likely that you missed a required value and/or specified an invalid value somewhere. You
-      will need to go back to your config, check that all the values are correct, and then try
-      previewing again. Until we come up with a vaildator that tells you where you messed up.
+      <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
     </p>
     <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
   </div>

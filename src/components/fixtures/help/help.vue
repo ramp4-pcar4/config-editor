@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
 
 import { reactive, type PropType, watch } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -12,6 +13,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const help = reactive<any>(props.modelValue ?? {});
 
@@ -22,7 +24,7 @@ watch(help, () => {
   if (!help.location) {
     delete help.location;
   }
-  if (help.panelWidth === '') {
+  if (help.panelWidth === undefined) {
     delete help.panelWidth;
   }
   emit('update:modelValue', Object.keys(help).length === 0 ? undefined : help);
@@ -30,26 +32,21 @@ watch(help, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Help"
-    description="Provides configuration to the help fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('help.title')" :description="t('help.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Panel Width"
-          description="Determines the width of the help panel in pixels."
-        />
-        <input type="number" v-model="help.panelWidth" min="0" aria-label="Panel Width" />
-      </div>
-      <div>
-        <InputHeader
-          title="Location"
-          description="Relative path or URL to the help directory, which contains the help content and images. Markdown files must be named for the language they support, e.g. en.md, fr.md. Images must be placed in a subfolder named images."
-        />
-        <input type="text" v-model="help.location" placeholder="./help" aria-label="Location" />
-      </div>
+      <Input
+        :title="t('panelWidth.title')"
+        :description="t('panelWidth.description')"
+        type="number"
+        v-model="help.panelWidth"
+        min="0"
+      />
+      <Input
+        :title="t('help.location.title')"
+        :description="t('help.location.description')"
+        placeholder="./help"
+        v-model="help.location"
+      />
     </div>
     <PanelTeleport v-model="help.panelTeleport" />
   </Collapsible>

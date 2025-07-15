@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
-import { onMounted, ref} from 'vue';
+import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
-const store = useStore()
-const sections = ['Map', 'Layers', 'Fixtures', 'Panels', 'System'];
+const store = useStore();
+const sections = ['map', 'layers', 'fixtures', 'panels', 'system'];
 
 const configsExpanded = ref<boolean>(false);
 const langsExpanded = ref<{ [key: string]: boolean }>({});
 
+const { t } = useI18n();
+
 const emit = defineEmits(['templateUpdated', 'langUpdated']);
 
 const setTemplate = (template: string, lang?: string) => {
-  store.editingTemplate = template
+  store.editingTemplate = template;
   if (lang) {
-    store.editingLang = lang
+    store.editingLang = lang;
   }
 };
 
@@ -33,7 +36,7 @@ onMounted(() => {
       :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
       @click="setTemplate('starting-fixtures')"
     >
-      Starting Fixtures
+      {{ t('navbar.startingFixtures') }}
     </div>
     <div class="w-full">
       <div
@@ -54,7 +57,7 @@ onMounted(() => {
         >
           <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
         </svg>
-        Configs
+        {{ t('navbar.configs') }}
       </div>
       <div v-if="configsExpanded" v-for="lang in Object.keys(store.configs)" class="ml-2 sm:ml-5">
         <div
@@ -82,11 +85,12 @@ onMounted(() => {
           v-for="section in sections"
           class="hover:bg-gray-200 cursor-pointer ml-1 sm:ml-3 pl-1 sm:pl-2"
           :class="{
-            'bg-gray-200': store.editingTemplate === section.toLowerCase() && store.editingLang === lang
+            'bg-gray-200':
+              store.editingTemplate === section.toLowerCase() && store.editingLang === lang
           }"
-          @click="setTemplate(section.toLowerCase(), lang)"
+          @click="setTemplate(section, lang)"
         >
-          {{ section }}
+          {{ t(`navbar.${section}`) }}
         </div>
       </div>
     </div>
@@ -95,14 +99,14 @@ onMounted(() => {
       :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
       @click="setTemplate('options')"
     >
-      Options
+      {{ t('navbar.options') }}
     </div>
     <div class="w-full flex justify-center">
       <button
         class="mt-3 bg-black text-white p-2 hover:bg-gray-800 rounded-md mx-1 w-full sm:w-4/5"
         @click="setTemplate('preview')"
       >
-        Preview
+        {{ t('navbar.preview') }}
       </button>
     </div>
   </div>

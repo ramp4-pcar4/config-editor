@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { reactive, type PropType, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Layers from '@/components/fixtures/grid/layers.vue';
 import FieldMap from '@/components/fixtures/grid/field-map.vue';
 import Options from '@/components/fixtures/grid/options.vue';
-import Controls from '@/components/fixtures/grid/controls.vue';
+import Input from '@/components/helpers/input.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -14,6 +14,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 let mergeGrids = reactive<Array<any>>(props.modelValue ?? []);
@@ -26,25 +27,29 @@ watch(mergeGrids, () => {
 <template>
   <List
     v-model="mergeGrids"
-    title="Merge Grids"
-    description="Provides specifications for merge grids. Can also be used to configure single-layer grids, but the 'gridOption' property within the layer configuration object is preferred."
-    add-prompt="Add merge grid"
+    :title="t('grid.mergeGrids.title')"
+    :description="t('grid.mergeGrids.description')"
+    :add-prompt="t('grid.mergeGrids.add')"
+    :remove-prompt="t('grid.mergeGrids.remove')"
+    :singular="t('grid.mergeGrids.singular')"
     custom-only
     required
   >
     <template #item="{ element, index }">
       <div class="mt-4 input-table">
-        <div>
-          <InputHeader title="Grid ID" description="The unique ID of the grid." required />
-          <input type="text" v-model="mergeGrids[index].gridId" aria-label="Grid ID" />
-        </div>
+        <Input
+          :title="t('grid.mergeGrid.gridId.title')"
+          :description="t('grid.mergeGrid.gridId.description')"
+          v-model="mergeGrids[index].gridId"
+          required
+        />
       </div>
       <Layers v-model="mergeGrids[index].layers" />
       <FieldMap v-model="mergeGrids[index].fieldMap" />
       <Options
         v-model="mergeGrids[index].options"
-        title="Options"
-        description="Optional properties configuration for the merge grid."
+        :title="t('grid.mergeGrid.options.title')"
+        :description="t('grid.mergeGrid.options.description')"
       />
     </template>
   </List>

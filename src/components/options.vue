@@ -1,33 +1,25 @@
 <script setup lang="ts">
+import Checkbox from '@/components/helpers/checkbox.vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 
-const store = useStore()
+const store = useStore();
+const { t } = useI18n();
 </script>
 
 <template>
   <div>
-    <h1 class="text-2xl font-semibold">Options</h1>
-    <div class="mt-5 flex items-center">
-      <input
-        type="checkbox"
-        id="loadDefaultEvents"
-        v-model="store.options!.loadDefaultEvents"
-        :checked="store.options!.loadDefaultEvents !== false"
-      />
-      <label for="loadDefaultEvents">Load default events</label>
-    </div>
-    <div class="mt-5 flex items-center">
-      <input
-        type="checkbox"
-        id="loadDefaultFixtures"
-        v-model="store.options!.loadDefaultFixtures"
-        :checked="store.options!.loadDefaultFixtures !== false"
-      />
-      <label for="loadDefaultFixtures">Load default fixtures</label>
-    </div>
-    <div class="mt-5 flex items-center">
-      <input type="checkbox" id="startRequired" v-model="store.options!.startRequired" />
-      <label for="startRequired">Prevent initializing the map automatically</label>
-    </div>
+    <h1 class="text-2xl font-semibold">{{ t('navbar.options') }}</h1>
+    <Checkbox
+      v-model="store.options!.loadDefaultEvents"
+      checked
+      :title="t('options.defaultEvents')"
+    />
+    <Checkbox
+      v-model="store.options!.loadDefaultFixtures"
+      checked
+      :title="t('options.defaultFixtures')"
+    />
+    <Checkbox v-model="store.options!.startRequired" :title="t('options.startRequired')" />
   </div>
 </template>

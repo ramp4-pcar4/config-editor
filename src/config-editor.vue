@@ -38,6 +38,7 @@ onMounted(() => {
     inertia: true,
     trigger: 'mouseenter manual focus',
     touch: ['hold', 200],
+    delay: [200, 0],
     offset: [0, 5]
   });
 });
@@ -52,7 +53,7 @@ onMounted(() => {
       <Loading />
     </div>
     <div v-else class="h-full flex flex-col">
-      <h1 class="flex-none h-9 text-3xl font-semibold">{{ t('title') }}</h1>
+      <h1 class="flex-none h-9 text-3xl font-semibold">{{ t('editor.title') }}</h1>
       <div class="grow mt-3 flex">
         <Navbar class="basis-1/5 h-full" />
         <div class="basis-4/5 h-full px-5">

@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { type PropType, watch, reactive } from 'vue';
 import { LayerType } from '@/definitions';
-import type { Field } from '@/definitions';
 
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
-import List from '@/components/helpers/list.vue';
+import Input from '@/components/helpers/input.vue';
 import Controls from '@/components/layers/controls.vue';
 import Grid from '@/components/fixtures/grid/options.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -20,6 +19,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 const fixtures = reactive<any>({
@@ -33,26 +33,20 @@ watch(fixtures, () => {
 </script>
 
 <template>
-  <Collapsible title="Fixtures">
-    <Collapsible title="Details">
-      <div class="w-full max-w-[250px]">
-        <InputHeader
-          title="Template"
-          description="Custom Vue component name to render as details template"
-          required
-        />
-        <input
-          class="w-full"
-          type="text"
+  <Collapsible :title="t('layer.fixtures')">
+    <Collapsible :title="t('layer.fixtures.details')">
+      <div class="input-table">
+        <Input
+          :title="t('layer.fixtures.details.template.title')"
+          :description="t('layer.fixtures.details.template.description')"
           v-model="fixtures.details.template"
-          aria-label="Template"
         />
       </div>
     </Collapsible>
-    <Collapsible title="Settings">
+    <Collapsible :title="t('layer.fixtures.settings')">
       <Controls v-model="fixtures.settings.controls" />
       <Controls v-model="fixtures.settings.disabledControls" disabled />
     </Collapsible>
-    <Grid v-if="layerType !== LayerType.WMS" title="Grid" v-model="fixtures.grid" />
+    <Grid v-if="layerType !== LayerType.WMS" :title="t('layer.fixtures.grid')" v-model="fixtures.grid" />
   </Collapsible>
 </template>

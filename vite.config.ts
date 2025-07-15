@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import dsv from '@rollup/plugin-dsv';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
@@ -16,7 +17,7 @@ export default defineConfig((viteConfig) => {
 });
 
 const libConfig = {
-  plugins: [vue(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
+  plugins: [vue(), dsv(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -50,7 +51,7 @@ const libConfig = {
 };
 
 const regConfig = {
-  plugins: [vue(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
+  plugins: [vue(), dsv(), vueJsx(), viteStaticCopy({ targets: [{ src: 'help', dest: './' }]})],
   base: './',
   resolve: {
     alias: {

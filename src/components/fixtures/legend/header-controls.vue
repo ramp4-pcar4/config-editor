@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type PropType, watch } from 'vue';
-
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { useI18n } from 'vue-i18n';
+import MultiSelect from '@/components/helpers/multi-select.vue';
 
 const props = defineProps({
   modelValue: {
@@ -10,40 +10,26 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 const allControls = ['wizard', 'layerReorder', 'groupToggle', 'visibilityToggle'];
-
-let headerControls = ref<Array<string>>(
-  props.modelValue ?? JSON.parse(JSON.stringify(allControls))
-);
-
-const valToLabel = (s: string) => {
-  const result = s.replace(/([A-Z])/g, ' $1');
-  return result.charAt(0).toUpperCase() + result.slice(1);
-};
+let headerControls = ref<Array<string>>(props.modelValue ?? JSON.parse(JSON.stringify(allControls)));
 
 watch(headerControls, () => {
-  emit('update:modelValue', headerControls.value.length === 4 ? undefined : headerControls.value);
+  emit('update:modelValue', headerControls.value);
 });
 </script>
 
 <template>
-  <Collapsible
-    title="Header Controls"
-    description="All possible controls to show in the legend header."
-  >
-    <div class="input-table">
-      <div class="flex items-center" v-for="ctrl in allControls">
-        <input
-          type="checkbox"
-          class="border-2 border-black cursor-pointer text-black mr-2"
-          :value="ctrl"
-          v-model="headerControls"
-          :aria-label="valToLabel(ctrl)"
-        />
-        <label>{{ valToLabel(ctrl) }}</label>
-      </div>
-    </div>
-  </Collapsible>
+  <MultiSelect
+    :title="t('legend.headerControls.title')"
+    :description="t('legend.headerControls.description')"
+    v-model="headerControls"
+    :options="
+      allControls.map((ctrl) => {
+        return { value: ctrl, label: t(`legend.headerControl.${ctrl}`) };
+      })
+    "
+  />
 </template>

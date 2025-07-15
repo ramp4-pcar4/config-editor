@@ -1,0 +1,16 @@
+key,enValue,enValid,frValue,frValid
+extent.save,Save Map Extent As Config,1,Enregistrer « Étendue de la carte » comme configuration,1
+extent.xmin,xmin,1,xmin,1
+extent.xmax,xmax,1,xmax,1
+extent.ymin,ymin,1,ymin,1
+extent.ymax,ymax,1,ymax,1
+extent.spatialReference.title,Spatial Reference,1,Référence spatiale,1
+extent.spatialReference.description,"Properties to help define map projection. One of the wkt, wkid, and latestWkid must be specified.",1,"Propriétés pour définir la projection cartographique. L'un des éléments 'WKT', 'WKID' et 'dernierWKID' doit être spécifié.",1
+extent.spatialReference.wkid.title,Wkid,1,WKID,1
+extent.spatialReference.wkid.description,A well known ESRI id denoting a projection,1,Un identifiant bien connu d'Esri désignant une projection,1
+extent.spatialReference.latestWkid.title,latestWkid,1,Dernier WKID,1
+extent.spatialReference.latestWkid.description,A well known ESRI id denoting a projection,1,Un identifiant bien connu d'Esri désignant une projection,1
+extent.spatialReference.wkt.title,wkt,1,WKT,1
+extent.spatialReference.wkt.description,A well known type projection definition,1,Une définition de projection de type bien connue,1
+list.add,Add,1,Ajouter,1
+list.remove,Remove,1,Retirer,1

@@ -338,7 +338,7 @@ export interface PanelTeleportObject {
    * @type object
    * @memberof PanelTeleportObject
    */
-  breakpoints?: { [key: string]: number };
+  breakpoints?: { [key: string]: number | undefined};
 }
 
 /** Type definitions exclusive to config editor */

@@ -1,6 +1,6 @@
 <template>
   <div class="loader">
-    {{ t('loading') }}
+    {{ t('editor.loading') }}
   </div>
 </template>
 

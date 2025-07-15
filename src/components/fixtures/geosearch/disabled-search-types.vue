@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, type PropType, watch } from 'vue';
-
-import Collapsible from '@/components/helpers/collapsible.vue';
+import MultiSelect from '@/components/helpers/multi-select.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +10,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 
 const allTypes = ['NTS', 'FSA', 'LAT/LNG'];
@@ -22,21 +23,14 @@ watch(types, () => {
 </script>
 
 <template>
-  <Collapsible
-    title="Disabled Search Types"
-    description="Disable specific types of searches (NTS, FSA, or LAT/LNG)."
-  >
-    <div class="input-table">
-      <div class="flex items-center" v-for="typ in allTypes">
-        <input
-          type="checkbox"
-          class="border-2 border-black cursor-pointer text-black mr-2"
-          :value="typ"
-          v-model="types"
-          aria-label="Disabled Search Types"
-        />
-        <label>{{ typ }}</label>
-      </div>
-    </div>
-  </Collapsible>
+  <MultiSelect
+    :title="t('geosearch.settings.disabledSearchTypes.title')"
+    :description="t('geosearch.settings.disabledSearchTypes.description')"
+    v-model="types"
+    :options="
+      allTypes.map(typ => {
+        return { value: typ, label: t(`geosearch.settings.disabledSearchTypes.${typ.toLowerCase()}`) };
+      })
+    "
+  />
 </template>

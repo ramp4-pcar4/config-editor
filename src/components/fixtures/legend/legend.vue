@@ -6,6 +6,8 @@ import HeaderControls from '@/components/fixtures/legend/header-controls.vue';
 import { reactive, type PropType, watch } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import Children from '@/components/fixtures/legend/children.vue';
+import Input from '@/components/helpers/input.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -14,6 +16,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const legend = reactive<any>({ ...{ root: {} }, ...props.modelValue });
 
@@ -26,23 +29,19 @@ watch(legend, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Legend"
-    description="Provides configuration to the legend fixture. If not supplied, a blank legend is displayed."
-  >
+  <Collapsible :thick-border="true" :title="t('legend.title')" :description="t('legend.description')">
     <div class="input-table">
-      <div>
-        <InputHeader
-          title="Panel Width"
-          description="Determines the width of the legend panel in pixels."
-        />
-        <input type="number" v-model="legend.panelWidth" min="0" aria-label="Panel Width" />
-      </div>
+      <Input
+        :title="t('panelWidth.title')"
+        :description="t('panelWidth.description')"
+        type="number"
+        v-model="legend.panelWidth"
+        min="0"
+      />
     </div>
     <HeaderControls v-model="legend.headerControls" />
     <PanelTeleport v-model="legend.panelTeleport" />
-    <Collapsible title="Root" description="Provides configuration to the legend's tree structure.">
+    <Collapsible :title="t('legend.root.title')" :description="t('legend.root.description')">
       <Children v-model="legend.root.children" />
     </Collapsible>
   </Collapsible>

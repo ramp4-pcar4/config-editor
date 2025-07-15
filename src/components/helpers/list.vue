@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import type { Field } from '@/definitions';
-import { type PropType, watch, computed, reactive, useSlots, ref } from 'vue';
+import { type PropType, computed, useSlots } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import draggable from 'vuedraggable';
 import InputHeader from '@/components/helpers/input-header.vue';
+import Input from '@/components/helpers/input.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
+import Select from '@/components/helpers/select.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 
 const props = defineProps({
@@ -24,6 +28,10 @@ const props = defineProps({
     required: false
   },
   addPrompt: {
+    type: String,
+    required: false
+  },
+  removePrompt: {
     type: String,
     required: false
   },
@@ -58,6 +66,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const slots = useSlots();
 const emit = defineEmits(['update:modelValue']);
 
@@ -105,11 +114,7 @@ const length = computed<number>(() => list.value?.length ?? 0);
 //      - only string or boolean or number fields are present (no fancy nested objects)
 const useTableLayout = computed<boolean>(
   () =>
-    !slots.item &&
-    length.value > 0 &&
-    !!props.itemFields &&
-    props.itemFields.length > 0 &&
-    props.itemFields.length < 4
+    !slots.item && length.value > 0 && !!props.itemFields && props.itemFields.length > 0 && props.itemFields.length < 4
 );
 
 const fieldToInputType: { [key: string]: string } = {
@@ -122,19 +127,14 @@ const fieldToInputType: { [key: string]: string } = {
 </script>
 
 <template>
-  <collapsible :thick-border="topLevel">
+  <Collapsible :thick-border="topLevel">
     <template #header>
-      <button class="arrow mr-1 sm:mr-3" aria-label="Toggle expand">
+      <button :content="t('editor.expand')" v-tippy class="arrow mr-1 sm:mr-3" :aria-label="t('editor.expand')">
         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
           <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
         </svg>
       </button>
-      <InputHeader
-        type="header"
-        :title="`${title} (${length})`"
-        :required="required"
-        :description="description"
-      />
+      <InputHeader type="header" :title="`${title} (${length})`" :required="required" :description="description" />
       <!-- add item button -->
       <button
         @click.stop="add"
@@ -154,7 +154,7 @@ const fieldToInputType: { [key: string]: string } = {
         >
           <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
         </svg>
-        <span class="px-2">{{ addPrompt ?? 'Add' }}</span>
+        <span class="px-2">{{ addPrompt ?? t('list.add') }}</span>
       </button>
     </template>
     <template #default>
@@ -164,8 +164,8 @@ const fieldToInputType: { [key: string]: string } = {
           class="justify-center"
           v-for="field in itemFields"
           :key="field.title"
-          :title="field.title"
-          :description="field.description"
+          :title="t(field.title)"
+          :description="field.description ? t(field.description) : ''"
           :required="field.required"
           type="checkbox"
         />
@@ -182,7 +182,9 @@ const fieldToInputType: { [key: string]: string } = {
                     :disabled="editDisabled"
                     :class="{ handle: !editDisabled }"
                     class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed"
-                    aria-label="Reorder"
+                    :content="t('editor.reorder')"
+                    v-tippy
+                    :aria-label="t('editor.reorder')"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -199,11 +201,7 @@ const fieldToInputType: { [key: string]: string } = {
                       />
                     </svg>
                   </button>
-                  <div
-                    v-for="field in itemFields"
-                    :key="field.title"
-                    class="flex items-center justify-center"
-                  >
+                  <div v-for="field in itemFields" :key="field.title" class="flex items-center justify-center">
                     <input
                       v-if="!['enum', 'object', 'array'].includes(field.type)"
                       :type="fieldToInputType[field.type]"
@@ -213,21 +211,17 @@ const fieldToInputType: { [key: string]: string } = {
                         'cursor-pointer': field.type.toLowerCase() === 'boolean'
                       }"
                       v-model="list[index][field.property]"
-                      :aria-label="field.title"
+                      :aria-label="t(field.title)"
                     />
                     <select
                       v-else-if="field.type === 'enum'"
                       class="w-full max-w-xs"
                       :disabled="editDisabled"
                       v-model="list[index][field.property]"
-                      :aria-label="field.title"
+                      :aria-label="t(field.title)"
                     >
-                      <option
-                        v-for="option in field.options"
-                        :key="option.value"
-                        :value="option.value"
-                      >
-                        {{ option.label }}
+                      <option v-for="option in field.options" :key="option.value" :value="option.value">
+                        {{ t(option.label) }}
                       </option>
                     </select>
                     <input
@@ -237,14 +231,14 @@ const fieldToInputType: { [key: string]: string } = {
                         'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
                         'cursor-pointer': field.type.toLowerCase() === 'boolean'
                       }"
-                      :aria-label="field.title"
+                      :aria-label="t(field.title)"
                       :disabled="editDisabled"
                       :value="
                         field.type === 'object'
                           ? JSON.stringify(list[index][field.property])
                           : list[index][field.property]?.join(',') ?? ''
                       "
-                      @input="e => {
+                      @input="(e: Event) => {
                         if (field.type === 'object') {
                           list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
                         } else {
@@ -258,7 +252,9 @@ const fieldToInputType: { [key: string]: string } = {
                       @click.stop="remove(index)"
                       :disabled="editDisabled"
                       class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
-                      aria-label="Remove"
+                      :aria-label="removePrompt ?? t('list.remove')"
+                      :content="removePrompt ?? t('list.remove')"
+                      v-tippy
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -280,7 +276,9 @@ const fieldToInputType: { [key: string]: string } = {
                         @click.stop="reorder(index, -1)"
                         :disabled="editDisabled || index === 0"
                         class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                        aria-label="Move up"
+                        :aria-label="t('editor.up')"
+                        :content="t('editor.up')"
+                        v-tippy
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -290,18 +288,16 @@ const fieldToInputType: { [key: string]: string } = {
                           stroke="currentColor"
                           class="w-6 h-6"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                          />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                         </svg>
                       </button>
                       <button
                         @click.stop="reorder(index, 1)"
                         :disabled="editDisabled || index === list.length - 1"
                         class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                        aria-label="Move down"
+                        :aria-label="t('editor.down')"
+                        :content="t('editor.down')"
+                        v-tippy
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -311,11 +307,7 @@ const fieldToInputType: { [key: string]: string } = {
                           stroke="currentColor"
                           class="w-6 h-6"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                          />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                       </button>
                     </div>
@@ -331,7 +323,9 @@ const fieldToInputType: { [key: string]: string } = {
                     :class="{ handle: !editDisabled }"
                     class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-1 sm:mr-3"
                     @click.stop
-                    aria-label="Reorder"
+                    :content="t('editor.reorder')"
+                    v-tippy
+                    :aria-label="t('editor.reorder')"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -348,13 +342,13 @@ const fieldToInputType: { [key: string]: string } = {
                       />
                     </svg>
                   </button>
-                  <button class="mr-1 sm:mr-3 arrow" aria-label="Toggle expand">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      width="20"
-                    >
+                  <button
+                    :content="t('editor.expand')"
+                    v-tippy
+                    class="mr-1 sm:mr-3 arrow"
+                    :aria-label="t('editor.expand')"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                       <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                     </svg>
                   </button>
@@ -373,7 +367,9 @@ const fieldToInputType: { [key: string]: string } = {
                       @click.stop="remove(index)"
                       :disabled="editDisabled"
                       class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
-                      aria-label="Remove"
+                      :aria-label="removePrompt ?? t('list.remove')"
+                      :content="removePrompt ?? t('list.remove')"
+                      v-tippy
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -395,7 +391,9 @@ const fieldToInputType: { [key: string]: string } = {
                         @click.stop="reorder(index, -1)"
                         :disabled="editDisabled || index === 0"
                         class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                        aria-label="Move up"
+                        :aria-label="t('editor.up')"
+                        :content="t('editor.up')"
+                        v-tippy
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -405,18 +403,16 @@ const fieldToInputType: { [key: string]: string } = {
                           stroke="currentColor"
                           class="w-6 h-6"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                          />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                         </svg>
                       </button>
                       <button
                         @click.stop="reorder(index, 1)"
                         :disabled="editDisabled || index === list.length - 1"
                         class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                        aria-label="Move down"
+                        :aria-label="t('editor.down')"
+                        :content="t('editor.down')"
+                        v-tippy
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -426,11 +422,7 @@ const fieldToInputType: { [key: string]: string } = {
                           stroke="currentColor"
                           class="w-6 h-6"
                         >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                          />
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                       </button>
                     </div>
@@ -438,86 +430,35 @@ const fieldToInputType: { [key: string]: string } = {
                 </template>
                 <template #default>
                   <div v-if="!customOnly" class="input-table">
-                    <div
+                    <component
                       v-for="field in itemFields?.filter((f) => f.type.toLowerCase() !== 'boolean')"
                       :key="field.title"
-                    >
-                      <InputHeader
-                        :title="field.title"
-                        :description="field.description"
-                        :required="field.required"
-                      />
-                      <input
-                        v-if="!['enum', 'object', 'array'].includes(field.type)"
-                        :type="fieldToInputType[field.type]"
-                        :class="{
-                          'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
-                          'cursor-pointer': field.type.toLowerCase() === 'boolean'
-                        }"
-                        :disabled="editDisabled"
-                        v-model="list[index][field.property]"
-                        :placeholder="field.placeholder"
-                        :min="field.min"
-                        :max="field.max"
-                        :aria-label="field.title"
-                      />
-                      <select
-                        v-else-if="field.type === 'enum'"
-                        class="w-full max-w-xs"
-                        :disabled="editDisabled"
-                        v-model="list[index][field.property]"
-                        :aria-label="field.title"
-                      >
-                        <option
-                          v-for="option in field.options"
-                          :key="option.value"
-                          :value="option.value"
-                        >
-                          {{ option.label }}
-                        </option>
-                      </select>
-                      <input
-                        v-else
-                        :type="fieldToInputType[field.type]"
-                        class="w-full max-w-xs"
-                        :value="
-                          field.type === 'object'
-                            ? JSON.stringify(list[index][field.property])
-                            : list[index][field.property]?.join(',') ?? ''
-                        "
-                        :aria-label="field.title"
-                        :disabled="editDisabled"
-                        @input="e => {
-                          if (field.type === 'object') {
-                            list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
-                          } else {
-                            list[index][field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim());
-                          }
-                        }"
-                        :placeholder="field.placeholder"
-                        :min="field.min"
-                        :max="field.max"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    v-if="!customOnly"
-                    v-for="field in itemFields?.filter((f) => f.type === 'boolean')"
-                    class="flex items-center mt-4"
-                  >
-                    <input
-                      type="checkbox"
+                      :is="field.type === 'enum' ? Select : Input"
+                      :title="t(field.title)"
+                      :description="field.description ? t(field.description) : ''"
+                      :required="field.required"
+                      :options="
+                        field.options?.map((opt) => {
+                          return { value: opt.value, label: t(opt.label) };
+                        })
+                      "
+                      :type="field.type"
+                      :placeholder="field.placeholder"
+                      :min="field.min?.toString()"
+                      :max="field.max?.toString()"
                       v-model="list[index][field.property]"
                       :disabled="editDisabled"
-                      :aria-label="field.title"
-                    />
-                    <InputHeader
-                      :title="field.title"
-                      :description="field.description"
-                      :required="field.required"
-                      type="checkbox"
-                    />
+                    ></component>
                   </div>
+                  <Checkbox
+                    v-if="!customOnly"
+                    v-for="field in itemFields?.filter((f) => f.type === 'boolean')"
+                    :title="t(field.title)"
+                    :description="field.description ? t(field.description) : ''"
+                    :required="field.required"
+                    :disabled="editDisabled"
+                    v-model="list[index][field.property]"
+                  />
                   <slot name="item" :index="index" :element="list[index]"></slot>
                 </template>
               </Collapsible>
@@ -526,5 +467,5 @@ const fieldToInputType: { [key: string]: string } = {
         </template>
       </draggable>
     </template>
-  </collapsible>
+  </Collapsible>
 </template>

@@ -2,6 +2,7 @@
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -10,6 +11,7 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 const layerReorder = reactive<any>(props.modelValue ?? {});
 
@@ -19,11 +21,7 @@ watch(layerReorder, () => {
 </script>
 
 <template>
-  <Collapsible
-    :thick-border="true"
-    title="Layer Reorder"
-    description="Provides configuration to the layer reorder fixture."
-  >
+  <Collapsible :thick-border="true" :title="t('layerReorder.title')" :description="t('layerReorder.description')">
     <PanelTeleport v-model="layerReorder.panelTeleport" />
   </Collapsible>
 </template>

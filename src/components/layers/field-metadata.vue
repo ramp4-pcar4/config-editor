@@ -2,9 +2,11 @@
 import { type PropType, reactive, watch } from 'vue';
 
 import List from '@/components/helpers/list.vue';
+import Checkbox from '@/components/helpers/checkbox.vue';
 import InputHeader from '@/components/helpers/input-header.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import type { Field, RampLayerFieldMetadataConfig } from '@/definitions';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   modelValue: {
@@ -13,21 +15,21 @@ const props = defineProps({
   }
 });
 
+const { t } = useI18n();
+
 const itemFields: Array<Field> = [
   {
     type: 'string',
     property: 'name',
-    title: 'Name',
-    description:
-      'Specifies the field name to use to link to the identifier. Must exist in the layer.',
+    title: 'layer.fieldMetadata.fieldInfo.name.title',
+    description: 'layer.fieldMetadata.fieldInfo.name.description',
     required: true
   },
   {
     type: 'string',
     property: 'alias',
-    title: 'Alias',
-    description:
-      'Specifies the field title. If missing, attempts to use the service alias, then defaults to the field name.',
+    title: 'layer.fieldMetadata.fieldInfo.alias.title',
+    description: 'layer.fieldMetadata.fieldInfo.alias.description',
     required: false
   }
 ];
@@ -45,25 +47,20 @@ watch(fieldMetadata, () => {
 </script>
 
 <template>
-  <Collapsible title="Field Metadata">
-    <div class="flex items-center mb-4">
-      <input
-        type="checkbox"
-        v-model="fieldMetadata.exclusiveFields"
-        aria-label="Exclusive Fields"
-      />
-      <InputHeader
-        title="Exclusive Fields"
-        description="If true, only fields in fieldInfo are recognized and downloaded. Otherwise, all fields are used."
-        type="checkbox"
-      />
-    </div>
+  <Collapsible :title="t('layer.fieldMetadata')">
+    <Checkbox
+      :title="t('layer.fieldMetadata.exclusiveFields.title')"
+      :description="t('layer.fieldMetadata.exclusiveFields.description')"
+      v-model="fieldMetadata.exclusiveFields"
+      class="mt-0"
+    />
     <List
       v-model="fieldMetadata.fieldInfo"
       :item-fields="itemFields"
-      title="Field Info"
-      add-prompt="Add field info"
-      description="Specifies field info for layer."
+      :title="t('layer.fieldMetadata.fieldInfo.title')"
+      :add-prompt="t('layer.fieldMetadata.fieldInfo.add')"
+      :remove-prompt="t('layer.fieldMetadata.fieldInfo.remove')"
+      :description="t('layer.fieldMetadata.fieldInfo.description')"
     />
   </Collapsible>
 </template>
