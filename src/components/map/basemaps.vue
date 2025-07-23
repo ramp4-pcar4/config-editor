@@ -1,7 +1,10 @@
 <script setup lang="ts">
+// root.map.basemaps config nugget
+
+// TODO deal with typescript grouses. Might need a val ?? false to shut it up
+
 import { type PropType, reactive, watch } from 'vue';
 
-import InputHeader from '@/components/helpers/input-header.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import List from '@/components/helpers/list.vue';
 import Checkbox from '@/components/helpers/checkbox.vue';
@@ -22,6 +25,14 @@ const props = defineProps({
   }
 });
 
+/**
+ * Handles changes to the attribution property
+ *
+ * @param idx basemap index we're updating
+ * @param section section we're updating, text or logo
+ * @param key property name we're updating
+ * @param value what the new value is to set
+ */
 const onAttributionInput = (idx: number, section: 'text' | 'logo', key: string, value: string | boolean) => {
   const newAttribution = basemaps[idx].attribution ?? { text: {}, logo: {} };
 

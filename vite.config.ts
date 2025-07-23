@@ -38,7 +38,7 @@ const libConfig = {
       fileName: 'ramp4-editor'
     },
     rollupOptions: {
-      external: ['ramp-pcar'],
+      external: ['ramp-pcar'], // this stops RAMP from being bundled. app consuming this editor will need to have RAMP in its package imports
       output: {
         inlineDynamicImports: true,
         globals: {

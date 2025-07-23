@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].state config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 
 import Checkbox from '@/components/helpers/checkbox.vue';

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// friendly halper for selection lists (pick-one style)
+
+// TODO fix grouses
+
 import InputHeader from '@/components/helpers/input-header.vue';
 
 const model = defineModel<any>();

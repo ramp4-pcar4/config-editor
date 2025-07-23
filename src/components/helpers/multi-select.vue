@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import InputHeader from '@/components/helpers/input-header.vue';
+// friendly halper for multiselectors (appears as a group of checkboxes)
 
-import { computed } from 'vue';
+// TODO figure out these typescript grouses
+
 import Collapsible from './collapsible.vue';
 
 const model = defineModel<Array<any>>();

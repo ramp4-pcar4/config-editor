@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// container.startingFixtures string array
+
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 import Input from '@/components/helpers/input.vue';

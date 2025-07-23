@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].metadata config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 
 import Input from '@/components/helpers/input.vue';

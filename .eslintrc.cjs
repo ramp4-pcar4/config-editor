@@ -11,5 +11,8 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
+  },
+  rules:{
+    'vue/multi-word-component-names': 'off' // this was making components with names like "system", "preview" freak out
   }
 }

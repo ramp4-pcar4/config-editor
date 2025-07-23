@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].sublayers[].styleLegends config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
 import type { Field } from '@/definitions';

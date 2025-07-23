@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.map.extentSets config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 
 import Extent from '@/components/helpers/extent.vue';

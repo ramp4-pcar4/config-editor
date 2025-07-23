@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// root.map.lodSets config nugget
+
+// TODO investigate typescript grouse
+
 import { type PropType, watch, ref } from 'vue';
 
 import { geo } from 'ramp-pcar';

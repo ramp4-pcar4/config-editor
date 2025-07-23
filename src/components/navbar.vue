@@ -1,4 +1,7 @@
 <script setup lang="ts">
+// TODO figure out what this is. Top of the editor?
+// TODO fix the TS grouses
+
 import { useStore } from '@/store';
 import { onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -21,16 +24,14 @@ const setTemplate = (template: string, lang?: string) => {
 };
 
 onMounted(() => {
-  Object.keys(store.configs).forEach((lang) => {
+  Object.keys(store.configs).forEach(lang => {
     langsExpanded.value[lang] = false;
   });
 });
 </script>
 
 <template>
-  <div
-    class="flex flex-col items-center border-black border-2 sm:text-lg divide-y divide-slate-200"
-  >
+  <div class="flex flex-col items-center border-black border-2 sm:text-lg divide-y divide-slate-200">
     <div
       class="w-full p-1 sm:p-3 hover:bg-gray-200 cursor-pointer border-gray-800"
       :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
@@ -85,8 +86,7 @@ onMounted(() => {
           v-for="section in sections"
           class="hover:bg-gray-200 cursor-pointer ml-1 sm:ml-3 pl-1 sm:pl-2"
           :class="{
-            'bg-gray-200':
-              store.editingTemplate === section.toLowerCase() && store.editingLang === lang
+            'bg-gray-200': store.editingTemplate === section.toLowerCase() && store.editingLang === lang
           }"
           @click="setTemplate(section, lang)"
         >

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// friendly halper for checkboxes
+
 import InputHeader from '@/components/helpers/input-header.vue';
 import { computed } from 'vue';
 

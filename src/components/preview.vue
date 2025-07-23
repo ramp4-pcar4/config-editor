@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// does the ramp previewer of the config we're editing
+
 // @ts-ignore
 import { createInstance } from 'ramp-pcar';
 import { useStore } from '@/store';

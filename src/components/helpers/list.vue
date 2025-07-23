@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// friendly halper for lists of stuff.
+
+// TODO figure out the typescript grouses
+
 import type { Field } from '@/definitions';
 import { type PropType, computed, useSlots } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -82,7 +86,7 @@ const list = computed({
 const add = () => {
   if (props.editDisabled) {
     return;
-  } else if (!!props.add) {
+  } else if (props.add) {
     props.add();
   } else if (!props.modelValue) {
     list.value = [...list.value, {}];
@@ -94,7 +98,7 @@ const add = () => {
 const remove = (idx: number) => {
   if (props.editDisabled) {
     return;
-  } else if (!!props.remove) {
+  } else if (props.remove) {
     props.remove(idx);
   } else {
     list.value?.splice(idx, 1);
@@ -431,14 +435,14 @@ const fieldToInputType: { [key: string]: string } = {
                 <template #default>
                   <div v-if="!customOnly" class="input-table">
                     <component
-                      v-for="field in itemFields?.filter((f) => f.type.toLowerCase() !== 'boolean')"
+                      v-for="field in itemFields?.filter(f => f.type.toLowerCase() !== 'boolean')"
                       :key="field.title"
                       :is="field.type === 'enum' ? Select : Input"
                       :title="t(field.title)"
                       :description="field.description ? t(field.description) : ''"
                       :required="field.required"
                       :options="
-                        field.options?.map((opt) => {
+                        field.options?.map(opt => {
                           return { value: opt.value, label: t(opt.label) };
                         })
                       "
@@ -452,7 +456,7 @@ const fieldToInputType: { [key: string]: string } = {
                   </div>
                   <Checkbox
                     v-if="!customOnly"
-                    v-for="field in itemFields?.filter((f) => f.type === 'boolean')"
+                    v-for="field in itemFields?.filter(f => f.type === 'boolean')"
                     :title="t(field.title)"
                     :description="field.description ? t(field.description) : ''"
                     :required="field.required"
