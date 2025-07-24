@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.hilight config nugget
+
 import { reactive, ref, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Select from '@/components/helpers/select.vue';
@@ -27,7 +29,7 @@ const update = () => {
     }
   }
   const hilight: any = {};
-  if (mode) {
+  if (mode.value) {
     hilight.mode = mode.value;
   }
   if (Object.keys(opts).length > 0) {

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.scrollguard config nugget
+
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Checkbox from '@/components/helpers/checkbox.vue';

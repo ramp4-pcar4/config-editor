@@ -1,7 +1,8 @@
 <script setup lang="ts">
+// root.fixtures.geosearch.serviceUrls config nugget
+
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Input from '@/components/helpers/input.vue';
 import { useI18n } from 'vue-i18n';
 

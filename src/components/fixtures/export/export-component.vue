@@ -1,7 +1,8 @@
 <script setup lang="ts">
+// acts as a template for the various export component fixture config nuggets
+
 import Checkbox from '@/components/helpers/checkbox.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import { useI18n } from 'vue-i18n';
 
 const selectable = defineModel('selectable', { type: Boolean });

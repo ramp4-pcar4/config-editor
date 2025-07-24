@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.legend.headerControls config nugget
+
 import { ref, type PropType, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import MultiSelect from '@/components/helpers/multi-select.vue';
@@ -27,7 +29,7 @@ watch(headerControls, () => {
     :description="t('legend.headerControls.description')"
     v-model="headerControls"
     :options="
-      allControls.map((ctrl) => {
+      allControls.map(ctrl => {
         return { value: ctrl, label: t(`legend.headerControl.${ctrl}`) };
       })
     "

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.overviewmap config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Basemaps from '@/components/map/basemaps.vue';
 import Input from '@/components/helpers/input.vue';
@@ -18,7 +20,7 @@ const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
 let overviewMap = reactive<any>(props.modelValue ?? {});
 let basemaps = reactive<Array<any>>(
-  props.modelValue?.basemaps ? Object.keys(props.modelValue?.basemaps).map((k) => props.modelValue?.basemaps[k]) : []
+  props.modelValue?.basemaps ? Object.keys(props.modelValue?.basemaps).map(k => props.modelValue?.basemaps[k]) : []
 );
 
 const update = () => {

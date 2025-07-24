@@ -1,6 +1,7 @@
 <script setup lang="ts">
+// root.fixtures.details config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Input from '@/components/helpers/input.vue';
 import { reactive, type PropType, watch } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
