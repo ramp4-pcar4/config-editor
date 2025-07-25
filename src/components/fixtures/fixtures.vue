@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// collects all rubbish for the fixtures section
+
 import Appbar from '@/components/fixtures/appbar/appbar.vue';
 import AreasOfInterest from '@/components/fixtures/areas-of-interest/areas-of-interest.vue';
 import Basemap from '@/components/fixtures/basemap/basemap.vue';

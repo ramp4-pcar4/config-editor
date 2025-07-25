@@ -1,4 +1,9 @@
 <script setup lang="ts">
+// root.fixtures.legend.root.children[].controls config nugget
+
+// TODO is this correct? only has "visibilty" and expand in the controls selection. look into it
+//      "layer" blocks have more controls. not seeing them anywhere.
+
 import { ref, type PropType, watch } from 'vue';
 import MultiSelect from '@/components/helpers/multi-select.vue';
 import { useI18n } from 'vue-i18n';
@@ -40,7 +45,7 @@ watch(controls, () => {
     :description="disabled ? t('legend.item.disabledControls.description') : t('legend.item.controls.description')"
     v-model="controls"
     :options="
-      allControls.map((ctrl) => {
+      allControls.map(ctrl => {
         return { value: ctrl, label: t(`legend.item.control.${ctrl}`) };
       })
     "

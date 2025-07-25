@@ -1,6 +1,7 @@
 <script setup lang="ts">
+// root.panels config nugget
+
 import Checkbox from '@/components/helpers/checkbox.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import type { Field } from '@/definitions';
 import List from '@/components/helpers/list.vue';
 import { useStore } from '@/store';

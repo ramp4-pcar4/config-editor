@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// root.fixtures.grid.mergeGrids config nugget
+
+// TODO fix typescript grouse
+
 import { reactive, type PropType, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
 import Layers from '@/components/fixtures/grid/layers.vue';

@@ -7,7 +7,10 @@ import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import VueTippy from 'vue-tippy';
 import { useStore } from '@/store';
 import merge from 'deepmerge';
-import { I18n } from 'vue-i18n';
+
+
+// This is the starting point for the "lib" build, which is what other apps will use as they
+// just treat this editor like a tool / component.
 
 class API {
   readonly $vApp: ComponentPublicInstance;
@@ -25,7 +28,7 @@ class API {
 
     this.$vApp = element.mount(el);
 
-    if (!!configs) {
+    if (configs) {
       this.initialize(configs, options);
     }
   }

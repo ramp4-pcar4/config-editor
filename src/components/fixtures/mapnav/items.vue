@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.mapnav.items config nugget
+
 import { type PropType, watch, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
@@ -29,7 +31,7 @@ watch(items, () => {
     :description="t('mapnav.items.description')"
     v-model="items"
     :options="
-      allItems.map((item) => {
+      allItems.map(item => {
         return { value: item, label: t(`mapnav.item.${item}`) };
       })
     "

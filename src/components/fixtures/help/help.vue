@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.help config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Input from '@/components/helpers/input.vue';
 

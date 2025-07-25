@@ -14,11 +14,19 @@ export const enum LayerType {
 
   // File Based
   GEOJSON = 'file-geojson',
+  GEOJSONZIPPED = 'file-zip-geojson',
   CSV = 'file-csv',
   SHAPEFILE = 'file-shape',
+  FLATGEOBUF = 'file-fgb',
+  FLATGEOBUFZIPPED = 'file-zip-fgb',
 
   // Other
   OSM = 'osm-tile', // open street map
+
+  // Data
+  DATACSV = 'data-csv',
+  DATAJSON = 'data-json',
+  DATATABLE = 'data-esri-table',
 
   UNKNOWN = 'unknown',
 
@@ -108,11 +116,13 @@ export interface RampLayerStateConfig {
 export interface RampLayerFieldInfoConfig {
   name: string;
   alias?: string;
+  trim?: boolean;
 }
 
 export interface RampLayerFieldMetadataConfig {
   fieldInfo?: Array<RampLayerFieldInfoConfig>;
   exclusiveFields?: boolean; // default to false. if true, means we only recognize and download field in fieldInfo. if false, we download all fields, and fieldInfo provides additional data as needed
+  enforceOrder?: boolean; //default to false. if true, then order the fields in the same order as fieldInfo. if false, randomize ordering of field array
 }
 
 // i.e. a dynamic layer child

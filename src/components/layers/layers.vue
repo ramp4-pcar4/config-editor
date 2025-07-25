@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { LayerIdentifyMode, LayerType, type RampLayerConfig } from '@/definitions';
+// root.layers config nugget
+
+import { LayerIdentifyMode, LayerType } from '@/definitions';
+import type { RampLayerConfig } from '@/definitions';
 import { computed, ref } from 'vue';
 import draggable from 'vuedraggable';
 
@@ -24,9 +27,9 @@ const { t } = useI18n();
 const updatedLegend = ref<boolean>(false);
 const imgFormatOpts = ref(['png', 'png8', 'png24', 'png32', 'jpg', 'pdf', 'bmp', 'gif', 'svg']);
 
-const allHaveId = computed<boolean>(() => store.configs[store.editingLang].layers.every((layerConf) => !!layerConf.id));
+const allHaveId = computed<boolean>(() => store.configs[store.editingLang].layers.every(layerConf => !!layerConf.id));
 const allUniqueIds = computed<boolean>(() => {
-  const layerIds = store.configs[store.editingLang].layers.map((layerConf) => layerConf.id).filter((id) => !!id);
+  const layerIds = store.configs[store.editingLang].layers.map(layerConf => layerConf.id).filter(id => !!id);
   const checkSet = new Set(layerIds);
   return layerIds.length === checkSet.size;
 });
@@ -69,7 +72,7 @@ const getLegendEntry = (root: any, layerId: string): any => {
     let result = undefined;
     root?.children?.forEach((child: any) => {
       const entry = getLegendEntry(child, layerId);
-      if (!!entry) {
+      if (entry) {
         result = entry;
       }
     });
@@ -88,7 +91,7 @@ const legendEntryExists = (root: any, layerId: string): boolean => {
 const removeLayerItems = (children: Array<any>) => {
   // remove item
   children = children.filter(
-    (child) =>
+    child =>
       child.layerId === undefined ||
       store.configs[store.editingLang].layers.some((layerConf: RampLayerConfig) => layerConf.id === child.layerId)
   );
@@ -353,7 +356,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                   :title="t('layer.id.title')"
                   :description="t('layer.id.description')"
                   :model-value="element.id"
-                  @update:model-value="(id) => onLayerIdChange(id, index)"
+                  @update:model-value="id => onLayerIdChange(id, index)"
                   required
                 />
                 <Input
@@ -485,9 +488,9 @@ const onLayerIdChange = (newId: string, idx: number) => {
                   :description="t('layer.identifyMode.description')"
                   v-model="element.identifyMode"
                   :options="[
-                    { label: t('layer.identifyMode.geometric'), value: 'geometric' },
-                    { label: t('layer.identifyMode.symbolic'), value: 'symbolic' },
-                    { label: t('layer.identifyMode.hybrid'), value: 'hybrid' }
+                    { label: t('layer.identifyMode.geometric'), value: LayerIdentifyMode.GEOMETRIC },
+                    { label: t('layer.identifyMode.symbolic'), value: LayerIdentifyMode.SYMBOLIC },
+                    { label: t('layer.identifyMode.hybrid'), value: LayerIdentifyMode.HYBRID }
                   ]"
                 />
                 <Select
@@ -496,7 +499,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                   :description="t('layer.imageFormat.description')"
                   v-model="element.imageFormat"
                   :options="
-                    imgFormatOpts.map((format) => {
+                    imgFormatOpts.map(format => {
                       return { label: format, value: format };
                     })
                   "

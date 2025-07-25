@@ -1,7 +1,9 @@
 <script setup lang="ts">
+// friendly halper for making inputs (stuff users enter stuff into)
+
 import InputHeader from '@/components/helpers/input-header.vue';
 
-import { computed, PropType } from 'vue';
+import { computed } from 'vue';
 
 const model = defineModel<any>();
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.fixtures.grid config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
 import { reactive, type PropType, watch } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';

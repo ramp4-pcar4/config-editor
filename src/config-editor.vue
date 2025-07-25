@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+// this is the overall editor
+
 import Loading from '@/components/loading.vue';
 import Navbar from './components/navbar.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';

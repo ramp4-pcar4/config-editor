@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// root.layers[].fixtures.grid.controls config nugget
+
+// TODO fix grouse
+
 import { reactive, type PropType, watch, computed } from 'vue';
 import List from '@/components/helpers/list.vue';
 import Select from '@/components/helpers/select.vue';

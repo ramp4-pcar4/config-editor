@@ -1,7 +1,10 @@
 <script setup lang="ts">
+// root.fixtures.legend.[any block].children config nugget
+
+// TODO fix grouses
+
 import { reactive, type PropType, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import SymbologyStack from '@/components/fixtures/legend/symbology-stack.vue';
 import Controls from '@/components/fixtures/legend/controls.vue';
 import LayerControls from '@/components/layers/controls.vue';

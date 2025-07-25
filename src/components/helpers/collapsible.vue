@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// friendly halper for collapsible sections. boxes with arrow controls to show guts or hide/collapse them
+
 import { ref } from 'vue';
 import InputHeader from './input-header.vue';
 import { useI18n } from 'vue-i18n';

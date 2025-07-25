@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.map.tileSchemas config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 
 import type { Field, RampTileSchemaConfig } from '@/definitions';

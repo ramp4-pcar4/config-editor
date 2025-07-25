@@ -1,4 +1,8 @@
 <script setup lang="ts">
+// friendly halper for extent picker, including fancy map extent generator
+
+// TODO investigate very weird typescript error. looks like parse bug to me
+
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Input from '@/components/helpers/input.vue';
 import type { RampExtentConfig } from '@/definitions';
@@ -175,7 +179,7 @@ const saveExtent = () => {
     ymax: rampExtent.ymax,
     spatialReference: {} as any
   };
-  Object.keys(rampExtent.sr).forEach((k) => {
+  Object.keys(rampExtent.sr).forEach(k => {
     if (rampExtent.sr[k] !== undefined) {
       newExtent.spatialReference[k] = rampExtent.sr[k];
     }
@@ -186,7 +190,7 @@ const saveExtent = () => {
 const rampInstance = ref<HTMLDivElement>();
 const emit = defineEmits(['update:modelValue']);
 
-const onInput = (key: string, val: string) => {
+const onInput = (key: string, val: string): void => {
   const newExtent = <any>props.modelValue;
 
   if (['xmin', 'xmax', 'ymin', 'ymax'].includes(key)) {
@@ -222,28 +226,28 @@ const onInput = (key: string, val: string) => {
           type="number"
           required
           :model-value="props.modelValue?.xmin"
-          @update:model-value="(val) => onInput('xmin', val)"
+          @update:model-value="val => onInput('xmin', val)"
         />
         <Input
           :title="t('extent.xmax')"
           type="number"
           required
           :model-value="props.modelValue?.xmax"
-          @update:model-value="(val) => onInput('xmax', val)"
+          @update:model-value="val => onInput('xmax', val)"
         />
         <Input
           :title="t('extent.ymin')"
           type="number"
           required
           :model-value="props.modelValue?.ymin"
-          @update:model-value="(val) => onInput('ymin', val)"
+          @update:model-value="val => onInput('ymin', val)"
         />
         <Input
           :title="t('extent.ymax')"
           type="number"
           required
           :model-value="props.modelValue?.ymax"
-          @update:model-value="(val) => onInput('ymax', val)"
+          @update:model-value="val => onInput('ymax', val)"
         />
       </div>
       <Collapsible :title="t('extent.spatialReference.title')" :description="t('extent.spatialReference.description')">
@@ -253,20 +257,20 @@ const onInput = (key: string, val: string) => {
             :description="t('extent.spatialReference.wkid.description')"
             type="number"
             :model-value="props.modelValue?.spatialReference?.wkid"
-            @update:model-value="(val) => onInput('wkid', val)"
+            @update:model-value="val => onInput('wkid', val)"
           />
           <Input
             :title="t('extent.spatialReference.latestWkid.title')"
             :description="t('extent.spatialReference.latestWkid.description')"
             type="number"
             :model-value="props.modelValue?.spatialReference?.latestWkid"
-            @update:model-value="(val) => onInput('latestWkid', val)"
+            @update:model-value="val => onInput('latestWkid', val)"
           />
           <Input
             :title="t('extent.spatialReference.wkt.title')"
             :description="t('extent.spatialReference.wkt.description')"
             :model-value="props.modelValue?.spatialReference?.wkt"
-            @update:model-value="(val) => onInput('wkt', val)"
+            @update:model-value="val => onInput('wkt', val)"
           />
         </div>
       </Collapsible>

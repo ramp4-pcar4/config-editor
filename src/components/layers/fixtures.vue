@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].fixtures config nugget
+
 import { type PropType, watch, reactive } from 'vue';
 import { LayerType } from '@/definitions';
 

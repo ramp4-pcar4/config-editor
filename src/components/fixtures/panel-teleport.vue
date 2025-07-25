@@ -1,6 +1,7 @@
 <script setup lang="ts">
+// root.fixtures.[any].panelTeleport config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Input from '@/components/helpers/input.vue';
 import Checkbox from '@/components/helpers/checkbox.vue';
 import List from '@/components/helpers/list.vue';

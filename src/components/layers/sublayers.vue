@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].sublayers config nugget
+
 import { type PropType, reactive, watch } from 'vue';
 
 import Controls from '@/components/layers/controls.vue';

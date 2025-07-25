@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import InputHeader from '@/components/helpers/input-header.vue';
+// root.system config nugget
+
 import Checkbox from '@/components/helpers/checkbox.vue';
 import Input from '@/components/helpers/input.vue';
 import { useStore } from '@/store';

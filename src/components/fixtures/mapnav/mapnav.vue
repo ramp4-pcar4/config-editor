@@ -1,7 +1,8 @@
 <script setup lang="ts">
+// root.fixtures.mapnav config nugget
+
 import { reactive, type PropType, watch } from 'vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Select from '@/components/helpers/select.vue';
 
 import Items from '@/components/fixtures/mapnav/items.vue';

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+// root.layers[].fixtures.grid config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
 import List from '@/components/helpers/list.vue';
 import Input from '@/components/helpers/input.vue';

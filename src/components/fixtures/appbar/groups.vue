@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { type PropType, reactive, watch, ref } from 'vue';
+// root.fixtures.appbar.??? config nugget
+// TODO figure out what this is.  .items ? the general thing that lurks in .items?
+
+import { type PropType, reactive, watch } from 'vue';
 import List from '@/components/helpers/list.vue';
 import Input from '@/components/helpers/input.vue';
 import Select from '@/components/helpers/select.vue';

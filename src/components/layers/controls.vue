@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, type PropType, watch, computed } from 'vue';
+// root.layers[].controls config nugget
+
+// TODO fix typescript grouses. Keying on enums is sorta evil. Find smarter way. Maybe ditch the enum alltogether since all we really care about is the values.
+//      eyeballing things, could prob use `allControls` as the source for that multiselect.
+
+import { ref, type PropType, watch } from 'vue';
 import { LayerControl } from '@/definitions';
 
-import Collapsible from '@/components/helpers/collapsible.vue';
 import { useI18n } from 'vue-i18n';
 import MultiSelect from '@/components/helpers/multi-select.vue';
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
+// root.fixtures.legend config nugget
+
 import Collapsible from '@/components/helpers/collapsible.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import HeaderControls from '@/components/fixtures/legend/header-controls.vue';
 
 import { reactive, type PropType, watch } from 'vue';

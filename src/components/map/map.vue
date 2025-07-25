@@ -1,10 +1,11 @@
 <script setup lang="ts">
+// root.map config nugget
+
 import Caption from '@/components/map/caption.vue';
 import TileSchemas from '@/components/map/tile-schemas.vue';
 import ExtentSets from '@/components/map/extent-sets.vue';
 import LodSets from '@/components/map/lod-sets.vue';
 import Basemaps from '@/components/map/basemaps.vue';
-import InputHeader from '@/components/helpers/input-header.vue';
 import Input from '@/components/helpers/input.vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
