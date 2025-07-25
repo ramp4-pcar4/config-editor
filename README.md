@@ -4,7 +4,7 @@ This is an interactive config creator and editor for RAMP4 config files.
 
 :construction: Currently does not have 100% coverage of all configuration options :construction:
 
-[Basic Live Demo](https://ramp4-pcar4.github.io/config-editor/)
+[Basic Live Demo](https://ramp4-pcar4.github.io/config-editor/main/)
 
 ## Usage
 
@@ -25,10 +25,6 @@ Anytime you go into any of the sections and edit any property, the change is ref
 ```javascript
 window.ramp4EditorAPI.getConfig();
 ```
-
-## Updating the RAMP build
-
-Whenever you want to update the RAMP4 build to the latest and greatest, just replace the files in the `src/lib` folder.
 
 ## Storylines Integration
 
