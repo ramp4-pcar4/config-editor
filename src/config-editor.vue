@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 // this is the overall editor
 
 import Loading from '@/components/loading.vue';
@@ -14,7 +13,7 @@ import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
 
 import '@/styles.css';
-import 'ramp-pcar/dist/lib/ramp.css';
+import 'ramp-pcar/dist/ramp.css';
 import { useI18n } from 'vue-i18n';
 import { onMounted } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
@@ -49,10 +48,7 @@ onMounted(() => {
 
 <template>
   <div class="ramp4-config-editor h-full">
-    <div
-      v-if="!store.initialized"
-      class="w-full h-full bg-[#1c1717] box-border flex items-center justify-center"
-    >
+    <div v-if="!store.initialized" class="w-full h-full bg-[#1c1717] box-border flex items-center justify-center">
       <Loading />
     </div>
     <div v-else class="h-full flex flex-col">
@@ -75,8 +71,8 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-$font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
-  Apple Color Emoji, Segoe UI Emoji;
+$font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
+  Segoe UI Emoji;
 
 .ramp4-config-editor {
   height: 100%;
@@ -114,10 +110,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
   --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
 
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr)
-  );
+  grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-item--min-width), var(--grid-item--max-width)), 1fr));
   column-gap: var(--grid-layout-gap);
   row-gap: 16px;
 
