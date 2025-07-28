@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // root.map.basemaps config nugget
 
-// TODO deal with typescript grouses. Might need a val ?? false to shut it up
-
 import { type PropType, reactive, watch } from 'vue';
 
 import Collapsible from '@/components/helpers/collapsible.vue';
@@ -220,7 +218,7 @@ const layerFields: Array<Field> = [
           </div>
           <Checkbox
             :model-value="basemaps[index]?.attribution?.text?.disabled"
-            @update:model-value="val => onAttributionInput(index, 'text', 'disabled', val)"
+            @update:model-value="val => onAttributionInput(index, 'text', 'disabled', val ?? false)"
             :title="t('basemap.attribution.text.disabled.title')"
             :description="t('basemap.attribution.text.disabled.description')"
           />
@@ -252,7 +250,7 @@ const layerFields: Array<Field> = [
           </div>
           <Checkbox
             :model-value="basemaps[index]?.attribution?.logo?.disabled"
-            @update:model-value="val => onAttributionInput(index, 'logo', 'disabled', val)"
+            @update:model-value="val => onAttributionInput(index, 'logo', 'disabled', val ?? false)"
             :title="t('basemap.attribution.logo.disabled.title')"
             :description="t('basemap.attribution.logo.disabled.description')"
           />

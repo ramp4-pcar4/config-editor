@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // root.map.caption config nugget
 
-// TODO deal with typescript grouses. Might need a val ?? false to shut it up
-
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Select from '@/components/helpers/select.vue';
 import Checkbox from '@/components/helpers/checkbox.vue';
@@ -71,7 +69,7 @@ const onInput = (section: 'mapCoords' | 'scaleBar' | 'langToggle', key: string, 
         :title="t('caption.coords.disabled.title')"
         :description="t('caption.coords.disabled.description')"
         :model-value="props.modelValue?.mapCoords?.disabled"
-        @update:model-value="val => onInput('mapCoords', 'disabled', val)"
+        @update:model-value="val => onInput('mapCoords', 'disabled', val ?? false)"
       />
     </Collapsible>
     <Collapsible :title="t('caption.scaleBar.title')" :description="t('caption.scaleBar.description')" required>
@@ -79,13 +77,13 @@ const onInput = (section: 'mapCoords' | 'scaleBar' | 'langToggle', key: string, 
         :title="t('caption.scaleBar.imperialScale.title')"
         :description="t('caption.scaleBar.imperialScale.description')"
         :model-value="props.modelValue?.scaleBar?.imperialScale"
-        @update:model-value="val => onInput('scaleBar', 'imperialScale', val)"
+        @update:model-value="val => onInput('scaleBar', 'imperialScale', val ?? false)"
       />
       <Checkbox
         :title="t('caption.scaleBar.disabled.title')"
         :description="t('caption.scaleBar.disabled.description')"
         :model-value="props.modelValue?.scaleBar?.disabled"
-        @update:model-value="val => onInput('scaleBar', 'disabled', val)"
+        @update:model-value="val => onInput('scaleBar', 'disabled', val ?? false)"
       />
     </Collapsible>
     <Collapsible :title="t('caption.langToggle.title')" :description="t('caption.langToggle.description')">
@@ -93,7 +91,7 @@ const onInput = (section: 'mapCoords' | 'scaleBar' | 'langToggle', key: string, 
         :title="t('caption.langToggle.disabled.title')"
         :description="t('caption.langToggle.disabled.description')"
         :model-value="props.modelValue?.langToggle?.disabled"
-        @update:model-value="val => onInput('langToggle', 'disabled', val)"
+        @update:model-value="val => onInput('langToggle', 'disabled', val ?? false)"
       />
     </Collapsible>
   </Collapsible>
