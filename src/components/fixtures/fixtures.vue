@@ -29,23 +29,23 @@ const { t } = useI18n();
 <template>
   <div>
     <h1 class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h1>
-    <Appbar v-model="store.configs[store.editingLang].fixtures.appbar" />
-    <AreasOfInterest v-model="store.configs[store.editingLang].fixtures['areas-of-interest']" />
-    <Basemap v-model="store.configs[store.editingLang].fixtures.basemap" />
-    <Details v-model="store.configs[store.editingLang].fixtures.details" />
-    <Export v-model="store.configs[store.editingLang].fixtures.export" />
-    <Geosearh v-model="store.configs[store.editingLang].fixtures.geosearch" />
-    <Grid v-model="store.configs[store.editingLang].fixtures.grid" />
-    <Help v-model="store.configs[store.editingLang].fixtures.help" />
-    <Hilight v-model="store.configs[store.editingLang].fixtures.hilight" />
-    <LayerReorder v-model="store.configs[store.editingLang].fixtures['layer-reorder']" />
-    <Legend v-model="store.configs[store.editingLang].fixtures.legend" />
-    <Mapnav v-model="store.configs[store.editingLang].fixtures.mapnav" />
-    <Metadata v-model="store.configs[store.editingLang].fixtures.metadata" />
-    <NorthArrow v-model="store.configs[store.editingLang].fixtures.northarrow" />
-    <OverviewMap v-model="store.configs[store.editingLang].fixtures.overviewmap" />
-    <Scrollguard v-model="store.configs[store.editingLang].fixtures.scrollguard" />
-    <Settings v-model="store.configs[store.editingLang].fixtures.settings" />
-    <Wizard v-model="store.configs[store.editingLang].fixtures.wizard" />
+    <Appbar v-model="store.elc.fixtures.appbar" />
+    <AreasOfInterest v-model="store.elc.fixtures['areas-of-interest']" />
+    <Basemap v-model="store.elc.fixtures.basemap" />
+    <Details v-model="store.elc.fixtures.details" />
+    <Export v-model="store.elc.fixtures.export" />
+    <Geosearh v-model="store.elc.fixtures.geosearch" />
+    <Grid v-model="store.elc.fixtures.grid" />
+    <Help v-model="store.elc.fixtures.help" />
+    <Hilight v-model="store.elc.fixtures.hilight" />
+    <LayerReorder v-model="store.elc.fixtures['layer-reorder']" />
+    <Legend v-model="store.elc.fixtures.legend" />
+    <Mapnav v-model="store.elc.fixtures.mapnav" />
+    <Metadata v-model="store.elc.fixtures.metadata" />
+    <NorthArrow v-model="store.elc.fixtures.northarrow" />
+    <OverviewMap v-model="store.elc.fixtures.overviewmap" />
+    <Scrollguard v-model="store.elc.fixtures.scrollguard" />
+    <Settings v-model="store.elc.fixtures.settings" />
+    <Wizard v-model="store.elc.fixtures.wizard" />
   </div>
 </template>

@@ -16,41 +16,41 @@ const { t } = useI18n();
     <Input
       :title="t('system.proxyUrl.title')"
       :description="t('system.proxyUrl.description')"
-      v-model="store.configs[store.editingLang].system!.proxyUrl"
+      v-model="store.elc.system!.proxyUrl"
       header-class="mt-4"
       input-class="w-full sm:w-[500px]"
     />
     <Input
       :title="t('system.zoomIcon.title')"
       :description="t('system.zoomIcon.description')"
-      v-model="store.configs[store.editingLang].system!.zoomIcon"
+      v-model="store.elc.system!.zoomIcon"
       header-class="mt-4"
       input-class="w-full sm:w-[500px]"
     />
     <Checkbox
-      v-model="store.configs[store.editingLang].system!.animate"
+      v-model="store.elc.system!.animate"
       checked
       :title="t('system.animate.title')"
       :description="t('system.animate.description')"
     />
     <Checkbox
-      v-model="store.configs[store.editingLang].system!.exposeOid"
+      v-model="store.elc.system!.exposeOid"
       :title="t('system.exposeOid.title')"
       :description="t('system.exposeOid.description')"
     />
     <Checkbox
-      v-model="store.configs[store.editingLang].system!.exposeMeasurements"
+      v-model="store.elc.system!.exposeMeasurements"
       checked
       :title="t('system.exposeMeasurements.title')"
       :description="t('system.exposeMeasurements.description')"
     />
     <Checkbox
-      v-model="store.configs[store.editingLang].system!.suppressNumberLocalization"
+      v-model="store.elc.system!.suppressNumberLocalization"
       :title="t('system.suppressNumberLocalization.title')"
       :description="t('system.suppressNumberLocalization.description')"
     />
     <Checkbox
-      v-model="store.configs[store.editingLang].system!.scrollToInstance"
+      v-model="store.elc.system!.scrollToInstance"
       :title="t('system.scrollToInstance.title')"
       :description="t('system.scrollToInstance.description')"
     />

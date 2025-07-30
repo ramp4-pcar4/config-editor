@@ -37,13 +37,13 @@ const itemFields: Array<Field> = [
   <div>
     <h1 class="text-2xl font-semibold">{{ t('navbar.panels') }}</h1>
     <Checkbox
-      v-model="store.configs[store.editingLang].panels!.reorderable"
+      v-model="store.elc.panels!.reorderable"
       checked
       :title="t('panels.reorderable.title')"
       :description="t('panels.reorderable.description')"
     />
     <List
-      v-model="store.configs[store.editingLang].panels!.open"
+      v-model="store.elc.panels!.open"
       :item-fields="itemFields"
       :title="t('panels.open.title')"
       :add-prompt="t('panels.open.add')"

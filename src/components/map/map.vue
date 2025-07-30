@@ -21,7 +21,7 @@ const { t } = useI18n();
       <Input
         :title="t('map.initialBasemapId.title')"
         :description="t('map.initialBasemapId.description')"
-        v-model="store.configs[store.editingLang].map.initialBasemapId"
+        v-model="store.elc.map.initialBasemapId"
       />
       <Input
         :title="t('map.pointZoomScale.title')"
@@ -29,7 +29,7 @@ const { t } = useI18n();
         type="number"
         placeholder="50000"
         min="1"
-        v-model="store.configs[store.editingLang].map.pointZoomScale"
+        v-model="store.elc.map.pointZoomScale"
       />
       <Input
         :title="t('map.mapMouseThrottle.title')"
@@ -37,13 +37,13 @@ const { t } = useI18n();
         type="number"
         placeholder="0"
         min="0"
-        v-model="store.configs[store.editingLang].map.mapMouseThrottle"
+        v-model="store.elc.map.mapMouseThrottle"
       />
     </div>
-    <TileSchemas v-model="store.configs[store.editingLang].map.tileSchemas" />
-    <ExtentSets v-model="store.configs[store.editingLang].map.extentSets" />
-    <LodSets v-model="store.configs[store.editingLang].map.lodSets" />
-    <Basemaps v-model="store.configs[store.editingLang].map.basemaps" />
-    <Caption v-model="store.configs[store.editingLang].map.caption" />
+    <TileSchemas v-model="store.elc.map.tileSchemas" />
+    <ExtentSets v-model="store.elc.map.extentSets" />
+    <LodSets v-model="store.elc.map.lodSets" />
+    <Basemaps v-model="store.elc.map.basemaps" />
+    <Caption v-model="store.elc.map.caption" />
   </div>
 </template>
