@@ -27,9 +27,9 @@ const { t } = useI18n();
 const updatedLegend = ref<boolean>(false);
 const imgFormatOpts = ref(['png', 'png8', 'png24', 'png32', 'jpg', 'pdf', 'bmp', 'gif', 'svg']);
 
-const allHaveId = computed<boolean>(() => store.configs[store.editingLang].layers.every(layerConf => !!layerConf.id));
+const allHaveId = computed<boolean>(() => store.elc.layers.every(layerConf => !!layerConf.id));
 const allUniqueIds = computed<boolean>(() => {
-  const layerIds = store.configs[store.editingLang].layers.map(layerConf => layerConf.id).filter(id => !!id);
+  const layerIds = store.elc.layers.map(layerConf => layerConf.id).filter(id => !!id);
   const checkSet = new Set(layerIds);
   return layerIds.length === checkSet.size;
 });
@@ -49,7 +49,7 @@ const onMoveEnd = (evt: any) => {
 };
 
 const addLayer = () => {
-  store.configs[store.editingLang].layers.push({
+  store.elc.layers.push({
     id: '',
     layerType: LayerType.FEATURE,
     url: ''
@@ -57,12 +57,12 @@ const addLayer = () => {
 };
 
 const removeLayer = (idx: number) => {
-  store.configs[store.editingLang].layers.splice(idx, 1);
+  store.elc.layers.splice(idx, 1);
 };
 
 const reorderLayer = (idx: number, direction: number) => {
-  const [elem] = store.configs[store.editingLang].layers.splice(idx, 1);
-  store.configs[store.editingLang].layers.splice(idx + direction, 0, elem);
+  const [elem] = store.elc.layers.splice(idx, 1);
+  store.elc.layers.splice(idx + direction, 0, elem);
 };
 
 const getLegendEntry = (root: any, layerId: string): any => {
@@ -93,7 +93,7 @@ const removeLayerItems = (children: Array<any>) => {
   children = children.filter(
     child =>
       child.layerId === undefined ||
-      store.configs[store.editingLang].layers.some((layerConf: RampLayerConfig) => layerConf.id === child.layerId)
+      store.elc.layers.some((layerConf: RampLayerConfig) => layerConf.id === child.layerId)
   );
 
   // recursively check child legend items
@@ -107,27 +107,25 @@ const removeLayerItems = (children: Array<any>) => {
 };
 
 const updateLegend = () => {
-  if (store.configs[store.editingLang].layers.length === 0 || updatedLegend.value) {
+  if (store.elc.layers.length === 0 || updatedLegend.value) {
     return;
   }
-  if (!store.configs[store.editingLang].fixtures.legend) {
-    store.configs[store.editingLang].fixtures.legend = { root: { children: [] } };
-  } else if (!store.configs[store.editingLang].fixtures.legend.root) {
-    store.configs[store.editingLang].fixtures.legend.root = { children: [] };
-  } else if (!store.configs[store.editingLang].fixtures.legend.root.children) {
-    store.configs[store.editingLang].fixtures.legend.root.children = [];
+  if (!store.elc.fixtures.legend) {
+    store.elc.fixtures.legend = { root: { children: [] } };
+  } else if (!store.elc.fixtures.legend.root) {
+    store.elc.fixtures.legend.root = { children: [] };
+  } else if (!store.elc.fixtures.legend.root.children) {
+    store.elc.fixtures.legend.root.children = [];
   }
-  store.configs[store.editingLang].layers.forEach((layerConf: RampLayerConfig) => {
-    if (!legendEntryExists(store.configs[store.editingLang].fixtures.legend.root, layerConf.id)) {
-      store.configs[store.editingLang].fixtures.legend.root.children.push({
+  store.elc.layers.forEach((layerConf: RampLayerConfig) => {
+    if (!legendEntryExists(store.elc.fixtures.legend.root, layerConf.id)) {
+      store.elc.fixtures.legend.root.children.push({
         layerId: layerConf.id
       });
     }
   });
 
-  store.configs[store.editingLang].fixtures.legend.root.children = removeLayerItems(
-    store.configs[store.editingLang].fixtures.legend.root.children
-  );
+  store.elc.fixtures.legend.root.children = removeLayerItems(store.elc.fixtures.legend.root.children);
 
   updatedLegend.value = true;
   setTimeout(() => {
@@ -136,9 +134,9 @@ const updateLegend = () => {
 };
 
 const onLayerIdChange = (newId: string, idx: number) => {
-  const layerConf = store.configs[store.editingLang].layers[idx];
-  if (store.configs[store.editingLang].fixtures.legend?.root?.children) {
-    const legendEntry = getLegendEntry(store.configs[store.editingLang].fixtures.legend?.root, layerConf.id);
+  const layerConf = store.elc.layers[idx];
+  if (store.elc.fixtures.legend?.root?.children) {
+    const legendEntry = getLegendEntry(store.elc.fixtures.legend?.root, layerConf.id);
     if (legendEntry) {
       legendEntry.layerId = newId;
     }
@@ -150,9 +148,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
 <template>
   <div>
     <div class="flex items-center">
-      <h1 class="text-2xl font-semibold">
-        {{ t('layers.title') }} ({{ store.configs[store.editingLang].layers.length }})
-      </h1>
+      <h1 class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h1>
       <div class="flex ml-auto">
         <button
           class="bg-black hover:bg-gray-800 p-1 text-white flex-shrink-0 flex items-center justify-center"
@@ -234,8 +230,8 @@ const onLayerIdChange = (newId: string, idx: number) => {
     </div>
     <div>
       <draggable
-        v-if="store.configs[store.editingLang].layers.length > 0"
-        :list="store.configs[store.editingLang].layers"
+        v-if="store.elc.layers.length > 0"
+        :list="store.elc.layers"
         item-key="fake"
         handle=".handle"
         @change="onMoveEnd"
@@ -316,7 +312,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                   </button>
                   <button
                     @click.stop="reorderLayer(index, 1)"
-                    :disabled="index === store.configs[store.editingLang].layers.length - 1"
+                    :disabled="index === store.elc.layers.length - 1"
                     class="disabled:text-gray-500 disabled:cursor-not-allowed"
                     :aria-label="t('editor.down')"
                     :content="t('editor.down')"
