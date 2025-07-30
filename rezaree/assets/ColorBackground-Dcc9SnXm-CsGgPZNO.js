@@ -1,0 +1,1 @@
+import{v as e,I as a,dz as t,t as c,Y as l,z as n}from"./index-uAe2c5m-.js";var r;let o=r=class extends l{constructor(s){super(s),this.color=new t([0,0,0,1])}clone(){return new r(n({color:this.color}))}};e([a({type:t,json:{write:!0}})],o.prototype,"color",void 0),o=r=e([c("esri.webmap.background.ColorBackground")],o);const p=o;export{p as default};
