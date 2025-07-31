@@ -12,20 +12,20 @@ const store = useStore();
 const { t } = useI18n();
 
 onMounted(() => {
-  createInstance(
-    rampInstance.value!,
-    { startingFixtures: store.startingFixtures, configs: store.configs },
-    store.options
-  );
+    createInstance(
+        rampInstance.value!,
+        { startingFixtures: store.startingFixtures, configs: store.configs },
+        store.options
+    );
 });
 </script>
 
 <template>
-  <div class="h-full flex flex-col">
-    <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
-    <p class="mt-3">
-      <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
-    </p>
-    <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
-  </div>
+    <div class="h-full flex flex-col">
+        <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
+        <p class="mt-3">
+            <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
+        </p>
+        <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
+    </div>
 </template>

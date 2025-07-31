@@ -1,11 +1,5 @@
 import { createInstance } from './index';
-import {
-  createInstance as createRampInstance,
-  geo,
-  configUpgrade,
-  layerConfigUpgrade,
-  version
-} from 'ramp-pcar';
+import { createInstance as createRampInstance, geo, configUpgrade, layerConfigUpgrade, version } from 'ramp-pcar';
 
 // This is the starting point for the local index.html to play with the editor.
 
@@ -16,9 +10,9 @@ import {
 window.ramp4EditorAPI = createInstance(document.getElementById('app'));
 // @ts-ignore
 window.RAMP = {
-  createInstance: createRampInstance,
-  geo,
-  configUpgrade,
-  layerConfigUpgrade,
-  version
+    createInstance: createRampInstance,
+    geo,
+    configUpgrade,
+    layerConfigUpgrade,
+    version
 };

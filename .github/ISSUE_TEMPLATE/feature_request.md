@@ -4,7 +4,6 @@ about: Suggest an idea
 title: ''
 labels: 'flavour: feature'
 assignees: ''
-
 ---
 
 [ This is just a template. You can delete any section that does not apply to the request. ]

@@ -6,10 +6,10 @@ import MultiSelect from '@/components/helpers/multi-select.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
-  modelValue: {
-    type: Object as PropType<Array<string>>,
-    required: false
-  }
+    modelValue: {
+        type: Object as PropType<Array<string>>,
+        required: false
+    }
 });
 
 const { t } = useI18n();
@@ -20,19 +20,19 @@ const allTypes = ['NTS', 'FSA', 'LAT/LNG'];
 const types = ref<Array<string>>(props.modelValue ?? []);
 
 watch(types, () => {
-  emit('update:modelValue', types.value.length === 0 ? undefined : types.value);
+    emit('update:modelValue', types.value.length === 0 ? undefined : types.value);
 });
 </script>
 
 <template>
-  <MultiSelect
-    :title="t('geosearch.settings.disabledSearchTypes.title')"
-    :description="t('geosearch.settings.disabledSearchTypes.description')"
-    v-model="types"
-    :options="
-      allTypes.map(typ => {
-        return { value: typ, label: t(`geosearch.settings.disabledSearchTypes.${typ.toLowerCase()}`) };
-      })
-    "
-  />
+    <MultiSelect
+        :title="t('geosearch.settings.disabledSearchTypes.title')"
+        :description="t('geosearch.settings.disabledSearchTypes.description')"
+        v-model="types"
+        :options="
+            allTypes.map(typ => {
+                return { value: typ, label: t(`geosearch.settings.disabledSearchTypes.${typ.toLowerCase()}`) };
+            })
+        "
+    />
 </template>
