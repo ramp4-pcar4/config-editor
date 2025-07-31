@@ -1,16 +1,21 @@
 ### Related Item(s)
-*#Item 1*, *#Item 2*
+
+_#Item 1_, _#Item 2_
 
 ### Changes
-- [FEATURE] *Describe feature...*
-- [FIX] *Describe fix...*
-- [DOCS] *Describe docs changes...*
-- [REFACTOR] *Describe refactor...*
+
+-   [FEATURE] _Describe feature..._
+-   [FIX] _Describe fix..._
+-   [DOCS] _Describe docs changes..._
+-   [REFACTOR] _Describe refactor..._
 
 ### Notes
-*Additional comments about the changes in this PR, including screenshots/gifs*
+
+_Additional comments about the changes in this PR, including screenshots/gifs_
 
 ### Testing
+
 Steps:
+
 1. ...
 2. ...

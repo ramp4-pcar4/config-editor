@@ -1,96 +1,96 @@
 .ramp4-config-editor {
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  @tailwind variants;
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    @tailwind variants;
 
-  @layer base {
-    input[type='checkbox'] {
-      border-width: 2px;
-      border-color: black;
-      margin-right: 8px;
-      cursor: pointer;
-      color: black;
+    @layer base {
+        input[type='checkbox'] {
+            border-width: 2px;
+            border-color: black;
+            margin-right: 8px;
+            cursor: pointer;
+            color: black;
+        }
+        input[type='radio'] {
+            border-width: 2px;
+            border-color: black;
+            margin-right: 8px;
+            cursor: pointer;
+            color: black;
+        }
     }
-    input[type='radio'] {
-      border-width: 2px;
-      border-color: black;
-      margin-right: 8px;
-      cursor: pointer;
-      color: black;
-    }
-  }
 
-  @layer utilities {
-    .display-none {
-      display: none;
+    @layer utilities {
+        .display-none {
+            display: none;
+        }
     }
-  }
 }
 
 .ramp4-config-editor .tippy-box[data-theme~='ramp4Editor'] {
-  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-    sans-serif, Apple Color Emoji, Segoe UI Emoji;
-  color: white;
-  background: #222;
-  opacity: 0.9;
-  font-size: 14px;
-  padding: 3px 8px;
-  border-radius: 5px;
-  text-align: center;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif,
+        Apple Color Emoji, Segoe UI Emoji;
+    color: white;
+    background: #222;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-align: center;
 }
 
 @property --a {
-  initial-value: 0deg;
-  inherits: false;
-  syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+    syntax: '<angle>';
 }
 @property --h {
-  initial-value: 0;
-  inherits: false;
-  syntax: '<number>';
+    initial-value: 0;
+    inherits: false;
+    syntax: '<number>';
 }
 .ramp4-config-editor .loader {
-  padding: 2rem 4rem;
-  font-family: monospace !important;
-  font-weight: bold;
-  color: #fff;
-  border-style: solid;
-  border-width: 1vmin;
-  font-size: 2rem;
-  --charge: hsl(var(--h, 0), 80%, 50%);
-  -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-  border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-  -webkit-animation: load 2s infinite ease-in-out;
-  animation: load 2s infinite ease-in-out;
+    padding: 2rem 4rem;
+    font-family: monospace !important;
+    font-weight: bold;
+    color: #fff;
+    border-style: solid;
+    border-width: 1vmin;
+    font-size: 2rem;
+    --charge: hsl(var(--h, 0), 80%, 50%);
+    -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+    border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
+    -webkit-animation: load 2s infinite ease-in-out;
+    animation: load 2s infinite ease-in-out;
 }
 @-webkit-keyframes load {
-  0%,
-  10% {
-    --a: 0deg;
-    --h: 0;
-  }
-  100% {
-    --a: 360deg;
-    --h: 100;
-  }
+    0%,
+    10% {
+        --a: 0deg;
+        --h: 0;
+    }
+    100% {
+        --a: 360deg;
+        --h: 100;
+    }
 }
 @keyframes load {
-  0%,
-  10% {
-    --a: 0deg;
-    --h: 0;
-  }
-  100% {
-    --a: 360deg;
-    --h: 100;
-  }
+    0%,
+    10% {
+        --a: 0deg;
+        --h: 0;
+    }
+    100% {
+        --a: 360deg;
+        --h: 100;
+    }
 }
 
 .ramp4-config-editor .cols-2 {
-  grid-template-columns: 24px 1fr 1fr 48px;
+    grid-template-columns: 24px 1fr 1fr 48px;
 }
 
 .ramp4-config-editor .cols-3 {
-  grid-template-columns: 24px 1fr 1fr 1fr 48px;
+    grid-template-columns: 24px 1fr 1fr 1fr 48px;
 }

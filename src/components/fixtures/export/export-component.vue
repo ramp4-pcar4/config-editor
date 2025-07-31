@@ -11,31 +11,31 @@ const selected = defineModel('selected', { type: Boolean });
 const { t } = useI18n();
 
 defineProps({
-  title: {
-    type: String,
-    required: false
-  },
-  description: {
-    type: String,
-    required: false
-  }
+    title: {
+        type: String,
+        required: false
+    },
+    description: {
+        type: String,
+        required: false
+    }
 });
 </script>
 
 <template>
-  <Collapsible :title="title" :description="description">
-    <slot></slot>
-    <Checkbox
-      v-model="selected"
-      :title="t('export.selected.title')"
-      :description="t('export.selected.description')"
-      checked
-    />
-    <Checkbox
-      v-model="selectable"
-      :title="t('export.selectable.title')"
-      :description="t('export.selectable.description')"
-      checked
-    />
-  </Collapsible>
+    <Collapsible :title="title" :description="description">
+        <slot></slot>
+        <Checkbox
+            v-model="selected"
+            :title="t('export.selected.title')"
+            :description="t('export.selected.description')"
+            checked
+        />
+        <Checkbox
+            v-model="selectable"
+            :title="t('export.selectable.title')"
+            :description="t('export.selectable.description')"
+            checked
+        />
+    </Collapsible>
 </template>

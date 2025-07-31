@@ -4,7 +4,6 @@ about: Submit a grouse
 title: ''
 labels: 'flavour: bug'
 assignees: ''
-
 ---
 
 [ This is just a template. You can delete any section that does not apply to the issue. ]
@@ -15,12 +14,12 @@ assignees: ''
 
 ## Environment
 
-- Browser (if applicable): [ e.g., Chrome 92, Firefox 89 ]
-- Versions (all that apply to bug):
-  - Browser: [ e.g. Chrome 99 ]
-  - RAMP Build: [ e.g. 4.0.1-beta [89b9eb544] ]
-  - NodeJS: [ e.g. 14.17.3 ]
-- Any other relevant environment details
+-   Browser (if applicable): [ e.g., Chrome 92, Firefox 89 ]
+-   Versions (all that apply to bug):
+    -   Browser: [ e.g. Chrome 99 ]
+    -   RAMP Build: [ e.g. 4.0.1-beta [89b9eb544] ]
+    -   NodeJS: [ e.g. 14.17.3 ]
+-   Any other relevant environment details
 
 ## Screenshots
 

@@ -15,35 +15,35 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div>
-    <h1 class="text-2xl font-semibold">Map</h1>
-    <div class="mt-4 input-table">
-      <Input
-        :title="t('map.initialBasemapId.title')"
-        :description="t('map.initialBasemapId.description')"
-        v-model="store.elc.map.initialBasemapId"
-      />
-      <Input
-        :title="t('map.pointZoomScale.title')"
-        :description="t('map.pointZoomScale.description')"
-        type="number"
-        placeholder="50000"
-        min="1"
-        v-model="store.elc.map.pointZoomScale"
-      />
-      <Input
-        :title="t('map.mapMouseThrottle.title')"
-        :description="t('map.mapMouseThrottle.description')"
-        type="number"
-        placeholder="0"
-        min="0"
-        v-model="store.elc.map.mapMouseThrottle"
-      />
+    <div>
+        <h1 class="text-2xl font-semibold">Map</h1>
+        <div class="mt-4 input-table">
+            <Input
+                :title="t('map.initialBasemapId.title')"
+                :description="t('map.initialBasemapId.description')"
+                v-model="store.elc.map.initialBasemapId"
+            />
+            <Input
+                :title="t('map.pointZoomScale.title')"
+                :description="t('map.pointZoomScale.description')"
+                type="number"
+                placeholder="50000"
+                min="1"
+                v-model="store.elc.map.pointZoomScale"
+            />
+            <Input
+                :title="t('map.mapMouseThrottle.title')"
+                :description="t('map.mapMouseThrottle.description')"
+                type="number"
+                placeholder="0"
+                min="0"
+                v-model="store.elc.map.mapMouseThrottle"
+            />
+        </div>
+        <TileSchemas v-model="store.elc.map.tileSchemas" />
+        <ExtentSets v-model="store.elc.map.extentSets" />
+        <LodSets v-model="store.elc.map.lodSets" />
+        <Basemaps v-model="store.elc.map.basemaps" />
+        <Caption v-model="store.elc.map.caption" />
     </div>
-    <TileSchemas v-model="store.elc.map.tileSchemas" />
-    <ExtentSets v-model="store.elc.map.extentSets" />
-    <LodSets v-model="store.elc.map.lodSets" />
-    <Basemaps v-model="store.elc.map.basemaps" />
-    <Caption v-model="store.elc.map.caption" />
-  </div>
 </template>
