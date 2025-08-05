@@ -57,5 +57,8 @@ const regConfig = {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
+    },
+    server: {
+        open: '/'
     }
 };
