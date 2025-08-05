@@ -1,6 +1,8 @@
 <script setup lang="ts">
 // root.layers config nugget
 
+// TODO this is missing some basic layer types, like tile, imagery
+
 import { LayerIdentifyMode, LayerType } from '@/definitions';
 import type { RampLayerConfig } from '@/definitions';
 import { computed, ref } from 'vue';
@@ -141,10 +143,67 @@ const onLayerIdChange = (newId: string, idx: number) => {
     }
     layerConf.id = newId;
 };
+
+const layerTypeChecker = (config: RampLayerConfig, ...layerTypes: Array<LayerType>): boolean =>
+    layerTypes.some(checkType => config.layerType === checkType);
+
+/**
+ * Is a layer that displays on the map
+ */
+const isMapLayer = (config: RampLayerConfig): boolean =>
+    !layerTypeChecker(config, LayerType.DATACSV, LayerType.DATAJSON, LayerType.DATATABLE);
+
+/**
+ * Is a file-based map layer
+ */
+const isFileLayer = (config: RampLayerConfig): boolean =>
+    layerTypeChecker(
+        config,
+        LayerType.CSV,
+        LayerType.FLATGEOBUF,
+        LayerType.FLATGEOBUFZIPPED,
+        LayerType.GEOJSON,
+        LayerType.GEOJSONZIPPED,
+        LayerType.SHAPEFILE,
+        LayerType.WFS
+    );
+
+/**
+ * Is a layer with Vector geometry
+ */
+const isVectorLayer = (config: RampLayerConfig): boolean =>
+    layerTypeChecker(config, LayerType.FEATURE) || isFileLayer(config);
+
+/**
+ * Is a layer that supports pointer tolerances
+ */
+const isToleranceLayer = (config: RampLayerConfig): boolean =>
+    layerTypeChecker(config, LayerType.MAPIMAGE, LayerType.FEATURE);
+
+/**
+ * Is a map layer that contains sublayers
+ */
+const isParentLayer = (config: RampLayerConfig): boolean => layerTypeChecker(config, LayerType.MAPIMAGE, LayerType.WMS);
+
+/**
+ * Is a map image layer
+ */
+const isMIL = (config: RampLayerConfig): boolean => config.layerType === LayerType.MAPIMAGE;
+
+/**
+ * Is a geojson layer
+ */
+const isGeoJson = (config: RampLayerConfig): boolean => config.layerType === LayerType.GEOJSON;
+
+/**
+ * Is a csv layer
+ */
+const isCSV = (config: RampLayerConfig): boolean => config.layerType === LayerType.CSV;
 </script>
 
 <template>
     <div>
+        <!-- Header -->
         <div class="flex items-center">
             <h1 class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h1>
             <div class="flex ml-auto">
@@ -233,6 +292,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                 </button>
             </div>
         </div>
+        <!-- List of Layer Configs -->
         <div>
             <draggable
                 v-if="store.elc.layers.length > 0"
@@ -387,34 +447,16 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     required
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     :title="t('layer.nameField.title')"
                                     :description="t('layer.nameField.description')"
                                     v-model="element.nameField"
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     :title="t('layer.tooltipField.title')"
                                     :description="t('layer.tooltipField.description')"
                                     v-model="element.tooltipField"
-                                />
-                                <Input
-                                    v-if="
-                                        element.layerType === LayerType.MAPIMAGE ||
-                                        element.layerType === LayerType.WMS ||
-                                        element.layerType === LayerType.FEATURE
-                                    "
-                                    :title="t('layer.refreshInterval.title')"
-                                    :description="t('layer.refreshInterval.description')"
-                                    v-model="element.refreshInterval"
-                                    type="number"
-                                    min="0"
-                                    max="100"
-                                    placeholder="0"
                                 />
                                 <Input
                                     :title="t('layer.expectedDrawTime.title')"
@@ -422,7 +464,6 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     v-model="element.expectedDrawTime"
                                     type="number"
                                     min="0"
-                                    placeholder="10000"
                                 />
                                 <Input
                                     :title="t('layer.expectedLoadTime.title')"
@@ -430,7 +471,6 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     v-model="element.expectedLoadTime"
                                     type="number"
                                     min="0"
-                                    placeholder="40000"
                                 />
                                 <Input
                                     :title="t('layer.maxLoadTime.title')"
@@ -438,42 +478,28 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     v-model="element.maxLoadTime"
                                     type="number"
                                     min="0"
-                                    placeholder="20000"
+                                    placeholder="0"
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType === LayerType.MAPIMAGE ||
-                                        element.layerType === LayerType.WMS ||
-                                        element.layerType === LayerType.FEATURE
-                                    "
-                                    :title="t('layer.catalogueUrl.title')"
-                                    :description="t('layer.catalogueUrl.description')"
-                                    v-model="element.catalogueUrl"
-                                />
-                                <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE &&
-                                        element.layerType !== LayerType.WMS &&
-                                        element.layerType !== LayerType.FEATURE
-                                    "
+                                    v-if="isFileLayer(element)"
                                     :title="t('layer.colour.title')"
                                     :description="t('layer.colour.description')"
                                     v-model="element.colour"
                                 />
                                 <Input
-                                    v-if="element.layerType === LayerType.CSV"
+                                    v-if="isCSV(element)"
                                     :title="t('layer.latField.title')"
                                     :description="t('layer.latField.description')"
                                     v-model="element.latField"
                                 />
                                 <Input
-                                    v-if="element.layerType === LayerType.CSV"
+                                    v-if="isCSV(element)"
                                     :title="t('layer.longField.title')"
                                     :description="t('layer.longField.description')"
                                     v-model="element.longField"
                                 />
                                 <Input
-                                    v-if="element.layerType !== LayerType.WMS"
+                                    v-if="isToleranceLayer(element)"
                                     :title="t('layer.mouseTolerance.title')"
                                     :description="t('layer.mouseTolerance.description')"
                                     v-model="element.mouseTolerance"
@@ -482,7 +508,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     placeholder="5"
                                 />
                                 <Input
-                                    v-if="element.layerType !== LayerType.WMS"
+                                    v-if="isToleranceLayer(element)"
                                     :title="t('layer.touchTolerance.title')"
                                     :description="t('layer.touchTolerance.description')"
                                     v-model="element.touchTolerance"
@@ -491,25 +517,19 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     placeholder="15"
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     :title="t('layer.initialFilteredQuery.title')"
                                     :description="t('layer.initialFilteredQuery.description')"
                                     v-model="element.initialFilteredQuery"
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     :title="t('layer.permanentFilteredQuery.title')"
                                     :description="t('layer.permanentFilteredQuery.description')"
                                     v-model="element.permanentFilteredQuery"
                                 />
                                 <Select
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     :title="t('layer.identifyMode.title')"
                                     :description="t('layer.identifyMode.description')"
                                     v-model="element.identifyMode"
@@ -523,7 +543,7 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     ]"
                                 />
                                 <Select
-                                    v-if="element.layerType === LayerType.MAPIMAGE"
+                                    v-if="isMIL(element)"
                                     :title="t('layer.imageFormat.title')"
                                     :description="t('layer.imageFormat.description')"
                                     v-model="element.imageFormat"
@@ -534,32 +554,24 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                     "
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS
-                                    "
+                                    v-if="isVectorLayer(element)"
                                     type="object"
                                     :title="t('layer.customRenderer.title')"
                                     :description="t('layer.customRenderer.description')"
                                     v-model="element.customRenderer"
                                 />
                                 <Input
-                                    v-if="
-                                        element.layerType === LayerType.GEOJSON || element.layerType === LayerType.CSV
-                                    "
-                                    :type="element.layerType === LayerType.GEOJSON ? 'object' : 'text'"
+                                    v-if="isGeoJson(element) || isCSV(element)"
+                                    :type="isGeoJson(element) ? 'object' : 'text'"
                                     :title="t('layer.rawData.title')"
                                     :description="
-                                        t(
-                                            `layer.rawData.${
-                                                element.layerType === LayerType.GEOJSON ? 'geojson' : 'csv'
-                                            }.description`
-                                        )
+                                        t(`layer.rawData.${isGeoJson(element) ? 'geojson' : 'csv'}.description`)
                                     "
                                     v-model="element.rawData"
                                 />
                             </div>
                             <Checkbox
-                                v-if="element.layerType === LayerType.MAPIMAGE"
+                                v-if="isMIL(element)"
                                 :title="t('layer.singleEntryCollapse.title')"
                                 :description="t('layer.singleEntryCollapse.description')"
                                 v-model="element.singleEntryCollapse"
@@ -571,17 +583,13 @@ const onLayerIdChange = (newId: string, idx: number) => {
                                 v-model="element.xyInAttribs"
                             />
                             <Checkbox
-                                v-if="
-                                    element.layerType !== LayerType.MAPIMAGE &&
-                                    element.layerType !== LayerType.WMS &&
-                                    element.layerType !== LayerType.FEATURE
-                                "
+                                v-if="isFileLayer(element)"
                                 v-model="element.caching"
                                 :title="t('layer.caching.title')"
                                 :description="t('layer.caching.description')"
                             />
                             <Sublayers
-                                v-if="element.layerType === LayerType.MAPIMAGE || element.layerType === LayerType.WMS"
+                                v-if="isParentLayer(element)"
                                 v-model="element.sublayers"
                                 :layer-type="element.layerType"
                             />
@@ -590,14 +598,8 @@ const onLayerIdChange = (newId: string, idx: number) => {
                             <Controls v-model="element.controls" />
                             <Controls v-model="element.disabledControls" disabled />
                             <State v-model="element.state" />
-                            <FieldMetadata
-                                v-model="element.fieldMetadata"
-                                v-if="element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS"
-                            />
-                            <DrawOrder
-                                v-model="element.drawOrder"
-                                v-if="element.layerType !== LayerType.MAPIMAGE && element.layerType !== LayerType.WMS"
-                            />
+                            <FieldMetadata v-model="element.fieldMetadata" v-if="!isParentLayer(element)" />
+                            <DrawOrder v-model="element.drawOrder" v-if="isVectorLayer(element)" />
                             <Fixtures v-model="element.fixtures" :layer-type="element.layerType" />
                         </template>
                     </Collapsible>
