@@ -179,6 +179,7 @@ export interface RampLayerConfig {
     extent?: RampExtentConfig;
     latField?: string; // csv coord field
     longField?: string; // csv coord field
+    xyInAttribs?: boolean; // fancy wfs flag for coords
     mouseTolerance?: number; // mouse tolerance
     touchTolerance?: number; // touch tolerance
     metadata?: { url: string; name?: string };

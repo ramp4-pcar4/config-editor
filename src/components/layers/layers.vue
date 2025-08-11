@@ -212,6 +212,11 @@ const isGeoJson = (layerThang: LayerTypeThang): boolean => layerTypeChecker(laye
 const isCSV = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.CSV);
 
 /**
+ * Is a wfs layer
+ */
+const isWFS = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.WFS);
+
+/**
  * Is a layer that supports standard attributes
  */
 const isAttributeLayer = (layerThang: LayerTypeThang): boolean => isVectorLayer(layerThang) || isDataLayer(layerThang);
@@ -587,13 +592,7 @@ const isAttributeLayer = (layerThang: LayerTypeThang): boolean => isVectorLayer(
                                 />
                             </div>
                             <Checkbox
-                                v-if="isMIL(element)"
-                                :title="t('layer.singleEntryCollapse.title')"
-                                :description="t('layer.singleEntryCollapse.description')"
-                                v-model="element.singleEntryCollapse"
-                            />
-                            <Checkbox
-                                v-if="element.layerType === LayerType.WFS"
+                                v-if="isWFS(element)"
                                 :title="t('layer.xyInAttribs.title')"
                                 :description="t('layer.xyInAttribs.description')"
                                 v-model="element.xyInAttribs"
