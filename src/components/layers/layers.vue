@@ -23,6 +23,11 @@ import Collapsible from '@/components/helpers/collapsible.vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
+/**
+ * Something that a layer type can be derived from
+ */
+type LayerTypeThang = LayerType | RampLayerConfig;
+
 const store = useStore();
 const { t } = useI18n();
 
@@ -144,21 +149,26 @@ const onLayerIdChange = (newId: string, idx: number) => {
     layerConf.id = newId;
 };
 
-const layerTypeChecker = (config: RampLayerConfig, ...layerTypes: Array<LayerType>): boolean =>
-    layerTypes.some(checkType => config.layerType === checkType);
+/**
+ * Helper that answers if a layer type thang has a type that matches the provided list
+ */
+const layerTypeChecker = (thang: LayerTypeThang, ...layerTypes: Array<LayerType>): boolean => {
+    const layerT = typeof thang === 'string' ? thang : thang.layerType;
+    return layerTypes.some(checkType => layerT === checkType);
+};
 
 /**
- * Is a layer that displays on the map
+ * Is a layer that is just data (no spatial)
  */
-const isMapLayer = (config: RampLayerConfig): boolean =>
-    !layerTypeChecker(config, LayerType.DATACSV, LayerType.DATAJSON, LayerType.DATATABLE);
+const isDataLayer = (layerThang: LayerTypeThang): boolean =>
+    layerTypeChecker(layerThang, LayerType.DATACSV, LayerType.DATAJSON, LayerType.DATATABLE);
 
 /**
  * Is a file-based map layer
  */
-const isFileLayer = (config: RampLayerConfig): boolean =>
+const isFileLayer = (layerThang: LayerTypeThang): boolean =>
     layerTypeChecker(
-        config,
+        layerThang,
         LayerType.CSV,
         LayerType.FLATGEOBUF,
         LayerType.FLATGEOBUFZIPPED,
@@ -171,34 +181,40 @@ const isFileLayer = (config: RampLayerConfig): boolean =>
 /**
  * Is a layer with Vector geometry
  */
-const isVectorLayer = (config: RampLayerConfig): boolean =>
-    layerTypeChecker(config, LayerType.FEATURE) || isFileLayer(config);
+const isVectorLayer = (layerThang: LayerTypeThang): boolean =>
+    layerTypeChecker(layerThang, LayerType.FEATURE) || isFileLayer(layerThang);
 
 /**
  * Is a layer that supports pointer tolerances
  */
-const isToleranceLayer = (config: RampLayerConfig): boolean =>
-    layerTypeChecker(config, LayerType.MAPIMAGE, LayerType.FEATURE);
+const isToleranceLayer = (layerThang: LayerTypeThang): boolean =>
+    layerTypeChecker(layerThang, LayerType.MAPIMAGE, LayerType.FEATURE);
 
 /**
  * Is a map layer that contains sublayers
  */
-const isParentLayer = (config: RampLayerConfig): boolean => layerTypeChecker(config, LayerType.MAPIMAGE, LayerType.WMS);
+const isParentLayer = (layerThang: LayerTypeThang): boolean =>
+    layerTypeChecker(layerThang, LayerType.MAPIMAGE, LayerType.WMS);
 
 /**
  * Is a map image layer
  */
-const isMIL = (config: RampLayerConfig): boolean => config.layerType === LayerType.MAPIMAGE;
+const isMIL = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.MAPIMAGE);
 
 /**
  * Is a geojson layer
  */
-const isGeoJson = (config: RampLayerConfig): boolean => config.layerType === LayerType.GEOJSON;
+const isGeoJson = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.GEOJSON);
 
 /**
  * Is a csv layer
  */
-const isCSV = (config: RampLayerConfig): boolean => config.layerType === LayerType.CSV;
+const isCSV = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.CSV);
+
+/**
+ * Is a layer that supports standard attributes
+ */
+const isAttributeLayer = (layerThang: LayerTypeThang): boolean => isVectorLayer(layerThang) || isDataLayer(layerThang);
 </script>
 
 <template>
@@ -447,7 +463,7 @@ const isCSV = (config: RampLayerConfig): boolean => config.layerType === LayerTy
                                     required
                                 />
                                 <Input
-                                    v-if="isVectorLayer(element)"
+                                    v-if="isAttributeLayer(element)"
                                     :title="t('layer.nameField.title')"
                                     :description="t('layer.nameField.description')"
                                     v-model="element.nameField"
@@ -517,13 +533,13 @@ const isCSV = (config: RampLayerConfig): boolean => config.layerType === LayerTy
                                     placeholder="15"
                                 />
                                 <Input
-                                    v-if="isVectorLayer(element)"
+                                    v-if="isAttributeLayer(element)"
                                     :title="t('layer.initialFilteredQuery.title')"
                                     :description="t('layer.initialFilteredQuery.description')"
                                     v-model="element.initialFilteredQuery"
                                 />
                                 <Input
-                                    v-if="isVectorLayer(element)"
+                                    v-if="isAttributeLayer(element)"
                                     :title="t('layer.permanentFilteredQuery.title')"
                                     :description="t('layer.permanentFilteredQuery.description')"
                                     v-model="element.permanentFilteredQuery"
@@ -598,7 +614,7 @@ const isCSV = (config: RampLayerConfig): boolean => config.layerType === LayerTy
                             <Controls v-model="element.controls" />
                             <Controls v-model="element.disabledControls" disabled />
                             <State v-model="element.state" />
-                            <FieldMetadata v-model="element.fieldMetadata" v-if="!isParentLayer(element)" />
+                            <FieldMetadata v-model="element.fieldMetadata" v-if="isAttributeLayer(element)" />
                             <DrawOrder v-model="element.drawOrder" v-if="isVectorLayer(element)" />
                             <Fixtures v-model="element.fixtures" :layer-type="element.layerType" />
                         </template>
