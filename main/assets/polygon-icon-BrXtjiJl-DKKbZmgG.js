@@ -1,1 +1,0 @@
-import{as as s,az as t,aL as l,aC as e}from"./index-BcWBQvu1.js";const n={},o={xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"};function r(c,a){return t(),l("svg",o,a[0]||(a[0]=[e("path",{d:"M0 0h24v24H0z",fill:"none"},null,-1),e("path",{d:"M3 6l6-3 6 3 6-3v12l-6 3-6-3-6 3z"},null,-1)]))}const i=s(n,[["render",r]]);export{i as default};
