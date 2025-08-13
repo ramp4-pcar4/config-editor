@@ -5,7 +5,7 @@
 
 import { LayerIdentifyMode, LayerType } from '@/definitions';
 import type { RampLayerConfig } from '@/definitions';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 
 import Checkbox from '@/components/helpers/checkbox.vue';
@@ -138,6 +138,9 @@ const updateLegend = () => {
     }, 2000);
 };
 
+/**
+ * Propagates layer id changes to a linked legend config, if exists
+ */
 const onLayerIdChange = (newId: string, idx: number) => {
     const layerConf = store.elc.layers[idx];
     if (store.elc.fixtures.legend?.root?.children) {
@@ -220,6 +223,93 @@ const isWFS = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerTha
  * Is a layer that supports standard attributes
  */
 const isAttributeLayer = (layerThang: LayerTypeThang): boolean => isVectorLayer(layerThang) || isDataLayer(layerThang);
+
+/**
+ * Spits out an array of each layer's layer type, in order
+ */
+let layerTypeTracker = computed(() => store.elc.layers.map(l => l.layerType));
+
+/**
+ * Fancy nonsense to detect when a layer's layerType changes
+ */
+watch(layerTypeTracker, (newLayerTypes, oldLayerTypes) => {
+    // if lengths are different, we added or deleted a layer config and are not caring about layer type change
+    if (newLayerTypes.length === oldLayerTypes.length) {
+        // array of indexes of every layers whos layer type changed
+        const allChangeIdxs = newLayerTypes
+            .map((nlt, i) => (oldLayerTypes[i] === nlt ? -1 : i))
+            .filter(idx => idx > -1);
+
+        // if length is 0, nothing changed. if > 1, it was a re-order rather than a type change and we dont care
+        if (allChangeIdxs.length === 1) {
+            // layer type was updated.
+            const changeIdx = allChangeIdxs[0];
+            rubbishRemover(store.elc.layers[changeIdx], oldLayerTypes[changeIdx], newLayerTypes[changeIdx]);
+        }
+    }
+});
+
+/**
+ * Removes any invalid config stuff when a layer type changes
+ */
+const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLayerType: LayerType) => {
+    const nossing = undefined;
+
+    // figure it out
+    if (isParentLayer(oldLayerType)) {
+        if (!isParentLayer(newLayerType)) {
+            // remove sublayers
+            config.sublayers = nossing;
+        }
+
+        if (isMIL(oldLayerType)) {
+            config.imageFormat = nossing;
+        }
+    } else {
+        // old type is not a parent flavour
+
+        if (isParentLayer(newLayerType) && config.identifyMode === LayerIdentifyMode.SYMBOLIC) {
+            // MIL & WMS can't do symbolic. restore to default
+            config.identifyMode = nossing;
+        }
+
+        if (isAttributeLayer(oldLayerType)) {
+            if (!isAttributeLayer(newLayerType)) {
+                config.fieldMetadata = nossing;
+                config.nameField = nossing;
+                config.initialFilteredQuery = nossing;
+                config.permanentFilteredQuery = nossing;
+            }
+
+            if (isVectorLayer(oldLayerType)) {
+                if (!isVectorLayer(newLayerType)) {
+                    config.tooltipField = nossing;
+                    config.customRenderer = nossing;
+                    config.drawOrder = nossing;
+                }
+
+                if (isFileLayer(oldLayerType)) {
+                    if (!isFileLayer(newLayerType)) {
+                        config.caching = nossing;
+                        config.colour = nossing;
+                    }
+
+                    if (isCSV(oldLayerType)) {
+                        config.latField = nossing;
+                        config.longField = nossing;
+                    } else if (isWFS(oldLayerType)) {
+                        config.xyInAttribs = nossing;
+                    }
+                }
+            }
+        }
+    }
+
+    if (isToleranceLayer(oldLayerType) && !isToleranceLayer(newLayerType)) {
+        config.touchTolerance = nossing;
+        config.mouseTolerance = nossing;
+    }
+};
 </script>
 
 <template>
