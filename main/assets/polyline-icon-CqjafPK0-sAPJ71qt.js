@@ -1,1 +1,0 @@
-import{as as n,az as s,aL as t,aC as o}from"./index-CBMEoBe1.js";const a={},r={xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"};function l(i,e){return s(),t("svg",r,e[0]||(e[0]=[o("path",{d:"M0 0h24v24H0z",fill:"none"},null,-1),o("path",{d:"M5 17l3-3 4 4 8-8","stroke-width":"2",fill:"none",stroke:"currentColor"},null,-1)]))}const d=n(a,[["render",l]]);export{d as default};
