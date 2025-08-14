@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // root.layers config nugget
 
-// TODO this is missing some basic layer types, like tile, imagery
-
 import { LayerIdentifyMode, LayerType } from '@/definitions';
 import type { RampLayerConfig } from '@/definitions';
 import { computed, ref, watch } from 'vue';
@@ -10,6 +8,7 @@ import draggable from 'vuedraggable';
 
 import Checkbox from '@/components/helpers/checkbox.vue';
 import Select from '@/components/helpers/select.vue';
+import GroupSelect from '@/components/helpers/group-select.vue';
 import Input from '@/components/helpers/input.vue';
 import Metadata from '@/components/layers/metadata.vue';
 import Controls from '@/components/layers/controls.vue';
@@ -525,18 +524,46 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                         </template>
                         <template #default>
                             <div class="input-table mt-5">
-                                <Select
+                                <GroupSelect
                                     :title="t('layer.type')"
                                     required
                                     v-model="element.layerType"
                                     :options="[
-                                        { label: t('layer.type.feature'), value: LayerType.FEATURE },
-                                        { label: t('layer.type.mapImage'), value: LayerType.MAPIMAGE },
-                                        { label: t('layer.type.wfs'), value: LayerType.WFS },
-                                        { label: t('layer.type.wms'), value: LayerType.WMS },
-                                        { label: t('layer.type.csv'), value: LayerType.CSV },
-                                        { label: t('layer.type.geojson'), value: LayerType.GEOJSON },
-                                        { label: t('layer.type.shapefile'), value: LayerType.SHAPEFILE }
+                                        {
+                                            groupLabel: t('layer.type.group.esri'),
+                                            groupOptions: [
+                                                { label: t('layer.type.feature'), value: LayerType.FEATURE },
+                                                { label: t('layer.type.mapImage'), value: LayerType.MAPIMAGE },
+                                                { label: t('layer.type.tile'), value: LayerType.TILE },
+                                                { label: t('layer.type.imagery'), value: LayerType.IMAGERY }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.ogc'),
+                                            groupOptions: [
+                                                { label: t('layer.type.wfs'), value: LayerType.WFS },
+                                                { label: t('layer.type.wms'), value: LayerType.WMS }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.file'),
+                                            groupOptions: [
+                                                { label: t('layer.type.csv'), value: LayerType.CSV },
+                                                { label: t('layer.type.geojson'), value: LayerType.GEOJSON },
+                                                { label: t('layer.type.geojsonzip'), value: LayerType.GEOJSONZIPPED },
+                                                { label: t('layer.type.shapefile'), value: LayerType.SHAPEFILE },
+                                                { label: t('layer.type.flatty'), value: LayerType.FLATGEOBUF },
+                                                { label: t('layer.type.flattyzip'), value: LayerType.FLATGEOBUFZIPPED }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.data'),
+                                            groupOptions: [
+                                                { label: t('layer.type.datatable'), value: LayerType.DATATABLE },
+                                                { label: t('layer.type.datacsv'), value: LayerType.DATACSV },
+                                                { label: t('layer.type.datajson'), value: LayerType.DATAJSON }
+                                            ]
+                                        }
                                     ]"
                                 />
                                 <Input

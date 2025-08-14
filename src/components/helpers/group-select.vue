@@ -1,7 +1,9 @@
 <script setup lang="ts">
-// friendly halper for selection lists (pick-one style)
+// friendly halper for selection lists (pick-one style) that have groups for the selectable items
 
 import InputHeader from '@/components/helpers/input-header.vue';
+
+type GroupOptions = { groupLabel: string; groupOptions: Array<{ label: String; value: String }> };
 
 const model = defineModel<any>();
 
@@ -15,7 +17,7 @@ defineProps({
     inputClass: String,
     required: Boolean,
     disabled: Boolean,
-    options: Array<{ label: String; value: String }>
+    options: Array<GroupOptions>
 });
 </script>
 
@@ -23,7 +25,11 @@ defineProps({
     <div>
         <InputHeader :required="required" :class="headerClass" :title="title" :description="description" />
         <select :aria-label="title" v-model="model" :disabled="disabled ?? false">
-            <option v-for="(opt, idx) in options" :value="opt.value" :key="idx">{{ opt.label }}</option>
+            <optgroup v-for="(group, idxG) in options" :label="group.groupLabel" :key="idxG">
+                <option v-for="(opt, idxO) in group.groupOptions" :value="opt.value" :key="idxO">
+                    {{ opt.label }}
+                </option>
+            </optgroup>
         </select>
     </div>
 </template>

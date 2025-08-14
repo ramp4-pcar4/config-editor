@@ -7,14 +7,26 @@ layers.idWarning,A unique ID must be specified for each layer for the legend to 
 layers.add,Add layer,1,Ajouter une couche,1
 layers.remove,Remove layer,1,Enlever la couche,1
 layer.title,Layer {0},1,Couche {0},1
-layer.type,Type,1,Type,1
-layer.type.feature,Feature,1,Caractéristique,1
-layer.type.mapImage,Map Image,1,Image de la carte,1
-layer.type.wfs,WFS (OGC Web Feature Service),1,WFS (Service d'entités géographiques Web OGC),1
-layer.type.wms,WMS (OGC Web Map Service),1,WMS (Service de cartes Web OGC),1
-layer.type.csv,CSV,1,CSV,1
-layer.type.geojson,Geojson,1,GeoJSON,1
-layer.type.shapefile,Shapefile,1,Shapefile,1
+layer.type,Layer Type,1,Type de couche,1
+layer.type.group.esri,ESRI ArcGIS Server,1,ESRI ArcGIS Server,1
+layer.type.group.ogc,OGC Service,1,Service OGC,0
+layer.type.group.file,File Source,1,Origine du ficher,0
+layer.type.group.data,Non-Spatial,1,Non spatiale,0
+layer.type.feature,Feature Layer,1,Couche d'entités,1
+layer.type.mapImage,Map Image Layer,1,Couche d'image cartographique,1
+layer.type.wfs,WFS (Web Feature Service),1,Couche WFS (Service d'entités géographiques Web),1
+layer.type.wms,WMS (Web Map Service),1,Couche WMS (Service de cartes Web),1
+layer.type.csv,CSV Layer,1,Couche CSV,1
+layer.type.geojson,GeoJSON Layer,1,Couche GeoJSON,1
+layer.type.shapefile,Shapefile Layer,1,Couche Shapefile,1
+layer.type.geojsonzip,Zipped GeoJSON Layer,1,Couche GeoJSON zippé,0
+layer.type.tile,Tile Layer,1,Couche de tuiles,1
+layer.type.imagery,Image Service,1,Service d'images,1
+layer.type.flatty,FlatGeobuf Layer,1,Couche FlatGeobuf,0
+layer.type.flattyzip,Zipped FlatGeobuf Layer,1,Couche FlatGeobuf zippé,0
+layer.type.datacsv,Non-Spatial CSV File Layer,1,Couche de fichier CSV non spatiale,1
+layer.type.datatable,ESRI Table Layer,1,Couche de table ESRI,1
+layer.type.datajson,Compact JSON File Layer,1,Couche de fichiers JSON compacte,1
 layer.id.title,ID,1,Identifiant,1
 layer.id.description,"ID of the layer. Should be unique for every layer. Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists.",1,"ID de la couche. Il doit être unique pour chaque couche. La mise à jour de ce champ entraînera également la mise à jour automatique du champ d'identification de la couche pour l'entrée de la légende associée à cette couche, si elle existe.",1
 layer.name.title,Name,1,Nom,1
