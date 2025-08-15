@@ -74,7 +74,13 @@ tileSchema.extentSetId.description,Identification link to extent set data define
 tileSchema.lodSetId.title,Lod Set ID,1,ID d'ensemble de niveaux de détail,1
 tileSchema.lodSetId.description,Identification link to lod set data defined in map.lodSets.,1,Lien d'identification vers les données de l'ensemble de données définies dans map.lodSets.,1
 tileSchema.thumbnailTileUrls.title,Thumbnail Tile URLs,1,URL des vignettes,1
-tileSchema.thumbnailTileUrls.description,The comma separated list of two horizontally-adjacent tile URLs used to create the basemap thumbnail. URLs take the form of '/tile/LOD ID/VERTICAL TILE INDEX/HORIZONTAL TILE INDEX'.,1,Liste séparée par des virgules de deux URL de tuiles horizontalement adjacentes utilisées pour créer la vignette de la carte de base. Les URL se présentent sous la forme suivante : "/tile/LOD ID/VERTICAL TILE INDEX/HORIZONTAL TILE INDEX".,1
+tileSchema.thumbnailTileUrls.description,The comma separated list of two horizontally-adjacent tile URLs used to create the basemap thumbnail. URLs take the form of /tile/LOD INDEX/VERTICAL TILE INDEX/HORIZONTAL TILE INDEX.,1,Liste séparée par des virgules de deux URL de tuiles horizontalement adjacentes utilisées pour créer la vignette de la carte de base. Les URL se présentent sous la forme suivante : /tile/LOD INDEX/VERTICAL TILE INDEX/HORIZONTAL TILE INDEX.,1
+tileSchema.recovery.title,Recovery Basemap,1,Carte de base de récupération,0
+tileSchema.recovery.description,Specifies a basemap to load if the initial basemap fails. Must have this tile schema. The recovery basemap should be hosted a different server than the initial basemap.,1,Spécifie un fond de carte à charger en cas d'échec du fond de carte initial. Ce schéma de tuiles doit être utilisé. Le fond de carte de récupération doit être hébergé sur un serveur différent de celui du fond de carte initial.,0
+tileSchema.recovery.basemapId.title,Recovery Basemap Id,1,ID de la carte de base de récupération,0
+tileSchema.recovery.basemapId.description,The basemap id of the recovery basemap.,1,L'ID de la carte de base de la carte de base de récupération.,0
+tileSchema.recovery.timeout.title,Failure Timeout,1,Délai d'échec,0
+tileSchema.recovery.timeout.description,Initial basemap load time limit in milliseconds. Exceeding the time limit will load the recovery basemap. Set to 0 to turn off any timeouts.,1,"Délai de chargement initial du fond de carte, en millisecondes. Dépasser ce délai entraînera le chargement du fond de carte de récupération. Définissez ce délai sur 0 pour désactiver les délais d'expiration.",0
 lodSets.title,Lod Sets,1,Niveaux de jeux de détails,1
 lodSets.description,The levels of detail (zoom scales) available for the map.,1,Les niveaux de détail (échelles de zoom) disponibles pour la carte.,1
 lodSets.add,Add lod set,1,Ajouter un ensemble de logements,1

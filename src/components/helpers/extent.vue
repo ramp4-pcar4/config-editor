@@ -6,7 +6,8 @@
 import Collapsible from '@/components/helpers/collapsible.vue';
 import Input from '@/components/helpers/input.vue';
 import type { RampExtentConfig } from '@/definitions';
-import { ref, type PropType, onMounted, inject, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+import type { PropType } from 'vue';
 
 // @ts-ignore
 import { createInstance, geo } from 'ramp-pcar';

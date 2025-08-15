@@ -5,6 +5,7 @@ import { type PropType, reactive, watch } from 'vue';
 
 import type { Field, RampTileSchemaConfig } from '@/definitions';
 import List from '@/components/helpers/list.vue';
+import RecoveryBasemap from './recovery-basemap.vue';
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -20,11 +21,14 @@ const emit = defineEmits(['update:modelValue']);
 let tileSchemas = reactive<Array<RampTileSchemaConfig>>(props.modelValue ?? []);
 
 watch(tileSchemas, () => {
+    // if thumbnail array exists and is empty, nuke it
     tileSchemas.forEach(ts => {
         if (ts.thumbnailTileUrls && ts.thumbnailTileUrls.length === 0) {
             delete ts.thumbnailTileUrls;
         }
     });
+
+    // if we have no tile schemas at all, wipe out this property
     emit('update:modelValue', tileSchemas.length === 0 ? undefined : tileSchemas);
 });
 
@@ -77,5 +81,9 @@ const itemFields: Array<Field> = [
         :singular="t('tileSchemas.singular')"
         :description="t('tileSchemas.description')"
         required
-    />
+    >
+        <template #item="{ element }">
+            <RecoveryBasemap v-model="element.recoveryBasemap" />
+        </template>
+    </List>
 </template>
