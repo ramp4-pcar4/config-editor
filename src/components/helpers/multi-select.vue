@@ -1,13 +1,11 @@
 <script setup lang="ts">
 // friendly halper for multiselectors (appears as a group of checkboxes)
 
-// TODO figure out these typescript grouses
-
 import Collapsible from './collapsible.vue';
 
 const model = defineModel<Array<any>>();
 
-const props = defineProps({
+defineProps({
     title: {
         type: String,
         required: true
@@ -20,7 +18,7 @@ const props = defineProps({
 <template>
     <Collapsible :title="title" :description="description">
         <div class="input-table">
-            <div class="flex items-center" v-for="option in options">
+            <div class="flex items-center" v-for="(option, idx) in options" :key="idx">
                 <input
                     type="checkbox"
                     class="border-2 border-black cursor-pointer text-black mr-2"
