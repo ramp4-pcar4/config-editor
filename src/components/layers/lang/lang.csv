@@ -98,7 +98,7 @@ layer.drawOrder.description,Attribute fields used to control drawing order on th
 layer.drawOrder.add,Add draw order,1,Ajouter un ordre de tirage,1
 layer.drawOrder.remove,Remove draw order,1,Supprimer l'ordre de tirage,1
 layer.drawOrder.field.title,Field,1,Domaine,1
-layer.drawOrder.field.description,Layer field name contianing the value to order by,1,Nom du champ de la couche contenant la valeur à classer par,1
+layer.drawOrder.field.description,Layer field name containing the value to order by,1,Nom du champ de la couche contenant la valeur à classer par,1
 layer.drawOrder.ascending.title,Ascending,1,Ascendant,1
 layer.drawOrder.ascending.description,Direction to order in. True means smaller values are on top of larger values. False is the opposite.,1,Sens de la commande. Vrai signifie que les petites valeurs sont placées au-dessus des grandes. Faux signifie le contraire.,1
 layer.fieldMetadata,Field Metadata,1,Métadonnées de champ,1
@@ -116,6 +116,18 @@ layer.fixtures,Fixtures,1,Appareils,1
 layer.fixtures.details,Details,1,Détails,1
 layer.fixtures.details.template.title,Template,1,Modèle,1
 layer.fixtures.details.template.description,Custom Vue component name to render as details template,1,Nom du composant Vue personnalisé à rendre comme modèle de détails,1
+layer.fixtures.details.priority.title,Priority,1,Priorité,0
+layer.fixtures.details.priority.description,A priority ranking for the layer result being initially selected. Smaller number has higher priority.,1,"Classement des priorités pour le résultat de la couche initialement sélectionnée. Plus le numéro est petit, plus la priorité est élevée.",0
+layer.fixtures.details.fields.title,Field Overrides,1,Remplacements de champs,0
+layer.fixtures.details.fields.add,Add field override,1,Ajouter un remplacement de champ,0
+layer.fixtures.details.fields.remove,Remove field override,1,Supprimer le remplacement de champ,0
+layer.fixtures.details.fields.description,Allows changes to field names and visibility in the details for this layer. Ignored if a custom template is used.,1,Permet de modifier les noms de champs et la visibilité dans les détails de cette couche. Ignoré si un modèle personnalisé est utilisé.,0
+layer.fixtures.details.fields.field.title,Field,1,Domaine,1
+layer.fixtures.details.fields.field.description,Field name in the layer to adjust.,1,Nom du champ dans la couche à ajuster.,0
+layer.fixtures.details.fields.alias.title,Alias,1,Alias,1
+layer.fixtures.details.fields.alias.description,Alternate field name to display. Ignored if blank.,1,Nom de champ alternatif à afficher. Ignoré si vide.,0
+layer.fixtures.details.fields.visible.title,Visibility,1,Visibilité,1
+layer.fixtures.details.fields.visible.description,If the field should be shown in the details list.,1,Si le champ doit être affiché dans la liste des détails.,0
 layer.fixtures.settings,Settings,1,Paramètres,1
 layer.fixtures.grid,Grid,1,Grille,1
 layer.metadata,Metadata,1,Métadonnées,1

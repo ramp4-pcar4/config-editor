@@ -95,22 +95,31 @@ const add = () => {
     }
 };
 
+/**
+ * Remove an item from the list lurking at an index
+ */
 const remove = (idx: number) => {
     if (props.editDisabled) {
         return;
     } else if (props.remove) {
         props.remove(idx);
     } else {
-        list.value?.splice(idx, 1);
+        list.value.splice(idx, 1);
     }
 };
 
+/**
+ * Changes the position of an item in the list
+ *
+ * @param idx index where the item is currently lurking
+ * @param direction an offset from the current position. where we want item to end up
+ */
 const reorder = (idx: number, direction: number) => {
-    const [elem] = list.value?.splice(idx, 1);
-    list.value?.splice(idx + direction, 0, elem);
+    const [elem] = list.value.splice(idx, 1);
+    list.value.splice(idx + direction, 0, elem);
 };
 
-const length = computed<number>(() => list.value?.length ?? 0);
+const length = computed<number>(() => list.value.length);
 
 // for items, we use the table layout instead of the collapsible layout iff
 //      - the user doesn't want a custom item template
@@ -185,7 +194,7 @@ const fieldToInputType: { [key: string]: string } = {
                 <div></div>
             </div>
             <draggable v-if="length > 0" :list="list" item-key="fake" handle=".handle">
-                <template #item="{ element, index }">
+                <template #item="{ index }">
                     <div>
                         <div v-if="useTableLayout">
                             <div>
