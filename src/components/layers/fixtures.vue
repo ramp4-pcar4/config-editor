@@ -1,16 +1,14 @@
 <script setup lang="ts">
+// handles both of these:
 // root.layers[].fixtures config nugget
+// root.layers[].sublayers[].fixtures config nugget
 
-// TODO the <Grid> component is turning on for any layer other than WMS.  Big time lies.
-//      should only turn on for layers that support attributes.
-//      Easy way: extent to exclude MIL, Tile, Imagery
-//      Smart way: refactor so the "layer tester" methods can be imported and used here, then leverage isAttributeLayer()
+// its a bit tricky, since WMS has sublayers, but it only accepts .fixtures on the parent config.
+// MIL sublayers on the other hand can have some fixture stuff on the parent, but also fixture stuff on the sublayers.
+//     the sublayer fixtures are usually targeting "attribute"-related settings (grid, details)
 
-// TODO could consider hiding the details fixture nugget for certain layers.
-//      Only Attribute-supporting and WMS layers should count.
-//      Also, the "fields" list should be hidden for WMS as it doesn't have fields.
-
-import { type PropType, watch, reactive } from 'vue';
+import { computed, reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import { LayerType } from '@/definitions';
 import type { Field } from '@/definitions';
 import Collapsible from '@/components/helpers/collapsible.vue';
@@ -18,6 +16,7 @@ import Input from '@/components/helpers/input.vue';
 import Controls from '@/components/layers/controls.vue';
 import Grid from '@/components/fixtures/grid/options.vue';
 import List from '@/components/helpers/list.vue';
+import * as LayerTools from '@/components/layers/layer-tools';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -25,14 +24,31 @@ const props = defineProps({
         type: Object as PropType<any>,
         required: false
     },
+    /**
+     * Layer type of the top-most layer. So if we're putting fixtures on a sublayer, this will be the parent layer type
+     */
     layerType: {
         type: String as PropType<LayerType>,
+        required: true
+    },
+    /**
+     * If we're targeting the fixtures of sublayers
+     */
+    sublayer: {
+        type: Boolean as PropType<boolean>,
         required: true
     }
 });
 
 const { t } = useI18n();
 const emit = defineEmits(['update:modelValue']);
+
+/**
+ * Determines if the thing owning the fixtures can support standard attributes
+ */
+const supportsAttributes = computed<boolean>(
+    () => LayerTools.isAttributeLayer(props.layerType) || (LayerTools.isMIL(props.layerType) && props.sublayer)
+);
 
 const fixtures = reactive<any>({
     details: props.modelValue?.details ?? {},
@@ -65,11 +81,11 @@ const detailsFields: Array<Field> = [
 ];
 
 const fancyDetailsFieldAdd = () => {
-    // the "visible" property for fields defaults to true.
-    // But in vue controls world, the default value is actually undefined. Which leads the checkbox to display as unchecked.
+    // the "visible" property for fields defaults to true if it's missing.
+    // But in vue controls world, the missing value is 'undefined'. Which leads the bound checkbox to display as unchecked.
     // This results in BIG LIES to the user. To get a valid "not visible" setting they need to check the box (changing undefined to true),
     // then uncheck it (changing true to false).
-    // This magical override method defaults the new field to be defaulted with true, not undefined. Will add a bit of extra spam to the output config,
+    // This magical override method initializes the new field to true instead of undefined. Will add a bit of extra spam to the output config,
     // but that is better than big lies.
 
     if (!Array.isArray(fixtures.details.fields)) {
@@ -86,7 +102,7 @@ watch(fixtures, () => {
 
 <template>
     <Collapsible :title="t('layer.fixtures')">
-        <Collapsible :title="t('layer.fixtures.details')">
+        <Collapsible v-if="supportsAttributes || LayerTools.isWMS(layerType)" :title="t('layer.fixtures.details')">
             <div class="input-table">
                 <Input
                     :title="t('layer.fixtures.details.template.title')"
@@ -102,6 +118,7 @@ watch(fixtures, () => {
                 />
             </div>
             <List
+                v-if="supportsAttributes"
                 v-model="fixtures.details.fields"
                 :item-fields="detailsFields"
                 :add="fancyDetailsFieldAdd"
@@ -115,6 +132,6 @@ watch(fixtures, () => {
             <Controls v-model="fixtures.settings.controls" />
             <Controls v-model="fixtures.settings.disabledControls" disabled />
         </Collapsible>
-        <Grid v-if="layerType !== LayerType.WMS" :title="t('layer.fixtures.grid')" v-model="fixtures.grid" />
+        <Grid v-if="supportsAttributes" :title="t('layer.fixtures.grid')" v-model="fixtures.grid" />
     </Collapsible>
 </template>

@@ -19,13 +19,9 @@ import DrawOrder from '@/components/layers/draw-order.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
 import Sublayers from '@/components/layers/sublayers.vue';
 import Collapsible from '@/components/helpers/collapsible.vue';
+import * as LayerTools from '@/components/layers/layer-tools';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
-
-/**
- * Something that a layer type can be derived from
- */
-type LayerTypeThang = LayerType | RampLayerConfig;
 
 const store = useStore();
 const { t } = useI18n();
@@ -152,78 +148,6 @@ const onLayerIdChange = (newId: string, idx: number) => {
 };
 
 /**
- * Helper that answers if a layer type thang has a type that matches the provided list
- */
-const layerTypeChecker = (thang: LayerTypeThang, ...layerTypes: Array<LayerType>): boolean => {
-    const layerT = typeof thang === 'string' ? thang : thang.layerType;
-    return layerTypes.some(checkType => layerT === checkType);
-};
-
-/**
- * Is a layer that is just data (no spatial)
- */
-const isDataLayer = (layerThang: LayerTypeThang): boolean =>
-    layerTypeChecker(layerThang, LayerType.DATACSV, LayerType.DATAJSON, LayerType.DATATABLE);
-
-/**
- * Is a file-based map layer
- */
-const isFileLayer = (layerThang: LayerTypeThang): boolean =>
-    layerTypeChecker(
-        layerThang,
-        LayerType.CSV,
-        LayerType.FLATGEOBUF,
-        LayerType.FLATGEOBUFZIPPED,
-        LayerType.GEOJSON,
-        LayerType.GEOJSONZIPPED,
-        LayerType.SHAPEFILE,
-        LayerType.WFS
-    );
-
-/**
- * Is a layer with Vector geometry
- */
-const isVectorLayer = (layerThang: LayerTypeThang): boolean =>
-    layerTypeChecker(layerThang, LayerType.FEATURE) || isFileLayer(layerThang);
-
-/**
- * Is a layer that supports pointer tolerances
- */
-const isToleranceLayer = (layerThang: LayerTypeThang): boolean =>
-    layerTypeChecker(layerThang, LayerType.MAPIMAGE, LayerType.FEATURE);
-
-/**
- * Is a map layer that contains sublayers
- */
-const isParentLayer = (layerThang: LayerTypeThang): boolean =>
-    layerTypeChecker(layerThang, LayerType.MAPIMAGE, LayerType.WMS);
-
-/**
- * Is a map image layer
- */
-const isMIL = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.MAPIMAGE);
-
-/**
- * Is a geojson layer
- */
-const isGeoJson = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.GEOJSON);
-
-/**
- * Is a csv layer
- */
-const isCSV = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.CSV);
-
-/**
- * Is a wfs layer
- */
-const isWFS = (layerThang: LayerTypeThang): boolean => layerTypeChecker(layerThang, LayerType.WFS);
-
-/**
- * Is a layer that supports standard attributes
- */
-const isAttributeLayer = (layerThang: LayerTypeThang): boolean => isVectorLayer(layerThang) || isDataLayer(layerThang);
-
-/**
  * Spits out an array of each layer's layer type, in order
  */
 let layerTypeTracker = computed(() => store.elc.layers.map(l => l.layerType));
@@ -255,48 +179,48 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
     const nossing = undefined;
 
     // figure it out
-    if (isParentLayer(oldLayerType)) {
-        if (!isParentLayer(newLayerType)) {
+    if (LayerTools.isParentLayer(oldLayerType)) {
+        if (!LayerTools.isParentLayer(newLayerType)) {
             // remove sublayers
             config.sublayers = nossing;
         }
 
-        if (isMIL(oldLayerType)) {
+        if (LayerTools.isMIL(oldLayerType)) {
             config.imageFormat = nossing;
         }
     } else {
         // old type is not a parent flavour
 
-        if (isParentLayer(newLayerType) && config.identifyMode === LayerIdentifyMode.SYMBOLIC) {
+        if (LayerTools.isParentLayer(newLayerType) && config.identifyMode === LayerIdentifyMode.SYMBOLIC) {
             // MIL & WMS can't do symbolic. restore to default
             config.identifyMode = nossing;
         }
 
-        if (isAttributeLayer(oldLayerType)) {
-            if (!isAttributeLayer(newLayerType)) {
+        if (LayerTools.isAttributeLayer(oldLayerType)) {
+            if (!LayerTools.isAttributeLayer(newLayerType)) {
                 config.fieldMetadata = nossing;
                 config.nameField = nossing;
                 config.initialFilteredQuery = nossing;
                 config.permanentFilteredQuery = nossing;
             }
 
-            if (isVectorLayer(oldLayerType)) {
-                if (!isVectorLayer(newLayerType)) {
+            if (LayerTools.isVectorLayer(oldLayerType)) {
+                if (!LayerTools.isVectorLayer(newLayerType)) {
                     config.tooltipField = nossing;
                     config.customRenderer = nossing;
                     config.drawOrder = nossing;
                 }
 
-                if (isFileLayer(oldLayerType)) {
-                    if (!isFileLayer(newLayerType)) {
+                if (LayerTools.isFileLayer(oldLayerType)) {
+                    if (!LayerTools.isFileLayer(newLayerType)) {
                         config.caching = nossing;
                         config.colour = nossing;
                     }
 
-                    if (isCSV(oldLayerType)) {
+                    if (LayerTools.isCSV(oldLayerType)) {
                         config.latField = nossing;
                         config.longField = nossing;
-                    } else if (isWFS(oldLayerType)) {
+                    } else if (LayerTools.isWFS(oldLayerType)) {
                         config.xyInAttribs = nossing;
                     }
                 }
@@ -304,7 +228,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
         }
     }
 
-    if (isToleranceLayer(oldLayerType) && !isToleranceLayer(newLayerType)) {
+    if (LayerTools.isToleranceLayer(oldLayerType) && !LayerTools.isToleranceLayer(newLayerType)) {
         config.touchTolerance = nossing;
         config.mouseTolerance = nossing;
     }
@@ -585,13 +509,13 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     required
                                 />
                                 <Input
-                                    v-if="isAttributeLayer(element)"
+                                    v-if="LayerTools.isAttributeLayer(element)"
                                     :title="t('layer.nameField.title')"
                                     :description="t('layer.nameField.description')"
                                     v-model="element.nameField"
                                 />
                                 <Input
-                                    v-if="isVectorLayer(element)"
+                                    v-if="LayerTools.isVectorLayer(element)"
                                     :title="t('layer.tooltipField.title')"
                                     :description="t('layer.tooltipField.description')"
                                     v-model="element.tooltipField"
@@ -619,25 +543,25 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     placeholder="0"
                                 />
                                 <Input
-                                    v-if="isFileLayer(element)"
+                                    v-if="LayerTools.isFileLayer(element)"
                                     :title="t('layer.colour.title')"
                                     :description="t('layer.colour.description')"
                                     v-model="element.colour"
                                 />
                                 <Input
-                                    v-if="isCSV(element)"
+                                    v-if="LayerTools.isCSV(element)"
                                     :title="t('layer.latField.title')"
                                     :description="t('layer.latField.description')"
                                     v-model="element.latField"
                                 />
                                 <Input
-                                    v-if="isCSV(element)"
+                                    v-if="LayerTools.isCSV(element)"
                                     :title="t('layer.longField.title')"
                                     :description="t('layer.longField.description')"
                                     v-model="element.longField"
                                 />
                                 <Input
-                                    v-if="isToleranceLayer(element)"
+                                    v-if="LayerTools.isToleranceLayer(element)"
                                     :title="t('layer.mouseTolerance.title')"
                                     :description="t('layer.mouseTolerance.description')"
                                     v-model="element.mouseTolerance"
@@ -646,7 +570,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     placeholder="5"
                                 />
                                 <Input
-                                    v-if="isToleranceLayer(element)"
+                                    v-if="LayerTools.isToleranceLayer(element)"
                                     :title="t('layer.touchTolerance.title')"
                                     :description="t('layer.touchTolerance.description')"
                                     v-model="element.touchTolerance"
@@ -655,19 +579,19 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     placeholder="15"
                                 />
                                 <Input
-                                    v-if="isAttributeLayer(element)"
+                                    v-if="LayerTools.isAttributeLayer(element)"
                                     :title="t('layer.initialFilteredQuery.title')"
                                     :description="t('layer.initialFilteredQuery.description')"
                                     v-model="element.initialFilteredQuery"
                                 />
                                 <Input
-                                    v-if="isAttributeLayer(element)"
+                                    v-if="LayerTools.isAttributeLayer(element)"
                                     :title="t('layer.permanentFilteredQuery.title')"
                                     :description="t('layer.permanentFilteredQuery.description')"
                                     v-model="element.permanentFilteredQuery"
                                 />
                                 <Select
-                                    v-if="isVectorLayer(element)"
+                                    v-if="LayerTools.isVectorLayer(element)"
                                     :title="t('layer.identifyMode.title')"
                                     :description="t('layer.identifyMode.description')"
                                     v-model="element.identifyMode"
@@ -681,7 +605,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     ]"
                                 />
                                 <Select
-                                    v-if="isMIL(element)"
+                                    v-if="LayerTools.isMIL(element)"
                                     :title="t('layer.imageFormat.title')"
                                     :description="t('layer.imageFormat.description')"
                                     v-model="element.imageFormat"
@@ -692,36 +616,40 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                     "
                                 />
                                 <Input
-                                    v-if="isVectorLayer(element)"
+                                    v-if="LayerTools.isVectorLayer(element)"
                                     type="object"
                                     :title="t('layer.customRenderer.title')"
                                     :description="t('layer.customRenderer.description')"
                                     v-model="element.customRenderer"
                                 />
                                 <Input
-                                    v-if="isGeoJson(element) || isCSV(element)"
-                                    :type="isGeoJson(element) ? 'object' : 'text'"
+                                    v-if="LayerTools.isGeoJson(element) || LayerTools.isCSV(element)"
+                                    :type="LayerTools.isGeoJson(element) ? 'object' : 'text'"
                                     :title="t('layer.rawData.title')"
                                     :description="
-                                        t(`layer.rawData.${isGeoJson(element) ? 'geojson' : 'csv'}.description`)
+                                        t(
+                                            `layer.rawData.${
+                                                LayerTools.isGeoJson(element) ? 'geojson' : 'csv'
+                                            }.description`
+                                        )
                                     "
                                     v-model="element.rawData"
                                 />
                             </div>
                             <Checkbox
-                                v-if="isWFS(element)"
+                                v-if="LayerTools.isWFS(element)"
                                 :title="t('layer.xyInAttribs.title')"
                                 :description="t('layer.xyInAttribs.description')"
                                 v-model="element.xyInAttribs"
                             />
                             <Checkbox
-                                v-if="isFileLayer(element)"
+                                v-if="LayerTools.isFileLayer(element)"
                                 v-model="element.caching"
                                 :title="t('layer.caching.title')"
                                 :description="t('layer.caching.description')"
                             />
                             <Sublayers
-                                v-if="isParentLayer(element)"
+                                v-if="LayerTools.isParentLayer(element)"
                                 v-model="element.sublayers"
                                 :layer-type="element.layerType"
                             />
@@ -730,9 +658,12 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                             <Controls v-model="element.controls" />
                             <Controls v-model="element.disabledControls" disabled />
                             <State v-model="element.state" />
-                            <FieldMetadata v-model="element.fieldMetadata" v-if="isAttributeLayer(element)" />
-                            <DrawOrder v-model="element.drawOrder" v-if="isVectorLayer(element)" />
-                            <Fixtures v-model="element.fixtures" :layer-type="element.layerType" />
+                            <FieldMetadata
+                                v-model="element.fieldMetadata"
+                                v-if="LayerTools.isAttributeLayer(element)"
+                            />
+                            <DrawOrder v-model="element.drawOrder" v-if="LayerTools.isVectorLayer(element)" />
+                            <Fixtures v-model="element.fixtures" :layer-type="element.layerType" :sublayer="false" />
                         </template>
                     </Collapsible>
                 </template>

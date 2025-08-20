@@ -9,6 +9,7 @@ import State from '@/components/layers/state.vue';
 import FieldMetadata from '@/components/layers/field-metadata.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
 import StyleLegends from '@/components/layers/style-legends.vue';
+import * as LayerTools from '@/components/layers/layer-tools';
 import type { Field, RampLayerMapImageSublayerConfig, RampLayerWmsSublayerConfig } from '@/definitions';
 import { LayerType } from '@/definitions';
 import List from '@/components/helpers/list.vue';
@@ -19,6 +20,9 @@ const props = defineProps({
         type: Object as PropType<Array<RampLayerMapImageSublayerConfig | RampLayerWmsSublayerConfig>>,
         required: false
     },
+    /**
+     * This is layer type of the Parent layer.
+     */
     layerType: {
         type: String as PropType<LayerType>,
         required: true
@@ -107,7 +111,7 @@ const wmsFields: Array<Field> = [
 <template>
     <List
         v-model="sublayers"
-        :item-fields="layerType === LayerType.MAPIMAGE ? milFields : wmsFields"
+        :item-fields="LayerTools.isMIL(props.layerType) ? milFields : wmsFields"
         :title="t('layer.sublayers.title')"
         :description="
             layerType === LayerType.MAPIMAGE
@@ -119,20 +123,17 @@ const wmsFields: Array<Field> = [
         :singular="t('layer.sublayers.singular')"
     >
         <template #item="{ index }">
-            <Extent
-                v-if="props.layerType === LayerType.MAPIMAGE"
-                v-model="sublayers[index].extent"
-                :title="t('layer.extent')"
-            />
+            <Extent v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].extent" :title="t('layer.extent')" />
             <StyleLegends v-else v-model="sublayers[index].styleLegends" />
             <Controls v-model="sublayers[index].controls" />
             <Controls v-model="sublayers[index].disabledControls" disabled />
             <State v-model="sublayers[index].state" />
-            <FieldMetadata v-model="sublayers[index].fieldMetadata" v-if="props.layerType === LayerType.MAPIMAGE" />
+            <FieldMetadata v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].fieldMetadata" />
             <Fixtures
-                v-if="props.layerType === LayerType.MAPIMAGE"
+                v-if="LayerTools.isMIL(layerType)"
                 v-model="sublayers[index].fixtures"
-                :layer-type="props.layerType"
+                :layer-type="layerType"
+                :sublayer="true"
             />
         </template>
     </List>
