@@ -6,19 +6,16 @@ import type { RampLayerConfig } from '@/definitions';
 import { computed, ref, watch } from 'vue';
 import draggable from 'vuedraggable';
 
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Select from '@/components/helpers/select.vue';
-import GroupSelect from '@/components/helpers/group-select.vue';
-import Input from '@/components/helpers/input.vue';
+import { Checkbox, Collapsible, Extent, GroupSelect, Input, Select } from '@/components/helpers';
+
 import Metadata from '@/components/layers/metadata.vue';
 import Controls from '@/components/layers/controls.vue';
-import Extent from '@/components/helpers/extent.vue';
 import State from '@/components/layers/state.vue';
 import FieldMetadata from '@/components/layers/field-metadata.vue';
 import DrawOrder from '@/components/layers/draw-order.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
 import Sublayers from '@/components/layers/sublayers.vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+
 import * as LayerTools from '@/components/layers/layer-tools';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';

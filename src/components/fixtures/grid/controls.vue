@@ -1,12 +1,9 @@
 <script setup lang="ts">
 // root.layers[].fixtures.grid.controls config nugget
 
-// TODO fix grouse
-
-import { reactive, type PropType, watch, computed } from 'vue';
-import List from '@/components/helpers/list.vue';
-import Select from '@/components/helpers/select.vue';
-import Input from '@/components/helpers/input.vue';
+import { computed, reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Input, List, Select } from '@/components/helpers';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -76,7 +73,7 @@ watch(controls, () => {
         :singular="t('grid.mergeGrid.options.controls.singular')"
         custom-only
     >
-        <template #item="{ element, index }">
+        <template #item="{ index }">
             <div class="input-table">
                 <Select
                     :title="t('grid.mergeGrid.options.control.type.title')"

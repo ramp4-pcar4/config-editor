@@ -1,14 +1,10 @@
 <script setup lang="ts">
 // root.map.lodSets config nugget
 
-// TODO investigate typescript grouse
-
-import { type PropType, watch, ref } from 'vue';
-
+import { ref, watch } from 'vue';
+import type { PropType } from 'vue';
 import { geo } from 'ramp-pcar';
-
-import List from '@/components/helpers/list.vue';
-
+import { List } from '@/components/helpers';
 import type { Field, RampLodConfig, RampLodSetConfig } from '@/definitions';
 import { useI18n } from 'vue-i18n';
 
@@ -95,7 +91,7 @@ const lodFields: Array<Field> = [
         :add="addLodSet"
         :remove="removeLodSet"
     >
-        <template #item="{ element, index }">
+        <template #item="{ index }">
             <div class="mt-4 input-table">
                 <div>
                     <button class="use-default" @click="onLodTypeToggle('lambert', index)">

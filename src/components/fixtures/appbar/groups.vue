@@ -2,10 +2,9 @@
 // root.fixtures.appbar.??? config nugget
 // TODO figure out what this is.  .items ? the general thing that lurks in .items?
 
-import { type PropType, reactive, watch } from 'vue';
-import List from '@/components/helpers/list.vue';
-import Input from '@/components/helpers/input.vue';
-import Select from '@/components/helpers/select.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Input, List, Select } from '@/components/helpers';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

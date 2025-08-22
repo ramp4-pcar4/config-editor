@@ -4,15 +4,16 @@
 // TODO figure out the typescript grouses
 
 import type { Field } from '@/definitions';
-import { type PropType, computed, useSlots } from 'vue';
+import { computed, useSlots } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import draggable from 'vuedraggable';
-import InputHeader from '@/components/helpers/input-header.vue';
-import Input from '@/components/helpers/input.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Select from '@/components/helpers/select.vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import InputHeader from './input-header.vue';
+import Input from './input.vue';
+import Checkbox from './checkbox.vue';
+import Select from './select.vue';
+import Collapsible from './collapsible.vue';
 
 const props = defineProps({
     modelValue: {

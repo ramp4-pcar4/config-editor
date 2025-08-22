@@ -1,16 +1,12 @@
 <script setup lang="ts">
 // root.fixtures.legend.[any block].children config nugget
 
-// TODO fix grouses
-
-import { reactive, type PropType, watch } from 'vue';
-import List from '@/components/helpers/list.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Checkbox, Input, List, Select } from '@/components/helpers';
 import SymbologyStack from '@/components/fixtures/legend/symbology-stack.vue';
 import Controls from '@/components/fixtures/legend/controls.vue';
 import LayerControls from '@/components/layers/controls.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Input from '@/components/helpers/input.vue';
-import Select from '@/components/helpers/select.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -82,7 +78,7 @@ watch(children, () => {
         :singular="t('legend.children.singular')"
         custom-only
     >
-        <template #item="{ element, index }">
+        <template #item="{ index }">
             <div class="input-table">
                 <Select
                     :title="t('legend.item.type')"

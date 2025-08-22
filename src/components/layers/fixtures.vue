@@ -11,11 +11,9 @@ import { computed, reactive, watch } from 'vue';
 import type { PropType } from 'vue';
 import { LayerType } from '@/definitions';
 import type { Field } from '@/definitions';
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Input from '@/components/helpers/input.vue';
+import { Collapsible, Input, List } from '@/components/helpers';
 import Controls from '@/components/layers/controls.vue';
 import Grid from '@/components/fixtures/grid/options.vue';
-import List from '@/components/helpers/list.vue';
 import * as LayerTools from '@/components/layers/layer-tools';
 import { useI18n } from 'vue-i18n';
 

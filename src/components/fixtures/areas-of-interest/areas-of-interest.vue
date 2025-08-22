@@ -1,11 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.areas-of-interest config nugget
 
-import { reactive, type PropType, watch } from 'vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Collapsible, Extent, List } from '@/components/helpers';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
-import List from '@/components/helpers/list.vue';
-import Extent from '@/components/helpers/extent.vue';
 import type { Field } from '@/definitions';
 import { useI18n } from 'vue-i18n';
 

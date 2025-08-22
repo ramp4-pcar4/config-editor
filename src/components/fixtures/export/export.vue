@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // root.fixtures.export config nugget
 
-import { reactive, type PropType, watch } from 'vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Input from '@/components/helpers/input.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Collapsible, Input } from '@/components/helpers';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import ExportComponent from '@/components/fixtures/export/export-component.vue';
 import { useI18n } from 'vue-i18n';

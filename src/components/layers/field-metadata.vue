@@ -1,11 +1,9 @@
 <script setup lang="ts">
 // root.layers[].fieldMetadata config nugget
 
-import { type PropType, reactive, watch } from 'vue';
-
-import List from '@/components/helpers/list.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Checkbox, Collapsible, List } from '@/components/helpers';
 import type { Field, RampLayerFieldMetadataConfig } from '@/definitions';
 import { useI18n } from 'vue-i18n';
 

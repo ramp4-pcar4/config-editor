@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // root.fixtures.appbar config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import { reactive, type PropType, watch } from 'vue';
+import { Collapsible } from '@/components/helpers';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import Groups from '@/components/fixtures/appbar/groups.vue';
 import { useI18n } from 'vue-i18n';
 

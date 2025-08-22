@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.legend.headerControls config nugget
 
-import { ref, type PropType, watch } from 'vue';
+import { ref, watch } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
-import MultiSelect from '@/components/helpers/multi-select.vue';
+import { MultiSelect } from '@/components/helpers';
 
 const props = defineProps({
     modelValue: {

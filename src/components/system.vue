@@ -1,8 +1,7 @@
 <script setup lang="ts">
 // root.system config nugget
 
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Input from '@/components/helpers/input.vue';
+import { Checkbox, Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 

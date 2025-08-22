@@ -1,10 +1,10 @@
 <script setup lang="ts">
 // root.layers[].sublayers config nugget
 
-import { type PropType, reactive, watch } from 'vue';
-
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Extent, List } from '@/components/helpers';
 import Controls from '@/components/layers/controls.vue';
-import Extent from '@/components/helpers/extent.vue';
 import State from '@/components/layers/state.vue';
 import FieldMetadata from '@/components/layers/field-metadata.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
@@ -12,7 +12,6 @@ import StyleLegends from '@/components/layers/style-legends.vue';
 import * as LayerTools from '@/components/layers/layer-tools';
 import type { Field, RampLayerMapImageSublayerConfig, RampLayerWmsSublayerConfig } from '@/definitions';
 import { LayerType } from '@/definitions';
-import List from '@/components/helpers/list.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

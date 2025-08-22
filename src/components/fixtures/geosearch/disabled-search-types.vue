@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // root.fixtures.geosearch.settings.disabledSearchTypes config nugget
 
-import { ref, type PropType, watch } from 'vue';
-import MultiSelect from '@/components/helpers/multi-select.vue';
+import { ref, watch } from 'vue';
+import type { PropType } from 'vue';
+import { MultiSelect } from '@/components/helpers';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

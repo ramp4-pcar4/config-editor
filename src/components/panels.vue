@@ -1,9 +1,8 @@
 <script setup lang="ts">
 // root.panels config nugget
 
-import Checkbox from '@/components/helpers/checkbox.vue';
+import { Checkbox, List } from '@/components/helpers';
 import type { Field } from '@/definitions';
-import List from '@/components/helpers/list.vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
