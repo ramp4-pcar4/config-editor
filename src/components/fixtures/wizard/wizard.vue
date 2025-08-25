@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // root.fixtures.wizard config nugget
 
-import { reactive, type PropType, watch } from 'vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Collapsible } from '@/components/helpers';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import { useI18n } from 'vue-i18n';
 

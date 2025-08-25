@@ -3,9 +3,7 @@
 
 // TODO deal with typescript grouses. Might need a val ?? false to shut it up
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Select from '@/components/helpers/select.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
+import { Checkbox, Collapsible, Select } from '@/components/helpers';
 import type { MapCaptionConfig } from '@/definitions';
 import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';

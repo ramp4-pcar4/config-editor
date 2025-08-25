@@ -1,15 +1,12 @@
 <script setup lang="ts">
 // root.layers[].fixtures.grid config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import List from '@/components/helpers/list.vue';
-import Input from '@/components/helpers/input.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Select from '@/components/helpers/select.vue';
+import { Checkbox, Collapsible, Input, List, Select } from '@/components/helpers';
 import Controls from '@/components/fixtures/grid/controls.vue';
 import type { Field } from '@/definitions';
 
-import { reactive, type PropType, watch } from 'vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

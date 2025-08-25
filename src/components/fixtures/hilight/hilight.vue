@@ -1,10 +1,9 @@
 <script setup lang="ts">
 // root.fixtures.hilight config nugget
 
-import { reactive, ref, type PropType, watch } from 'vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Select from '@/components/helpers/select.vue';
-import Input from '@/components/helpers/input.vue';
+import { reactive, ref, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Collapsible, Input, Select } from '@/components/helpers';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

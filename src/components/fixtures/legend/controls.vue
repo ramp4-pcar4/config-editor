@@ -4,8 +4,9 @@
 // TODO is this correct? only has "visibilty" and expand in the controls selection. look into it
 //      "layer" blocks have more controls. not seeing them anywhere.
 
-import { ref, type PropType, watch } from 'vue';
-import MultiSelect from '@/components/helpers/multi-select.vue';
+import { ref, watch } from 'vue';
+import type { PropType } from 'vue';
+import { MultiSelect } from '@/components/helpers';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

@@ -1,11 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.geosearch.settings config nugget
 
-import { reactive, type PropType, watch } from 'vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Checkbox, Collapsible, Input } from '@/components/helpers';
 import DisabledSearchTypes from '@/components/fixtures/geosearch/disabled-search-types.vue';
-import Input from '@/components/helpers/input.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

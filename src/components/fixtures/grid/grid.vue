@@ -1,11 +1,11 @@
 <script setup lang="ts">
 // root.fixtures.grid config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import { reactive, type PropType, watch } from 'vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Collapsible, Input } from '@/components/helpers';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import MergeGrids from '@/components/fixtures/grid/merge-grids.vue';
-import Input from '@/components/helpers/input.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

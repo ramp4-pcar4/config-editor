@@ -1,10 +1,11 @@
 <script setup lang="ts">
 // root.map.tileSchemas config nugget
 
-import { type PropType, reactive, watch } from 'vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 
 import type { Field, RampTileSchemaConfig } from '@/definitions';
-import List from '@/components/helpers/list.vue';
+import { List } from '@/components/helpers';
 import RecoveryBasemap from './recovery-basemap.vue';
 import { useI18n } from 'vue-i18n';
 

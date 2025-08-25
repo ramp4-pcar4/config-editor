@@ -1,11 +1,9 @@
 <script setup lang="ts">
 // root.layers[].state config nugget
 
-import { type PropType, reactive, watch } from 'vue';
-
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Input from '@/components/helpers/input.vue';
-import Collapsible from '@/components/helpers/collapsible.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Checkbox, Collapsible, Input } from '@/components/helpers';
 import type { RampLayerStateConfig } from '@/definitions';
 import { useI18n } from 'vue-i18n';
 

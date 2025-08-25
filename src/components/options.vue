@@ -2,7 +2,7 @@
 // TODO this appears to align with the option param that gets passed to a createInstance method.
 //      find out how this is getting used / saved, as its not part of a config
 
-import Checkbox from '@/components/helpers/checkbox.vue';
+import { Checkbox } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 

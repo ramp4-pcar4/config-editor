@@ -1,13 +1,12 @@
 <script setup lang="ts">
 // root.fixtures.legend config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import HeaderControls from '@/components/fixtures/legend/header-controls.vue';
-
-import { reactive, type PropType, watch } from 'vue';
+import { Collapsible, Input } from '@/components/helpers';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import Children from '@/components/fixtures/legend/children.vue';
-import Input from '@/components/helpers/input.vue';
+import HeaderControls from '@/components/fixtures/legend/header-controls.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

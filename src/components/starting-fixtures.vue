@@ -3,7 +3,7 @@
 
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
-import Input from '@/components/helpers/input.vue';
+import { Input } from '@/components/helpers';
 
 const store = useStore();
 const { t } = useI18n();

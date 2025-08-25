@@ -3,12 +3,9 @@
 
 // TODO deal with typescript grouses. Might need a val ?? false to shut it up
 
-import { type PropType, reactive, watch } from 'vue';
-
-import Collapsible from '@/components/helpers/collapsible.vue';
-import List from '@/components/helpers/list.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import Input from '@/components/helpers/input.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Checkbox, Collapsible, Input, List } from '@/components/helpers';
 
 import type { Field, RampBasemapConfig } from '@/definitions';
 import { useI18n } from 'vue-i18n';

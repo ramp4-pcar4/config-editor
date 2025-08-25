@@ -1,11 +1,9 @@
 <script setup lang="ts">
 // root.map.extentSets config nugget
 
-import { type PropType, reactive, watch } from 'vue';
-
-import Extent from '@/components/helpers/extent.vue';
-import List from '@/components/helpers/list.vue';
-
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Extent, List } from '@/components/helpers';
 import type { Field, RampExtentSetConfig } from '@/definitions';
 import { useI18n } from 'vue-i18n';
 

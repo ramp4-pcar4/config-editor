@@ -1,9 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.legend.root.children[].symbologyStack config nugget
 
-import List from '@/components/helpers/list.vue';
+import { List } from '@/components/helpers';
 import type { Field } from '@/definitions';
-import { reactive, type PropType, watch } from 'vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

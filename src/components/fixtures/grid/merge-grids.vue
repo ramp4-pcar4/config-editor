@@ -3,12 +3,12 @@
 
 // TODO fix typescript grouse
 
-import { reactive, type PropType, watch } from 'vue';
-import List from '@/components/helpers/list.vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
+import { Input, List } from '@/components/helpers';
 import Layers from '@/components/fixtures/grid/layers.vue';
 import FieldMap from '@/components/fixtures/grid/field-map.vue';
 import Options from '@/components/fixtures/grid/options.vue';
-import Input from '@/components/helpers/input.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -39,7 +39,7 @@ watch(mergeGrids, () => {
         custom-only
         required
     >
-        <template #item="{ element, index }">
+        <template #item="{ index }">
             <div class="mt-4 input-table">
                 <Input
                     :title="t('grid.mergeGrid.gridId.title')"

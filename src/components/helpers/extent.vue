@@ -1,10 +1,7 @@
 <script setup lang="ts">
 // friendly halper for extent picker, including fancy map extent generator
 
-// TODO investigate very weird typescript error. looks like parse bug to me
-
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Input from '@/components/helpers/input.vue';
+import { Collapsible, Input } from '@/components/helpers';
 import type { RampExtentConfig } from '@/definitions';
 import { onMounted, ref, watch } from 'vue';
 import type { PropType } from 'vue';
@@ -162,7 +159,7 @@ let rampApi: any;
 
 onMounted(() => {
     watch(rampInstance, () => {
-        if (!!rampInstance.value) {
+        if (rampInstance.value) {
             rampApi = createInstance(rampInstance.value, rampConfig, {
                 loadDefaultFixtures: true,
                 loadDefaultEvents: true
@@ -192,7 +189,7 @@ const rampInstance = ref<HTMLDivElement>();
 const emit = defineEmits(['update:modelValue']);
 
 const onInput = (key: string, val: string): void => {
-    const newExtent = <any>props.modelValue;
+    const newExtent = props.modelValue as any;
 
     if (['xmin', 'xmax', 'ymin', 'ymax'].includes(key)) {
         if (val === undefined) {

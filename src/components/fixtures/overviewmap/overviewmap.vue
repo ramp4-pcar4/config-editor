@@ -1,12 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.overviewmap config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
 import Basemaps from '@/components/map/basemaps.vue';
-import Input from '@/components/helpers/input.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-
-import { reactive, type PropType, watch } from 'vue';
+import { Checkbox, Collapsible, Input } from '@/components/helpers';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({

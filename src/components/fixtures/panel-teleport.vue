@@ -1,12 +1,10 @@
 <script setup lang="ts">
 // root.fixtures.[any].panelTeleport config nugget
 
-import Collapsible from '@/components/helpers/collapsible.vue';
-import Input from '@/components/helpers/input.vue';
-import Checkbox from '@/components/helpers/checkbox.vue';
-import List from '@/components/helpers/list.vue';
+import { Checkbox, Collapsible, Input, List } from '@/components/helpers';
 import type { Field, PanelTeleportObject } from '@/definitions';
-import { reactive, type PropType, watch } from 'vue';
+import { reactive, watch } from 'vue';
+import type { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
