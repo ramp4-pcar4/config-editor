@@ -1,1 +1,0 @@
-import{cc as s,c9 as a}from"./index-DECxckyg.js";const o=class o{};o.instance=new s("Etc/UTC");let c=o;function e(n){return n instanceof a?n===c.instance:(n==null?void 0:n.toString().toLowerCase())==="unknown"}function t(n){return e(n)?c.instance:n}export{e as a,c as n,t as o};
