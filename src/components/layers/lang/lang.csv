@@ -94,11 +94,13 @@ layer.control.settings,Settings,1,Paramètres,1
 layer.control.symbology,Symbology,1,Symbologie,1
 layer.control.visibility,Visibility,1,Visibilité,1
 layer.drawOrder.title,Draw Order,1,Ordre de tirage,1
-layer.drawOrder.description,Attribute fields used to control drawing order on the map for vector features. Note ESRI currently only supports one field.,1,Champs d'attributs utilisés pour contrôler l'ordre de dessin des entités vectorielles sur la carte. Remarque : ESRI ne prend actuellement en charge qu'un seul champ.,1
+layer.drawOrder.description,Specification of the map drawing order for vector features. A value for the field or arcade property must be provided. Note ESRI currently only supports one definition.,1,Spécification de l'ordre d'affichage des entités vectorielles. Une valeur pour la propriété « champ » ou « arcade » doit être fournie. Remarque : ESRI ne prend actuellement en charge qu'une seul définition.,0
 layer.drawOrder.add,Add draw order,1,Ajouter un ordre de tirage,1
 layer.drawOrder.remove,Remove draw order,1,Supprimer l'ordre de tirage,1
 layer.drawOrder.field.title,Field,1,Domaine,1
-layer.drawOrder.field.description,Layer field name containing the value to order by,1,Nom du champ de la couche contenant la valeur à classer par,1
+layer.drawOrder.field.description,Layer field name containing the value to order by.,1,Nom du champ de la couche contenant la valeur à classer par.,1
+layer.drawOrder.arcade.title,Arcade Formula,1,Formule Arcade,0
+layer.drawOrder.arcade.description,An Arcade formula returning a value to order by. Must return a numeric or date value.,1,Une formule Arcade renvoyant une valeur à trier. Doit renvoyer une valeur numérique ou une date.,0
 layer.drawOrder.ascending.title,Ascending,1,Ascendant,1
 layer.drawOrder.ascending.description,Direction to order in. True means smaller values are on top of larger values. False is the opposite.,1,Sens de la commande. Vrai signifie que les petites valeurs sont placées au-dessus des grandes. Faux signifie le contraire.,1
 layer.fieldMetadata,Field Metadata,1,Métadonnées de champ,1

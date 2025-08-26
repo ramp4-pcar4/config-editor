@@ -45,7 +45,8 @@ export interface EpsgLookup {
 }
 
 export interface DrawOrder {
-    field: string;
+    field?: string;
+    arcade?: string;
     ascending: boolean; // true means smaller values are drawn ON TOP of larger values. false is the opposite
 }
 
