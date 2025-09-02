@@ -48,17 +48,26 @@ const props = defineProps({
         type: String,
         required: false
     },
+    /**
+     * Text for the "singular" of an item in the list. E.g. "egg" is singular of a list of eggs
+     */
     singular: { type: String, required: false },
     required: {
         type: Boolean,
         required: false,
         default: false
     },
+    /**
+     * What does this do? Look at tile-schemas.vue
+     */
     topLevel: {
         type: Boolean,
         required: false,
         default: false
     },
+    /**
+     * No idea what this means. Look at merge-grids.vue
+     */
     customOnly: {
         type: Boolean,
         required: false,
@@ -126,6 +135,9 @@ const length = computed<number>(() => list.value.length);
 //      - the user doesn't want a custom item template
 //      - 0 < number of fields < 4
 //      - only string or boolean or number fields are present (no fancy nested objects)
+//        ^ TODO is this still valid? I don't see that being checked.
+//               Code looks like it stringifies the object/array into a textbox. Is that ever being done in practice? Would look horrible lol.
+// table layout puts a header of field names, and then each row of the table just contains the input controls.
 const useTableLayout = computed<boolean>(
     () =>
         !slots.item &&
@@ -182,6 +194,7 @@ const fieldToInputType: { [key: string]: string } = {
         </template>
         <template #default>
             <div v-if="useTableLayout" :class="`grid cols-${itemFields?.length} gap-4`">
+                <!-- Table layout: header of labels for the controls -->
                 <div></div>
                 <InputHeader
                     class="justify-center"
@@ -198,6 +211,7 @@ const fieldToInputType: { [key: string]: string } = {
                 <template #item="{ index }">
                     <div>
                         <div v-if="useTableLayout">
+                            <!-- Table layout: rows of controls -->
                             <div>
                                 <hr class="border-solid border-t border-gray-300 my-2" />
                                 <div :class="`grid cols-${itemFields?.length} gap-4`">
@@ -229,17 +243,20 @@ const fieldToInputType: { [key: string]: string } = {
                                         :key="field.title"
                                         class="flex items-center justify-center"
                                     >
+                                        <!-- Basic inputs: strings, numbers, boolean checkboxes -->
                                         <input
-                                            v-if="!['enum', 'object', 'array'].includes(field.type)"
+                                            v-if="['string', 'number', 'boolean'].includes(field.type)"
                                             :type="fieldToInputType[field.type]"
                                             :disabled="editDisabled"
                                             :class="{
-                                                'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
-                                                'cursor-pointer': field.type.toLowerCase() === 'boolean'
+                                                'w-full max-w-xs': field.type !== 'boolean',
+                                                'cursor-pointer': field.type === 'boolean'
                                             }"
                                             v-model="list[index][field.property]"
+                                            v-bind:checked="field.type === 'boolean' ? field.checked : undefined"
                                             :aria-label="t(field.title)"
                                         />
+                                        <!-- Enum combos -->
                                         <select
                                             v-else-if="field.type === 'enum'"
                                             class="w-full max-w-xs"
@@ -255,6 +272,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                 {{ t(option.label) }}
                                             </option>
                                         </select>
+                                        <!-- Objects and Arrays. TODO: why the boolean check on :class? -->
                                         <input
                                             v-else
                                             :type="fieldToInputType[field.type]"
@@ -355,6 +373,7 @@ const fieldToInputType: { [key: string]: string } = {
                             </div>
                         </div>
                         <div v-else>
+                            <!-- Regular mode (not table layout) -->
                             <Collapsible>
                                 <template #header>
                                     <button
@@ -504,12 +523,14 @@ const fieldToInputType: { [key: string]: string } = {
                                     </div>
                                     <Checkbox
                                         v-if="!customOnly"
-                                        v-for="field in itemFields?.filter(f => f.type === 'boolean')"
+                                        v-for="(field, cbi) in itemFields?.filter(f => f.type === 'boolean')"
                                         :title="t(field.title)"
                                         :description="field.description ? t(field.description) : ''"
                                         :required="field.required"
                                         :disabled="editDisabled"
                                         v-model="list[index][field.property]"
+                                        v-bind:key="cbi"
+                                        v-bind:checked="field.checked"
                                     />
                                     <slot name="item" :index="index" :element="list[index]"></slot>
                                 </template>

@@ -32,6 +32,7 @@ const itemFields: Array<Field> = [
     {
         type: 'boolean',
         property: 'ascending',
+        checked: true,
         title: 'layer.drawOrder.ascending.title',
         description: 'layer.drawOrder.ascending.description',
         required: false
@@ -46,24 +47,12 @@ let drawOrder = reactive<Array<DrawOrder>>(props.modelValue ?? []);
 watch(drawOrder, () => {
     emit('update:modelValue', drawOrder.length === 0 ? undefined : drawOrder);
 });
-
-const fancyDrawOrderAdd = () => {
-    // the "ascending" property defaults to true.
-    // But in vue controls world, the default value is actually undefined. Which leads the checkbox to display as unchecked.
-    // This results in BIG LIES to the user. To get a valid "descending" setting they need to check the box (changing undefined to true),
-    // then uncheck it (changing true to false).
-    // This magical override method defaults the new field to be defaulted with true, not undefined. Will add a bit of extra spam to the output config,
-    // but that is better than big lies.
-
-    drawOrder.push({ ascending: true });
-};
 </script>
 
 <template>
     <List
         v-model="drawOrder"
         :item-fields="itemFields"
-        :add="fancyDrawOrderAdd"
         :title="t('layer.drawOrder.title')"
         :add-prompt="t('layer.drawOrder.add')"
         :remove-prompt="t('layer.drawOrder.remove')"

@@ -14,3 +14,6 @@ extent.spatialReference.wkt.title,wkt,1,WKT,1
 extent.spatialReference.wkt.description,A well known type projection definition,1,Une définition de projection de type bien connue,1
 list.add,Add,1,Ajouter,1
 list.remove,Remove,1,Retirer,1
+triboool.true,On,1,Marche,0
+triboool.false,Off,1,Arrêt,0
+triboool.undefined,Default,1,Défaut,0

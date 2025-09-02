@@ -374,5 +374,8 @@ export interface Field {
     title: string;
     description?: string;
     required?: boolean;
+    // for "boolean" field types where the field is optional. this marks if the "undefined" value defaults to true.
+    // will make the checkbox appear checked even though no config value exists.
+    checked?: boolean;
     fields?: Array<Field>; // only applies iff type === object. Too lazy to make more interfaces to make this clearer.
 }
