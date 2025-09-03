@@ -641,10 +641,11 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                             />
                             <Checkbox
                                 v-if="LayerTools.isFileLayer(element)"
-                                v-model="element.caching"
                                 :title="t('layer.caching.title')"
                                 :description="t('layer.caching.description')"
+                                v-model="element.caching"
                             />
+
                             <Sublayers
                                 v-if="LayerTools.isParentLayer(element)"
                                 v-model="element.sublayers"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 // root.layers[].fixtures.grid config nugget
+// root.fixtures.grid.mergeGrids.options config nugget
 
 import { Checkbox, Collapsible, Input, List, Select } from '@/components/helpers';
 import Controls from '@/components/fixtures/grid/controls.vue';
@@ -89,12 +90,14 @@ const columnFields: Array<Field> = [
     {
         type: 'boolean',
         property: 'visible',
+        checked: true,
         title: 'grid.mergeGrid.options.column.visible.title',
         description: 'grid.mergeGrid.options.column.visible.description'
     },
     {
         type: 'boolean',
         property: 'searchable',
+        checked: true,
         title: 'grid.mergeGrid.options.column.searchable.title',
         description: 'grid.mergeGrid.options.column.searchable.description'
     }

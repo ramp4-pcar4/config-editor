@@ -72,25 +72,12 @@ const detailsFields: Array<Field> = [
     {
         type: 'boolean',
         property: 'visible',
+        checked: true,
         title: 'layer.fixtures.details.fields.visible.title',
         description: 'layer.fixtures.details.fields.visible.description',
         required: false
     }
 ];
-
-const fancyDetailsFieldAdd = () => {
-    // the "visible" property for fields defaults to true if it's missing.
-    // But in vue controls world, the missing value is 'undefined'. Which leads the bound checkbox to display as unchecked.
-    // This results in BIG LIES to the user. To get a valid "not visible" setting they need to check the box (changing undefined to true),
-    // then uncheck it (changing true to false).
-    // This magical override method initializes the new field to true instead of undefined. Will add a bit of extra spam to the output config,
-    // but that is better than big lies.
-
-    if (!Array.isArray(fixtures.details.fields)) {
-        fixtures.details.fields = [];
-    }
-    fixtures.details.fields.push({ visible: true });
-};
 
 watch(fixtures, () => {
     // this watches for any changes to the fixture nuggets, and throws up the entire object to the parent control.
@@ -119,7 +106,6 @@ watch(fixtures, () => {
                 v-if="supportsAttributes"
                 v-model="fixtures.details.fields"
                 :item-fields="detailsFields"
-                :add="fancyDetailsFieldAdd"
                 :title="t('layer.fixtures.details.fields.title')"
                 :add-prompt="t('layer.fixtures.details.fields.add')"
                 :remove-prompt="t('layer.fixtures.details.fields.remove')"

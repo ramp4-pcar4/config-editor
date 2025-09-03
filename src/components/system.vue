@@ -1,6 +1,11 @@
 <script setup lang="ts">
 // root.system config nugget
 
+// NOTE could change the checkboxes here to TriBooleans.
+//      Visually it looks better with the stack of checkboxes,
+//      and because these are singular props on a nugget, the use of the `checked` attribute
+//      is ok-enough.  You can't set a value back to undefined, but thats not really a big dealio.
+
 import { Checkbox, Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
