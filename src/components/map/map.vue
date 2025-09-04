@@ -6,6 +6,7 @@ import TileSchemas from '@/components/map/tile-schemas.vue';
 import ExtentSets from '@/components/map/extent-sets.vue';
 import LodSets from '@/components/map/lod-sets.vue';
 import Basemaps from '@/components/map/basemaps.vue';
+import LayerLabels from '@/components/layers/labels.vue';
 import { Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
@@ -45,5 +46,6 @@ const { t } = useI18n();
         <LodSets v-model="store.elc.map.lodSets" />
         <Basemaps v-model="store.elc.map.basemaps" />
         <Caption v-model="store.elc.map.caption" />
+        <LayerLabels v-model="store.elc.map.labelsDefault" default />
     </div>
 </template>

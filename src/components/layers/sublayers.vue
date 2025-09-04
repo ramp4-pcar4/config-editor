@@ -8,6 +8,7 @@ import Controls from '@/components/layers/controls.vue';
 import State from '@/components/layers/state.vue';
 import FieldMetadata from '@/components/layers/field-metadata.vue';
 import Fixtures from '@/components/layers/fixtures.vue';
+import LayerLabels from '@/components/layers/labels.vue';
 import StyleLegends from '@/components/layers/style-legends.vue';
 import * as LayerTools from '@/components/layers/layer-tools';
 import type { Field, RampLayerMapImageSublayerConfig, RampLayerWmsSublayerConfig } from '@/definitions';
@@ -128,6 +129,7 @@ const wmsFields: Array<Field> = [
             <Controls v-model="sublayers[index].disabledControls" disabled />
             <State v-model="sublayers[index].state" />
             <FieldMetadata v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].fieldMetadata" />
+            <LayerLabels v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].labels" />
             <Fixtures
                 v-if="LayerTools.isMIL(layerType)"
                 v-model="sublayers[index].fixtures"

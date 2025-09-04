@@ -126,6 +126,10 @@ export interface RampLayerFieldMetadataConfig {
     enforceOrder?: boolean; //default to false. if true, then order the fields in the same order as fieldInfo. if false, randomize ordering of field array
 }
 
+export interface RampLayerLabelConfig {
+    visibile?: boolean;
+}
+
 // i.e. a dynamic layer child
 export interface RampLayerMapImageSublayerConfig {
     // A+ name
@@ -143,6 +147,7 @@ export interface RampLayerMapImageSublayerConfig {
     permanentFilteredQuery?: string;
     customRenderer?: any;
     fixtures?: any; // layer-based fixture config
+    labels?: RampLayerLabelConfig;
 }
 
 // i.e. a wms layer child
@@ -273,6 +278,7 @@ export interface RampMapConfig {
     caption?: MapCaptionConfig;
     pointZoomScale?: number;
     mapMouseThrottle?: number;
+    labelsDefault?: RampLayerLabelConfig;
 }
 
 /**
