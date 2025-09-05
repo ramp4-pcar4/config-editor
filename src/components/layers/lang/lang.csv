@@ -132,6 +132,11 @@ layer.fixtures.details.fields.visible.title,Visibility,1,Visibilité,1
 layer.fixtures.details.fields.visible.description,If the field should be shown in the details list.,1,Si le champ doit être affiché dans la liste des détails.,0
 layer.fixtures.settings,Settings,1,Paramètres,1
 layer.fixtures.grid,Grid,1,Grille,1
+layer.labels.title,Labels,1,Étiquettes,0
+layer.labels.default.title,Default Labels,1,Étiquettes par défaut,0
+layer.labels.default.description,Map-level defaults for layer labels. Ignored if the layer has overriding configuration.,1,Valeurs par défaut au niveau de la carte pour les étiquettes de couche. Ignorées si la couche a une configuration prioritaire.,0
+layer.labels.visible.title,Visible,1,Visible,1
+layer.labels.visible.description,Sets the visibility of layer labels.,1,Définit la visibilité des étiquettes de calque.,0
 layer.metadata,Metadata,1,Métadonnées,1
 layer.metadata.url.title,URL,1,URL,1
 layer.metadata.url.description,Metadata url of the layer service,1,URL des métadonnées du service de la couche,1

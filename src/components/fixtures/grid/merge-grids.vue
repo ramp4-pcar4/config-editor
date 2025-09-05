@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // root.fixtures.grid.mergeGrids config nugget
 
-// TODO fix typescript grouse
-
 import { reactive, watch } from 'vue';
 import type { PropType } from 'vue';
 import { Input, List } from '@/components/helpers';
@@ -37,7 +35,6 @@ watch(mergeGrids, () => {
         :remove-prompt="t('grid.mergeGrids.remove')"
         :singular="t('grid.mergeGrids.singular')"
         custom-only
-        required
     >
         <template #item="{ index }">
             <div class="mt-4 input-table">

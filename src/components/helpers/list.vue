@@ -1,8 +1,6 @@
 <script setup lang="ts">
 // friendly halper for lists of stuff.
 
-// TODO figure out the typescript grouses
-
 import type { Field } from '@/definitions';
 import { computed, useSlots } from 'vue';
 import type { PropType } from 'vue';
@@ -52,6 +50,9 @@ const props = defineProps({
      * Text for the "singular" of an item in the list. E.g. "egg" is singular of a list of eggs
      */
     singular: { type: String, required: false },
+    /**
+     * Will mark the list as "required" on the UI (adds the little red asterisk)
+     */
     required: {
         type: Boolean,
         required: false,
@@ -66,7 +67,8 @@ const props = defineProps({
         default: false
     },
     /**
-     * No idea what this means. Look at merge-grids.vue
+     * I *think* this flags that the "list item" is ONLY populated by custom components, and does not have any stuff
+     * to be generated from the contents itemFields. Note it is fine to have both (this should be false in that case)
      */
     customOnly: {
         type: Boolean,
@@ -500,38 +502,41 @@ const fieldToInputType: { [key: string]: string } = {
                                     </div>
                                 </template>
                                 <template #default>
-                                    <div v-if="!customOnly" class="input-table">
-                                        <component
-                                            v-for="field in itemFields?.filter(f => f.type.toLowerCase() !== 'boolean')"
-                                            :key="field.title"
-                                            :is="field.type === 'enum' ? Select : Input"
+                                    <div v-if="!customOnly">
+                                        <div class="input-table">
+                                            <component
+                                                v-for="field in itemFields?.filter(
+                                                    f => f.type.toLowerCase() !== 'boolean'
+                                                )"
+                                                :key="field.title"
+                                                :is="field.type === 'enum' ? Select : Input"
+                                                :title="t(field.title)"
+                                                :description="field.description ? t(field.description) : ''"
+                                                :required="field.required"
+                                                :options="
+                                                    field.options?.map(opt => {
+                                                        return { value: opt.value, label: t(opt.label) };
+                                                    })
+                                                "
+                                                :type="field.type"
+                                                :placeholder="field.placeholder"
+                                                :min="field.min?.toString()"
+                                                :max="field.max?.toString()"
+                                                v-model="list[index][field.property]"
+                                                :disabled="editDisabled"
+                                            ></component>
+                                        </div>
+                                        <Checkbox
+                                            v-for="(field, cbi) in itemFields?.filter(f => f.type === 'boolean')"
                                             :title="t(field.title)"
                                             :description="field.description ? t(field.description) : ''"
                                             :required="field.required"
-                                            :options="
-                                                field.options?.map(opt => {
-                                                    return { value: opt.value, label: t(opt.label) };
-                                                })
-                                            "
-                                            :type="field.type"
-                                            :placeholder="field.placeholder"
-                                            :min="field.min?.toString()"
-                                            :max="field.max?.toString()"
-                                            v-model="list[index][field.property]"
                                             :disabled="editDisabled"
-                                        ></component>
+                                            v-model="list[index][field.property]"
+                                            v-bind:key="cbi"
+                                            v-bind:checked="field.checked"
+                                        />
                                     </div>
-                                    <Checkbox
-                                        v-if="!customOnly"
-                                        v-for="(field, cbi) in itemFields?.filter(f => f.type === 'boolean')"
-                                        :title="t(field.title)"
-                                        :description="field.description ? t(field.description) : ''"
-                                        :required="field.required"
-                                        :disabled="editDisabled"
-                                        v-model="list[index][field.property]"
-                                        v-bind:key="cbi"
-                                        v-bind:checked="field.checked"
-                                    />
                                     <slot name="item" :index="index" :element="list[index]"></slot>
                                 </template>
                             </Collapsible>

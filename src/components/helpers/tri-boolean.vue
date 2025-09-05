@@ -1,10 +1,9 @@
 <script setup lang="ts">
 // friendly halper for optional booleans
 
-// note this currently isn't being used. Relying on the `checked` attribute of checkboxes for appropriate display
-// of default values.  Doing that allows us to use checkboxes, which is nice.
-// But that approach means a user can never set the value back to undefined once the value gets set.
-// This tri-boolean control will allow that.
+// This component will let a user set an optional boolean property back to Undefined.
+// That sort of trickery can't be done with a standard checkbox control, which will
+// keep a value once a user sets it.
 
 import Select from '@/components/helpers/select.vue';
 import { computed, ref, watch } from 'vue';
