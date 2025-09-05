@@ -28,7 +28,7 @@ const emit = defineEmits(['update:modelValue']);
 const state = reactive<RampLayerLabelConfig>(props.modelValue ?? {});
 
 watch(state, () => {
-    emit('update:modelValue', state.visibile === undefined ? undefined : state);
+    emit('update:modelValue', state.visible === undefined ? undefined : state);
 });
 </script>
 
@@ -41,7 +41,7 @@ watch(state, () => {
         <TriBoolean
             :title="t('layer.labels.visible.title')"
             :description="t('layer.labels.visible.description')"
-            v-model="state.visibile"
+            v-model="state.visible"
         />
     </Collapsible>
 </template>

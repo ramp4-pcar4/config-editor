@@ -127,7 +127,7 @@ export interface RampLayerFieldMetadataConfig {
 }
 
 export interface RampLayerLabelConfig {
-    visibile?: boolean;
+    visible?: boolean;
 }
 
 // i.e. a dynamic layer child
