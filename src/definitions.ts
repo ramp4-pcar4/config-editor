@@ -172,7 +172,7 @@ export interface RampLayerConfig {
     state?: RampLayerStateConfig;
     customRenderer?: any;
     // NOTE would uncomment if issue #1019 gets done
-    refreshInterval?: number;
+    //  refreshInterval?: number;
     expectedDrawTime?: number;
     expectedLoadTime?: number;
     fieldMetadata?: RampLayerFieldMetadataConfig;
@@ -189,7 +189,7 @@ export interface RampLayerConfig {
     mouseTolerance?: number; // mouse tolerance
     touchTolerance?: number; // touch tolerance
     metadata?: { url: string; name?: string };
-    catalogueUrl?: string;
+    // catalogueUrl?: string;
     fixtures?: any; // layer-based fixture config
     cosmetic?: boolean;
     colour?: string;
@@ -260,6 +260,12 @@ export interface RampLodConfig {
     scale?: number;
 }
 
+export interface RampLayerTimeDefaultsConfig {
+    expectedDrawTime?: number;
+    expectedLoadTime?: number;
+    maxLoadTime?: number;
+}
+
 // Contains properties for compoents on the map caption bar
 export interface MapCaptionConfig {
     mapCoords: { disabled?: boolean; formatter?: string };
@@ -279,6 +285,7 @@ export interface RampMapConfig {
     pointZoomScale?: number;
     mapMouseThrottle?: number;
     labelsDefault?: RampLayerLabelConfig;
+    layerTimeDefault?: RampLayerTimeDefaultsConfig;
 }
 
 /**

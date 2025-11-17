@@ -135,3 +135,11 @@ caption.langToggle.title,Language Toggle,1,Bascule des langues,1
 caption.langToggle.description,Configuration for language toggle,1,Configuration de la bascule des langues,1
 caption.langToggle.disabled.title,Disabled,1,Désactivé,1
 caption.langToggle.disabled.description,Whether to disable language toggle within RAMP,1,Désactiver ou non le changement de langue dans le RAMP,1
+layerTimes.title,Default Layer Times,1,Temps de couche par défaut,0
+layerTimes.description,Map-level default times for layer operations,1,Heures par défaut au niveau de la carte pour les opérations de couche,0
+layerTimes.expectedDrawTime.title,Expected Draw Time,1,Temps de tirage prévu,1
+layerTimes.expectedDrawTime.description,The time span (in milliseconds) after which a 'slow-to-draw' notification is shown for any drawing layer. Zero will disable notifications. Values on individual layer configs will override.,1,Délai (en millisecondes) avant l'affichage d'une notification « dessin lent » pour chaque calque. La valeur zéro désactive les notifications. Les valeurs définies dans la configuration de chaque calque prévalent.,0
+layerTimes.expectedLoadTime.title,Expected Load Time,1,Temps de chargement prévu,1
+layerTimes.expectedLoadTime.description,The time span (in milliseconds) after which a 'slow-to-load' notification is shown for any loading layer. Zero will disable notifications. Values on individual layer configs will override.,1,Délai (en millisecondes) avant l'affichage d'une notification de chargement lent pour chaque couche. La valeur zéro désactive les notifications. Les valeurs des configurations individuelles des couches prévalent.,0
+layerTimes.maxLoadTime.title,Max Load Time,1,Temps de chargement maximum,1
+layerTimes.maxLoadTime.description,Time limit (in milliseconds) to wait for any added layer to load. Layer will error if time exceeds. Value must be greater than 0.,1,Délai d'attente (en millisecondes) pour le chargement de toute couche ajoutée. Une erreur sera générée si ce délai est dépassé. La valeur doit être supérieure à 0.,0

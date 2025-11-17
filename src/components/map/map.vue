@@ -7,6 +7,7 @@ import ExtentSets from '@/components/map/extent-sets.vue';
 import LodSets from '@/components/map/lod-sets.vue';
 import Basemaps from '@/components/map/basemaps.vue';
 import LayerLabels from '@/components/layers/labels.vue';
+import LayerTimes from '@/components/map/layer-times.vue';
 import { Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
@@ -47,5 +48,6 @@ const { t } = useI18n();
         <Basemaps v-model="store.elc.map.basemaps" />
         <Caption v-model="store.elc.map.caption" />
         <LayerLabels v-model="store.elc.map.labelsDefault" default />
+        <LayerTimes v-model="store.elc.map.layerTimeDefault" />
     </div>
 </template>
