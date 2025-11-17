@@ -7,6 +7,7 @@ import type { PropType } from 'vue';
 import PanelTeleport from '@/components/fixtures/panel-teleport.vue';
 import Children from '@/components/fixtures/legend/children.vue';
 import HeaderControls from '@/components/fixtures/legend/header-controls.vue';
+import MultilineItems from '@/components/fixtures/legend/multiline-items.vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -41,6 +42,7 @@ watch(legend, () => {
         </div>
         <HeaderControls v-model="legend.headerControls" />
         <PanelTeleport v-model="legend.panelTeleport" />
+        <MultilineItems v-model="legend.multilineItems" />
         <Collapsible :title="t('legend.root.title')" :description="t('legend.root.description')">
             <Children v-model="legend.root.children" />
         </Collapsible>
