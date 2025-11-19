@@ -286,6 +286,8 @@ legend.item.exclusive.title,Exclusive,1,Exclusif,1
 legend.item.exclusive.description,Specifies that children of this item form an exclusive set,1,Spécifie que les enfants de cet élément forment un ensemble exclusif,1
 legend.item.symbologyExpanded.title,Symbology Expanded,1,Symbologie élargie,1
 legend.item.symbologyExpanded.description,Specifies if the symbology stack is expanded by default,1,Spécifie si la pile de symboles est développée par défaut,1
+legend.item.maxLines.title,Maximum Lines,1,Lignes maximales,0
+legend.item.maxLines.description,The max number of lines this legend item can take up before truncating. Overrides the legend fixture setting. Only accepts integers 1-6.,1,Nombre maximal de lignes que cet élément de légende peut occuper avant d'être tronqué. Remplace le paramètre de configuration de la légende. Accepte uniquement les entiers de 1 à 6.,0
 legend.item.layerControls.title,Layer Controls,1,Contrôle des couches,1
 legend.item.layerControls.description,All possible controls to be enabled on the legend layer item. Defaults to controls defined in layer config if missing.,1,Tous les contrôles possibles à activer sur l'élément de la couche Légende. Les contrôles définis dans la configuration de la couche sont utilisés par défaut s'ils sont manquants.,1
 legend.item.disabledLayerControls.title,Disabled Layer Controls,1,Contrôles de couche désactivés,1
@@ -307,6 +309,12 @@ legend.item.symbol.text.title,Text,1,Texte,1
 legend.item.symbol.text.description,Description of a layer feature,1,Description d'un élément de la couche,1
 legend.item.symbol.sqlQuery.title,SQL Query,1,Requête SQL,1
 legend.item.symbol.sqlQuery.description,An SQL where clause by which the map and datatable attributes can be filtered. All the query results for the symbology stack should cover all attributes for that layer.,1,Une clause SQL where permettant de filtrer les attributs de la carte et de la table de données. Tous les résultats de la requête pour la pile de symbologie doivent couvrir tous les attributs de cette couche.,1
+legend.multiline.title,Multiline Items,1,Éléments multilignes,0
+legend.multiline.description,Determines whether legend items should wrap using multiple lines if necessary. Only applies to layer items.,Détermine si les éléments de la légende doivent être renvoyés à la ligne si nécessaire. S'applique uniquement aux éléments de calque.,0
+legend.multiline.enabled.title,Enabled,1,Activé,1
+legend.multiline.enabled.description,Determines whether the legend supports mulitline text.,1,Détermine si la légende prend en charge le texte multiligne.,0
+legend.multiline.maxLines.title,Maximum Lines,1,Lignes maximales,0
+legend.multiline.maxLines.description,The max number of lines a legend item can take up before truncating. Only accepts integers 1-6.,Nombre maximal de lignes qu'un élément de légende peut occuper avant d'être tronqué. Accepte uniquement les entiers de 1 à 6.,0
 mapnav.title,Mapnav,1,Mapnav,1
 mapnav.description,Provides configuration to the mapnav fixture,1,Fournit la configuration de l'appareil mapnav,1
 mapnav.zoomOption.title,Zoom Option,1,Option de zoom,1

@@ -49,6 +49,7 @@ watch(children, () => {
             delete child.symbologyRenderStyle;
             delete child.description;
             delete child.coverIcon;
+            delete child.maxLines;
         }
     });
     const childrenCopy = JSON.parse(JSON.stringify(children));
@@ -141,6 +142,15 @@ watch(children, () => {
                     v-model="children[index].description"
                     :title="t('legend.item.description.title')"
                     :description="t('legend.item.description.description')"
+                />
+                <Input
+                    v-if="children[index].type === 'layer'"
+                    v-model="children[index].maxLines"
+                    :title="t('legend.item.maxLines.title')"
+                    :description="t('legend.item.maxLines.description')"
+                    type="number"
+                    min="1"
+                    max="6"
                 />
                 <Select
                     v-if="children[index].type === 'layer'"
