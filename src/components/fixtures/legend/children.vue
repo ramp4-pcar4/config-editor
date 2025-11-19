@@ -34,9 +34,13 @@ const addChild = () => {
     children.push({ type: 'section' });
 };
 
+const isLayerNode = (legendNode: any): boolean => legendNode.type === 'layer';
+
+const isSectionNode = (legendNode: any): boolean => legendNode.type === 'section';
+
 watch(children, () => {
     children.forEach(child => {
-        if (child.type === 'layer') {
+        if (isLayerNode(child)) {
             delete child.infoType;
             delete child.content;
         } else {
@@ -79,7 +83,7 @@ watch(children, () => {
         :singular="t('legend.children.singular')"
         custom-only
     >
-        <template #item="{ index }">
+        <template #item="{ element }">
             <div class="input-table">
                 <Select
                     :title="t('legend.item.type')"
@@ -88,7 +92,7 @@ watch(children, () => {
                         { value: 'section', label: t('legend.item.type.section') },
                         { value: 'layer', label: t('legend.item.type.layer') }
                     ]"
-                    v-model="children[index].type"
+                    v-model="element.type"
                 />
             </div>
             <p class="mt-1">⚠️ {{ t('legend.item.type.warning') }}</p>
@@ -96,11 +100,11 @@ watch(children, () => {
                 <Input
                     :title="t('legend.item.name.title')"
                     :description="t('legend.item.name.description')"
-                    v-model="children[index].name"
+                    v-model="element.name"
                 />
                 <Select
-                    v-if="children[index].type === 'section'"
-                    v-model="children[index].infoType"
+                     v-if="isSectionNode(element)"
+                    v-model="element.infoType"
                     :title="t('legend.item.infoType.title')"
                     :description="t('legend.item.infoType.description')"
                     :options="[
@@ -112,40 +116,40 @@ watch(children, () => {
                     ]"
                 />
                 <Input
-                    v-if="children[index].type === 'section'"
-                    v-model="children[index].content"
+                     v-if="isSectionNode(element)"
+                    v-model="element.content"
                     :title="t('legend.item.content.title')"
                     :description="t('legend.item.content.description')"
                 />
                 <Input
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].layerId"
+                    v-if="isLayerNode(element)"
+                    v-model="element.layerId"
                     :title="t('legend.item.layerId.title')"
                     :description="t('legend.item.layerId.description')"
                     required
                 />
                 <Input
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].sublayerIndex"
+                     v-if="isLayerNode(element)"
+                    v-model="element.sublayerIndex"
                     :title="t('legend.item.sublayerIndex.title')"
                     :description="t('legend.item.sublayerIndex.description')"
                     type="number"
                 />
                 <Input
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].coverIcon"
+                     v-if="isLayerNode(element)"
+                    v-model="element.coverIcon"
                     :title="t('legend.item.coverIcon.title')"
                     :description="t('legend.item.coverIcon.description')"
                 />
                 <Input
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].description"
+                     v-if="isLayerNode(element)"
+                    v-model="element.description"
                     :title="t('legend.item.description.title')"
                     :description="t('legend.item.description.description')"
                 />
                 <Input
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].maxLines"
+                     v-if="isLayerNode(element)"
+                    v-model="element.maxLines"
                     :title="t('legend.item.maxLines.title')"
                     :description="t('legend.item.maxLines.description')"
                     type="number"
@@ -153,8 +157,8 @@ watch(children, () => {
                     max="6"
                 />
                 <Select
-                    v-if="children[index].type === 'layer'"
-                    v-model="children[index].symbologyRenderStyle"
+                     v-if="isLayerNode(element)"
+                    v-model="element.symbologyRenderStyle"
                     :title="t('legend.item.symbologyRenderStyle.title')"
                     :description="t('legend.item.symbologyRenderStyle.description')"
                     :options="[
@@ -164,44 +168,44 @@ watch(children, () => {
                 />
             </div>
             <Checkbox
-                v-model="children[index].hidden"
+                v-model="element.hidden"
                 :title="t('legend.item.hidden.title')"
                 :description="t('legend.item.hidden.description')"
             />
             <Checkbox
-                v-model="children[index].expanded"
+                v-model="element.expanded"
                 :title="t('legend.item.expanded.title')"
                 :description="t('legend.item.expanded.description')"
                 checked
             />
             <Checkbox
-                v-model="children[index].exclusive"
+                v-model="element.exclusive"
                 :title="t('legend.item.exclusive.title')"
                 :description="t('legend.item.exclusive.description')"
             />
             <Checkbox
-                v-if="children[index].type === 'layer'"
-                v-model="children[index].symbologyExpanded"
+                 v-if="isLayerNode(element)"
+                v-model="element.symbologyExpanded"
                 :title="t('legend.item.symbologyExpanded.title')"
                 :description="t('legend.item.symbologyExpanded.description')"
             />
-            <Children v-model="children[index].children" />
-            <Controls v-model="children[index].controls" />
-            <Controls v-model="children[index].disabledControls" disabled />
+            <Children v-model="element.children" />
+            <Controls v-model="element.controls" />
+            <Controls v-model="element.disabledControls" disabled />
             <LayerControls
-                v-if="children[index].type === 'layer'"
-                v-model="children[index].layerControls"
+                 v-if="isLayerNode(element)"
+                v-model="element.layerControls"
                 :title="t('legend.item.layerControls.title')"
                 :description="t('legend.item.layerControls.description')"
             />
             <LayerControls
-                v-if="children[index].type === 'layer'"
-                v-model="children[index].disabledLayerControls"
+                 v-if="isLayerNode(element)"
+                v-model="element.disabledLayerControls"
                 disabled
                 :title="t('legend.item.disabledLayerControls.title')"
                 :description="t('legend.item.disabledLayerControls.description')"
             />
-            <SymbologyStack v-if="children[index].type === 'layer'" v-model="children[index].symbologyStack" />
+            <SymbologyStack  v-if="isLayerNode(element)" v-model="element.symbologyStack" />
         </template>
     </List>
 </template>
