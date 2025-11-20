@@ -190,10 +190,10 @@ const layerFields: Array<Field> = [
         :singular="t('basemaps.singular')"
         :required="!isOverview"
     >
-        <template #item="{ index }">
+        <template #item="{ element, index }">
             <List
                 :item-fields="layerFields"
-                v-model="basemaps[index].layers"
+                v-model="element.layers"
                 :title="t('basemap.layers.title')"
                 :description="t('basemap.layers.description')"
                 :add-prompt="t('basemap.layers.add')"
@@ -211,12 +211,12 @@ const layerFields: Array<Field> = [
                         <Input
                             :title="t('basemap.attribution.text.value.title')"
                             :description="t('basemap.attribution.text.value.description')"
-                            :model-value="basemaps[index]?.attribution?.text?.value"
+                            :model-value="element.attribution?.text?.value"
                             @update:model-value="val => onAttributionInput(index, 'text', 'value', val)"
                         />
                     </div>
                     <Checkbox
-                        :model-value="basemaps[index]?.attribution?.text?.disabled"
+                        :model-value="element.attribution?.text?.disabled"
                         @update:model-value="val => onAttributionInput(index, 'text', 'disabled', val ?? false)"
                         :title="t('basemap.attribution.text.disabled.title')"
                         :description="t('basemap.attribution.text.disabled.description')"
@@ -231,24 +231,24 @@ const layerFields: Array<Field> = [
                         <Input
                             :title="t('basemap.attribution.logo.value.title')"
                             :description="t('basemap.attribution.logo.value.description')"
-                            :model-value="basemaps[index]?.attribution?.logo?.value"
+                            :model-value="element.attribution?.logo?.value"
                             @update:model-value="val => onAttributionInput(index, 'logo', 'value', val)"
                         />
                         <Input
                             :title="t('basemap.attribution.logo.altText.title')"
                             :description="t('basemap.attribution.logo.altText.description')"
-                            :model-value="basemaps[index]?.attribution?.logo?.altText"
+                            :model-value="element.attribution?.logo?.altText"
                             @update:model-value="val => onAttributionInput(index, 'logo', 'altText', val)"
                         />
                         <Input
                             :title="t('basemap.attribution.logo.link.title')"
                             :description="t('basemap.attribution.logo.link.description')"
-                            :model-value="basemaps[index]?.attribution?.logo?.link"
+                            :model-value="element.attribution?.logo?.link"
                             @update:model-value="val => onAttributionInput(index, 'logo', 'link', val)"
                         />
                     </div>
                     <Checkbox
-                        :model-value="basemaps[index]?.attribution?.logo?.disabled"
+                        :model-value="element.attribution?.logo?.disabled"
                         @update:model-value="val => onAttributionInput(index, 'logo', 'disabled', val ?? false)"
                         :title="t('basemap.attribution.logo.disabled.title')"
                         :description="t('basemap.attribution.logo.disabled.description')"

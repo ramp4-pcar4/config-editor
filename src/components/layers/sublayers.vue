@@ -122,17 +122,17 @@ const wmsFields: Array<Field> = [
         :remove-prompt="t('layer.sublayers.remove')"
         :singular="t('layer.sublayers.singular')"
     >
-        <template #item="{ index }">
-            <Extent v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].extent" :title="t('layer.extent')" />
-            <StyleLegends v-else v-model="sublayers[index].styleLegends" />
-            <Controls v-model="sublayers[index].controls" />
-            <Controls v-model="sublayers[index].disabledControls" disabled />
-            <State v-model="sublayers[index].state" />
-            <FieldMetadata v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].fieldMetadata" />
-            <LayerLabels v-if="LayerTools.isMIL(layerType)" v-model="sublayers[index].labels" />
+        <template #item="{ element }">
+            <Extent v-if="LayerTools.isMIL(layerType)" v-model="element.extent" :title="t('layer.extent')" />
+            <StyleLegends v-else v-model="element.styleLegends" />
+            <Controls v-model="element.controls" />
+            <Controls v-model="element.disabledControls" disabled />
+            <State v-model="element.state" />
+            <FieldMetadata v-if="LayerTools.isMIL(layerType)" v-model="element.fieldMetadata" />
+            <LayerLabels v-if="LayerTools.isMIL(layerType)" v-model="element.labels" />
             <Fixtures
                 v-if="LayerTools.isMIL(layerType)"
-                v-model="sublayers[index].fixtures"
+                v-model="element.fixtures"
                 :layer-type="layerType"
                 :sublayer="true"
             />

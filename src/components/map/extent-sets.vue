@@ -45,21 +45,21 @@ const itemFields: Array<Field> = [
         :remove-prompt="t('extentSets.remove')"
         :singular="t('extentSets.singular')"
     >
-        <template #item="{ index }">
+        <template #item="{ element }">
             <Extent
                 :title="t('extentSet.default.title')"
                 :description="t('extentSet.default.description')"
-                v-model="extentSets[index].default"
+                v-model="element.default"
             />
             <Extent
                 :title="t('extentSet.full.title')"
                 :description="t('extentSet.full.description')"
-                v-model="extentSets[index].full"
+                v-model="element.full"
             />
             <Extent
                 :title="t('extentSet.maximum.title')"
                 :description="t('extentSet.maximum.description')"
-                v-model="extentSets[index].maximum"
+                v-model="element.maximum"
             />
         </template>
     </List>
