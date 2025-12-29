@@ -1,0 +1,1 @@
+import{hf as l,h6 as n,h7 as r,hm as o}from"./index-BeTPrQ6f.js";const s={},a={xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24"};function e(h,t){return r(),n("svg",a,t[0]||(t[0]=[o("path",{d:"M0 0h24v24H0z",fill:"none"},null,-1),o("path",{d:"M3 6l6-3 6 3 6-3v12l-6 3-6-3-6 3z"},null,-1)]))}const u=l(s,[["render",e]]);export{u as default};

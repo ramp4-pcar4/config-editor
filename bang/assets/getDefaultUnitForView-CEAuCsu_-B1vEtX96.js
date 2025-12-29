@@ -1,0 +1,1 @@
+import{bW as s,nw as u}from"./index-BeTPrQ6f.js";function o(r){var i,a;const t="metric";if(r==null)return t;const e=r.map,n=(e&&"portalItem"in e?(i=e.portalItem)==null?void 0:i.portal:null)??s.getDefault();switch(((a=n.user)==null?void 0:a.units)??n.units){case t:return t;case"english":return"imperial"}return u(r.spatialReference)??t}export{o as i};
