@@ -30,7 +30,7 @@
         "@rollup/plugin-dsv": "^3.0.4",
         "deepmerge": "^4.3.1",
         "pinia": "^3.0.3",
-        "ramp-pcar": "^4.13.0",
+        "ramp-pcar": "^4.14.0",
         "vue": "^3.5.18",
         "vue-i18n": "^9.2.2",
         "vue-tippy": "^6.3.1",
