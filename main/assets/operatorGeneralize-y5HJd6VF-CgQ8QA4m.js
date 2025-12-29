@@ -1,0 +1,1 @@
+import{i as u}from"./SimpleGeometryCursor-DSF_YyIm-TAMgMsbK.js";import{j as c}from"./OperatorGeneralize-D1zTV4Nc-6bRWAUT6.js";const t=new c;function m(n,r,e){return t.execute(n,r,e,null)}function p(n,r,e){const o=t.executeMany(new u(n),r,e,null);return Array.from(o)}function s(){return t.supportsCurves()}export{p as a,m as c,s as f};

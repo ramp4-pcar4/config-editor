@@ -1,0 +1,1 @@
+import{jR as r,jS as n,jK as a,jT as o}from"./index-BeTPrQ6f.js";const i=r(class extends n{constructor(){super(...arguments),this.key=a}render(t,e){return this.key=t,e}update(t,[e,s]){return e!==this.key&&(o(t),this.key=e),s}});export{i as n};
