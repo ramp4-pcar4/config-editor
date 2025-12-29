@@ -1,1 +1,0 @@
-import{u as f,o as t}from"./InterleavedLayout-CuMGnz6O-DkraWivs.js";function n(u,r){return r.push(u.buffer),{buffer:u.buffer,layout:new f(u.layout)}}function o(u){return new t(u.layout).createView(u.buffer)}export{o as n,n as u};
