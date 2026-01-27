@@ -1,1 +1,0 @@
-import{m as s,E as n,n as a}from"./index-BeTPrQ6f.js";const m=r=>{const o=r;let e=class extends o{constructor(){super(...arguments),this.customParameters=null}};return s([n({type:Object,json:{write:{overridePolicy:t=>({enabled:!!(t&&Object.keys(t).length>0)})}}})],e.prototype,"customParameters",void 0),e=s([a("esri.layers.mixins.CustomParametersMixin")],e),e};export{m as n};

@@ -1,1 +1,0 @@
-import{c as t}from"./enum-D3e-PyKo-Bl5V5br5.js";function o(e){if(typeof e=="string")return e.toLowerCase();if("name"in e)return e.name.toLowerCase();if(typeof e.value!="string")throw new t(null,"InvalidIdentifier",null);return e.value.toLowerCase()}const r=Object.freeze({aborted:!1});export{o as e,r as n};
