@@ -48,9 +48,10 @@
             }
 
             function toggleInput() {
-                document.getElementById('config-input').hidden = !document.getElementById('config-input').hidden;
+                document.getElementById('textarea-wrapper').hidden =
+                    !document.getElementById('textarea-wrapper').hidden;
                 const button = document.getElementById('buttons').children[2];
-                button.innerHTML = document.getElementById('config-input').hidden ? 'Input Config' : 'Hide Input';
+                button.innerHTML = document.getElementById('textarea-wrapper').hidden ? 'Input Config' : 'Hide Input';
             }
 
             function onConfigInput(config) {
@@ -100,10 +101,67 @@
                 <button onclick="downloadConfig()">Download Config</button>
                 <button onclick="startEditor()">Start Editor</button>
             </div>
-            <textarea id="config-input" hidden oninput="onConfigInput(this.value)"></textarea>
+            <div id="textarea-wrapper" hidden>
+                <textarea id="config-input" oninput="onConfigInput(this.value)"></textarea>
+                <button type="button" id="copy-btn" class="copy-btn" onclick="copyToClipboard(this)">
+                    <!-- Copy icon -->
+                    <svg
+                        class="copy-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+
+                    <!-- Indicator to show successfully copied -->
+                    <svg
+                        class="check-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.75"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+
+                    <span class="copy-text" aria-live="polite">Copy</span>
+                </button>
+            </div>
             <div id="app"></div>
         </div>
         <script type="module" src="/src/main.ts"></script>
+        <script>
+            function copyToClipboard() {
+                const input = document.getElementById('config-input');
+                navigator.clipboard.writeText(input.value).then(() => {
+                    showCopiedState();
+                });
+            }
+
+            function showCopiedState() {
+                const buttonEl = document.getElementById('copy-btn');
+                const textSpan = buttonEl.querySelector('.copy-text');
+                buttonEl.classList.add('is-copied');
+                textSpan.textContent = 'Copied';
+
+                // revert after 2 seconds
+                setTimeout(() => {
+                    buttonEl.classList.remove('is-copied');
+                    textSpan.textContent = 'Copy';
+                }, 2000);
+            }
+        </script>
         <style>
             body {
                 margin: 0;
@@ -141,7 +199,9 @@
 
             #config-input {
                 min-height: 200px;
+                width: 100%;
                 padding: 8px;
+                box-sizing: border-box;
             }
 
             #buttons button:hover {
@@ -150,6 +210,50 @@
 
             #buttons button:focus-visible {
                 opacity: 0.8;
+            }
+
+            #textarea-wrapper {
+                position: relative;
+            }
+
+            .copy-btn {
+                position: absolute;
+                bottom: 8px;
+                right: 8px;
+                border: none;
+                background: transparent;
+                border: none;
+                padding: 12px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .copy-icon {
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+
+            .copy-btn .check-icon {
+                display: none;
+                width: 16px;
+                height: 16px;
+                flex-shrink: 0;
+            }
+
+            .copy-btn.is-copied {
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .copy-btn.is-copied .copy-icon {
+                display: none;
+            }
+
+            .copy-btn.is-copied .check-icon {
+                display: inline-flex;
             }
         </style>
     </body>
