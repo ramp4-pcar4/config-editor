@@ -146,7 +146,6 @@
             function copyToClipboard() {
                 const input = document.getElementById('config-input');
                 navigator.clipboard.writeText(input.value).then(() => {
-                    console.log('Copied to clipboard');
                     showCopiedState();
                 });
             }
