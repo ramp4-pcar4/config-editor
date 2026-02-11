@@ -1,1 +1,0 @@
-import{jO as r}from"./main-Cs4X1v7C.js";const s=()=>r((t,c)=>{const e=new Set;return c.onDisconnected(()=>{e.forEach(o=>o.cancel())}),{add:o=>{[o].flat().forEach(n=>e.add(n))},resources:e}});export{s as n};
