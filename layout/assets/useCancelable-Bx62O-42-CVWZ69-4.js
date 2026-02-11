@@ -1,1 +1,0 @@
-import{jO as r}from"./main-D9P-8XP4.js";const s=()=>r((t,c)=>{const e=new Set;return c.onDisconnected(()=>{e.forEach(o=>o.cancel())}),{add:o=>{[o].flat().forEach(n=>e.add(n))},resources:e}});export{s as n};
