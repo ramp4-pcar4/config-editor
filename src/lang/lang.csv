@@ -1,14 +1,22 @@
 key,enValue,enValid,frValue,frValid
-editor.title,RAMP4 Config Editor,1,Éditeur de configuration RAMP4,1
+editor.title,RAMP4 Config Editor,1,Éditeur de configuration PCAR4,1
 editor.loading,Waiting for config...,1,En attendant la configuration...,1
 editor.reorder,Drag to reorder,1,Faites glisser pour réorganiser,1
 editor.down,Move down,1,Descendre,1
 editor.up,Move up,1,Monter,1
 editor.expand,Toggle expand,1,Basculer vers l'agrandissement,1
+editor.new,New config,1,Nouveau,0
+editor.startEditing,Use the table of contents on the left to start editing.,1,Use the table of contents on the left to start editing.,0
+start.new,Create new config,1,Create new config,0
+start.existing,Use existing config,1,Use existing config,0
+start.welcome,What would you like to do?,1,Qu'aimeriez-vous faire?,0
 navbar.startingFixtures,Starting Fixtures,1,Calendrier de départ,1
 navbar.configs,Configs,1,Configurations,1
 navbar.options,Options,1,Options,1
-navbar.preview,Preview,1,Aperçu,1
+navbar.preview,Preview map,1,Aperçu carte,0
+navbar.copy,Copy to clipboard,1,Copy to clipboard,0
+navbar.json,Config JSON,1,Config JSON,0
+navbar.download,Download,1,Download,0
 navbar.map,Map,1,Carte,1
 navbar.layers,Layers,1,Couches,1
 navbar.fixtures,Fixtures,1,Appareils,1
@@ -30,7 +38,7 @@ panels.open.screen.description,ID of the screen of the panel to show.,1,ID de l'
 panels.open.pin.title,Pin,1,Épinger,1
 panels.open.pin.description,Whether to pin the panel as well,1,Vous pouvez également épingler le panneau,1
 preview.note,Note:,1,Remarque:,1
-preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere. You will need to go back to your config, check that all the values are correct, and then try previewing again. Until we come up with a vaildator that tells you where you messed up.",1,"Si l'instance RAMP ne s'initialise pas comme prévu, il est probable que vous ayez oublié une valeur obligatoire et/ou spécifié une valeur invalide quelque part. Vous devrez revenir à votre configuration, vérifier que toutes les valeurs sont correctes, puis réessayer de prévisualiser. Jusqu'à ce que nous trouvions un indicateur qui vous dise où vous vous êtes trompé.",1
+preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere.",1,"Si l'instance RAMP ne s'initialise pas comme prévu, il est probable que vous ayez oublié une valeur obligatoire et/ou spécifié une valeur invalide quelque part.",1
 startingFixtures.input,Comma separated fixture IDs:,1,ID des appareils séparés par des virgules:,1
 system.proxyUrl.title,Proxy URL,1,URL du proxy,1
 system.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers. Applies only to map services.,1,"Un proxy optionnel à utiliser pour traiter les problèmes de même origine. L'URL doit être soit un chemin relatif sur le même serveur, soit un chemin absolu sur un serveur qui définit des en-têtes CORS. Ne s'applique qu'aux services de cartographie.",1
