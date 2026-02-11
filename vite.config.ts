@@ -59,6 +59,15 @@ const regConfig = {
         }
     },
     server: {
-        open: '/'
+        open: '/index-ca-en.html'
+    },
+    build: {
+        rollupOptions: {
+            input: {
+                main: '/index.html',
+                en: '/index-ca-en.html',
+                fr: '/index-ca-fr.html',
+            }
+        }
     }
 };
