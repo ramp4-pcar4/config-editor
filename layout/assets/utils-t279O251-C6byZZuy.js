@@ -1,1 +1,0 @@
-import{c1 as c,ff as m}from"./main-C8hxe725.js";function p(t){return{geometryType:c(t[0]),geometries:t.map(e=>e.toJSON())}}function s(t,e,n){const o=m(e);return t.map(f=>{const r=o.fromJSON(f);return r.spatialReference=n,r})}export{p as c,s as f};
