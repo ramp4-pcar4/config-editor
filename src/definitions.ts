@@ -278,7 +278,8 @@ export interface MapCaptionConfig {
 export interface RampMapConfig {
     lodSets: Array<RampLodSetConfig>;
     extentSets: Array<RampExtentSetConfig>;
-    basemaps: Array<RampBasemapConfig>;
+    //TODO: the default config argues with the basemap types, figure out whats going on
+    basemaps: Array<any>; //Array<RampBasemapConfig>;
     tileSchemas: Array<RampTileSchemaConfig>;
     initialBasemapId: string;
     caption?: MapCaptionConfig;

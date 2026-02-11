@@ -7,11 +7,12 @@ import type { RampConfig, RampConfigs, RampOptions } from './definitions';
 import VueTippy from 'vue-tippy';
 import { useStore } from '@/store';
 import merge from 'deepmerge';
+import defaultConfig from './default-config.json';
 
 // This is the starting point for the "lib" build, which is what other apps will use as they
 // just treat this editor like a tool / component.
 
-class API {
+export class API {
     readonly $vApp: ComponentPublicInstance;
 
     constructor(el: HTMLElement, configs?: RampConfigs, options?: RampOptions) {
@@ -43,41 +44,12 @@ class API {
         // @ts-ignore seriously ts
         const store = useStore(this.$vApp.$pinia);
 
-        store.startingFixtures = configs?.startingFixtures ?? [];
+        store.startingFixtures = configs?.startingFixtures ?? undefined;
         store.options = options ?? {};
-
-        const defaultConfig = {
-            en: {
-                map: {
-                    lodSets: [],
-                    extentSets: [],
-                    tileSchemas: [],
-                    basemaps: [],
-                    initialBasemapId: ''
-                },
-                fixtures: {},
-                layers: [],
-                panels: {},
-                system: {}
-            },
-            fr: {
-                map: {
-                    lodSets: [],
-                    extentSets: [],
-                    tileSchemas: [],
-                    basemaps: [],
-                    initialBasemapId: ''
-                },
-                fixtures: {},
-                layers: [],
-                panels: {},
-                system: {}
-            }
-        };
 
         if (configs?.configs && Object.keys(configs.configs).length > 0) {
             Object.keys(configs.configs).forEach((lang: string) => {
-                store.configs[lang] = merge(defaultConfig['en'], configs.configs[lang]);
+                store.configs[lang] = merge(defaultConfig[lang as 'en'], configs.configs[lang]);
             });
         } else {
             store.configs = defaultConfig;
