@@ -1,3 +1,13 @@
+<template>
+    <div class="h-full flex flex-col">
+        <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
+        <p class="mt-3">
+            <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
+        </p>
+        <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
+    </div>
+</template>
+
 <script setup lang="ts">
 // does the ramp previewer of the config we're editing
 
@@ -19,13 +29,3 @@ onMounted(() => {
     );
 });
 </script>
-
-<template>
-    <div class="h-full flex flex-col">
-        <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
-        <p class="mt-3">
-            <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
-        </p>
-        <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
-    </div>
-</template>

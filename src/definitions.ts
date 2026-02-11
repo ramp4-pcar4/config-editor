@@ -278,7 +278,7 @@ export interface MapCaptionConfig {
 export interface RampMapConfig {
     lodSets: Array<RampLodSetConfig>;
     extentSets: Array<RampExtentSetConfig>;
-    basemaps: Array<RampBasemapConfig>;
+    basemaps: Array<any>;
     tileSchemas: Array<RampTileSchemaConfig>;
     initialBasemapId: string;
     caption?: MapCaptionConfig;
