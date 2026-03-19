@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3 class="text-lg font-semibold">Layers</h3>
-        <p class="mt-1 text-sm text-gray-600">Add at least one layer. A layer source is required.</p>
+        <p class="mt-1 text-sm text-gray-600">Add layer source data (at least one layer is required).</p>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
             <h4 class="text-sm font-semibold text-gray-900">Add a layer</h4>
@@ -9,7 +9,7 @@
             <div class="mt-4">
                 <div class="text-sm font-medium text-gray-900">Layer source*</div>
                 <p class="mt-1 text-xs text-gray-500">
-                    Choose one source option. Use either a local file upload or a service URL.
+                    Choose a source option. Use either a local file upload or a service URL.
                 </p>
 
                 <div class="mt-3 grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -134,9 +134,9 @@
         </div>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">Layers in this map ({{ state.layers.length }})</h4>
+            <h4 class="text-sm font-semibold text-gray-900">Layers in this map ({{ layers.length }})</h4>
 
-            <div v-if="!state.layers.length" class="mt-3 text-sm text-gray-500">
+            <div v-if="!layers.length" class="mt-3 text-sm text-gray-500">
                 No layers yet. Add your first layer to continue.
             </div>
 
@@ -235,7 +235,7 @@
                                         <div>
                                             <h5 class="text-sm font-medium text-gray-900">Field metadata</h5>
                                             <p class="mt-1 text-xs text-gray-500">
-                                                Configure visible fields and display aliases.
+                                                Configure layer metadata properties.
                                             </p>
                                             <div
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
@@ -246,9 +246,7 @@
 
                                         <div>
                                             <h5 class="text-sm font-medium text-gray-900">Grid columns</h5>
-                                            <p class="mt-1 text-xs text-gray-500">
-                                                Configure columns shown in the data grid.
-                                            </p>
+                                            <p class="mt-1 text-xs text-gray-500">Configure layer grid columns.</p>
                                             <div
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
                                             >
@@ -290,18 +288,16 @@
 import { computed, reactive, ref } from 'vue';
 import draggable from 'vuedraggable';
 import ErrorList from './error-list.vue';
+import { useStore } from '@/store'; // adjust path as needed
 
-const props = defineProps<{ state: any; errors: any[] }>();
-const emit = defineEmits<{ (e: 'update:state', v: any): void }>();
+defineProps<{ errors: any[] }>();
 
-const state = computed(() => props.state);
+const store = useStore();
+
 const fileInput = ref<HTMLInputElement | null>(null);
 const valid = ref(true);
 
-const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
-
 const createDraft = () => ({
-    editingLayerId: null as string | null,
     sourceMode: 'url' as 'file' | 'url',
     file: null as File | null,
     fileName: '',
@@ -309,24 +305,34 @@ const createDraft = () => ({
     name: '',
     detectedTypes: [] as string[],
     selectedType: '',
-    errorMessage: '',
-    showAdvanced: false,
-    fieldMetadata: [] as Array<{ name: string; visible: boolean; alias: string }>,
-    gridColumns: [] as Array<{ name: string; visible: boolean; title: string }>
-});
-
-const expandedLayerId = ref<string | null>(null);
-const editDraft = reactive({
-    id: null as string | null,
-    name: '',
-    showAdvanced: false,
-    fieldMetadata: [] as Array<{ name: string; visible: boolean; alias: string }>,
-    gridColumns: [] as Array<{ name: string; visible: boolean; title: string }>
+    errorMessage: ''
 });
 
 const draft = reactive(createDraft());
 
-const sortedLayers = computed(() => [...state.value.layers].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
+const expandedLayerId = ref<string | null>(null);
+
+const editDraft = reactive({
+    id: null as string | null,
+    name: ''
+});
+
+const ensureLayers = () => {
+    if (!store.elc.layers) {
+        store.elc.layers = [];
+    }
+
+    return store.elc.layers;
+};
+
+const layers = computed({
+    get: () => ensureLayers(),
+    set: value => {
+        store.elc.layers = value;
+    }
+});
+
+const sortedLayers = computed(() => [...layers.value]);
 
 const layerTypeLabels: Record<string, string> = {
     'file-geojson': 'GeoJSON',
@@ -342,19 +348,14 @@ const layerTypeLabels: Record<string, string> = {
 };
 
 const formatLayerType = (type: string) => layerTypeLabels[type] ?? type;
-
 const availableLayerTypes = computed(() => draft.detectedTypes);
 
-const updateSortedLayers = (layers: any[]) => {
-    const normalizedLayers = layers.map((layer, index) => ({
-        ...layer,
-        order: index
-    }));
+const toLayerId = (name: string) => {
+    return name.trim().replace(/\s+/g, '');
+};
 
-    emit('update:state', {
-        ...state.value,
-        layers: normalizedLayers
-    });
+const updateSortedLayers = (nextLayers: any[]) => {
+    layers.value = [...nextLayers];
 };
 
 const startEditLayer = (layer: any) => {
@@ -362,10 +363,7 @@ const startEditLayer = (layer: any) => {
 
     Object.assign(editDraft, {
         id: layer.id,
-        name: layer.name ?? '',
-        showAdvanced: false,
-        fieldMetadata: [...(layer.fieldMetadata ?? [])],
-        gridColumns: [...(layer.gridColumns ?? [])]
+        name: layer.name ?? ''
     });
 };
 
@@ -374,33 +372,27 @@ const cancelEditLayer = () => {
 
     Object.assign(editDraft, {
         id: null,
-        name: '',
-        showAdvanced: false,
-        fieldMetadata: [],
-        gridColumns: []
+        name: ''
     });
 };
 
 const saveEditLayer = () => {
     if (!editDraft.id) return;
 
-    if (!editDraft.name.trim()) return;
+    const trimmedName = editDraft.name.trim();
+    if (!trimmedName) return;
 
-    const layers = state.value.layers.map((layer: any) =>
+    const nextId = toLayerId(trimmedName);
+
+    layers.value = layers.value.map((layer: any) =>
         layer.id === editDraft.id
             ? {
                   ...layer,
-                  name: editDraft.name.trim(),
-                  fieldMetadata: [...editDraft.fieldMetadata],
-                  gridColumns: [...editDraft.gridColumns]
+                  id: nextId,
+                  name: trimmedName
               }
             : layer
     );
-
-    emit('update:state', {
-        ...state.value,
-        layers
-    });
 
     cancelEditLayer();
 };
@@ -585,48 +577,17 @@ const addLayer = () => {
         return;
     }
 
-    const existingLayers = [...state.value.layers];
+    const trimmedName = draft.name.trim();
+    const id = toLayerId(trimmedName);
 
     const layer = {
-        id: draft.editingLayerId ?? uid(),
-        name: draft.name.trim(),
-        sourceMode: draft.sourceMode,
-        fileName: draft.fileName || undefined,
-        file: draft.file ?? undefined,
-        url: draft.url.trim() || undefined,
-        detectedTypes: [...draft.detectedTypes],
-        selectedType: draft.selectedType,
-        fieldMetadata: [...draft.fieldMetadata],
-        gridColumns: [...draft.gridColumns],
-        order: 0
+        id,
+        name: trimmedName,
+        layerType: draft.selectedType as any,
+        url: draft.url.trim()
     };
 
-    let nextLayers: any[] = [];
-
-    if (draft.editingLayerId) {
-        nextLayers = existingLayers.map(existingLayer =>
-            existingLayer.id === draft.editingLayerId ? { ...layer, order: existingLayer.order } : existingLayer
-        );
-    } else {
-        nextLayers = [
-            ...existingLayers,
-            {
-                ...layer,
-                order: existingLayers.length
-            }
-        ];
-    }
-
-    nextLayers = nextLayers.map((item, index) => ({
-        ...item,
-        order: index
-    }));
-
-    emit('update:state', {
-        ...state.value,
-        layers: nextLayers
-    });
-
+    layers.value = [...layers.value, layer];
     resetDraft();
 };
 
@@ -639,10 +600,6 @@ const resetDraft = () => {
 };
 
 const removeLayer = (id: string) => {
-    const layers = state.value.layers
-        .filter((l: any) => l.id !== id)
-        .map((l: any, idx: number) => ({ ...l, order: idx }));
-
-    emit('update:state', { ...state.value, layers });
+    layers.value = layers.value.filter((layer: any) => layer.id !== id);
 };
 </script>

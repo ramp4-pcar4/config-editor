@@ -17,7 +17,8 @@
                 <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
                 <div class="flex-grow h-full pl-5 overflow-y-auto">
                     <div v-if="store.editingTemplate === ''">
-                        {{ t('editor.startEditing') }}
+                        <Wizard />
+                        <!-- {{ t('editor.startEditing') }} -->
                     </div>
                     <component v-else :is="editors[store.editingTemplate]"></component>
                 </div>
@@ -31,6 +32,7 @@
 
 import StartingScreen from './components/starting-screen.vue';
 import Navbar from './components/navbar.vue';
+import Wizard from './components/wizard/wizard.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';
 import FixturesEditor from './components/fixtures/fixtures.vue';
 import JsonInput from './components/json-input.vue';

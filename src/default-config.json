@@ -267,7 +267,7 @@
                         {
                             "id": "CBMT",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT3978/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT3978/MapServer",
                             "opacity": 1
                         }
                     ],
@@ -292,7 +292,7 @@
                         {
                             "id": "SMR",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
                             "opacity": 1
                         }
                     ],
@@ -316,7 +316,7 @@
                         {
                             "id": "CBME_CBCE_HS_RO_3978",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                             "opacity": 1
                         }
                     ],
@@ -331,31 +331,6 @@
                     }
                 },
                 {
-                    "id": "baseCBMT_CBCT_GEOM_3978",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Canada base map - transportation (CBMT)",
-                    "description": "The Canada base map - transportation (CBMT) web mapping services of the Earth Sciences Sector at Natural Resources Canada, are intended primarily for online mapping application users and developers.",
-                    "altText": "Canada base map - transportation (CBMT)",
-                    "layers": [
-                        {
-                            "id": "CBMT_CBCT_GEOM_3978",
-                            "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
-                            "opacity": 1
-                        }
-                    ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
-                    "backgroundColour": "#BFE8FE"
-                },
-                {
                     "id": "baseProvinces_3978",
                     "name": "Provincial and Territorial Boundaries",
                     "description": "A basic outline of Canada's provincial and territorial boundaries.",
@@ -365,7 +340,7 @@
                         {
                             "id": "provinces_3978",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
+                            "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
                         }
                     ],
                     "attribution": {
@@ -389,7 +364,7 @@
                         {
                             "id": "World_Imagery",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -404,7 +379,7 @@
                         {
                             "id": "World_Physical_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -419,7 +394,7 @@
                         {
                             "id": "World_Shaded_Relief",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -434,7 +409,7 @@
                         {
                             "id": "World_Street_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -449,7 +424,7 @@
                         {
                             "id": "World_Terrain_Base",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -464,7 +439,7 @@
                         {
                             "id": "World_Topo_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -485,10 +460,10 @@
         "fixtures": {
             "geosearch": {
                 "serviceUrls": {
-                    "geoNames": "https: //geogratis.gc.ca/services/geoname/en/geonames.json",
-                    "geoLocation": "https: //geogratis.gc.ca/services/geolocation/en/locate?q=",
-                    "geoProvince": "https: //geogratis.gc.ca/services/geoname/en/codes/province.json",
-                    "geoTypes": "https: //geogratis.gc.ca/services/geoname/en/codes/concise.json"
+                    "geoNames": "https://geogratis.gc.ca/services/geoname/en/geonames.json",
+                    "geoLocation": "https://geogratis.gc.ca/services/geolocation/en/locate?q=",
+                    "geoProvince": "https://geogratis.gc.ca/services/geoname/en/codes/province.json",
+                    "geoTypes": "https://geogratis.gc.ca/services/geoname/en/codes/concise.json"
                 },
                 "settings": {
                     "categories": [
@@ -599,7 +574,7 @@
             "animate": true,
             "exposeOid": false,
             "exposeMeasurements": true,
-            "proxyUrl": "https: //maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy"
+            "proxyUrl": "https://maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy"
         },
         "version": "4.0"
     },
@@ -871,7 +846,7 @@
                         {
                             "id": "CBCT",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer",
                             "opacity": 1
                         }
                     ],
@@ -896,13 +871,13 @@
                         {
                             "id": "SMR",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
                             "opacity": 1
                         },
                         {
                             "id": "SMW",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_TXT_3978/MapServer"
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_TXT_3978/MapServer"
                         }
                     ],
                     "attribution": {
@@ -925,7 +900,7 @@
                         {
                             "id": "CBME_CBCE_HS_RO_3978",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
                             "opacity": 1
                         }
                     ],
@@ -940,31 +915,6 @@
                     }
                 },
                 {
-                    "id": "baseCBMT_CBCT_GEOM_3978",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Carte de base du Canada - transport (CBCT)",
-                    "description": "La carte de base du Canada - transport (CBCT) du Secteur des sciences de la Terre de Ressources naturelles Canada est un service Internet qui s'adresse principalement aux utilisateurs et développeurs d'applications cartographiques en ligne.",
-                    "altText": "La carte de base du Canada - transport (CBCT)",
-                    "layers": [
-                        {
-                            "id": "CBMT_CBCT_GEOM_3978",
-                            "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
-                            "opacity": 1
-                        }
-                    ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
-                    "backgroundColour": "#BFE8FE"
-                },
-                {
                     "id": "baseProvinces_3978",
                     "name": "Provinces et territoires du Canada",
                     "description": "Représentation de les frontières et limites des provinces et des territoires du Canada.",
@@ -974,7 +924,7 @@
                         {
                             "id": "provinces_3978",
                             "layerType": "esri-tile",
-                            "url": "https: //maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
+                            "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
                         }
                     ],
                     "attribution": {
@@ -998,7 +948,7 @@
                         {
                             "id": "World_Imagery",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1013,7 +963,7 @@
                         {
                             "id": "World_Physical_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1028,7 +978,7 @@
                         {
                             "id": "World_Shaded_Relief",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1043,7 +993,7 @@
                         {
                             "id": "World_Street_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1058,7 +1008,7 @@
                         {
                             "id": "World_Terrain_Base",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1073,7 +1023,7 @@
                         {
                             "id": "World_Topo_Map",
                             "layerType": "esri-tile",
-                            "url": "https: //services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
                             "opacity": 1
                         }
                     ]
@@ -1094,10 +1044,10 @@
         "fixtures": {
             "geosearch": {
                 "serviceUrls": {
-                    "geoNames": "https: //geogratis.gc.ca/services/geoname/fr/geonames.json",
-                    "geoLocation": "https: //geogratis.gc.ca/services/geolocation/fr/locate?q=",
-                    "geoProvince": "https: //geogratis.gc.ca/services/geoname/fr/codes/province.json",
-                    "geoTypes": "https: //geogratis.gc.ca/services/geoname/fr/codes/concise.json"
+                    "geoNames": "https://geogratis.gc.ca/services/geoname/fr/geonames.json",
+                    "geoLocation": "https://geogratis.gc.ca/services/geolocation/fr/locate?q=",
+                    "geoProvince": "https://geogratis.gc.ca/services/geoname/fr/codes/province.json",
+                    "geoTypes": "https://geogratis.gc.ca/services/geoname/fr/codes/concise.json"
                 },
                 "settings": {
                     "categories": [
@@ -1206,7 +1156,7 @@
             "animate": true,
             "exposeOid": false,
             "exposeMeasurements": true,
-            "proxyUrl": "https: //maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy"
+            "proxyUrl": "https://maps.canada.ca/wmsproxy/ws/wmsproxy/executeFromProxy"
         },
         "version": "4.0"
     }

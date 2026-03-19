@@ -4,7 +4,6 @@
 
         <WizardModal
             v-model:open="isWizardOpen"
-            :initialState="draftWizardState"
             @confirm="applyWizardState"
             @cancel="onWizardCancel"
         />
@@ -20,10 +19,10 @@ const isWizardOpen = ref(false);
 // optional: keep draft state around to resume
 const draftWizardState = ref<any>(undefined);
 
-const applyWizardState = (state: any) => {
+const applyWizardState = () => {
     // Later: translate wizard state -> RAMP config schema
     // For now: store draft for inspection
-    draftWizardState.value = state;
+    // draftWizardState.value = state;
 
     // Example: you would call something like:
     // rampConfigStore.applyWizard(state)
