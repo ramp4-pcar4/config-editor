@@ -10,9 +10,8 @@
                 <div class="grid gap-2">
                     <label class="text-sm font-medium text-gray-900">Locale</label>
                     <select
-                        :value="defaults.locale"
+                        v-model="editingLang"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
-                        @change="onLocaleChange"
                     >
                         <option value="en">English</option>
                         <option value="fr">Français</option>
@@ -32,7 +31,7 @@
 
                 <label class="inline-flex shrink-0 items-center gap-2 text-sm text-gray-800">
                     <input
-                        :checked="defaults.loadDefaultFixtures"
+                        :checked="loadDefaultFixtures"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300"
                         @change="onLoadDefaultFixturesChange"
@@ -47,7 +46,7 @@
                     :key="fixture"
                     class="flex items-center gap-3 rounded-lg border px-3 py-2 transition"
                     :class="
-                        defaults.loadDefaultFixtures
+                        loadDefaultFixtures
                             ? 'border-gray-200 bg-gray-50 text-gray-500'
                             : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300'
                     "
@@ -56,10 +55,10 @@
                         :checked="selectedFixtures.includes(fixture)"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300"
-                        :disabled="defaults.loadDefaultFixtures"
+                        :disabled="loadDefaultFixtures"
                         @change="toggleFixture(fixture)"
                     />
-                    <span class="text-sm">{{ formatFixtureName(fixture) }}</span>
+                    <span class="text-sm">{{ fixture }}</span>
                 </label>
             </div>
         </div>
@@ -69,11 +68,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { useStore } from '@/store';
 import ErrorList from './error-list.vue';
 
-const props = defineProps<{ state: any; errors: any[] }>();
-const emit = defineEmits<{ (e: 'update:state', v: any): void }>();
+defineProps<{ errors: any[] }>();
+
+const store = useStore();
 
 const DEFAULT_FIXTURES = [
     'appbar',
@@ -95,14 +96,11 @@ const DEFAULT_FIXTURES = [
     'wizard'
 ];
 
-const AVAILABLE_FIXTURES = [
+const ALL_FIXTURES = [
     'appbar',
-    'areas-of-interest',
     'basemap',
     'details',
-    'draw',
     'export',
-    'extentGuard',
     'geosearch',
     'grid',
     'help',
@@ -115,53 +113,43 @@ const AVAILABLE_FIXTURES = [
     'overviewmap',
     'scrollguard',
     'settings',
-    'swipe',
     'wizard'
 ];
 
-const state = computed(() => props.state);
+const availableFixtures = ALL_FIXTURES;
+const loadDefaultFixtures = ref(true);
 
-const defaults = computed(() => {
-    const current = state.value.defaults ?? {};
-
-    return {
-        locale: current.locale ?? 'en',
-        loadDefaultFixtures: current.loadDefaultFixtures ?? true,
-        fixtures: current.fixtures ?? [...DEFAULT_FIXTURES]
-    };
+const editingLang = computed({
+    get: () => store.editingLang || 'en',
+    set: (value: string) => {
+        store.editingLang = value;
+    }
 });
 
-const availableFixtures = AVAILABLE_FIXTURES;
-const selectedFixtures = computed(() => defaults.value.fixtures ?? []);
+const selectedFixtures = computed<string[]>({
+    get: () => {
+        return store.startingFixtures?.length ? [...store.startingFixtures] : [...DEFAULT_FIXTURES];
+    },
+    set: (value: string[]) => {
+        store.startingFixtures = [...value];
+    }
+});
 
-const updateDefaults = (patch: Partial<typeof defaults.value>) => {
-    const nextDefaults = {
-        ...defaults.value,
-        ...patch
-    };
-
-    emit('update:state', {
-        ...state.value,
-        defaults: nextDefaults
-    });
-};
-
-const onLocaleChange = (event: Event) => {
-    const value = (event.target as HTMLSelectElement).value;
-    updateDefaults({ locale: value });
-};
+onMounted(() => {
+    store.editingLang = store.editingLang || 'en';
+});
 
 const onLoadDefaultFixturesChange = (event: Event) => {
     const checked = (event.target as HTMLInputElement).checked;
+    loadDefaultFixtures.value = checked;
 
-    updateDefaults({
-        loadDefaultFixtures: checked,
-        fixtures: checked ? [...DEFAULT_FIXTURES] : [...selectedFixtures.value]
-    });
+    if (checked) {
+        selectedFixtures.value = [...DEFAULT_FIXTURES];
+    }
 };
 
 const toggleFixture = (fixture: string) => {
-    if (defaults.value.loadDefaultFixtures) return;
+    if (loadDefaultFixtures.value) return;
 
     const nextFixtures = [...selectedFixtures.value];
     const index = nextFixtures.indexOf(fixture);
@@ -172,15 +160,6 @@ const toggleFixture = (fixture: string) => {
         nextFixtures.push(fixture);
     }
 
-    updateDefaults({
-        fixtures: nextFixtures
-    });
-};
-
-const formatFixtureName = (fixture: string) => {
-    return fixture
-        .replace(/-/g, ' ')
-        .replace(/([a-z])([A-Z])/g, '$1 $2')
-        .replace(/\b\w/g, char => char.toUpperCase());
+    selectedFixtures.value = nextFixtures;
 };
 </script>

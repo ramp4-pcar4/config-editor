@@ -37,7 +37,7 @@
                             v-for="(s, i) in steps"
                             :key="s.id"
                             :class="{
-                                active: i === state.stepIndex,
+                                active: i === ui.stepIndex,
                                 done: stepStatus(i) === 'done',
                                 blocked: stepStatus(i) === 'blocked'
                             }"
@@ -45,7 +45,7 @@
                             <button
                                 class="flex w-full cursor-pointer gap-[10px] rounded-[10px] border border-transparent bg-transparent p-[10px] text-left disabled:cursor-not-allowed disabled:opacity-50"
                                 :class="{
-                                    'border-gray-300 bg-gray-50': i === state.stepIndex
+                                    'border-gray-300 bg-gray-50': i === ui.stepIndex
                                 }"
                                 :disabled="!canNavigateTo(i)"
                                 @click="goToStep(i)"
@@ -63,7 +63,7 @@
 
                                 <span>
                                     <span class="text-[13px] font-semibold">{{ s.title }}</span>
-                                    <span class="mt-[2px] block text-[12px] text-gray-500">{{ s.hint(state) }}</span>
+                                    <span class="mt-[2px] block text-[12px] text-gray-500">{{ s.hint() }}</span>
                                 </span>
                             </button>
                         </li>
@@ -72,12 +72,7 @@
 
                 <!-- Content -->
                 <main class="min-h-0 overflow-auto px-6 py-5">
-                    <component
-                        :is="activeStep.component"
-                        :state="state"
-                        :errors="stepErrors"
-                        @update:state="updateState"
-                    />
+                    <component :is="activeStep.component" :errors="stepErrors" />
                 </main>
             </section>
 
@@ -86,7 +81,7 @@
                 <div>
                     <button
                         class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-3 py-2 text-[13px] disabled:cursor-not-allowed disabled:opacity-50"
-                        :disabled="state.stepIndex === 0"
+                        :disabled="ui.stepIndex === 0"
                         @click="back"
                     >
                         Back
@@ -147,299 +142,232 @@
 
 <script setup lang="ts">
 import { computed, reactive, watch, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { useStore } from '@/store';
 
 import StepDefaults from './step-defaults.vue';
 import StepLayers from './step-layers.vue';
 import StepBasemap from './step-basemap.vue';
-import StepStartView from './step-start-view.vue';
+import StepStartView from './step-extent.vue';
 import StepReview from './step-review.vue';
-
-interface WizardLayer {
-    id: string;
-    name: string;
-    sourceMode: 'file' | 'url';
-    file?: File;
-    fileName?: string;
-    url?: string;
-    detectedTypes: string[];
-    selectedType?: string;
-    order: number;
-    errorMessage?: string;
-}
-
-type WizardState = {
-    stepIndex: number;
-    dirty: boolean;
-
-    defaults: {
-        locale?: string;
-    };
-
-    layers: WizardLayer[];
-
-    basemap: {
-        id?: string;
-        selected?: any;
-    };
-
-    startView: {
-        mode: 'mercatorDefault' | 'lambertDefault' | 'custom';
-        extentSetId?: string;
-        custom?: {
-            xmin?: number;
-            xmax?: number;
-            ymin?: number;
-            ymax?: number;
-            spatialReference: {
-                wkid?: number;
-                latestWkid?: number;
-            };
-        };
-    };
-};
 
 const props = defineProps<{
     open: boolean;
-    initialState?: Partial<WizardState>;
 }>();
 
 const emit = defineEmits<{
     (e: 'update:open', v: boolean): void;
-    (e: 'confirm', payload: WizardState): void;
+    (e: 'confirm'): void;
     (e: 'cancel'): void;
 }>();
 
-const { t, locale } = useI18n();
+const store = useStore();
 
-const createDefaultState = (): WizardState => {
-    return {
-        stepIndex: 0,
-        dirty: false,
-        defaults: { locale: 'en' },
-        layers: [],
-        basemap: { id: undefined, selected: undefined },
-        startView: {
-            mode: 'mercatorDefault',
-            extentSetId: 'EXT_ESRI_World_AuxMerc_3857'
-        }
-    };
+type WizardUiState = {
+    stepIndex: number;
+    dirty: boolean;
 };
 
-const state = reactive<WizardState>({
-    ...createDefaultState(),
-    ...(props.initialState ?? {}),
-    // Ensure required keys exist even if partial passed in
-    defaults: { ...createDefaultState().defaults, ...(props.initialState?.defaults ?? {}) },
-    basemap: { ...createDefaultState().basemap, ...(props.initialState?.basemap ?? {}) },
-    startView: { ...createDefaultState().startView, ...(props.initialState?.startView ?? {}) },
-    layers: props.initialState?.layers ? [...props.initialState.layers] : []
+type StepError = { field?: string; message: string };
+
+const ui = reactive<WizardUiState>({
+    stepIndex: 0,
+    dirty: false
 });
 
-// Mark dirty on meaningful changes (simple approach)
-watch(
-    () => ({
-        defaults: state.defaults,
-        layers: state.layers,
-        basemap: state.basemap,
-        startView: state.startView
-    }),
-    () => {
-        if (props.open) state.dirty = true;
-    },
-    { deep: true }
-);
+const showDiscardConfirm = ref(false);
+const stepErrors = ref<StepError[]>([]);
 
 watch(
     () => props.open,
     isOpen => {
         if (isOpen) {
-            // When opening, mark not dirty until they change something
-            state.dirty = false;
+            ui.dirty = false;
+            ui.stepIndex = 0;
         }
     }
 );
 
-const canConfirm = computed(() => readiness.value.hasLayer && readiness.value.hasBasemap);
+watch(
+    () => ({
+        editingLang: store.editingLang,
+        startingFixtures: store.startingFixtures,
+        layers: store.elc?.layers,
+        basemapId: store.elc?.map?.initialBasemapId,
+        extentSets: store.elc?.map?.extentSets,
+        tileSchemas: store.elc?.map?.tileSchemas
+    }),
+    () => {
+        if (props.open) ui.dirty = true;
+    },
+    { deep: true }
+);
 
-// --- Steps definition (UI only) ---
+const currentLayers = computed(() => store.elc?.layers ?? []);
+const currentBasemapId = computed(() => store.elc?.map?.initialBasemapId);
+const currentExtentSetId = computed(() => store.elc?.map?.tileSchemas?.[0]?.extentSetId);
+
+const extentModeLabel = computed(() => {
+    if (currentExtentSetId.value === 'EXT_ESRI_World_AuxMerc_3857') return 'World Mercator';
+    if (currentExtentSetId.value === 'EXT_NRCAN_Lambert_3978') return 'NRCan Lambert';
+    if (currentExtentSetId.value) return 'Custom extent';
+    return '—';
+});
+
 const steps = [
     {
         id: 'defaults',
         title: 'Defaults',
         component: StepDefaults,
-        hint: (s: WizardState) => `${s.defaults.locale ?? '—'}`
+        hint: () => store.editingLang || '—'
     },
     {
         id: 'layers',
         title: 'Layers',
         component: StepLayers,
-        hint: (s: WizardState) => `${s.layers.length} added`
+        hint: () => `${currentLayers.value.length} added`
     },
     {
         id: 'basemap',
         title: 'Basemap',
         component: StepBasemap,
-        hint: (s: WizardState) => (s.basemap.id ? 'Selected' : '—')
+        hint: () => (currentBasemapId.value ? 'Selected' : '—')
     },
     {
         id: 'startView',
         title: 'Start view',
         component: StepStartView,
-        hint: (s: WizardState) => {
-            if (s.startView.mode === 'mercatorDefault') return 'World Mercator';
-            if (s.startView.mode === 'lambertDefault') return 'NRCan Lambert';
-            if (s.startView.mode === 'custom') return 'Custom extent';
-            return '—';
-        }
+        hint: () => extentModeLabel.value
     },
     {
         id: 'review',
         title: 'Review',
         component: StepReview,
-        hint: (_s: WizardState) => 'Confirm'
+        hint: () => 'Confirm'
     }
 ] as const;
 
-const activeStep = computed(() => steps[state.stepIndex]);
-
-const isLastStep = computed(() => state.stepIndex === steps.length - 1);
-
-// --- Validation (minimal, per-step) ---
-type StepError = { field?: string; message: string };
-const stepErrors = ref<StepError[]>([]);
+const activeStep = computed(() => steps[ui.stepIndex]);
+const isLastStep = computed(() => ui.stepIndex === steps.length - 1);
 
 const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     const errors: StepError[] = [];
 
     if (stepId === 'layers') {
-        if (state.layers.length < 1) {
+        if (currentLayers.value.length < 1) {
             errors.push({ message: 'Add at least one layer to continue.' });
         } else {
-            for (const l of state.layers) {
-                if (!l.name?.trim()) {
+            for (const layer of currentLayers.value) {
+                if (!layer.name?.trim()) {
                     errors.push({ message: 'Each layer needs a name.' });
                 }
 
-                const hasFile = l.sourceMode === 'file' && !!l.file;
-                const hasUrl = l.sourceMode === 'url' && !!l.url?.trim();
-
-                if (!hasFile && !hasUrl) {
-                    errors.push({ message: `Layer "${l.name || 'Unnamed'}" needs a file or a URL.` });
+                if (!layer.layerType) {
+                    errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a layer type.` });
                 }
 
-                if (!l.selectedType) {
-                    errors.push({ message: `Layer "${l.name || 'Unnamed'}" needs a detected layer type.` });
+                if (!layer.url?.trim()) {
+                    errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a URL.` });
                 }
             }
         }
     }
 
     if (stepId === 'basemap') {
-        if (!state.basemap.id) errors.push({ message: 'Select a basemap to continue.' });
+        if (!currentBasemapId.value) {
+            errors.push({ message: 'Select a basemap to continue.' });
+        }
     }
 
     if (stepId === 'review') {
-        // final check: layers + basemap valid
-        if (state.layers.length < 1) errors.push({ message: 'You need at least one layer.' });
-        if (!state.basemap.id) errors.push({ message: 'You need to choose a basemap.' });
+        if (currentLayers.value.length < 1) {
+            errors.push({ message: 'You need at least one layer.' });
+        }
+
+        if (!currentBasemapId.value) {
+            errors.push({ message: 'You need to choose a basemap.' });
+        }
     }
 
     return errors;
 };
 
-const canProceed = computed(() => {
-    const errs = validateStep(activeStep.value.id);
-    return errs.length === 0;
-});
+const readiness = computed(() => ({
+    hasLayer: currentLayers.value.length > 0,
+    hasBasemap: !!currentBasemapId.value
+}));
+
+const canConfirm = computed(() => readiness.value.hasLayer && readiness.value.hasBasemap);
+
+const canProceed = computed(() => validateStep(activeStep.value.id).length === 0);
 
 const proceedTooltip = computed(() => {
     const errs = validateStep(activeStep.value.id);
     return errs[0]?.message ?? '';
 });
 
-const readiness = computed(() => {
-    return {
-        hasLayer: state.layers.length > 0,
-        hasBasemap: !!state.basemap.id
-    };
-});
-
-// Stepper status: done if all prior validations pass for that step
 const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
-    if (i === state.stepIndex) return 'active';
+    if (i === ui.stepIndex) return 'active';
 
-    const stepId = steps[i].id;
-    const errs = validateStep(stepId);
+    const errs = validateStep(steps[i].id);
 
-    // We only mark "done" for steps that are past AND error-free
-    if (i < state.stepIndex) return errs.length ? 'blocked' : 'done';
+    if (i < ui.stepIndex) return errs.length ? 'blocked' : 'done';
 
-    // Future step: show idle (or blocked if user already has issues? keep it simple)
     return 'idle';
 };
 
 const canNavigateTo = (i: number) => {
-    // Allow jumping backward freely
-    if (i <= state.stepIndex) return true;
+    if (i <= ui.stepIndex) return true;
 
-    // Allow jumping forward only if all steps up to i-1 are valid
     for (let k = 0; k < i; k++) {
         const errs = validateStep(steps[k].id);
         if (errs.length) return false;
     }
+
     return true;
 };
 
-// --- Navigation ---
 const goToStep = (i: number) => {
     if (!canNavigateTo(i)) return;
-    stepErrors.value = [];
-    state.stepIndex = i;
-};
 
-const goToStepById = (id: (typeof steps)[number]['id']) => {
-    const idx = steps.findIndex(s => s.id === id);
-    if (idx >= 0) goToStep(idx);
+    stepErrors.value = [];
+    ui.stepIndex = i;
 };
 
 const next = () => {
     const errs = validateStep(activeStep.value.id);
     stepErrors.value = errs;
+
     if (errs.length) return;
 
-    if (state.stepIndex < steps.length - 1) {
-        state.stepIndex++;
+    if (ui.stepIndex < steps.length - 1) {
+        ui.stepIndex++;
         stepErrors.value = [];
     }
 };
 
 const back = () => {
-    if (state.stepIndex > 0) {
-        state.stepIndex--;
+    if (ui.stepIndex > 0) {
+        ui.stepIndex--;
         stepErrors.value = [];
     }
 };
 
-// --- Confirm / Close handling ---
-const showDiscardConfirm = ref(false);
-
 const confirm = () => {
     const errs = validateStep('review');
     stepErrors.value = errs;
+
     if (errs.length) return;
 
-    // Emit a deep-ish copy so parent can apply it safely
-    const payload: WizardState = JSON.parse(JSON.stringify(state));
-    emit('confirm', payload);
+    emit('confirm');
     emit('update:open', false);
 };
 
 const requestClose = () => {
-    if (state.dirty) {
+    if (ui.dirty) {
         showDiscardConfirm.value = true;
         return;
     }
+
     emit('cancel');
     emit('update:open', false);
 };
@@ -451,13 +379,6 @@ const forceClose = () => {
 };
 
 const onBackdrop = () => {
-    // Clicking backdrop acts like cancel/close
     requestClose();
 };
-
-const updateState = (nextState: Partial<WizardState> | WizardState) => {
-    Object.assign(state, nextState);
-};
 </script>
-
-<style lang="scss" scoped></style>
