@@ -17,15 +17,13 @@
                         type="button"
                         class="overflow-hidden rounded-xl border bg-white text-left transition"
                         :class="
-                            state.basemap.id === basemap.id
+                            selectedBasemapId === basemap.id
                                 ? 'border-gray-900 ring-2 ring-gray-900'
                                 : 'border-gray-200 hover:border-gray-300'
                         "
-                        @click="selectBasemap(basemap)"
+                        @click="selectBasemap(basemap.id)"
                     >
-                        <!-- Thumbnail -->
-                        <div class="relative overflow-hidden bg-gray-100 aspect-[2/1]">
-                            <!-- Tooltip info icon -->
+                        <div class="relative aspect-[2/1] overflow-hidden bg-gray-100">
                             <button
                                 type="button"
                                 class="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-xs text-gray-700 shadow hover:bg-white"
@@ -39,27 +37,24 @@
                                 i
                             </button>
 
-                            <!-- dual tile thumbnails -->
-                            <div v-if="basemap.thumbnailUrls.length > 1" class="grid h-full grid-cols-2">
+                            <div v-if="basemap.thumbnailUrls?.length > 1" class="grid h-full grid-cols-2">
                                 <img
                                     v-for="(url, index) in basemap.thumbnailUrls"
                                     :key="`${basemap.id}-${index}`"
                                     :src="url"
-                                    :alt="basemap.altText"
+                                    :alt="basemap.altText || basemap.name"
                                     class="h-full w-full object-cover"
                                 />
                             </div>
 
-                            <!-- single thumbnail -->
                             <img
-                                v-else-if="basemap.thumbnailUrls.length === 1"
+                                v-else-if="basemap.thumbnailUrls?.length === 1"
                                 :src="basemap.thumbnailUrls[0]"
-                                :alt="basemap.altText"
+                                :alt="basemap.altText || basemap.name"
                                 class="h-full w-full object-cover"
                             />
                         </div>
 
-                        <!-- Card body -->
                         <div class="px-4 py-3">
                             <div class="text-sm font-semibold text-gray-900">
                                 {{ basemap.name }}
@@ -76,44 +71,59 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-
+import { useStore } from '@/store';
 import ErrorList from './error-list.vue';
-import { BASEMAP_OPTIONS, type BasemapOption } from './wizard-basemap-options';
 
-const props = defineProps<{ state: any; errors: any[] }>();
-const emit = defineEmits<{ (e: 'update:state', value: any): void }>();
+defineProps<{ errors: any[] }>();
 
-type BasemapGroup = {
-    id: string;
-    title: string;
-    description: string;
-    items: BasemapOption[];
+const store = useStore();
+
+const availableBasemaps = computed(() => store.elc.map.basemaps);
+const availableTileSchemas = computed(() => store.elc.map.tileSchemas);
+
+const selectedBasemapId = computed({
+    get: () => store.elc.map.initialBasemapId,
+    set: (value: string) => {
+        store.elc.map.initialBasemapId = value;
+    }
+});
+
+const tileSchemasById = computed(() => {
+    return Object.fromEntries(availableTileSchemas.value.map((tileSchema: any) => [tileSchema.id, tileSchema]));
+});
+
+const addThumbnails = (basemap: any) => {
+    const tileSchema = tileSchemasById.value[basemap.tileSchemaId];
+    const thumbnailSuffixes = tileSchema?.thumbnailTileUrls ?? [];
+
+    const thumbnailUrls = (basemap.layers ?? []).flatMap((layer: any) =>
+        thumbnailSuffixes.map((suffix: string) => `${layer.url}${suffix}`)
+    );
+
+    return {
+        ...basemap,
+        thumbnailUrls
+    };
 };
 
-const state = computed(() => props.state);
-
-const basemapGroups = computed<BasemapGroup[]>(() => [
+const basemapGroups = computed(() => [
     {
         id: 'lambert',
         title: 'Lambert maps',
         description: 'Canadian Lambert projection basemaps.',
-        items: BASEMAP_OPTIONS.filter(option => option.projection === 'lambert')
+        items: availableBasemaps.value
+            .filter((bm: any) => bm.tileSchemaId?.toLowerCase().includes('lambert'))
+            .map(addThumbnails)
     },
     {
         id: 'mercator',
         title: 'Mercator maps',
         description: 'World Mercator projection basemaps.',
-        items: BASEMAP_OPTIONS.filter(option => option.projection === 'mercator')
+        items: availableBasemaps.value.filter((bm: any) => bm.tileSchemaId?.includes('AuxMerc')).map(addThumbnails)
     }
 ]);
 
-const selectBasemap = (basemap: BasemapOption) => {
-    emit('update:state', {
-        ...state.value,
-        basemap: {
-            id: basemap.id,
-            selected: basemap.config
-        }
-    });
+const selectBasemap = (basemapId: string) => {
+    selectedBasemapId.value = basemapId;
 };
 </script>
