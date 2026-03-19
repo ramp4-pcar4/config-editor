@@ -18,8 +18,9 @@
     "types": "./dist/types.d.ts",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "npm run clean && vite build",
         "build:lib": "vite build --mode lib && npm run generate:types",
+        "clean": "node scripts/clean-dist.mjs",
         "preview": "vite preview",
         "type-check": "vue-tsc --noEmit",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
@@ -40,7 +41,7 @@
     "devDependencies": {
         "@rushstack/eslint-patch": "^1.2.0",
         "@tailwindcss/forms": "^0.5.3",
-        "@types/node": "^18.14.2",
+        "@types/node": "^24.1.0",
         "@vitejs/plugin-vue": "^5.1.4",
         "@vitejs/plugin-vue-jsx": "^3.0.0",
         "@vue/eslint-config-prettier": "^7.1.0",
