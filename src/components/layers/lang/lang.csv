@@ -35,8 +35,8 @@ layer.url.title,URL,1,URL,1
 layer.url.description,Service endpoint of the layer. Should match the layer type.,1,Point de terminaison du service de la couche. Doit correspondre au type de couche.,1
 layer.nameField.title,Name Field,1,Champ du nom,1
 layer.nameField.description,The display field of the layer. If it is not present the viewer will make an attempt to scrape this information.,1,"Le champ d'affichage de la couche. S'il n'est pas présent, le visualiseur tentera de récupérer cette information.",1
-layer.tooltipField.title,Tooltip Field,1,Champ d'info-bulle,1
-layer.tooltipField.description,"Field to be used for tooltips. If not present, the viewer will use name field, if provided.",1,"Champ à utiliser pour les infobulles. S'il n'est pas présent, le visualiseur utilisera le champ du nom, s'il est fourni.",1
+layer.maptipField.title,Maptip Field,1,Champ d'info-bulle,1
+layer.maptipField.description,"Field to be used for maptips. If not present, the viewer will use name field, if provided.",1,"Champ à utiliser pour les infobulles. S'il n'est pas présent, le visualiseur utilisera le champ du nom, s'il est fourni.",1
 layer.refreshInterval.title,Refresh Interval,1,Intervalle de rafraîchissement,1
 layer.refreshInterval.description,Automatic refresh interval of the layer (minutes). Max is 100. Zero disables refresh. Currently not supported.,1,Intervalle de rafraîchissement automatique de la couche (minutes). Le maximum est de 100. Zéro désactive le rafraîchissement. Ce paramètre n'est pas pris en charge actuellement.,1
 layer.expectedDrawTime.title,Expected Draw Time,1,Temps de tirage prévu,1
@@ -147,8 +147,8 @@ layer.state.visibility.title,Visibility,1,Visibilité,1
 layer.state.visibility.description,Initial visibility of layer on map,1,Visibilité initiale de la couche sur la carte,1
 layer.state.identify.title,Identify,1,Identifier,1
 layer.state.identify.description,Specifies whether or not to allow identify requests,1,Indique s'il faut ou non autoriser les demandes d'identification,1
-layer.state.hovertips.title,Hovertips,1,Infobulle,1
-layer.state.hovertips.description,Specifies whether or not to enable hovertips,1,Indique s'il faut ou non activer les surimpressions.,1
+layer.state.maptips.title,Maptips,1,Infobulle,1
+layer.state.maptips.description,Specifies whether or not to enable maptips,1,Indique s'il faut ou non activer les surimpressions.,1
 layer.state.opacity.title,Opacity,1,Opacité,1
 layer.state.opacity.description,Initial opacity value of layer. Must be a decimal value between 0 and 1.,1,Valeur initiale de l'opacité du calque. Doit être une valeur décimale comprise entre 0 et 1.,1
 layer.styleLegends.title,Style Legends,1,Légendes du style,1

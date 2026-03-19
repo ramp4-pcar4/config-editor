@@ -39,10 +39,10 @@ watch(state, () => {
             v-model="state.identify"
         />
         <Checkbox
-            :title="t('layer.state.hovertips.title')"
-            :description="t('layer.state.hovertips.description')"
+            :title="t('layer.state.maptips.title')"
+            :description="t('layer.state.maptips.description')"
             checked
-            v-model="state.hovertips"
+            v-model="state.maptips"
         />
         <div class="input-table mt-4">
             <Input
