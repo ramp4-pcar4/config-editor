@@ -215,7 +215,7 @@ const onInput = (key: string, val: string): void => {
 
 <template>
     <Collapsible :title="props.title" :required="required" :description="description">
-        <div ref="rampInstance" class="w-full max-w-2xl h-96"></div>
+        <div ref="rampInstance" class="w-full h-[400px]"></div>
         <button @click="saveExtent" class="mt-2 bg-black text-white p-1 hover:bg-gray-800">
             {{ t('extent.save') }}
         </button>

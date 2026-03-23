@@ -19,7 +19,7 @@ const { t } = useI18n();
             :title="t('startingFixtures.input')"
             v-model="store.startingFixtures"
             header-class="mt-4"
-            input-class="w-full sm:w-[500px]"
+            input-class="w-full ce-sm:w-[500px]"
         />
     </div>
 </template>

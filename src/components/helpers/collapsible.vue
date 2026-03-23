@@ -13,7 +13,7 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
 </script>
 
 <template>
-    <div class="mt-4 p-3 border-black rounded-md" :class="{ 'border-2': thickBorder, border: !thickBorder }" ref="el">
+    <div class="mt-8 p-6 border-black rounded-md" :class="{ 'border-2': thickBorder, border: !thickBorder }" ref="el">
         <div
             class="flex items-center cursor-pointer"
             @click="
@@ -31,7 +31,7 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
                 <button
                     :content="t('editor.expand')"
                     v-tippy="{ trigger: 'mouseenter focus' }"
-                    class="mr-1 sm:mr-3"
+                    class="mr-2 ce-sm:mr-6"
                     :aria-label="t('editor.expand')"
                 >
                     <svg
@@ -48,8 +48,8 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
             </slot>
         </div>
         <div v-if="expanded">
-            <hr class="border-solid border-t border-gray-300 my-2" />
-            <div class="mt-4"><slot></slot></div>
+            <hr class="border-solid border-t border-gray-300 my-8" />
+            <div class="mt-8"><slot></slot></div>
         </div>
     </div>
 </template>

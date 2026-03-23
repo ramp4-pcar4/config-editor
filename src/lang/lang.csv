@@ -10,6 +10,15 @@ editor.startEditing,Use the table of contents on the left to start editing.,1,Us
 start.new,Create new config,1,Create new config,0
 start.existing,Use existing config,1,Use existing config,0
 start.welcome,What would you like to do?,1,Qu'aimeriez-vous faire?,0
+upload.file,"Load from file",1,"Load from file",0
+upload.file.drag,"Drag your config file here",1,"Drag your config file here",0
+upload.file.separator,or,1,or,0
+upload.file.click,"Click to choose a file",1,"Click to choose a file",0
+upload.file.aria,"Config file upload",1,"Config file upload",0
+upload.input.placeholder,"Paste your config or upload a file to the left",1,"Paste your config or upload a file to the left",0
+upload.input.aria,"Config file text input",1,"Config file text input",0
+upload.continue,Start editing,1,Start editing,0
+upload.back,Back,1,Back,0
 navbar.startingFixtures,Starting Fixtures,1,Calendrier de départ,1
 navbar.configs,Configs,1,Configurations,1
 navbar.options,Options,1,Options,1
