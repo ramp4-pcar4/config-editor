@@ -161,7 +161,7 @@ const fieldToInputType: { [key: string]: string } = {
 <template>
     <Collapsible :thick-border="topLevel">
         <template #header>
-            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 sm:mr-3" :aria-label="t('editor.expand')">
+            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 ce-sm:mr-3" :aria-label="t('editor.expand')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                 </svg>
@@ -381,7 +381,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-1 sm:mr-3"
+                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-1 ce-sm:mr-3"
                                         @click.stop
                                         :content="t('editor.reorder')"
                                         v-tippy
@@ -405,7 +405,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :content="t('editor.expand')"
                                         v-tippy
-                                        class="mr-1 sm:mr-3 arrow"
+                                        class="mr-1 ce-sm:mr-3 arrow"
                                         :aria-label="t('editor.expand')"
                                     >
                                         <svg
@@ -417,7 +417,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                         </svg>
                                     </button>
-                                    <span class="mr-1 sm:mr-5 sm:text-lg">{{
+                                    <span class="mr-1 ce-sm:mr-5 ce-sm:text-lg">{{
                                         list[index].id ||
                                         list[index].name ||
                                         list[index].layerId ||
