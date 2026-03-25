@@ -1,27 +1,26 @@
-<!-- steps/StepReview.vue -->
 <template>
     <div>
         <h3 class="text-lg font-semibold">Summary</h3>
-        <p class="text-gray-600 text-sm">Review your map settings, then exit to proceed to the main editor.</p>
+        <p class="text-sm text-gray-600">Review your map settings, then exit to proceed to the main editor.</p>
 
-        <div class="border border-gray-200 rounded-xl p-3 my-3">
-            <h4 class="font-semibold">Layers ({{ state.layers.length }})</h4>
-            <div v-if="!state.layers.length" class="text-gray-600 text-sm">—</div>
+        <div class="my-3 rounded-xl border border-gray-200 p-3">
+            <h4 class="font-semibold">Layers ({{ layers.length }})</h4>
+            <div v-if="!layers.length" class="text-sm text-gray-600">—</div>
             <ul v-else class="mt-2 space-y-1 text-sm">
-                <li v-for="l in layers" :key="l.id">
-                    <strong>{{ l.name }}</strong> — {{ l.selectedType ?? 'auto' }}
+                <li v-for="layer in layers" :key="layer.id">
+                    <strong>{{ layer.name }}</strong> — {{ layer.layerType ?? '—' }}
                 </li>
             </ul>
         </div>
 
-        <div class="border border-gray-200 rounded-xl p-3 my-3">
+        <div class="my-3 rounded-xl border border-gray-200 p-3">
             <h4 class="font-semibold">Basemap</h4>
-            <div class="text-sm">{{ state.basemap.id ?? '—' }}</div>
+            <div class="text-sm">{{ basemapId ?? '—' }}</div>
         </div>
 
-        <div class="border border-gray-200 rounded-xl p-3 my-3">
+        <div class="my-3 rounded-xl border border-gray-200 p-3">
             <h4 class="font-semibold">Start view</h4>
-            <div class="text-sm">{{ extent.mode }}</div>
+            <div class="text-sm">{{ extentLabel }}</div>
         </div>
 
         <ErrorList :errors="errors" />
@@ -29,18 +28,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
+import { useStore } from '@/store';
 import ErrorList from './error-list.vue';
 
-const props = defineProps<{ state: any; errors: any[] }>();
+defineProps<{ errors: any[] }>();
 
-const state = computed(() => props.state);
-const layers = computed(() => [...state.value.layers].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
-const extent = computed(() => state.value.startView);
+const store = useStore();
 
-onMounted(() => {
-    console.log('state', state.value);
+const MERCATOR_EXTENT_SET_ID = 'EXT_ESRI_World_AuxMerc_3857';
+const LAMBERT_EXTENT_SET_ID = 'EXT_NRCAN_Lambert_3978';
+
+const layers = computed(() => store.elc?.layers ?? []);
+const basemapId = computed(() => store.elc?.map?.initialBasemapId);
+const extentSetId = computed(() => store.elc?.map?.tileSchemas?.[0]?.extentSetId);
+
+const extentLabel = computed(() => {
+    if (extentSetId.value === MERCATOR_EXTENT_SET_ID) return 'World Mercator';
+    if (extentSetId.value === LAMBERT_EXTENT_SET_ID) return 'NRCan Lambert';
+    if (extentSetId.value) return 'Custom extent';
+    return '—';
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
