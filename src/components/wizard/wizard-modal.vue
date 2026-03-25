@@ -315,11 +315,11 @@ const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
     return 'idle';
 };
 
-const canNavigateTo = (i: number) => {
-    if (i <= ui.stepIndex) return true;
+const canNavigateTo = (stepIdx: number) => {
+    if (stepIdx <= ui.stepIndex) return true;
 
-    for (let k = 0; k < i; k++) {
-        const errs = validateStep(steps[k].id);
+    for (let i = 0; i < stepIdx; i++) {
+        const errs = validateStep(steps[i].id);
         if (errs.length) return false;
     }
 
