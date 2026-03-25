@@ -1,38 +1,42 @@
 <template>
     <div class="ramp4-config-editor h-full">
         <StartingScreen v-if="!store.initialized && !library" />
-        <div v-else class="h-full flex flex-col">
+
+        <div v-else class="flex h-full flex-col">
             <div class="flex items-center">
                 <h2 class="h-9 text-3xl font-semibold">{{ t('editor.title') }}</h2>
                 <span class="ml-auto"></span>
-                <button
-                    v-if="!library"
-                    class="black-bg-button"
-                    @click="() => createNew()"
-                >
+
+                <button v-if="store.initialized && !library" class="black-bg-button mr-2" @click="openWizard">
+                    Open wizard
+                </button>
+
+                <button v-if="!library" class="black-bg-button" @click="createNew">
                     {{ t('editor.new') }}
                 </button>
             </div>
-            <div class="main-container flex-grow mt-3 flex">
+
+            <div class="main-container mt-3 flex flex-grow">
                 <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
-                <div class="flex-grow h-full pl-5 overflow-y-auto">
-                    <div v-if="store.editingTemplate === ''">
-                        <Wizard />
-                        <!-- {{ t('editor.startEditing') }} -->
-                    </div>
-                    <component v-else :is="editors[store.editingTemplate]"></component>
+
+                <div class="h-full flex-grow overflow-y-auto pl-5">
+                    <component
+                        v-if="store.editingTemplate && editors[store.editingTemplate]"
+                        :is="editors[store.editingTemplate]"
+                    />
+                    <div v-else class="pt-4 text-sm text-gray-600">Select an editor section to begin.</div>
                 </div>
             </div>
+
+            <WizardModal v-model:open="store.wizardOpen" @confirm="onWizardConfirm" @cancel="onWizardCancel" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-// this is the overall editor
-
 import StartingScreen from './components/starting-screen.vue';
 import Navbar from './components/navbar.vue';
-import Wizard from './components/wizard/wizard.vue';
+import WizardModal from './components/wizard/wizard-modal.vue';
 import StartingFixturesEditor from '@/components/starting-fixtures.vue';
 import FixturesEditor from './components/fixtures/fixtures.vue';
 import JsonInput from './components/json-input.vue';
@@ -46,13 +50,13 @@ import Preview from '@/components/preview.vue';
 import '@/styles.css';
 import 'ramp-pcar/dist/ramp.css';
 import { useI18n } from 'vue-i18n';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
 const { t } = useI18n();
 const store = useStore();
-let library: boolean = false;
+const library = ref(false);
 
 const editors: { [key: string]: any } = {
     fixtures: FixturesEditor,
@@ -69,6 +73,23 @@ const editors: { [key: string]: any } = {
 const createNew = () => {
     store.initialized = false;
     store.editingTemplate = '';
+    store.wizardOpen = false;
+};
+
+const openWizard = () => {
+    store.wizardOpen = true;
+};
+
+const onWizardConfirm = () => {
+    store.wizardOpen = false;
+
+    if (!store.editingTemplate) {
+        store.editingTemplate = 'map';
+    }
+};
+
+const onWizardCancel = () => {
+    store.wizardOpen = false;
 };
 
 onMounted(() => {
@@ -86,7 +107,7 @@ onMounted(() => {
     });
 
     if (import.meta.env.MODE.includes('lib')) {
-        library = true;
+        library.value = true;
     }
 });
 </script>
@@ -115,16 +136,9 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .input-table {
-        /**
-   * User input values.
-   */
         --grid-layout-gap: 100px;
         --grid-column-count: 10;
         --grid-item--min-width: min(250px, 100%);
-
-        /**
-   * Calculated values.
-   */
         --gap-count: calc(var(--grid-column-count) - 1);
         --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
         --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
@@ -139,7 +153,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
 
         select,
         input {
-            @apply block border border-black text-sm;
+            @apply border border-black text-sm;
         }
 
         input[type='text'],
@@ -169,10 +183,11 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .black-bg-button {
-        @apply bg-black text-white p-2 rounded-md;
+        @apply rounded-md bg-black p-2 text-white;
         outline: none;
         border-width: 1px;
         border-color: #000;
+
         &:hover,
         &:focus {
             background-color: rgba(209, 213, 219, 1);
