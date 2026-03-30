@@ -13,8 +13,8 @@
             <!-- Header -->
             <header class="flex items-start justify-between border-b border-gray-200 px-[18px] py-4">
                 <div>
-                    <h2 class="m-0 text-[18px]">Quick Start Wizard</h2>
-                    <p class="mt-1 text-[13px] text-gray-600">Set up a working RAMP instance in a few steps</p>
+                    <h2 class="m-0 text-[18px]">{{ t('wizard.quickStart') }}</h2>
+                    <p class="mt-1 text-[13px] text-gray-600">{{  t('wizard.setup') }}</p>
                 </div>
 
                 <div class="flex">
@@ -28,9 +28,8 @@
                 </div>
             </header>
 
-            <!-- Body -->
             <section class="grid min-h-0 grid-cols-[240px_minmax(0,1fr)]">
-                <!-- Stepper -->
+                <!-- stepper -->
                 <aside class="overflow-auto border-r border-gray-200 p-3">
                     <ol class="m-0 grid list-none gap-[6px] p-0">
                         <li
@@ -70,13 +69,12 @@
                     </ol>
                 </aside>
 
-                <!-- Content -->
+                <!-- step content -->
                 <main class="min-h-0 overflow-auto px-6 py-5">
                     <component :is="activeStep.component" :errors="stepErrors" />
                 </main>
             </section>
 
-            <!-- Footer -->
             <footer class="flex items-center justify-between gap-[10px] border-t border-gray-200 px-[18px] py-3">
                 <div>
                     <button
@@ -84,7 +82,7 @@
                         :disabled="ui.stepIndex === 0"
                         @click="back"
                     >
-                        Back
+                        {{ t('wizard.back') }}
                     </button>
                 </div>
 
@@ -96,7 +94,7 @@
                         :title="!canProceed ? proceedTooltip : ''"
                         @click="next"
                     >
-                        Next
+                        {{ t('wizard.next') }}
                     </button>
 
                     <button
@@ -106,32 +104,32 @@
                         :title="!canConfirm ? 'Complete required steps to confirm' : ''"
                         @click="confirm"
                     >
-                        Confirm & Enter Advanced Editor
+                        {{ t('wizard.confirm') }}
                     </button>
                 </div>
             </footer>
 
-            <!-- Discard dialog -->
+            <!-- discard changes -->
             <div
                 v-if="showDiscardConfirm"
                 class="absolute inset-0 grid place-items-center bg-black/35 p-4"
                 @click.self="showDiscardConfirm = false"
             >
                 <div class="w-full max-w-[420px] rounded-[14px] border border-gray-200 bg-white p-[14px]">
-                    <h4 class="mb-[6px] mt-0">Discard wizard changes?</h4>
-                    <p class="mb-3 text-[13px] text-gray-600">Your changes in the wizard haven’t been applied yet.</p>
+                    <h4 class="mb-[6px] mt-0">{{ t('wizard.discardChanges') }}</h4>
+                    <p class="mb-3 text-[13px] text-gray-600">{{ t('wizard.discardWarning') }}</p>
                     <div class="flex justify-end gap-[10px]">
                         <button
                             class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-3 py-2 text-[13px]"
                             @click="showDiscardConfirm = false"
                         >
-                            Keep editing
+                            {{ t('wizard.cancel') }}
                         </button>
                         <button
                             class="cursor-pointer rounded-[10px] border border-red-700 bg-red-700 px-3 py-2 text-[13px] text-white"
                             @click="forceClose"
                         >
-                            Discard
+                            {{ t('wizard.discard') }}
                         </button>
                     </div>
                 </div>
@@ -143,6 +141,7 @@
 <script setup lang="ts">
 import { computed, reactive, watch, ref } from 'vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 
 import StepDefaults from './step-defaults.vue';
 import StepLayers from './step-layers.vue';
@@ -161,6 +160,7 @@ const emit = defineEmits<{
 }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 type WizardUiState = {
     stepIndex: number;

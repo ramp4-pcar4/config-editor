@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h3 class="text-lg font-semibold">Basemap</h3>
-        <p class="mt-1 text-sm text-gray-600">Choose one basemap for the map background.</p>
+        <h3 class="text-lg font-semibold">{{ t('wizard.basemap.title') }}</h3>
+        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.basemap.description') }}</p>
 
         <div class="mt-4 space-y-6">
             <section v-for="group in basemapGroups" :key="group.id">
@@ -72,11 +72,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
+
 import ErrorList from './error-list.vue';
 
 defineProps<{ errors: any[] }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 const availableBasemaps = computed(() => store.elc.map.basemaps);
 const availableTileSchemas = computed(() => store.elc.map.tileSchemas);

@@ -1,14 +1,14 @@
 <template>
     <div>
-        <h3 class="text-lg font-semibold">Layers</h3>
-        <p class="mt-1 text-sm text-gray-600">Add layer source data (at least one layer is required).</p>
+        <h3 class="text-lg font-semibold">{{ t('wizard.layers.title') }}</h3>
+        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.layers.description') }}</p>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">Add a layer</h4>
+            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.layers.add') }}</h4>
 
             <div class="mt-4 grid gap-2">
-                <label class="text-sm font-medium text-gray-900">Source URL*</label>
-                <p class="mt-1 text-xs text-gray-500">Provide a URL to a file or map service.</p>
+                <label class="text-sm font-medium text-gray-900">{{ t('wizard.layers.source') }}*</label>
+                <p class="mt-1 text-xs text-gray-500">{{ t('wizard.layers.source.description') }}</p>
                 <input
                     v-model="draft.url"
                     class="w-full rounded-lg border px-3 py-2 text-sm outline-none transition"
@@ -19,7 +19,7 @@
 
             <div class="mt-4 grid gap-4">
                 <div class="grid gap-2">
-                    <label class="text-sm font-medium text-gray-900">Layer name*</label>
+                    <label class="text-sm font-medium text-gray-900">{{ t('wizard.layers.name') }}*</label>
                     <input
                         v-model="draft.name"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
@@ -27,13 +27,13 @@
                 </div>
 
                 <div class="grid gap-2">
-                    <label class="text-sm font-medium text-gray-900">Layer type*</label>
+                    <label class="text-sm font-medium text-gray-900">{{ t('wizard.layers.type') }}*</label>
                     <select
                         v-model="draft.selectedType"
                         :disabled="!availableLayerTypes.length"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
                     >
-                        <option disabled value="">Select a layer type</option>
+                        <option disabled value="">{{ t('wizard.layers.selectType') }}</option>
                         <option v-for="t in availableLayerTypes" :key="t" :value="t">
                             {{ formatLayerType(t) }}
                         </option>
@@ -54,26 +54,24 @@
                     class="inline-flex items-center rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-black"
                     @click="addLayer"
                 >
-                    + Add layer
+                    + {{ t('wizard.layers.addLayer') }}
                 </button>
             </div>
         </div>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">Layers in this map ({{ layers.length }})</h4>
+            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.layers.inMap') }} ({{ layers.length }})</h4>
 
             <div v-if="!layers.length" class="mt-3 text-sm text-gray-500">
-                No layers yet. Add your first layer to continue.
+                {{ t('wizard.layers.none') }}
             </div>
 
             <draggable
                 v-else
-                :model-value="sortedLayers"
+                class="mt-3 grid gap-2"
                 item-key="id"
                 handle=".drag-handle"
-                :animation="180"
-                ghost-class="opacity-50"
-                class="mt-3 grid gap-2"
+                :model-value="sortedLayers"
                 @update:modelValue="updateSortedLayers"
             >
                 <template #item="{ element: l, index }">
@@ -81,7 +79,7 @@
                         <div class="flex items-center gap-3 p-3 shadow-sm">
                             <div
                                 class="drag-handle flex cursor-grab active:cursor-grabbing items-center justify-center rounded-md border border-gray-200 bg-gray-50 px-2 py-2 text-sm text-gray-500"
-                                title="Drag to reorder"
+                                :title="t('wizard.layers.reorder')"
                             >
                                 ☰
                             </div>
@@ -102,7 +100,7 @@
                                     class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50"
                                     @click="startEditLayer(l)"
                                 >
-                                    Edit
+                                    {{ t('wizard.layers.edit') }}
                                 </button>
 
                                 <button
@@ -110,7 +108,7 @@
                                     class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50"
                                     @click="removeLayer(l.id)"
                                 >
-                                    Remove
+                                    {{ t('wizard.layers.remove') }}
                                 </button>
                             </div>
                         </div>
@@ -126,7 +124,9 @@
                                 </div>
 
                                 <div class="grid gap-2">
-                                    <label class="text-sm font-medium text-gray-900">Layer source</label>
+                                    <label class="text-sm font-medium text-gray-900">{{
+                                        t('wizard.layers.source')
+                                    }}</label>
                                     <div
                                         class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600"
                                     >
@@ -135,7 +135,9 @@
                                 </div>
 
                                 <div class="grid gap-2">
-                                    <label class="text-sm font-medium text-gray-900">Layer type</label>
+                                    <label class="text-sm font-medium text-gray-900">{{
+                                        t('wizard.layers.type')
+                                    }}</label>
                                     <div
                                         class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600"
                                     >
@@ -149,17 +151,25 @@
                                         class="flex w-full items-center justify-between text-left"
                                         @click="editDraft.showAdvanced = !editDraft.showAdvanced"
                                     >
-                                        <span class="text-sm font-medium text-gray-900">Advanced layer settings</span>
+                                        <span class="text-sm font-medium text-gray-900">{{
+                                            t('wizard.layers.advanced.settings')
+                                        }}</span>
                                         <span class="text-xs text-gray-500">
-                                            {{ editDraft.showAdvanced ? 'Hide' : 'Show' }}
+                                            {{
+                                                editDraft.showAdvanced
+                                                    ? t('wizard.layers.hide')
+                                                    : t('wizard.layers.show')
+                                            }}
                                         </span>
                                     </button>
 
                                     <div v-if="editDraft.showAdvanced" class="mt-4 space-y-4">
                                         <div>
-                                            <h5 class="text-sm font-medium text-gray-900">Field metadata</h5>
+                                            <h5 class="text-sm font-medium text-gray-900">
+                                                {{ t('wizard.layers.advanced.metadata') }}
+                                            </h5>
                                             <p class="mt-1 text-xs text-gray-500">
-                                                Configure layer metadata properties.
+                                                {{ t('wizard.layers.advanced.metadata.configure') }}
                                             </p>
                                             <div
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
@@ -169,8 +179,12 @@
                                         </div>
 
                                         <div>
-                                            <h5 class="text-sm font-medium text-gray-900">Grid columns</h5>
-                                            <p class="mt-1 text-xs text-gray-500">Configure layer grid columns.</p>
+                                            <h5 class="text-sm font-medium text-gray-900">
+                                                {{ t('wizard.layers.advanced.grid.cols') }}
+                                            </h5>
+                                            <p class="mt-1 text-xs text-gray-500">
+                                                {{ t('wizard.layers.advanced.grid.cols.configure') }}
+                                            </p>
                                             <div
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
                                             >
@@ -186,7 +200,7 @@
                                         class="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 transition hover:bg-gray-50"
                                         @click="cancelEditLayer"
                                     >
-                                        Cancel
+                                        {{ t('wizard.layers.cancel') }}
                                     </button>
 
                                     <button
@@ -194,7 +208,7 @@
                                         class="rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-black"
                                         @click="saveEditLayer"
                                     >
-                                        Save changes
+                                        {{ t('wizard.layers.save') }}
                                     </button>
                                 </div>
                             </div>
@@ -211,11 +225,14 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
+
 import draggable from 'vuedraggable';
 import ErrorList from './error-list.vue';
 
 defineProps<{ errors: any[] }>();
 
+const { t } = useI18n();
 const store = useStore();
 
 const createDraft = () => ({
@@ -229,27 +246,6 @@ const draft = reactive(createDraft());
 const valid = ref(true);
 const expandedLayerId = ref<string | null>(null);
 
-const editDraft = reactive({
-    id: null as string | null,
-    name: '',
-    showAdvanced: false as boolean
-});
-
-const ensureLayers = () => {
-    if (!store.elc.layers) {
-        store.elc.layers = [];
-    }
-    return store.elc.layers;
-};
-
-const layers = computed({
-    get: () => ensureLayers(),
-    set: value => {
-        store.elc.layers = value;
-    }
-});
-
-const sortedLayers = computed(() => [...layers.value]);
 const layerTypeLabels: Record<string, string> = {
     'file-geojson': 'GeoJSON',
     'file-shape': 'Zipped Shapefile',
@@ -262,6 +258,25 @@ const layerTypeLabels: Record<string, string> = {
     'ogc-wfs': 'OGC Web Feature Service'
 };
 
+const editDraft = reactive({
+    id: null as string | null,
+    name: '',
+    showAdvanced: false as boolean
+});
+
+const layers = computed({
+    get: () => {
+        if (!store.elc.layers) {
+            store.elc.layers = [];
+        }
+        return store.elc.layers;
+    },
+    set: value => {
+        store.elc.layers = value;
+    }
+});
+
+const sortedLayers = computed(() => [...layers.value]);
 const formatLayerType = (type: string) => layerTypeLabels[type] ?? type;
 const availableLayerTypes = computed(() => draft.detectedTypes);
 

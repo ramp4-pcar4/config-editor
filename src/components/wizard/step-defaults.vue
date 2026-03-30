@@ -1,14 +1,14 @@
 <template>
     <div>
-        <h3 class="text-lg font-semibold">Defaults</h3>
-        <p class="mt-1 text-sm text-gray-600">Choose basic map defaults and startup fixture settings.</p>
+        <h3 class="text-lg font-semibold">{{ t('wizard.defaults.title') }}</h3>
+        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.defaults.description') }}</p>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">Basic defaults</h4>
+            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.defaults.basic') }}</h4>
 
             <div class="mt-4 grid gap-4 md:grid-cols-1">
                 <div class="grid gap-2">
-                    <label class="text-sm font-medium text-gray-900">Locale</label>
+                    <label class="text-sm font-medium text-gray-900">{{ t('wizard.defaults.locale') }}</label>
                     <select
                         v-model="editingLang"
                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
@@ -23,9 +23,9 @@
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <h4 class="text-sm font-semibold text-gray-900">Map fixtures on startup</h4>
+                    <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.defaults.mapFixtures') }}</h4>
                     <p class="mt-1 text-sm text-gray-600">
-                        Choose which fixtures are included when the map initializes.
+                        {{ t('wizard.defaults.mapFixtures.description') }}
                     </p>
                 </div>
 
@@ -36,7 +36,7 @@
                         class="h-4 w-4 rounded border-gray-300"
                         @change="onLoadDefaultFixturesChange"
                     />
-                    <span>Load default map fixtures</span>
+                    <span>{{ t('wizard.defaults.mapFixtures.default') }}</span>
                 </label>
             </div>
 
@@ -70,11 +70,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
 import ErrorList from './error-list.vue';
-
+    
 defineProps<{ errors: any[] }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 const DEFAULT_FIXTURES = [
     'appbar',

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h3 class="text-lg font-semibold">Starting extent</h3>
-        <p class="mt-1 text-sm text-gray-600">Choose the default map extent when the RAMP instance first loads.</p>
+        <h3 class="text-lg font-semibold">{{ t('wizard.extent.title') }}</h3>
+        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.extent.description') }}</p>
 
         <div class="mt-4 space-y-3">
             <label
@@ -13,7 +13,7 @@
                 <input v-model="mode" type="radio" value="mercatorDefault" class="mt-0.5 h-4 w-4 border-gray-300" />
 
                 <div class="min-w-0 flex-1">
-                    <div class="text-sm font-medium text-gray-900">Mercator default extent</div>
+                    <div class="text-sm font-medium text-gray-900">{{ t('wizard.extent.mercator') }}</div>
                     <div class="mt-1 text-xs text-gray-500">{{ MERCATOR_EXTENT_SET_ID }}</div>
 
                     <div class="mt-3 grid grid-cols-1 gap-2 text-xs text-gray-600 md:grid-cols-2">
@@ -46,7 +46,7 @@
                 <input v-model="mode" type="radio" value="lambertDefault" class="mt-0.5 h-4 w-4 border-gray-300" />
 
                 <div class="min-w-0 flex-1">
-                    <div class="text-sm font-medium text-gray-900">Lambert default extent</div>
+                    <div class="text-sm font-medium text-gray-900">{{ t('wizard.extent.lambert') }}</div>
                     <div class="mt-1 text-xs text-gray-500">{{ LAMBERT_EXTENT_SET_ID }}</div>
 
                     <div class="mt-3 grid grid-cols-1 gap-2 text-xs text-gray-600 md:grid-cols-2">
@@ -77,14 +77,14 @@
                 <input v-model="mode" type="radio" value="custom" class="mt-0.5 h-4 w-4 border-gray-300" />
 
                 <div class="min-w-0">
-                    <div class="text-sm font-medium text-gray-900">Custom extent</div>
-                    <div class="mt-1 text-xs text-gray-500">Provide custom extent values.</div>
+                    <div class="text-sm font-medium text-gray-900">{{ t('wizard.extent.custom') }}</div>
+                    <div class="mt-1 text-xs text-gray-500">{{ t('wizard.extent.custom.description') }}</div>
                 </div>
             </label>
         </div>
 
         <div v-if="mode === 'custom'" class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">Custom extent values</h4>
+            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.extent.custom.values') }}</h4>
 
             <div class="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div class="grid gap-2">
@@ -144,11 +144,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useStore } from '@/store';
+import { useI18n } from 'vue-i18n';
+
 import ErrorList from './error-list.vue';
 
 defineProps<{ errors: any[] }>();
 
 const store = useStore();
+const { t } = useI18n();
 
 const MERCATOR_EXTENT_SET_ID = 'EXT_ESRI_World_AuxMerc_3857';
 const LAMBERT_EXTENT_SET_ID = 'EXT_NRCAN_Lambert_3978';

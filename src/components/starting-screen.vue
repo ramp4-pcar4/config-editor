@@ -60,10 +60,6 @@ const newConfig = () => {
     if (!store.editingLang) {
         store.editingLang = 'en';
     }
-
-    if (!store.editingTemplate) {
-        store.editingTemplate = 'map';
-    }
 };
 
 const existingConfig = () => {
@@ -90,9 +86,6 @@ h2 {
     font-size: 24px !important;
     line-height: 32px !important;
     margin-bottom: 20px !important;
-}
-
-.start-container {
 }
 
 button {
