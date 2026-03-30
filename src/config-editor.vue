@@ -24,12 +24,12 @@
                             v-if="store.editingTemplate && editors[store.editingTemplate]"
                             :is="editors[store.editingTemplate]"
                         />
-                        <div v-else class="pt-4 text-sm text-gray-600">Select an editor section to begin.</div>
+                        <div v-else class="pt-4 text-sm text-gray-600">{{ t('editor.startEditing') }}</div>
                     </div>
                 </div>
             </div>
 
-            <WizardModal v-model:open="store.wizardOpen" @confirm="onWizardConfirm" @cancel="onWizardCancel" />
+            <WizardModal v-model:open="store.wizardOpen" @confirm="() => store.wizardOpen = false" @cancel="() => store.wizardOpen = false" />
         </div>
     </div>
 </template>
@@ -75,28 +75,6 @@ const editors: { [key: string]: any } = {
     system: SystemEditor
 };
 
-const createNew = () => {
-    store.initialized = false;
-    store.editingTemplate = '';
-    store.wizardOpen = false;
-};
-
-const openWizard = () => {
-    store.wizardOpen = true;
-};
-
-const onWizardConfirm = () => {
-    store.wizardOpen = false;
-
-    if (!store.editingTemplate) {
-        store.editingTemplate = 'map';
-    }
-};
-
-const onWizardCancel = () => {
-    store.wizardOpen = false;
-};
-
 onMounted(() => {
     setDefaultProps({
         aria: {
@@ -121,6 +99,16 @@ onMounted(() => {
         library.value = true;
     }
 });
+
+const createNew = () => {
+    store.initialized = false;
+    store.editingTemplate = '';
+    store.wizardOpen = false;
+};
+
+const openWizard = () => {
+    store.wizardOpen = true;
+};
 </script>
 
 <style lang="scss">
