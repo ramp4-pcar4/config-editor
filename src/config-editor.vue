@@ -8,7 +8,7 @@
                 <span class="ml-auto"></span>
 
                 <button v-if="store.initialized && !library" class="black-bg-button mr-2" @click="openWizard">
-                    Open wizard
+                    {{ t('wizard.open') }}
                 </button>
 
                 <button v-if="!library" class="black-bg-button" @click="createNew">
@@ -24,11 +24,11 @@
                         v-if="store.editingTemplate && editors[store.editingTemplate]"
                         :is="editors[store.editingTemplate]"
                     />
-                    <div v-else class="pt-4 text-sm text-gray-600">Select an editor section to begin.</div>
+                    <div v-else class="pt-4 text-sm text-gray-600">{{ t('editor.startEditing') }}</div>
                 </div>
             </div>
 
-            <WizardModal v-model:open="store.wizardOpen" @confirm="onWizardConfirm" @cancel="onWizardCancel" />
+            <WizardModal v-model:open="store.wizardOpen" @confirm="() => store.wizardOpen = false" @cancel="() => store.wizardOpen = false" />
         </div>
     </div>
 </template>
@@ -49,8 +49,8 @@ import Preview from '@/components/preview.vue';
 
 import '@/styles.css';
 import 'ramp-pcar/dist/ramp.css';
-import { useI18n } from 'vue-i18n';
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
@@ -68,28 +68,6 @@ const editors: { [key: string]: any } = {
     preview: Preview,
     'starting-fixtures': StartingFixturesEditor,
     system: SystemEditor
-};
-
-const createNew = () => {
-    store.initialized = false;
-    store.editingTemplate = '';
-    store.wizardOpen = false;
-};
-
-const openWizard = () => {
-    store.wizardOpen = true;
-};
-
-const onWizardConfirm = () => {
-    store.wizardOpen = false;
-
-    if (!store.editingTemplate) {
-        store.editingTemplate = 'map';
-    }
-};
-
-const onWizardCancel = () => {
-    store.wizardOpen = false;
 };
 
 onMounted(() => {
@@ -110,6 +88,16 @@ onMounted(() => {
         library.value = true;
     }
 });
+
+const createNew = () => {
+    store.initialized = false;
+    store.editingTemplate = '';
+    store.wizardOpen = false;
+};
+
+const openWizard = () => {
+    store.wizardOpen = true;
+};
 </script>
 
 <style lang="scss">

@@ -54,3 +54,55 @@ system.suppressNumberLocalization.title,Suppress Number Localization,1,Suppressi
 system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,Détermine s'il faut afficher les nombres au format décimal simple au lieu de les formater en fonction de la langue de l'app.,1
 system.scrollToInstance.title,Scroll To Instance,1,Défilement vers l'instance,1
 system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,Détermine si le navigateur défile jusqu'à l'instance RAMP lorsqu'on appuie sur un bouton dans l'application.,1
+wizard.open,Open wizard,1,Ouvrir l'assistant,0
+wizard.quickStart,Quick start wizard,1,Assistant de démarrage rapide,0
+wizard.setup,Set up a working RAMP instance in a few steps,1,Configurez une instance RAMP fonctionnelle en quelques étapes,0
+wizard.back,Back,1,Retour,1
+wizard.next,Next,1,Suivant,1
+wizard.confirm,Confirm & Enter Main Editor,1,Confirmer et accéder à l'éditeur principal,0
+wizard.discard,Discard,1,Jeter,0
+wizard.discardChanges,Discard wizard changes?,1,Ignorer les modifications apportées par l'Assistant?,0
+wizard.discardWarning,Your changes in the wizard haven’t been applied yet.,1,Vos modifications dans l'assistant n'ont pas encore été appliquées.,0
+wizard.cancel,Keep editing,1,Continuer à éditer,0
+wizard.errors.fix,Please fix the following:,1,Veuillez corriger les éléments suivants:,0
+wizard.defaults.title,Defaults,1,Valeurs par défaut,0
+wizard.defaults.description,Choose basic map defaults and startup fixture settings,1,Choisissez les paramètres par défaut de la carte de base et les paramètres de démarrage des luminaires,0
+wizard.defaults.basic,Basic defaults,1,Paramètres par défaut de base,0
+wizard.defaults.locale,Locale,1,Lieu,0
+wizard.defaults.mapFixtures,Map fixtures on startup,1,Planifiez les points de repère au démarrage,0
+wizard.defaults.mapFixtures.description,Choose which fixtures are included when the map initializes.,1,Choisissez les équipements à inclure lors de l'initialisation de la carte.,0
+wizard.defaults.mapFixtures.default,Load default map fixtures,1,Charger les éléments de carte par défaut,0
+wizard.layers.title,Layers,1,Couches,1
+wizard.layers.description,Add layer source data (at least one layer is required).,1,Ajouter les données sources de la couche (au moins une couche est requise).,0
+wizard.layers.add,Add a layer,1,,0
+wizard.layers.source,Source URL,1,URL source,0
+wizard.layers.source.description,Provide a URL to a file or map service.,1,Fournissez une URL vers un service de fichiers ou de cartes.,0
+wizard.layers.name,Layer name,1,Nom du calque,0
+wizard.layers.type,Layer type,1,Type de calque,0
+wizard.layers.selectType,Select a layer type,1,Sélectionnez un type de calque,0
+wizard.layers.addLayer,Add layer,1,Ajouter un calque,0
+wizard.layers.count,Layers in this map,1,Les couches de cette carte,0
+wizard.layers.none,No layers yet. Add your first layer to continue.,1,"Aucune couche pour l'instant. Ajoutez votre première couche pour continuer.",0
+wizard.layers.reorder,Drag to reorder,1,Faites glisser pour réorganiser,0
+wizard.layers.edit,Edit,1,Éditer,1
+wizard.layers.remove,Remove,1,Supprimer,1
+wizard.layers.advanced.settings,Advanced layer settings,1,Paramètres de calque avancés,0
+wizard.layers.advanced.metadata,Field metadata,1,Métadonnées de champ,0
+wizard.layers.advanced.metadata.configure,Configurer les propriétés des métadonnées de la couche.,1,Configurer les propriétés des métadonnées de la couche.,0
+wizard.layers.advanced.grid.cols,Grid columns,1,Colonnes de la grille,0
+wizard.layers.advanced.grid.cols.configure,Configure layer grid columns.,1,Configurer les colonnes de la grille des calques.,0
+wizard.layers.hide,Hide,1,Cacher,1
+wizard.layers.show,Show,1,Montrer,1
+wizard.layers.cancel,Cancel,1,Annuler,1
+wizard.layers.save,Save changes,1,Enregistrer les modifications,0
+wizard.basemap.title,Basemap,1,Fond de carte,0
+wizard.basemap.description,Choose one basemap for the map background.,1,Choisissez un fond de carte.,0
+wizard.extent.title,Starting extent,1,Étendue de départ,0
+wizard.extent.description.Choose the default map extent when the RAMP loads.,1,Choisissez l'étendue de la carte par défaut lors du chargement de la RAMP.,0
+wizard.extent.mercator,Mercator default extent,1,Étendue par défaut de Mercator,0
+wizard.extent.lambert,Lambert default extent,1,Étendue par défaut de Lambert,0
+wizard.extent.custom,Custom extent,1,Étendue personnalisée,0
+wizard.extent.custom.description,Provide custom extent values.,1,Fournissez des valeurs d'étendue personnalisées.,0
+wizard.extent.custom.values,Custom extent values,1,Valeurs d'étendue personnalisées,0
+wizard.review.title,Summary,1,Résumé,0
+wizard.review.description,Review your map settings, then exit to proceed to the main editor.,1,Vérifiez les paramètres de votre carte, puis quittez pour accéder à l'éditeur principal.,0
