@@ -111,7 +111,7 @@ export interface RampLayerStateConfig {
     visibility?: boolean;
     opacity?: number;
     identify?: boolean;
-    hovertips?: boolean;
+    maptips?: boolean;
 }
 
 export interface RampLayerFieldInfoConfig {
@@ -177,7 +177,8 @@ export interface RampLayerConfig {
     expectedLoadTime?: number;
     fieldMetadata?: RampLayerFieldMetadataConfig;
     nameField?: string;
-    tooltipField?: string;
+    maptipField?: string;
+    maptipArcade?: string;
     featureInfoMimeType?: string; // used by WMS layer
     controls?: Array<LayerControl>;
     disabledControls?: Array<LayerControl>;

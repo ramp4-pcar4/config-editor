@@ -37,10 +37,10 @@ const libConfig = {
             // the name of the output files when the build is run
             fileName: 'ramp4-editor'
         },
-        rollupOptions: {
+        rolldownOptions: {
             external: ['ramp-pcar'], // this stops RAMP from being bundled. app consuming this editor will need to have RAMP in its package imports
             output: {
-                inlineDynamicImports: true,
+                codeSplitting: false,
                 globals: {
                     vue: 'Vue'
                 },
@@ -62,11 +62,11 @@ const regConfig = {
         open: '/index-ca-en.html'
     },
     build: {
-        rollupOptions: {
+        rolldownOptions: {
             input: {
                 main: '/index.html',
                 en: '/index-ca-en.html',
-                fr: '/index-ca-fr.html',
+                fr: '/index-ca-fr.html'
             }
         }
     }

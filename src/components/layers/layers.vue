@@ -203,7 +203,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
 
             if (LayerTools.isVectorLayer(oldLayerType)) {
                 if (!LayerTools.isVectorLayer(newLayerType)) {
-                    config.tooltipField = nossing;
+                    config.maptipField = nossing;
                     config.customRenderer = nossing;
                     config.drawOrder = nossing;
                 }
@@ -513,9 +513,9 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                                 />
                                 <Input
                                     v-if="LayerTools.isVectorLayer(element)"
-                                    :title="t('layer.tooltipField.title')"
-                                    :description="t('layer.tooltipField.description')"
-                                    v-model="element.tooltipField"
+                                    :title="t('layer.maptipField.title')"
+                                    :description="t('layer.maptipField.description')"
+                                    v-model="element.maptipField"
                                 />
                                 <Input
                                     :title="t('layer.expectedDrawTime.title')"
