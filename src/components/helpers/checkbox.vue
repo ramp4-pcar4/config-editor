@@ -23,7 +23,7 @@ const onInput = (e: Event) => {
 </script>
 
 <template>
-    <div class="mt-4 flex items-center">
+    <div class="mt-16 flex items-center">
         <input type="checkbox" :disabled="disabled ?? false" :checked="checked" :aria-label="title" @input="onInput" />
         <InputHeader :title="title" :description="description" type="checkbox" />
     </div>

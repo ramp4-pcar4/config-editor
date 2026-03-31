@@ -296,7 +296,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                         }"
                         @click.stop
                     >
-                        <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <svg class="fill-current w-20 h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M0 0h24v24H0z" fill="none"></path>
                             <path
                                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
@@ -306,7 +306,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                 </button>
                 <!-- add item button -->
                 <button
-                    class="bg-black cursor-pointer hover:bg-gray-800 ml-2 p-1 text-white flex-shrink-0 flex items-center justify-center"
+                    class="bg-black cursor-pointer hover:bg-gray-800 ml-8 p-4 text-white flex-shrink-0 flex items-center justify-center"
                     @click="addLayer"
                 >
                     <svg
@@ -338,7 +338,7 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                             <button
                                 :content="t('editor.reorder')"
                                 v-tippy
-                                class="cursor-move handle mr-1 sm:mr-5"
+                                class="cursor-move handle mr-1 ce-sm:mr-5"
                                 @click.stop
                                 :aria-label="t('editor.reorder')"
                             >
@@ -360,14 +360,14 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
                             <button
                                 :content="t('editor.expand')"
                                 v-tippy
-                                class="arrow mr-1 sm:mr-5"
+                                class="arrow mr-1 ce-sm:mr-5"
                                 :aria-label="t('editor.expand')"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                 </svg>
                             </button>
-                            <span class="mr-1 sm:mr-5 sm:text-lg">{{
+                            <span class="mr-1 ce-sm:mr-5 ce-sm:text-lg">{{
                                 element.id ? element.id : t('layer.title', [index + 1])
                             }}</span>
                             <div class="flex ml-auto">

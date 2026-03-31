@@ -22,14 +22,14 @@ const { t } = useI18n();
             :description="t('system.proxyUrl.description')"
             v-model="store.elc.system!.proxyUrl"
             header-class="mt-4"
-            input-class="w-full sm:w-[500px]"
+            input-class="w-full ce-sm:w-[500px]"
         />
         <Input
             :title="t('system.zoomIcon.title')"
             :description="t('system.zoomIcon.description')"
             v-model="store.elc.system!.zoomIcon"
             header-class="mt-4"
-            input-class="w-full sm:w-[500px]"
+            input-class="w-full ce-sm:w-[500px]"
         />
         <Checkbox
             v-model="store.elc.system!.animate"
