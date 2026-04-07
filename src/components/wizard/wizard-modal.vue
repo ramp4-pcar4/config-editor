@@ -14,7 +14,7 @@
             <header class="flex items-start justify-between border-b border-gray-200 px-[18px] py-4">
                 <div>
                     <h2 class="m-0 text-[18px]">{{ t('wizard.quickStart') }}</h2>
-                    <p class="mt-1 text-[13px] text-gray-600">{{  t('wizard.setup') }}</p>
+                    <p class="mt-1 text-[13px] text-gray-600">{{ t('wizard.setup') }}</p>
                 </div>
 
                 <div class="flex">
@@ -253,21 +253,17 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     const errors: StepError[] = [];
 
     if (stepId === 'layers') {
-        if (currentLayers.value.length < 1) {
-            errors.push({ message: 'Add at least one layer to continue.' });
-        } else {
-            for (const layer of currentLayers.value) {
-                if (!layer.name?.trim()) {
-                    errors.push({ message: 'Each layer needs a name.' });
-                }
+        for (const layer of currentLayers.value) {
+            if (!layer.name?.trim()) {
+                errors.push({ message: 'Each layer needs a name.' });
+            }
 
-                if (!layer.layerType) {
-                    errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a layer type.` });
-                }
+            if (!layer.layerType) {
+                errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a layer type.` });
+            }
 
-                if (!layer.url?.trim()) {
-                    errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a URL.` });
-                }
+            if (!layer.url?.trim()) {
+                errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a URL.` });
             }
         }
     }
@@ -279,10 +275,6 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     }
 
     if (stepId === 'review') {
-        if (currentLayers.value.length < 1) {
-            errors.push({ message: 'You need at least one layer.' });
-        }
-
         if (!currentBasemapId.value) {
             errors.push({ message: 'You need to choose a basemap.' });
         }
@@ -291,12 +283,7 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     return errors;
 };
 
-const readiness = computed(() => ({
-    hasLayer: currentLayers.value.length > 0,
-    hasBasemap: !!currentBasemapId.value
-}));
-
-const canConfirm = computed(() => readiness.value.hasLayer && readiness.value.hasBasemap);
+const canConfirm = computed(() => !!currentBasemapId.value);
 
 const canProceed = computed(() => validateStep(activeStep.value.id).length === 0);
 
@@ -306,11 +293,15 @@ const proceedTooltip = computed(() => {
 });
 
 const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
-    if (i === ui.stepIndex) return 'active';
+    if (i === ui.stepIndex) {
+        return 'active';
+    }
 
     const errs = validateStep(steps[i].id);
 
-    if (i < ui.stepIndex) return errs.length ? 'blocked' : 'done';
+    if (i < ui.stepIndex) {
+        return errs.length ? 'blocked' : 'done';
+    }
 
     return 'idle';
 };
@@ -327,8 +318,9 @@ const canNavigateTo = (stepIdx: number) => {
 };
 
 const goToStep = (i: number) => {
-    if (!canNavigateTo(i)) return;
-
+    if (!canNavigateTo(i)) {
+        return;
+    }
     stepErrors.value = [];
     ui.stepIndex = i;
 };
@@ -337,7 +329,9 @@ const next = () => {
     const errs = validateStep(activeStep.value.id);
     stepErrors.value = errs;
 
-    if (errs.length) return;
+    if (errs.length) {
+        return;
+    }
 
     if (ui.stepIndex < steps.length - 1) {
         ui.stepIndex++;
@@ -356,7 +350,9 @@ const confirm = () => {
     const errs = validateStep('review');
     stepErrors.value = errs;
 
-    if (errs.length) return;
+    if (errs.length) {
+        return;
+    }
 
     emit('confirm');
     emit('update:open', false);
