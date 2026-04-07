@@ -54,13 +54,13 @@
                     class="inline-flex items-center rounded-lg bg-gray-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-black"
                     @click="addLayer"
                 >
-                    + {{ t('wizard.layers.addLayer') }}
+                    {{ loadingLayerMetadata ? `${t('wizard.layers.loading')}...` : `+ ${t('wizard.layers.addLayer')}` }}
                 </button>
             </div>
         </div>
 
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
-            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.layers.inMap') }} ({{ layers.length }})</h4>
+            <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.layers.count') }} ({{ layers.length }})</h4>
 
             <div v-if="!layers.length" class="mt-3 text-sm text-gray-500">
                 {{ t('wizard.layers.none') }}
@@ -89,7 +89,6 @@
                                     {{ index + 1 }}. {{ l.name }}
                                 </div>
                                 <div class="mt-0.5 text-xs text-gray-500">
-                                    {{ formatLayerType(l.selectedType) }}
                                     <span>{{ l.url }}</span>
                                 </div>
                             </div>
@@ -116,7 +115,9 @@
                         <div v-if="expandedLayerId === l.id" class="border-t border-gray-200 bg-gray-50 p-4">
                             <div class="grid gap-4">
                                 <div class="grid gap-2">
-                                    <label class="text-sm font-medium text-gray-900">Layer name</label>
+                                    <label class="text-sm font-medium text-gray-900">{{
+                                        t('wizard.layers.name')
+                                    }}</label>
                                     <input
                                         v-model="editDraft.name"
                                         class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
@@ -141,7 +142,7 @@
                                     <div
                                         class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-600"
                                     >
-                                        {{ formatLayerType(l.selectedType) }}
+                                        {{ formatLayerType(l.layerType) }}
                                     </div>
                                 </div>
 
@@ -163,7 +164,10 @@
                                         </span>
                                     </button>
 
-                                    <div v-if="editDraft.showAdvanced" class="mt-4 space-y-4">
+                                    <div
+                                        v-if="editDraft.showAdvanced"
+                                        class="mt-4 space-y-4 max-h-[420px] overflow-y-auto pr-1"
+                                    >
                                         <div>
                                             <h5 class="text-sm font-medium text-gray-900">
                                                 {{ t('wizard.layers.advanced.metadata') }}
@@ -172,9 +176,30 @@
                                                 {{ t('wizard.layers.advanced.metadata.configure') }}
                                             </p>
                                             <div
+                                                v-if="!editDraft.fieldInfo.length"
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
                                             >
-                                                TODO
+                                                {{ t('wizard.layers.advanced.metadata.none') }}
+                                            </div>
+
+                                            <div v-else class="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                                                <div
+                                                    v-for="field in editDraft.fieldInfo"
+                                                    :key="field.name"
+                                                    class="rounded-lg border border-gray-200 bg-white p-3"
+                                                >
+                                                    <div class="truncate text-xs font-semibold text-gray-900">
+                                                        {{ field.name }}
+                                                    </div>
+
+                                                    <label class="mt-2 block text-[11px] text-gray-500">
+                                                        {{ t('wizard.layers.advanced.metadata.alias') }}
+                                                    </label>
+                                                    <input
+                                                        v-model="field.alias"
+                                                        class="mt-1 w-full rounded-lg border border-gray-300 px-2 py-2 text-sm outline-none transition focus:border-gray-400"
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
 
@@ -186,9 +211,41 @@
                                                 {{ t('wizard.layers.advanced.grid.cols.configure') }}
                                             </p>
                                             <div
+                                                v-if="!editDraft.gridColumns.length"
                                                 class="mt-3 rounded-lg border border-dashed border-gray-300 p-3 text-sm text-gray-500"
                                             >
-                                                TODO
+                                                {{ t('wizard.layers.advanced.grid.cols.none') }}
+                                            </div>
+
+                                            <div v-else class="mt-3 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                                                <div
+                                                    v-for="column in editDraft.gridColumns"
+                                                    :key="column.field"
+                                                    class="rounded-lg border border-gray-200 bg-white p-3"
+                                                >
+                                                    <div class="truncate text-xs font-semibold text-gray-900">
+                                                        {{ column.field }}
+                                                    </div>
+
+                                                    <label class="mt-2 block text-[11px] text-gray-500">
+                                                        {{ t('wizard.layers.advanced.grid.cols.title') }}
+                                                    </label>
+                                                    <input
+                                                        v-model="column.title"
+                                                        class="mt-1 w-full rounded-lg border border-gray-300 px-2 py-2 text-sm outline-none transition focus:border-gray-400"
+                                                    />
+
+                                                    <label
+                                                        class="mt-3 inline-flex items-center gap-2 text-xs text-gray-700"
+                                                    >
+                                                        <input
+                                                            v-model="column.visible"
+                                                            type="checkbox"
+                                                            class="h-4 w-4 rounded border-gray-300"
+                                                        />
+                                                        {{ t('wizard.layers.advanced.grid.cols.visible') }}
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -218,6 +275,10 @@
             </draggable>
         </div>
 
+        <div class="mt-4">
+            <LegendPreview :layers="layers" />
+        </div>
+
         <ErrorList :errors="errors" class="mt-4" />
     </div>
 </template>
@@ -226,7 +287,10 @@
 import { computed, reactive, ref } from 'vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
+import { RampLayerConfig, RampLayerFieldInfoConfig } from '@/definitions';
 
+import axios from 'redaxios';
+import LegendPreview from './legend-preview.vue';
 import draggable from 'vuedraggable';
 import ErrorList from './error-list.vue';
 
@@ -234,6 +298,12 @@ defineProps<{ errors: any[] }>();
 
 const { t } = useI18n();
 const store = useStore();
+
+interface LayerGridColumn {
+    field: string;
+    title: string;
+    visible?: boolean;
+}
 
 const createDraft = () => ({
     url: '',
@@ -258,10 +328,14 @@ const layerTypeLabels: Record<string, string> = {
     'ogc-wfs': 'OGC Web Feature Service'
 };
 
+const loadingLayerMetadata = ref(false);
+
 const editDraft = reactive({
     id: null as string | null,
     name: '',
-    showAdvanced: false as boolean
+    showAdvanced: false as boolean,
+    fieldInfo: [] as RampLayerFieldInfoConfig[],
+    gridColumns: [] as LayerGridColumn[]
 });
 
 const layers = computed({
@@ -286,6 +360,7 @@ const toLayerId = (name: string) => {
 
 const updateSortedLayers = (nextLayers: any[]) => {
     layers.value = [...nextLayers];
+    updateLegend();
 };
 
 const startEditLayer = (layer: any) => {
@@ -293,7 +368,10 @@ const startEditLayer = (layer: any) => {
 
     Object.assign(editDraft, {
         id: layer.id,
-        name: layer.name ?? ''
+        name: layer.name ?? '',
+        showAdvanced: false,
+        fieldInfo: [...(layer.fieldMetadata?.fieldInfo ?? [])],
+        gridColumns: [...(layer.fixtures?.grid?.columns ?? [])]
     });
 };
 
@@ -302,7 +380,10 @@ const cancelEditLayer = () => {
 
     Object.assign(editDraft, {
         id: null,
-        name: ''
+        name: '',
+        showAdvanced: false,
+        fieldInfo: [],
+        gridColumns: []
     });
 };
 
@@ -313,16 +394,40 @@ const saveEditLayer = () => {
     if (!trimmedName) return;
 
     const nextId = toLayerId(trimmedName);
+    const normalizedFieldInfo = editDraft.fieldInfo.filter(field => field.alias && field.alias !== field.name);
+    const normalizedGridColumns = editDraft.gridColumns.filter(
+        column => column.title !== column.field || column.visible === false
+    );
 
     layers.value = layers.value.map((layer: any) =>
         layer.id === editDraft.id
             ? {
                   ...layer,
                   id: nextId,
-                  name: trimmedName
+                  name: trimmedName,
+                  ...(normalizedFieldInfo.length
+                      ? {
+                            fieldMetadata: {
+                                fieldInfo: normalizedFieldInfo
+                            }
+                        }
+                      : {}),
+                  ...(normalizedGridColumns.length
+                      ? {
+                            fixtures: {
+                                ...layer.fixtures,
+                                grid: {
+                                    ...layer.fixtures?.grid,
+                                    columns: normalizedGridColumns
+                                }
+                            }
+                        }
+                      : {})
               }
             : layer
     );
+
+    console.log('added draft layer: ', editDraft, layers);
 
     cancelEditLayer();
 };
@@ -397,8 +502,18 @@ const runDetection = () => {
     }
 };
 
-const addLayer = () => {
+const addLayer = async () => {
     draft.errorMessage = '';
+
+    if (!draft.url.trim()) {
+        draft.errorMessage = 'Please provide a source URL.';
+        return;
+    }
+
+    if (!validUrl(draft.url)) {
+        draft.errorMessage = 'Please enter a valid HTTP or HTTPS URL.';
+        return;
+    }
 
     if (!draft.name.trim()) {
         draft.errorMessage = 'Please provide a layer name.';
@@ -411,11 +526,38 @@ const addLayer = () => {
     }
 
     const trimmedName = draft.name.trim();
+    const trimmedUrl = draft.url.trim();
+
+    let fieldInfo: RampLayerFieldInfoConfig[] = [];
+    let gridColumns: LayerGridColumn[] = [];
+
+    try {
+        if (draft.selectedType === 'esri-feature') {
+            const fields = await fetchFeatureLayerFields(trimmedUrl);
+
+            fieldInfo = buildFieldMetadata(fields);
+            gridColumns = buildGridColumns(fields);
+        }
+    } catch (error) {
+        draft.errorMessage = 'Unable to load field information from the layer service URL.';
+        return;
+    } finally {
+        loadingLayerMetadata.value = false;
+    }
+
     const layer = {
         id: toLayerId(trimmedName),
         name: trimmedName,
         layerType: draft.selectedType as any,
-        url: draft.url.trim()
+        url: trimmedUrl,
+        fieldMetadata: {
+            fieldInfo
+        },
+        fixtures: {
+            grid: {
+                columns: gridColumns
+            }
+        }
     };
 
     layers.value = [...layers.value, layer];
@@ -429,5 +571,74 @@ const resetDraft = () => {
 
 const removeLayer = (id: string) => {
     layers.value = layers.value.filter((layer: any) => layer.id !== id);
+    updateLegend();
+};
+
+const legendEntryExists = (root: any, layerId: string): boolean => {
+    if (root.layerId === layerId) {
+        return true;
+    } else {
+        return root?.children?.some((child: any) => legendEntryExists(child, layerId));
+    }
+};
+
+const removeLayerItems = (children: Array<any>) => {
+    // remove item
+    children = children.filter(
+        child => child.layerId === undefined || store.elc.layers.some(layerConf => layerConf.id === child.layerId)
+    );
+
+    // recursively check child legend items
+    children.forEach((child: any) => {
+        if (child.children && child.children.length > 0) {
+            child.children = removeLayerItems(child.children);
+        }
+    });
+
+    return children;
+};
+
+const updateLegend = () => {
+    if (!store.elc.fixtures.legend || store.elc.layers.length === 0) {
+        store.elc.fixtures.legend = { root: { children: [] } };
+    } else if (!store.elc.fixtures.legend.root) {
+        store.elc.fixtures.legend.root = { children: [] };
+    } else if (!store.elc.fixtures.legend.root.children) {
+        store.elc.fixtures.legend.root.children = [];
+    }
+
+    store.elc.layers.forEach((layerConf: RampLayerConfig) => {
+        if (!legendEntryExists(store.elc.fixtures.legend.root, layerConf.id)) {
+            store.elc.fixtures.legend.root.children.push({
+                layerId: layerConf.id
+            });
+        }
+    });
+
+    store.elc.fixtures.legend.root.children = removeLayerItems(store.elc.fixtures.legend.root.children);
+};
+
+const fetchFeatureLayerFields = async (url: string): Promise<RampLayerFieldInfoConfig[]> => {
+    const response = await axios.get(url, {
+        params: { f: 'json' }
+    });
+
+    console.log('FETCH LAYER ATTRIBS: ', response);
+    return response.data?.fields ?? [];
+};
+
+const buildFieldMetadata = (fields: RampLayerFieldInfoConfig[]): RampLayerFieldInfoConfig[] => {
+    return fields.map(field => ({
+        name: field.name,
+        alias: field.alias || field.name
+    }));
+};
+
+const buildGridColumns = (fields: RampLayerFieldInfoConfig[]): LayerGridColumn[] => {
+    return fields.map(field => ({
+        field: field.name,
+        title: field.alias || field.name,
+        visible: true
+    }));
 };
 </script>
