@@ -97,19 +97,27 @@ wizard.layers.none,No layers yet. Add your first layer to continue.,1,"Aucune co
 wizard.layers.reorder,Drag to reorder,1,Faites glisser pour réorganiser,0
 wizard.layers.edit,Edit,1,Éditer,1
 wizard.layers.remove,Remove,1,Supprimer,1
+wizard.layers.loading,Loading fields,1,Chargement des champs,0
 wizard.layers.advanced.settings,Advanced layer settings,1,Paramètres de calque avancés,0
 wizard.layers.advanced.metadata,Field metadata,1,Métadonnées de champ,0
-wizard.layers.advanced.metadata.configure,Configurer les propriétés des métadonnées de la couche.,1,Configurer les propriétés des métadonnées de la couche.,0
+wizard.layers.advanced.metadata.configure,Configure the layer metadata properties.,1,Configurer les propriétés des métadonnées de la couche.,0
+wizard.layers.advanced.metadata.none,No field metadata available for configuration for this layer.,1,Aucune métadonnée de champ n'est disponible pour la configuration de cette couche.,0
+wizard.layers.advanced.metadata.alias,Alias,1,Alias,1
 wizard.layers.advanced.grid.cols,Grid columns,1,Colonnes de la grille,0
 wizard.layers.advanced.grid.cols.configure,Configure layer grid columns.,1,Configurer les colonnes de la grille des calques.,0
+wizard.layers.advanced.grid.cols.none,No grid columns are available for configuration for this layer.,1,Aucune colonne de grille n'est disponible pour la configuration de cette couche.,0
+wizard.layers.advanced.grid.cols.title,Title,1,Titre,1
+wizard.layers.advanced.grid.cols.visible,Visible,1,Visible,1
 wizard.layers.hide,Hide,1,Cacher,1
 wizard.layers.show,Show,1,Montrer,1
 wizard.layers.cancel,Cancel,1,Annuler,1
 wizard.layers.save,Save changes,1,Enregistrer les modifications,0
+wizard.legend.title,Legend preview,1,Aperçu de la légende,0
+wizard.legend.none,No legend items yet. Add a layer to preview it here.,1,Aucun élément de légende pour le moment. Ajoutez un calque pour le prévisualiser ici.,0
 wizard.basemap.title,Basemap,1,Fond de carte,0
 wizard.basemap.description,Choose one basemap for the map background.,1,Choisissez un fond de carte.,0
 wizard.extent.title,Starting extent,1,Étendue de départ,0
-wizard.extent.description.Choose the default map extent when the RAMP loads.,1,Choisissez l'étendue de la carte par défaut lors du chargement de la RAMP.,0
+wizard.extent.description,Choose the default map extent when the RAMP loads.,1,Choisissez l'étendue de la carte par défaut lors du chargement de la RAMP.,0
 wizard.extent.mercator,Mercator default extent,1,Étendue par défaut de Mercator,0
 wizard.extent.lambert,Lambert default extent,1,Étendue par défaut de Lambert,0
 wizard.extent.custom,Custom extent,1,Étendue personnalisée,0
