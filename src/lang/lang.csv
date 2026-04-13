@@ -68,7 +68,7 @@ wizard.errors.fix,Please fix the following:,1,Veuillez corriger les éléments s
 wizard.defaults.title,Defaults,1,Valeurs par défaut,0
 wizard.defaults.description,Choose basic map defaults and startup fixture settings,1,Choisissez les paramètres par défaut de la carte de base et les paramètres de démarrage des luminaires,0
 wizard.defaults.basic,Basic defaults,1,Paramètres par défaut de base,0
-wizard.defaults.locale,Locale,1,Lieu,0
+wizard.defaults.locale,Language,1,Langue,1
 wizard.defaults.mapFixtures,Map fixtures on startup,1,Planifiez les points de repère au démarrage,0
 wizard.defaults.mapFixtures.description,Choose which fixtures are included when the map initializes.,1,Choisissez les équipements à inclure lors de l'initialisation de la carte.,0
 wizard.defaults.mapFixtures.default,Load default map fixtures,1,Charger les éléments de carte par défaut,0
@@ -97,6 +97,9 @@ wizard.layers.advanced.grid.cols.configure,Configure layer grid columns.,1,Confi
 wizard.layers.advanced.grid.cols.none,No grid columns are available for configuration for this layer.,1,Aucune colonne de grille n'est disponible pour la configuration de cette couche.,0
 wizard.layers.advanced.grid.cols.title,Title,1,Titre,1
 wizard.layers.advanced.grid.cols.visible,Visible,1,Visible,1
+wizard.layers.sublayers.title,Sublayer,1,Sous-couches,1
+wizard.layers.sublayers.description,Select at least one sublayer to include in this map image layer.,1,Sélectionnez au moins une sous-couche à inclure dans cette couche d'image cartographique.,0
+wizard.layers.sublayers.none,No sublayers available for this service.,1,Aucune sous-couche disponible pour ce service.,0
 wizard.layers.hide,Hide,1,Cacher,1
 wizard.layers.show,Show,1,Montrer,1
 wizard.layers.cancel,Cancel,1,Annuler,1

@@ -4,6 +4,7 @@
         <p class="mt-1 text-sm text-gray-600">{{ t('wizard.extent.description') }}</p>
 
         <div class="mt-4 space-y-3">
+            <!-- Default mercator extent set -->
             <label
                 class="flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition"
                 :class="
@@ -37,6 +38,7 @@
                 </div>
             </label>
 
+            <!-- Default lambert extent set -->
             <label
                 class="flex cursor-pointer items-start gap-3 rounded-xl border p-4 transition"
                 :class="
@@ -83,6 +85,8 @@
             </label>
         </div>
 
+        <!-- Custom extent set -->
+        <!-- TODO: further enhance with RAMP draw tools in future? -->
         <div v-if="mode === 'custom'" class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
             <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.extent.custom.values') }}</h4>
 
@@ -174,6 +178,7 @@ const customExtentSet = computed(() =>
 
 const currentExtentSetId = computed(() => tileSchemas.value[0]?.extentSetId);
 
+// set extend iD of all tile schemas
 const setAllTileSchemaExtentSetIds = (extentSetId: string) => {
     store.elc.map.tileSchemas = tileSchemas.value.map((tileSchema: any) => ({
         ...tileSchema,
@@ -181,6 +186,7 @@ const setAllTileSchemaExtentSetIds = (extentSetId: string) => {
     }));
 };
 
+// add custom extent set to config
 const addExtentSet = (nextExtentSet: any) => {
     const nextExtentSets = [...extentSets.value];
     const index = nextExtentSets.findIndex((extentSet: any) => extentSet.id === nextExtentSet.id);
@@ -194,6 +200,7 @@ const addExtentSet = (nextExtentSet: any) => {
     store.elc.map.extentSets = nextExtentSets;
 };
 
+// continuously update extent ID based on user selection
 const mode = computed({
     get: () => {
         if (currentExtentSetId.value === MERCATOR_EXTENT_SET_ID) return 'mercatorDefault';
@@ -231,6 +238,7 @@ const mode = computed({
     }
 });
 
+// getter/setter custom extent set to config
 const custom = computed({
     get: () =>
         customExtentSet.value?.default ?? {
