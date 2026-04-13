@@ -224,10 +224,10 @@
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857",
                     "default": {
-                        "xmin": -16632697.354854,
-                        "xmax": -5007771.626060756,
-                        "ymin": 5022907.964742964,
-                        "ymax": 10015875.184845109,
+                        "xmin": -16632697,
+                        "xmax": -5007771,
+                        "ymin": 5022907,
+                        "ymax": 10015875,
                         "spatialReference": {
                             "wkid": 102100,
                             "latestWkid": 3857
@@ -241,11 +241,8 @@
                     "name": "Lambert Maps",
                     "extentSetId": "EXT_NRCAN_Lambert_3978",
                     "lodSetId": "LOD_NRCAN_Lambert_3978",
-                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/268"],
-                    "hasNorthPole": true,
-                    "recoveryBasemap": {
-                        "basemapId": "baseProvinces_3978"
-                    }
+                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/269"],
+                    "hasNorthPole": true
                 },
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
@@ -331,27 +328,17 @@
                     }
                 },
                 {
-                    "id": "baseProvinces_3978",
-                    "name": "Provincial and Territorial Boundaries",
-                    "description": "A basic outline of Canada's provincial and territorial boundaries.",
-                    "altText": "Canada Base Map - Provincial and Territorial outlines",
-                    "thumbnailUrl": "assets/images/outline.png",
+                    "id": "baseCBMT_CBCT_GEOM_3978",
+                    "name": "Canada Base Map - Transportation (CBMT)",
+                    "description": " The Canada Base Map - Transportation (CBMT) web mapping services of the Earth Sciences Sector at Natural Resources Canada, are intended primarily for online mapping application users and developers.",
+                    "altText": "altText - Canada Base Map - Transportation (CBMT)",
                     "layers": [
                         {
-                            "id": "provinces_3978",
+                            "id": "CBMT_CBCT_GEOM_3978",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
                     "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
@@ -803,10 +790,10 @@
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857",
                     "default": {
-                        "xmin": -16632697.354854,
-                        "xmax": -5007771.626060756,
-                        "ymin": 5022907.964742964,
-                        "ymax": 10015875.184845109,
+                        "xmin": -16632697,
+                        "xmax": -5007771,
+                        "ymin": 5022907,
+                        "ymax": 10015875,
                         "spatialReference": {
                             "wkid": 102100,
                             "latestWkid": 3857
@@ -820,11 +807,8 @@
                     "name": "Lambert Maps",
                     "extentSetId": "EXT_NRCAN_Lambert_3978",
                     "lodSetId": "LOD_NRCAN_Lambert_3978",
-                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/268"],
-                    "hasNorthPole": true,
-                    "recoveryBasemap": {
-                        "basemapId": "baseProvinces_3978"
-                    }
+                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/269"],
+                    "hasNorthPole": true
                 },
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
@@ -915,28 +899,19 @@
                     }
                 },
                 {
-                    "id": "baseProvinces_3978",
-                    "name": "Provinces et territoires du Canada",
-                    "description": "Représentation de les frontières et limites des provinces et des territoires du Canada.",
-                    "altText": "La carte de base du Canada - Provinces et territoires du Canada",
-                    "thumbnailUrl": "assets/images/outline.png",
+                    "id": "baseCBMT_CBCT_GEOM_3978",
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
+                    "name": "Carte de base du Canada - transport (CBCT)",
+                    "description": "La carte de base du Canada - transport (CBCT) du Secteur des sciences de la Terre de Ressources naturelles Canada est un service Internet qui s'adresse principalement aux utilisateurs et développeurs d'applications cartographiques en ligne.",
+                    "altText": "La carte de base du Canada - transport (CBCT)",
                     "layers": [
                         {
-                            "id": "provinces_3978",
+                            "id": "CBMT_CBCT_GEOM_3978",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer",
+                            "opacity": 1
                         }
-                    ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+                    ]
                 },
                 {
                     "id": "baseEsriWorld",

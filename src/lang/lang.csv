@@ -68,7 +68,7 @@ wizard.errors.fix,Please fix the following:,1,Veuillez corriger les éléments s
 wizard.defaults.title,Defaults,1,Valeurs par défaut,0
 wizard.defaults.description,Choose basic map defaults and startup fixture settings,1,Choisissez les paramètres par défaut de la carte de base et les paramètres de démarrage des luminaires,0
 wizard.defaults.basic,Basic defaults,1,Paramètres par défaut de base,0
-wizard.defaults.locale,Locale,1,Lieu,0
+wizard.defaults.locale,Language,1,Langue,1
 wizard.defaults.mapFixtures,Map fixtures on startup,1,Planifiez les points de repère au démarrage,0
 wizard.defaults.mapFixtures.description,Choose which fixtures are included when the map initializes.,1,Choisissez les équipements à inclure lors de l'initialisation de la carte.,0
 wizard.defaults.mapFixtures.default,Load default map fixtures,1,Charger les éléments de carte par défaut,0
@@ -97,6 +97,10 @@ wizard.layers.advanced.grid.cols.configure,Configure layer grid columns.,1,Confi
 wizard.layers.advanced.grid.cols.none,No grid columns are available for configuration for this layer.,1,Aucune colonne de grille n'est disponible pour la configuration de cette couche.,0
 wizard.layers.advanced.grid.cols.title,Title,1,Titre,1
 wizard.layers.advanced.grid.cols.visible,Visible,1,Visible,1
+wizard.layers.sublayers.title,Sublayer,1,Sous-couches,1
+wizard.layers.sublayers.description,Select at least one sublayer to include in this map image layer.,1,Sélectionnez au moins une sous-couche à inclure dans cette couche d'image cartographique.,0
+wizard.layers.sublayers.none,No sublayers available for this service.,1,Aucune sous-couche disponible pour ce service.,0
+wizard.layers.sublayers.loading,Loading sublayers...,1,Chargement des sous-couches...,0
 wizard.layers.hide,Hide,1,Cacher,1
 wizard.layers.show,Show,1,Montrer,1
 wizard.layers.cancel,Cancel,1,Annuler,1
@@ -106,11 +110,9 @@ wizard.legend.none,No legend items yet. Add a layer to preview it here.,1,Aucun 
 wizard.basemap.title,Basemap,1,Fond de carte,0
 wizard.basemap.description,Choose one basemap for the map background.,1,Choisissez un fond de carte.,0
 wizard.extent.title,Starting extent,1,Étendue de départ,0
-wizard.extent.description,Choose the default map extent when the RAMP loads.,1,Choisissez l'étendue de la carte par défaut lors du chargement de la RAMP.,0
-wizard.extent.mercator,Mercator default extent,1,Étendue par défaut de Mercator,0
+wizard.extent.description,Define the default starting map extents when RAMP loads.,1,Définissez l'étendue de la carte de départ par défaut lors du chargement de RAMP.,0
+wizard.extent.mercator,Mercator default extent (Canada wide),1,Étendue par défaut de Mercator (à l'échelle du Canada),0
 wizard.extent.lambert,Lambert default extent,1,Étendue par défaut de Lambert,0
-wizard.extent.custom,Custom extent,1,Étendue personnalisée,0
-wizard.extent.custom.description,Provide custom extent values.,1,Fournissez des valeurs d'étendue personnalisées.,0
-wizard.extent.custom.values,Custom extent values,1,Valeurs d'étendue personnalisées,0
+wizard.extent.restore,Restore default,1,Restaurer les valeurs par défaut,0
 wizard.review.title,Summary,1,Résumé,0
 wizard.review.description,Review your map settings, then exit to proceed to the main editor.,1,Vérifiez les paramètres de votre carte, puis quittez pour accéder à l'éditeur principal.,0

@@ -3,6 +3,7 @@
         <h3 class="text-lg font-semibold">{{ t('wizard.basemap.title') }}</h3>
         <p class="mt-1 text-sm text-gray-600">{{ t('wizard.basemap.description') }}</p>
 
+        <!-- Basemap list -->
         <div class="mt-4 space-y-6">
             <section v-for="group in basemapGroups" :key="group.id">
                 <div class="mb-3">
@@ -26,7 +27,7 @@
                         <div class="relative aspect-[2/1] overflow-hidden bg-gray-100">
                             <button
                                 type="button"
-                                class="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-xs text-gray-700 shadow hover:bg-white"
+                                class="absolute right-2 top-2 z-2 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-xs text-gray-700 shadow hover:bg-white"
                                 v-tippy="{
                                     content: basemap.description,
                                     placement: 'bottom',
@@ -95,6 +96,7 @@ const tileSchemasById = computed(() => {
     return Object.fromEntries(availableTileSchemas.value.map((tileSchema: any) => [tileSchema.id, tileSchema]));
 });
 
+// format thumbnail urls
 const addThumbnails = (basemap: any) => {
     const tileSchema = tileSchemasById.value[basemap.tileSchemaId];
     const thumbnailSuffixes = tileSchema?.thumbnailTileUrls ?? [];
@@ -109,6 +111,7 @@ const addThumbnails = (basemap: any) => {
     };
 };
 
+// separate groups
 const basemapGroups = computed(() => [
     {
         id: 'lambert',
