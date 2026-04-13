@@ -1,16 +1,17 @@
 <template>
     <div>
         <h3 class="text-lg font-semibold">{{ t('wizard.basemap.title') }}</h3>
-        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.basemap.description') }}</p>
+        <p class="mt-4 text-sm text-gray-600">{{ t('wizard.basemap.description') }}</p>
 
-        <div class="mt-4 space-y-6">
+        <!-- Basemap list -->
+        <div class="mt-16 space-y-6">
             <section v-for="group in basemapGroups" :key="group.id">
-                <div class="mb-3">
+                <div class="mb-12">
                     <h4 class="text-sm font-semibold text-gray-900">{{ group.title }}</h4>
-                    <p class="mt-1 text-xs text-gray-500">{{ group.description }}</p>
+                    <p class="mt-4 text-xs text-gray-500">{{ group.description }}</p>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                <div class="grid grid-cols-3 gap-16">
                     <button
                         v-for="basemap in group.items"
                         :key="basemap.id"
@@ -26,7 +27,7 @@
                         <div class="relative aspect-[2/1] overflow-hidden bg-gray-100">
                             <button
                                 type="button"
-                                class="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 text-xs text-gray-700 shadow hover:bg-white"
+                                class="absolute right-2 top-2 z-2 flex h-28 w-28 items-center justify-center rounded-full bg-white/90 text-xs text-gray-700 shadow hover:bg-white"
                                 v-tippy="{
                                     content: basemap.description,
                                     placement: 'bottom',
@@ -55,7 +56,7 @@
                             />
                         </div>
 
-                        <div class="px-4 py-3">
+                        <div class="px-16 py-12">
                             <div class="text-sm font-semibold text-gray-900">
                                 {{ basemap.name }}
                             </div>
@@ -65,7 +66,7 @@
             </section>
         </div>
 
-        <ErrorList :errors="errors" class="mt-4" />
+        <ErrorList :errors="errors" class="mt-16" />
     </div>
 </template>
 
@@ -95,6 +96,7 @@ const tileSchemasById = computed(() => {
     return Object.fromEntries(availableTileSchemas.value.map((tileSchema: any) => [tileSchema.id, tileSchema]));
 });
 
+// format thumbnail urls
 const addThumbnails = (basemap: any) => {
     const tileSchema = tileSchemasById.value[basemap.tileSchemaId];
     const thumbnailSuffixes = tileSchema?.thumbnailTileUrls ?? [];
@@ -109,6 +111,7 @@ const addThumbnails = (basemap: any) => {
     };
 };
 
+// separate groups
 const basemapGroups = computed(() => [
     {
         id: 'lambert',

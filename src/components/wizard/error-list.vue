@@ -1,7 +1,7 @@
 <template>
-    <div v-if="errors?.length" class="mt-3 border border-solid rounded-xl p-2.5">
-        <div class="font-bold mb-1.5">{{ t('wizard.errors.fix') }}</div>
-        <ul class="m-0 pl-4.5">
+    <div v-if="errors?.length" class="mt-12 border border-solid rounded-xl p-10">
+        <div class="font-bold mb-6">{{ t('wizard.errors.fix') }}</div>
+        <ul class="m-0 pl-16">
             <li v-for="(e, idx) in errors" :key="idx">{{ e.message }}</li>
         </ul>
     </div>

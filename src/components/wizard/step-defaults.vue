@@ -1,17 +1,18 @@
 <template>
     <div>
         <h3 class="text-lg font-semibold">{{ t('wizard.defaults.title') }}</h3>
-        <p class="mt-1 text-sm text-gray-600">{{ t('wizard.defaults.description') }}</p>
+        <p class="mt-4 text-sm text-gray-600">{{ t('wizard.defaults.description') }}</p>
 
-        <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
+        <!-- Config lang toggle -->
+        <div class="mt-16 rounded-xl border border-gray-200 bg-white p-16">
             <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.defaults.basic') }}</h4>
 
-            <div class="mt-4 grid gap-4 md:grid-cols-1">
+            <div class="mt-12 grid gap-4 ce-md:grid-cols-1">
                 <div class="grid gap-2">
                     <label class="text-sm font-medium text-gray-900">{{ t('wizard.defaults.locale') }}</label>
                     <select
                         v-model="editingLang"
-                        class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none transition focus:border-gray-400"
+                        class="w-full rounded-lg border border-gray-300 p-8 text-sm outline-none transition focus:border-gray-400"
                     >
                         <option value="en">English</option>
                         <option value="fr">Français</option>
@@ -20,16 +21,17 @@
             </div>
         </div>
 
-        <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
+        <!-- Define list of map fixtures on startup -->
+        <div class="mt-16 rounded-xl border border-gray-200 bg-white p-16">
             <div class="flex items-start justify-between gap-4">
                 <div>
                     <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.defaults.mapFixtures') }}</h4>
-                    <p class="mt-1 text-sm text-gray-600">
+                    <p class="mt-4 text-sm text-gray-600">
                         {{ t('wizard.defaults.mapFixtures.description') }}
                     </p>
                 </div>
 
-                <label class="inline-flex shrink-0 items-center gap-2 text-sm text-gray-800">
+                <label class="inline-flex shrink-0 items-center gap-2 text-sm font-normal text-gray-800">
                     <input
                         :checked="loadDefaultFixtures"
                         type="checkbox"
@@ -40,11 +42,11 @@
                 </label>
             </div>
 
-            <div class="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3">
+            <div class="mt-16 grid grid-cols-1 gap-2 ce-md:grid-cols-2 ce-lg:grid-cols-3">
                 <label
                     v-for="fixture in availableFixtures"
                     :key="fixture"
-                    class="flex items-center gap-3 rounded-lg border px-3 py-2 transition"
+                    class="flex items-center gap-3 rounded-lg border font-normal px-12 py-8 transition"
                     :class="
                         loadDefaultFixtures
                             ? 'border-gray-200 bg-gray-50 text-gray-500'
@@ -55,7 +57,6 @@
                         :checked="selectedFixtures.includes(fixture)"
                         type="checkbox"
                         class="h-4 w-4 rounded border-gray-300"
-                        :disabled="loadDefaultFixtures"
                         @change="toggleFixture(fixture)"
                     />
                     <span class="text-sm">{{ fixture }}</span>
@@ -63,7 +64,7 @@
             </div>
         </div>
 
-        <ErrorList :errors="errors" class="mt-4" />
+        <ErrorList :errors="errors" class="mt-16" />
     </div>
 </template>
 
@@ -151,8 +152,6 @@ const onLoadDefaultFixturesChange = (event: Event) => {
 };
 
 const toggleFixture = (fixture: string) => {
-    if (loadDefaultFixtures.value) return;
-
     const nextFixtures = [...selectedFixtures.value];
     const index = nextFixtures.indexOf(fixture);
 
@@ -163,5 +162,7 @@ const toggleFixture = (fixture: string) => {
     }
 
     selectedFixtures.value = nextFixtures;
+    // check if set of selected fixtures matchecs default fixtures
+    loadDefaultFixtures.value = (selectedFixtures.value.length === DEFAULT_FIXTURES.length && selectedFixtures.value.every(f => DEFAULT_FIXTURES.includes(f)));
 };
 </script>

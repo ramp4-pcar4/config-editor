@@ -1,7 +1,6 @@
 <template>
     <div class="flex flex-col h-full start-container">
         <h2 class="">{{ t('editor.title') }}</h2>
-        <div class="subtitle">{{ t('start.welcome') }}</div>
 
         <div v-if="!uploading">
             <div class="subtitle">{{ t('start.welcome') }}</div>
