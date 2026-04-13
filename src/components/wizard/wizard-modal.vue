@@ -1,7 +1,7 @@
 <template>
     <div
         v-if="open"
-        class="ramp4-config-editor fixed inset-0 z-[9999] grid place-items-center bg-black/45 p-6"
+        class="ramp4-config-editor fixed inset-0 z-[9999] grid place-items-center bg-black/45 p-24"
         @click.self="onBackdrop"
     >
         <div
@@ -11,7 +11,7 @@
             aria-label="Quick Start Wizard"
         >
             <!-- Header -->
-            <header class="flex items-start justify-between border-b border-gray-200 px-[18px] py-4">
+            <header class="flex items-start justify-between border-b border-gray-200 px-18 py-16">
                 <div>
                     <h2 class="m-0 text-[18px]">{{ t('wizard.quickStart') }}</h2>
                     <p class="mt-1 text-[13px] text-gray-600">{{ t('wizard.setup') }}</p>
@@ -19,7 +19,7 @@
 
                 <div class="flex">
                     <button
-                        class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-[10px] py-2 text-[13px]"
+                        class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-10 py-8 text-[13px]"
                         aria-label="Close"
                         @click="requestClose"
                     >
@@ -29,9 +29,9 @@
             </header>
 
             <section class="grid min-h-0 grid-cols-[240px_minmax(0,1fr)]">
-                <!-- stepper -->
-                <aside class="overflow-auto border-r border-gray-200 p-3">
-                    <ol class="m-0 grid list-none gap-[6px] p-0">
+                <!-- Stepper -->
+                <aside class="overflow-auto border-r border-gray-200 p-12">
+                    <ol class="m-0 grid list-none gap-6 p-0">
                         <li
                             v-for="(s, i) in steps"
                             :key="s.id"
@@ -42,7 +42,7 @@
                             }"
                         >
                             <button
-                                class="flex w-full cursor-pointer gap-[10px] rounded-[10px] border border-transparent bg-transparent p-[10px] text-left disabled:cursor-not-allowed disabled:opacity-50"
+                                class="flex w-full cursor-pointer gap-10 rounded-10 border border-transparent bg-transparent p-10 text-left disabled:cursor-not-allowed disabled:opacity-50"
                                 :class="{
                                     'border-gray-300 bg-gray-50': i === ui.stepIndex
                                 }"
@@ -62,23 +62,24 @@
 
                                 <span>
                                     <span class="text-[13px] font-semibold">{{ s.title }}</span>
-                                    <span class="mt-[2px] block text-[12px] text-gray-500">{{ s.hint() }}</span>
+                                    <span class="block text-[12px] text-gray-500">{{ s.hint() }}</span>
                                 </span>
                             </button>
                         </li>
                     </ol>
                 </aside>
 
-                <!-- step content -->
-                <main class="min-h-0 overflow-auto px-6 py-5">
+                <!-- Step content -->
+                <main ref="stepContent" class="min-h-0 overflow-auto px-24 py-20">
                     <component :is="activeStep.component" :errors="stepErrors" />
                 </main>
             </section>
 
-            <footer class="flex items-center justify-between gap-[10px] border-t border-gray-200 px-[18px] py-3">
+            <!-- Footer -->
+            <footer class="flex items-center justify-between gap-10 border-t border-gray-200 px-18 py-12">
                 <div>
                     <button
-                        class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-3 py-2 text-[13px] disabled:cursor-not-allowed disabled:opacity-50"
+                        class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-12 py-8 text-[13px] disabled:cursor-not-allowed disabled:opacity-50"
                         :disabled="ui.stepIndex === 0"
                         @click="back"
                     >
@@ -89,9 +90,9 @@
                 <div class="flex items-center gap-8">
                     <button
                         v-if="!isLastStep"
-                        class="cursor-pointer rounded-[10px] border border-black bg-black px-3 py-2 text-[13px] text-white disabled:cursor-not-allowed disabled:opacity-50"
+                        class="cursor-pointer rounded-[10px] border border-black bg-black px-12 py-8 text-[13px] text-white disabled:cursor-not-allowed disabled:opacity-50"
                         :disabled="!canProceed"
-                        :title="!canProceed ? proceedTooltip : ''"
+                        :title="!canProceed ? proceedMessage : ''"
                         @click="next"
                     >
                         {{ t('wizard.next') }}
@@ -99,7 +100,7 @@
 
                     <button
                         v-else
-                        class="cursor-pointer rounded-[10px] border border-black bg-black px-3 py-2 text-[13px] text-white disabled:cursor-not-allowed disabled:opacity-50"
+                        class="cursor-pointer rounded-[10px] border border-black bg-black px-12 py-8 text-[13px] text-white disabled:cursor-not-allowed disabled:opacity-50"
                         :disabled="!canConfirm"
                         :title="!canConfirm ? 'Complete required steps to confirm' : ''"
                         @click="confirm"
@@ -109,24 +110,24 @@
                 </div>
             </footer>
 
-            <!-- discard changes -->
+            <!-- Discard changes confirmation -->
             <div
                 v-if="showDiscardConfirm"
-                class="absolute inset-0 grid place-items-center bg-black/35 p-4"
+                class="absolute inset-0 grid place-items-center bg-black/35 p-16 z-10"
                 @click.self="showDiscardConfirm = false"
             >
                 <div class="w-full max-w-[420px] rounded-[14px] border border-gray-200 bg-white p-[14px]">
-                    <h4 class="mb-[6px] mt-0">{{ t('wizard.discardChanges') }}</h4>
-                    <p class="mb-3 text-[13px] text-gray-600">{{ t('wizard.discardWarning') }}</p>
+                    <h4 class="mb-6">{{ t('wizard.discardChanges') }}</h4>
+                    <p class="mb-12 text-[13px] text-gray-600">{{ t('wizard.discardWarning') }}</p>
                     <div class="flex justify-end gap-[10px]">
                         <button
-                            class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent px-3 py-2 text-[13px]"
+                            class="cursor-pointer rounded-[10px] border border-gray-300 bg-transparent p-8 text-[13px]"
                             @click="showDiscardConfirm = false"
                         >
                             {{ t('wizard.cancel') }}
                         </button>
                         <button
-                            class="cursor-pointer rounded-[10px] border border-red-700 bg-red-700 px-3 py-2 text-[13px] text-white"
+                            class="cursor-pointer rounded-[10px] border border-red-700 bg-red-700 p-8 text-[13px] text-white"
                             @click="forceClose"
                         >
                             {{ t('wizard.discard') }}
@@ -139,7 +140,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, watch, ref } from 'vue';
+import { computed, nextTick, reactive, watch, ref } from 'vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
@@ -164,29 +165,42 @@ const { t } = useI18n();
 
 type WizardUiState = {
     stepIndex: number;
-    dirty: boolean;
+    modified: boolean;
 };
 
 type StepError = { field?: string; message: string };
 
+const stepContent = ref<HTMLElement | null>(null);
+
 const ui = reactive<WizardUiState>({
     stepIndex: 0,
-    dirty: false
+    modified: false
 });
 
 const showDiscardConfirm = ref(false);
 const stepErrors = ref<StepError[]>([]);
 
+// reset scroll position when step changes
+watch(
+    () => ui.stepIndex,
+    () => {
+        nextTick(() => {
+            stepContent.value?.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+);
+
 watch(
     () => props.open,
     isOpen => {
         if (isOpen) {
-            ui.dirty = false;
+            ui.modified = false;
             ui.stepIndex = 0;
         }
     }
 );
 
+// check if any changes were made while wizard open
 watch(
     () => ({
         editingLang: store.editingLang,
@@ -197,7 +211,7 @@ watch(
         tileSchemas: store.elc?.map?.tileSchemas
     }),
     () => {
-        if (props.open) ui.dirty = true;
+        if (props.open) ui.modified = true;
     },
     { deep: true }
 );
@@ -213,6 +227,7 @@ const extentModeLabel = computed(() => {
     return '—';
 });
 
+// defined wizard steps
 const steps = [
     {
         id: 'defaults',
@@ -249,34 +264,33 @@ const steps = [
 const activeStep = computed(() => steps[ui.stepIndex]);
 const isLastStep = computed(() => ui.stepIndex === steps.length - 1);
 
+// step validation logic
 const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     const errors: StepError[] = [];
 
     if (stepId === 'layers') {
         for (const layer of currentLayers.value) {
             if (!layer.name?.trim()) {
-                errors.push({ message: 'Each layer needs a name.' });
+                errors.push({ message: t('wizard.errors.layer.name') });
             }
 
             if (!layer.layerType) {
-                errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a layer type.` });
+                errors.push({ message: t('wizard.errors.layer.type', { layerName: layer.name }) });
             }
 
             if (!layer.url?.trim()) {
-                errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a URL.` });
+                errors.push({ message: t('wizard.errors.layer.url', { layerName: layer.name }) });
+            }
+
+            if (layer.layerType === 'esri-map-image' && (!layer.sublayers || layer.sublayers.length < 1)) {
+                errors.push({ message: t('wizard.errors.layer.sublayer', { layerName: layer.name }) });
             }
         }
     }
 
     if (stepId === 'basemap') {
         if (!currentBasemapId.value) {
-            errors.push({ message: 'Select a basemap to continue.' });
-        }
-    }
-
-    if (stepId === 'review') {
-        if (!currentBasemapId.value) {
-            errors.push({ message: 'You need to choose a basemap.' });
+            errors.push({ message: t('wizard.errors.basemap.required') });
         }
     }
 
@@ -284,15 +298,14 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
 };
 
 const canConfirm = computed(() => !!currentBasemapId.value);
-
 const canProceed = computed(() => validateStep(activeStep.value.id).length === 0);
 
-const proceedTooltip = computed(() => {
+const proceedMessage = computed(() => {
     const errs = validateStep(activeStep.value.id);
     return errs[0]?.message ?? '';
 });
 
-const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
+const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'NA' => {
     if (i === ui.stepIndex) {
         return 'active';
     }
@@ -303,9 +316,10 @@ const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
         return errs.length ? 'blocked' : 'done';
     }
 
-    return 'idle';
+    return 'NA';
 };
 
+// whether to disable step
 const canNavigateTo = (stepIdx: number) => {
     if (stepIdx <= ui.stepIndex) return true;
 
@@ -317,6 +331,7 @@ const canNavigateTo = (stepIdx: number) => {
     return true;
 };
 
+// navigate to step
 const goToStep = (i: number) => {
     if (!canNavigateTo(i)) {
         return;
@@ -325,6 +340,7 @@ const goToStep = (i: number) => {
     ui.stepIndex = i;
 };
 
+// jump to next step
 const next = () => {
     const errs = validateStep(activeStep.value.id);
     stepErrors.value = errs;
@@ -339,6 +355,7 @@ const next = () => {
     }
 };
 
+// jump to last step
 const back = () => {
     if (ui.stepIndex > 0) {
         ui.stepIndex--;
@@ -346,6 +363,7 @@ const back = () => {
     }
 };
 
+// confirm and exit to main editor
 const confirm = () => {
     const errs = validateStep('review');
     stepErrors.value = errs;
@@ -358,8 +376,9 @@ const confirm = () => {
     emit('update:open', false);
 };
 
+// check if unsaved changes
 const requestClose = () => {
-    if (ui.dirty) {
+    if (ui.modified) {
         showDiscardConfirm.value = true;
         return;
     }
@@ -368,6 +387,7 @@ const requestClose = () => {
     emit('update:open', false);
 };
 
+// force close wizard
 const forceClose = () => {
     showDiscardConfirm.value = false;
     emit('cancel');

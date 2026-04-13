@@ -224,10 +224,10 @@
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857",
                     "default": {
-                        "xmin": -16632697.354854,
-                        "xmax": -5007771.626060756,
-                        "ymin": 5022907.964742964,
-                        "ymax": 10015875.184845109,
+                        "xmin": -16632697,
+                        "xmax": -5007771,
+                        "ymin": 5022907,
+                        "ymax": 10015875,
                         "spatialReference": {
                             "wkid": 102100,
                             "latestWkid": 3857
@@ -241,7 +241,7 @@
                     "name": "Lambert Maps",
                     "extentSetId": "EXT_NRCAN_Lambert_3978",
                     "lodSetId": "LOD_NRCAN_Lambert_3978",
-                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/268"],
+                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/269"],
                     "hasNorthPole": true,
                     "recoveryBasemap": {
                         "basemapId": "baseProvinces_3978"
@@ -259,76 +259,59 @@
             "basemaps": [
                 {
                     "id": "baseNrCan",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Canada base map - transportation (CBMT)",
-                    "description": "The Canada base map - transportation (CBMT) web mapping services of the Earth Sciences Sector at Natural Resources Canada, are intended primarily for online mapping application users and developers.",
-                    "altText": "Canada base map - transportation (CBMT)",
+                    "name": "Transportation (CBMT - Labels)",
+                    "description": "The basic transport map (CBMT - labels) displays topographical features and political boundaries, while focusing primarily on transport routes. Contains topographical labels.",
+                    "altText": "Transportation (CBMT - Labels)",
                     "layers": [
                         {
                             "id": "CBMT",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT3978/MapServer",
-                            "opacity": 1
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
-                    "backgroundColour": "#BFE8FE"
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseSimple",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Canada base map - simple",
-                    "description": "Canada base map - simple",
-                    "altText": "Canada base map - simple",
+                    "name": "Simple Land-Water Boundaries",
+                    "description": "The Simple Land-Water Boundaries basemap displays basic topographical features, in particular land and water boundaries.",
+                    "altText": "Simple Land-Water Boundaries",
                     "layers": [
                         {
                             "id": "SMR",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
-                            "opacity": 1
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    }
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseCBME_CBCE_HS_RO_3978",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Canada base map - elevation (CBME)",
-                    "description": "The Canada base map - elevation (CBME) web mapping services of the Earth Sciences Sector at Natural Resources Canada, is intended primarily for online mapping application users and developers.",
-                    "altText": "Canada base map - elevation (CBME)",
+                    "name": "Elevation (CBME)",
+                    "description": "The basic elevation map (CBME) illustrates differences in elevation using contour lines and colour gradients.",
+                    "altText": "Elevation (CBME)",
                     "layers": [
                         {
                             "id": "CBME_CBCE_HS_RO_3978",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
-                            "opacity": 1
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
+                },
+                {
+                    "id": "baseCBMT_CBCT_GEOM_3978",
+                    "name": "Transportation (CBMT - No Labels)",
+                    "description": "The basic transport map (CBMT - No labels) displays topographical features and political boundaries, while focusing primarily on transport routes. Omits topographical labels.",
+                    "altText": "Transportation (CBMT - No Labels)",
+                    "layers": [
+                        {
+                            "id": "CBMT_CBCT_GEOM_3978",
+                            "layerType": "esri-tile",
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer"
                         }
-                    }
+                    ],
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseCBMT_CBCT_GEOM_3978",
@@ -360,7 +343,7 @@
                     "name": "Provincial and Territorial Boundaries",
                     "description": "A basic outline of Canada's provincial and territorial boundaries.",
                     "altText": "Canada Base Map - Provincial and Territorial outlines",
-                    "thumbnailUrl": "assets/images/outline.png",
+                    "hideThumbnail": true,
                     "layers": [
                         {
                             "id": "provinces_3978",
@@ -368,20 +351,10 @@
                             "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
                     "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseEsriWorld",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Imagery",
                     "description": "World Imagery provides one meter or better satellite and aerial imagery in many parts of the world and lower resolution satellite imagery worldwide.",
                     "altText": "World Imagery",
@@ -389,14 +362,13 @@
                         {
                             "id": "World_Imagery",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriPhysical",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Physical Map",
                     "description": "This map presents the Natural Earth physical map at 1.24km per pixel for the world and 500m for the coterminous United States.",
                     "altText": "World Physical Map",
@@ -404,14 +376,13 @@
                         {
                             "id": "World_Physical_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriRelief",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Shaded Relief",
                     "description": "This map portrays surface elevation as shaded relief. This map is used as a basemap layer to add shaded relief to other GIS maps, such as the ArcGIS Online World Street Map.",
                     "altText": "World Shaded Relief",
@@ -419,14 +390,13 @@
                         {
                             "id": "World_Shaded_Relief",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriStreet",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Street Map",
                     "description": "This worldwide street map presents highway-level data for the world.",
                     "altText": "ESWorld Street Map",
@@ -434,14 +404,13 @@
                         {
                             "id": "World_Street_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriTerrain",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Terrain Base",
                     "description": "This map is designed to be used as a base map by GIS professionals to overlay other thematic layers such as demographics or land cover.",
                     "altText": "World Terrain Base",
@@ -449,14 +418,13 @@
                         {
                             "id": "World_Terrain_Base",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriTopo",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "World Topographic Map",
                     "description": "This map is designed to be used as a basemap by GIS professionals and as a reference map by anyone.",
                     "altText": "World Topographic Map",
@@ -464,10 +432,10 @@
                         {
                             "id": "World_Topo_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 }
             ],
             "initialBasemapId": "baseNrCan",
@@ -823,10 +791,10 @@
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857",
                     "default": {
-                        "xmin": -16632697.354854,
-                        "xmax": -5007771.626060756,
-                        "ymin": 5022907.964742964,
-                        "ymax": 10015875.184845109,
+                        "xmin": -16632697,
+                        "xmax": -5007771,
+                        "ymin": 5022907,
+                        "ymax": 10015875,
                         "spatialReference": {
                             "wkid": 102100,
                             "latestWkid": 3857
@@ -840,11 +808,8 @@
                     "name": "Lambert Maps",
                     "extentSetId": "EXT_NRCAN_Lambert_3978",
                     "lodSetId": "LOD_NRCAN_Lambert_3978",
-                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/268"],
-                    "hasNorthPole": true,
-                    "recoveryBasemap": {
-                        "basemapId": "baseProvinces_3978"
-                    }
+                    "thumbnailTileUrls": ["/tile/8/285/268", "/tile/8/285/269"],
+                    "hasNorthPole": true
                 },
                 {
                     "id": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
@@ -858,32 +823,20 @@
             "basemaps": [
                 {
                     "id": "baseNrCan",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Carte de base du Canada - transport (CBCT) avec étiquettes",
-                    "description": "La carte de base du Canada - transport (CBCT) du Secteur des sciences de la Terre de Ressources naturelles Canada est un service Internet qui s'adresse principalement aux utilisateurs et développeurs d'applications cartographiques en ligne.",
-                    "altText": "La carte de base du Canada - transport (CBCT)",
+                    "name": "Transport (CBMT - Étiquettes)",
+                    "description": "La carte de base des transports (CBMT - étiquettes) affiche les caractéristiques topographiques et les frontières politiques, tout en se concentrant principalement sur les itinéraires de transport. Contient des étiquettes topographiques.",
+                    "altText": "Transport (CBMT - Étiquettes)",
                     "layers": [
                         {
                             "id": "CBCT",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer",
-                            "opacity": 1
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBCT3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
-                    "backgroundColour": "#BFE8FE"
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseSimple",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
                     "name": "Carte de base du Canada - simple",
                     "description": "La carte de base du Canada - simple",
                     "altText": "La carte de base du Canada - simple",
@@ -891,48 +844,24 @@
                         {
                             "id": "SMR",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer",
-                            "opacity": 1
-                        },
-                        {
-                            "id": "SMW",
-                            "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_TXT_3978/MapServer"
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/Simple/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    }
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseCBME_CBCE_HS_RO_3978",
-                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978",
-                    "name": "Carte de base du Canada - élevation (CBCE)",
-                    "description": "La carte de base du Canada - élevation (CBCE) du Secteur des sciences de la Terre de Ressources naturelles Canada est un service Internet qui s'adresse principalement aux utilisateurs et développeurs d'applications cartographiques en ligne.",
-                    "altText": "La carte de base du Canada - élevation (CBCE)",
+                    "name": "Élévation (CBME)",
+                    "description": "La carte de base d'élévation (CBME) illustre les différences d'élévation à l'aide de lignes de contour et de dégradés de couleurs.",
+                    "altText": "Élévation (CBME)",
                     "layers": [
                         {
                             "id": "CBME_CBCE_HS_RO_3978",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer",
-                            "opacity": 1
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBME_CBCE_HS_RO_3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    }
+                    "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseCBMT_CBCT_GEOM_3978",
@@ -967,25 +896,15 @@
                     "thumbnailUrl": "assets/images/outline.png",
                     "layers": [
                         {
-                            "id": "provinces_3978",
+                            "id": "CBMT_CBCT_GEOM_3978",
                             "layerType": "esri-tile",
-                            "url": "https://maps-cartes.ec.gc.ca/arcgis/rest/services/Overlays/Provinces/MapServer"
+                            "url": "https://maps-cartes.services.geo.ca/server2_serveur2/rest/services/BaseMaps/CBMT_CBCT_GEOM_3978/MapServer"
                         }
                     ],
-                    "attribution": {
-                        "text": {
-                            "disabled": false,
-                            "value": "© Sa Majesté le Roi du chef du Canada, représenté par le ministre de Ressources naturelles Canada"
-                        },
-                        "logo": {
-                            "disabled": false
-                        }
-                    },
                     "tileSchemaId": "EXT_NRCAN_Lambert_3978#LOD_NRCAN_Lambert_3978"
                 },
                 {
                     "id": "baseEsriWorld",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Imagerie mondiale",
                     "description": "L'imagerie mondiale fournit une imagerie satellitaire et aérienne dans de nombreuses régions du monde avec une résolution de 1 mètres et moins et des images satellitaires de résolution inférieure dans le monde entier.",
                     "altText": "L'imagerie mondiale",
@@ -993,44 +912,41 @@
                         {
                             "id": "World_Imagery",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriPhysical",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Monde physique",
-                    "description": "La carte du monde physique représente l'aspect physique naturel de la Terre à 1.24 kilomètres par pixel pour le monde et à 500 mètres pour les États-Unis.",
+                    "description": "La carte du monde physique représente l'aspect physique naturel de la Terre à 1.24 kilomètres par pixel pour le monde et à 500 mètres pour les États- Unis.",
                     "altText": "La carte du monde physique",
                     "layers": [
                         {
                             "id": "World_Physical_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Physical_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriRelief",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Monde en relief ombragé",
-                    "description": "La carte du monde en relief ombragé représente l'élévation de la surface de la terre comme un relief ombragé. Cette carte est utilisée comme couche de fond afin d'ajouter un relief ombragé à d'autres cartes SIG, comme la carte ArcGIS Online World Street Map.",
+                    "description": "La carte du monde en relief ombragé représente l'élévation de la surface de la terre comme un relief ombragé.Cette carte est utilisée comme couche de fond afin d'ajouter un relief ombragé à d'autres cartes SIG, comme la carte ArcGIS Online World Street Map.",
                     "altText": "La carte du monde en relief ombragé",
                     "layers": [
                         {
                             "id": "World_Shaded_Relief",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Shaded_Relief/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriStreet",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Monde routier",
                     "description": "La carte du monde routier présente des données au niveau des autoroutes pour le monde.",
                     "altText": "La carte du monde routier",
@@ -1038,14 +954,13 @@
                         {
                             "id": "World_Street_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriTerrain",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Monde terrain",
                     "description": "La carte du monde terrain est conçue pour être utilisée comme une carte de base par les professionnels du SIG pour superposer d'autres couches thématiques comme la démographie ou la couverture terrestre.",
                     "altText": "La carte du monde terrain",
@@ -1053,14 +968,13 @@
                         {
                             "id": "World_Terrain_Base",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Terrain_Base/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 },
                 {
                     "id": "baseEsriTopo",
-                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857",
                     "name": "Monde topographique",
                     "description": "La carte du monde topographique est conçue pour être utilisé comme une carte de base par les professionnels du SIG et comme une carte de référence par quiconque.",
                     "altText": "La carte du monde topographique",
@@ -1068,10 +982,10 @@
                         {
                             "id": "World_Topo_Map",
                             "layerType": "esri-tile",
-                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer",
-                            "opacity": 1
+                            "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
                         }
-                    ]
+                    ],
+                    "tileSchemaId": "EXT_ESRI_World_AuxMerc_3857#LOD_ESRI_World_AuxMerc_3857"
                 }
             ],
             "initialBasemapId": "baseNrCan",
