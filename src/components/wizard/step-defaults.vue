@@ -3,6 +3,7 @@
         <h3 class="text-lg font-semibold">{{ t('wizard.defaults.title') }}</h3>
         <p class="mt-1 text-sm text-gray-600">{{ t('wizard.defaults.description') }}</p>
 
+        <!-- Config lang toggle -->
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
             <h4 class="text-sm font-semibold text-gray-900">{{ t('wizard.defaults.basic') }}</h4>
 
@@ -20,6 +21,7 @@
             </div>
         </div>
 
+        <!-- Define list of map fixtures on startup -->
         <div class="mt-4 rounded-xl border border-gray-200 bg-white p-4">
             <div class="flex items-start justify-between gap-4">
                 <div>

@@ -3,6 +3,7 @@
         <h3 class="text-lg font-semibold">{{ t('wizard.review.title') }}</h3>
         <p class="text-sm text-gray-600">{{ t('wizard.review.description') }}</p>
 
+        <!-- Layers summary -->
         <div class="my-3 rounded-xl border border-gray-200 p-3">
             <h4 class="font-semibold">{{ t('wizard.layers.title') }} ({{ layers.length }})</h4>
             <div v-if="!layers.length" class="text-sm text-gray-600">—</div>
@@ -13,11 +14,13 @@
             </ul>
         </div>
 
+        <!-- Selected basemap summary -->
         <div class="my-3 rounded-xl border border-gray-200 p-3">
             <h4 class="font-semibold">{{ t('wizard.basemap.title') }}</h4>
             <div class="text-sm">{{ basemapId ?? '—' }}</div>
         </div>
 
+        <!-- Selected extent set -->
         <div class="my-3 rounded-xl border border-gray-200 p-3">
             <h4 class="font-semibold">{{ t('wizard.extent.title') }}</h4>
             <div class="text-sm">{{ extentLabel }}</div>

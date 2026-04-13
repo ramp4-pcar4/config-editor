@@ -3,6 +3,7 @@
         <h3 class="text-lg font-semibold">{{ t('wizard.basemap.title') }}</h3>
         <p class="mt-1 text-sm text-gray-600">{{ t('wizard.basemap.description') }}</p>
 
+        <!-- Basemap list -->
         <div class="mt-4 space-y-6">
             <section v-for="group in basemapGroups" :key="group.id">
                 <div class="mb-3">
@@ -95,6 +96,7 @@ const tileSchemasById = computed(() => {
     return Object.fromEntries(availableTileSchemas.value.map((tileSchema: any) => [tileSchema.id, tileSchema]));
 });
 
+// format thumbnail urls
 const addThumbnails = (basemap: any) => {
     const tileSchema = tileSchemasById.value[basemap.tileSchemaId];
     const thumbnailSuffixes = tileSchema?.thumbnailTileUrls ?? [];
@@ -109,6 +111,7 @@ const addThumbnails = (basemap: any) => {
     };
 };
 
+// separate groups 
 const basemapGroups = computed(() => [
     {
         id: 'lambert',

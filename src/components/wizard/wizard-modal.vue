@@ -29,7 +29,7 @@
             </header>
 
             <section class="grid min-h-0 grid-cols-[240px_minmax(0,1fr)]">
-                <!-- stepper -->
+                <!-- Stepper -->
                 <aside class="overflow-auto border-r border-gray-200 p-3">
                     <ol class="m-0 grid list-none gap-[6px] p-0">
                         <li
@@ -69,12 +69,13 @@
                     </ol>
                 </aside>
 
-                <!-- step content -->
+                <!-- Step content -->
                 <main class="min-h-0 overflow-auto px-6 py-5">
                     <component :is="activeStep.component" :errors="stepErrors" />
                 </main>
             </section>
 
+            <!-- Footer -->
             <footer class="flex items-center justify-between gap-[10px] border-t border-gray-200 px-[18px] py-3">
                 <div>
                     <button
@@ -91,7 +92,7 @@
                         v-if="!isLastStep"
                         class="cursor-pointer rounded-[10px] border border-black bg-black px-3 py-2 text-[13px] text-white disabled:cursor-not-allowed disabled:opacity-50"
                         :disabled="!canProceed"
-                        :title="!canProceed ? proceedTooltip : ''"
+                        :title="!canProceed ? proceedMessage : ''"
                         @click="next"
                     >
                         {{ t('wizard.next') }}
@@ -109,7 +110,7 @@
                 </div>
             </footer>
 
-            <!-- discard changes -->
+            <!-- Discard changes confirmation -->
             <div
                 v-if="showDiscardConfirm"
                 class="absolute inset-0 grid place-items-center bg-black/35 p-4"
@@ -164,14 +165,14 @@ const { t } = useI18n();
 
 type WizardUiState = {
     stepIndex: number;
-    dirty: boolean;
+    modified: boolean;
 };
 
 type StepError = { field?: string; message: string };
 
 const ui = reactive<WizardUiState>({
     stepIndex: 0,
-    dirty: false
+    modified: false
 });
 
 const showDiscardConfirm = ref(false);
@@ -181,12 +182,13 @@ watch(
     () => props.open,
     isOpen => {
         if (isOpen) {
-            ui.dirty = false;
+            ui.modified = false;
             ui.stepIndex = 0;
         }
     }
 );
 
+// check if any changes were made while wizard open
 watch(
     () => ({
         editingLang: store.editingLang,
@@ -197,7 +199,7 @@ watch(
         tileSchemas: store.elc?.map?.tileSchemas
     }),
     () => {
-        if (props.open) ui.dirty = true;
+        if (props.open) ui.modified = true;
     },
     { deep: true }
 );
@@ -213,6 +215,7 @@ const extentModeLabel = computed(() => {
     return '—';
 });
 
+// defined wizard steps
 const steps = [
     {
         id: 'defaults',
@@ -249,6 +252,7 @@ const steps = [
 const activeStep = computed(() => steps[ui.stepIndex]);
 const isLastStep = computed(() => ui.stepIndex === steps.length - 1);
 
+// step validation logic
 const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
     const errors: StepError[] = [];
 
@@ -264,6 +268,10 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
 
             if (!layer.url?.trim()) {
                 errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs a URL.` });
+            }
+
+            if (layer.layerType === 'esri-map-image' && (!layer.sublayers || layer.sublayers.length < 1)) {
+                errors.push({ message: `Layer "${layer.name || 'Unnamed'}" needs at least one sublayer.` });
             }
         }
     }
@@ -284,15 +292,14 @@ const validateStep = (stepId: (typeof steps)[number]['id']): StepError[] => {
 };
 
 const canConfirm = computed(() => !!currentBasemapId.value);
-
 const canProceed = computed(() => validateStep(activeStep.value.id).length === 0);
 
-const proceedTooltip = computed(() => {
+const proceedMessage = computed(() => {
     const errs = validateStep(activeStep.value.id);
     return errs[0]?.message ?? '';
 });
 
-const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
+const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'NA' => {
     if (i === ui.stepIndex) {
         return 'active';
     }
@@ -303,9 +310,10 @@ const stepStatus = (i: number): 'done' | 'active' | 'blocked' | 'idle' => {
         return errs.length ? 'blocked' : 'done';
     }
 
-    return 'idle';
+    return 'NA';
 };
 
+// whether to disable step
 const canNavigateTo = (stepIdx: number) => {
     if (stepIdx <= ui.stepIndex) return true;
 
@@ -317,6 +325,7 @@ const canNavigateTo = (stepIdx: number) => {
     return true;
 };
 
+// navigate to step
 const goToStep = (i: number) => {
     if (!canNavigateTo(i)) {
         return;
@@ -325,6 +334,7 @@ const goToStep = (i: number) => {
     ui.stepIndex = i;
 };
 
+// jump to next step
 const next = () => {
     const errs = validateStep(activeStep.value.id);
     stepErrors.value = errs;
@@ -339,6 +349,7 @@ const next = () => {
     }
 };
 
+// jump to last step
 const back = () => {
     if (ui.stepIndex > 0) {
         ui.stepIndex--;
@@ -346,6 +357,7 @@ const back = () => {
     }
 };
 
+// confirm and exit to main editor
 const confirm = () => {
     const errs = validateStep('review');
     stepErrors.value = errs;
@@ -358,8 +370,9 @@ const confirm = () => {
     emit('update:open', false);
 };
 
+// check if unsaved changes
 const requestClose = () => {
-    if (ui.dirty) {
+    if (ui.modified) {
         showDiscardConfirm.value = true;
         return;
     }
@@ -368,6 +381,7 @@ const requestClose = () => {
     emit('update:open', false);
 };
 
+// force close wizard
 const forceClose = () => {
     showDiscardConfirm.value = false;
     emit('cancel');
