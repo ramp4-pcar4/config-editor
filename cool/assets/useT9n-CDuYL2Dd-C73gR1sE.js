@@ -1,1 +1,0 @@
-import{j as e}from"./runtime-Cm-NGAfC-DS67k-dY.js";import{i as t}from"./controllers-D3RtgB-P-CzMlOJPp.js";var n=t(e);export{n as t};
