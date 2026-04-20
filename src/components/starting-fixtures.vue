@@ -11,15 +11,15 @@ const { t } = useI18n();
 
 <template>
     <div>
-        <h1 class="text-2xl font-semibold">
+        <h3 class="text-2xl font-semibold">
             {{ t('navbar.startingFixtures') }}
-        </h1>
+        </h3>
         <Input
             type="array"
             :title="t('startingFixtures.input')"
             v-model="store.startingFixtures"
             header-class="mt-4"
-            input-class="w-full ce-sm:w-[500px]"
+            input-class="w-full ce-sm:max-w-[500px]"
         />
     </div>
 </template>

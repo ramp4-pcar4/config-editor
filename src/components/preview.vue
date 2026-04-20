@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex flex-col">
-        <h1 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h1>
+        <h3 class="text-2xl font-semibold">{{ t('navbar.preview') }}</h3>
         <p class="mt-3">
             <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
         </p>

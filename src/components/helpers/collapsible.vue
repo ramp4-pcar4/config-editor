@@ -13,7 +13,7 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
 </script>
 
 <template>
-    <div class="mt-8 p-6 border-black rounded-md" :class="{ 'border-2': thickBorder, border: !thickBorder }" ref="el">
+    <div class="mt-8 p-6" ref="el">
         <div
             class="flex items-center cursor-pointer"
             @click="
@@ -48,8 +48,7 @@ defineProps(['title', 'description', 'thickBorder', 'required']);
             </slot>
         </div>
         <div v-if="expanded">
-            <hr class="border-solid border-t border-gray-300 my-8" />
-            <div class="mt-8"><slot></slot></div>
+            <div class="mt-8 border-l-2 pl-8"><slot></slot></div>
         </div>
     </div>
 </template>
