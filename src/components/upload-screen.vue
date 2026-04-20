@@ -11,6 +11,8 @@
                 <div
                     class="rounded-[8px] p-40 text-center bg-gray-100 border-dashed border-2 border-gray-400 h-full content-center"
                     tabindex="0"
+                    @dragover.prevent
+                    @dragleave.prevent
                     @drop.prevent="handleDrop"
                 >
                     <div class="flex flex-col items-center">
