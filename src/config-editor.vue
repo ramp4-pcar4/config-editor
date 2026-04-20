@@ -103,6 +103,8 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
 
 .ramp4-config-editor {
     height: 100%;
+    width: 100%;
+    
     font-family: $font-list;
     h1,
     h2,
@@ -142,7 +144,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         );
         column-gap: var(--grid-layout-gap);
         row-gap: 16px;
-
+    
         select,
         input {
             @apply block border border-black text-sm;
@@ -166,7 +168,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .main-container {
-        height: calc(100% - 40px);
+        height: calc(100% - 60px);
     }
 
     .black-bg-button {

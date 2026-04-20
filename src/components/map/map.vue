@@ -18,7 +18,7 @@ const { t } = useI18n();
 
 <template>
     <div>
-        <h1 class="text-2xl font-semibold">Map</h1>
+        <h3 class="text-2xl font-semibold">Map</h3>
         <div class="mt-4 input-table">
             <Input
                 :title="t('map.initialBasemapId.title')"

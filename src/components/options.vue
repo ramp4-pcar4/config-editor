@@ -12,7 +12,7 @@ const { t } = useI18n();
 
 <template>
     <div>
-        <h1 class="text-2xl font-semibold">{{ t('navbar.options') }}</h1>
+        <h3 class="text-2xl font-semibold">{{ t('navbar.options') }}</h3>
         <Checkbox v-model="store.options!.loadDefaultEvents" checked :title="t('options.defaultEvents')" />
         <Checkbox v-model="store.options!.loadDefaultFixtures" checked :title="t('options.defaultFixtures')" />
         <Checkbox v-model="store.options!.startRequired" :title="t('options.startRequired')" />

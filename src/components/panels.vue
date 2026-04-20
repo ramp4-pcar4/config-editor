@@ -34,7 +34,7 @@ const itemFields: Array<Field> = [
 
 <template>
     <div>
-        <h1 class="text-2xl font-semibold">{{ t('navbar.panels') }}</h1>
+        <h3 class="text-2xl font-semibold">{{ t('navbar.panels') }}</h3>
         <Checkbox
             v-model="store.elc.panels!.reorderable"
             checked

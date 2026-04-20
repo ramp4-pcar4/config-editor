@@ -1,3 +1,441 @@
+<template>
+    <div>
+        <!-- Header -->
+        <div class="flex items-center">
+            <h3 class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h3>
+            <div class="flex ml-auto">
+                <button
+                    class="bg-black hover:bg-gray-800 p-4 text-white flex-shrink-0 flex items-center justify-center"
+                    :class="updatedLegend ? 'cursor-default' : 'cursor-pointer'"
+                    @click="updateLegend"
+                    :aria-label="updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title')"
+                >
+                    <svg
+                        v-if="updatedLegend"
+                        data-slot="icon"
+                        fill="none"
+                        stroke-width="1.5"
+                        width="20px"
+                        height="20px"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+                    </svg>
+                    <svg
+                        v-else
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        height="20px"
+                        width="20px"
+                    >
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"
+                        />
+                    </svg>
+                    <span class="px-8">
+                        {{ updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title') }}
+                    </span>
+                    <button
+                        class="relative bottom-[1.5px]"
+                        v-if="!updatedLegend && (!allHaveId || !allUniqueIds)"
+                        :content="t('layers.idWarning')"
+                        v-tippy="{
+                            placement: 'top',
+                            trigger: 'mouseenter manual focus click'
+                        }"
+                        @click.stop
+                    >
+                        ⚠
+                    </button>
+                    <button
+                        v-if="!updatedLegend"
+                        :content="t('layers.autopopulateLegend.description')"
+                        :aria-label="t('layers.autopopulateLegend.description')"
+                        v-tippy="{
+                            placement: 'top',
+                            trigger: 'mouseenter manual focus click'
+                        }"
+                        @click.stop
+                    >
+                        <svg class="fill-current w-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+                            />
+                        </svg>
+                    </button>
+                </button>
+                <!-- add item button -->
+                <button
+                    class="bg-black cursor-pointer hover:bg-gray-800 ml-8 p-4 text-white flex-shrink-0 flex items-center justify-center"
+                    @click="addLayer"
+                >
+                    <svg
+                        class="relative bottom-[2px]"
+                        fill="white"
+                        height="18px"
+                        width="18px"
+                        viewBox="0 0 23 21"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                    </svg>
+                    <span class="px-2"> {{ t('layers.add') }} </span>
+                </button>
+            </div>
+        </div>
+        <!-- List of Layer Configs -->
+        <div>
+            <draggable
+                v-if="store.elc.layers.length > 0"
+                :list="store.elc.layers"
+                item-key="fake"
+                handle=".handle"
+                @change="onMoveEnd"
+            >
+                <template #item="{ element, index }">
+                    <Collapsible :thick-border="true">
+                        <template #header>
+                            <button
+                                :content="t('editor.reorder')"
+                                v-tippy
+                                class="cursor-move handle mr-1 ce-sm:mr-5"
+                                @click.stop
+                                :aria-label="t('editor.reorder')"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="w-20"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+                                    />
+                                </svg>
+                            </button>
+                            <button
+                                :content="t('editor.expand')"
+                                v-tippy
+                                class="arrow mr-4 ce-sm:mr-20"
+                                :aria-label="t('editor.expand')"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
+                                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                                </svg>
+                            </button>
+                            <span class="mr-4 ce-sm:mr-20 ce-sm:text-lg">{{
+                                element.id ? element.id : t('layer.title', [index + 1])
+                            }}</span>
+                            <div class="flex ml-auto">
+                                <button
+                                    @click.stop="removeLayer(index)"
+                                    class="mr-4"
+                                    :aria-label="t('layers.remove')"
+                                    :content="t('layers.remove')"
+                                    v-tippy
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="w-20"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                        />
+                                    </svg>
+                                </button>
+                                <div class="flex flex-col">
+                                    <button
+                                        @click.stop="reorderLayer(index, -1)"
+                                        :disabled="index === 0"
+                                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                        :aria-label="t('editor.up')"
+                                        :content="t('editor.up')"
+                                        v-tippy
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-20"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                                            />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        @click.stop="reorderLayer(index, 1)"
+                                        :disabled="index === store.elc.layers.length - 1"
+                                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                        :aria-label="t('editor.down')"
+                                        :content="t('editor.down')"
+                                        v-tippy
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke-width="1.5"
+                                            stroke="currentColor"
+                                            class="w-20"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
+                        <template #default>
+                            <div class="input-table mt-20">
+                                <GroupSelect
+                                    :title="t('layer.type')"
+                                    required
+                                    v-model="element.layerType"
+                                    :options="[
+                                        {
+                                            groupLabel: t('layer.type.group.esri'),
+                                            groupOptions: [
+                                                { label: t('layer.type.feature'), value: LayerType.FEATURE },
+                                                { label: t('layer.type.mapImage'), value: LayerType.MAPIMAGE },
+                                                { label: t('layer.type.tile'), value: LayerType.TILE },
+                                                { label: t('layer.type.imagery'), value: LayerType.IMAGERY }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.ogc'),
+                                            groupOptions: [
+                                                { label: t('layer.type.wfs'), value: LayerType.WFS },
+                                                { label: t('layer.type.wms'), value: LayerType.WMS }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.file'),
+                                            groupOptions: [
+                                                { label: t('layer.type.csv'), value: LayerType.CSV },
+                                                { label: t('layer.type.geojson'), value: LayerType.GEOJSON },
+                                                { label: t('layer.type.geojsonzip'), value: LayerType.GEOJSONZIPPED },
+                                                { label: t('layer.type.shapefile'), value: LayerType.SHAPEFILE },
+                                                { label: t('layer.type.flatty'), value: LayerType.FLATGEOBUF },
+                                                { label: t('layer.type.flattyzip'), value: LayerType.FLATGEOBUFZIPPED }
+                                            ]
+                                        },
+                                        {
+                                            groupLabel: t('layer.type.group.data'),
+                                            groupOptions: [
+                                                { label: t('layer.type.datatable'), value: LayerType.DATATABLE },
+                                                { label: t('layer.type.datacsv'), value: LayerType.DATACSV },
+                                                { label: t('layer.type.datajson'), value: LayerType.DATAJSON }
+                                            ]
+                                        }
+                                    ]"
+                                />
+                                <Input
+                                    :title="t('layer.id.title')"
+                                    :description="t('layer.id.description')"
+                                    :model-value="element.id"
+                                    @update:model-value="id => onLayerIdChange(id, index)"
+                                    required
+                                />
+                                <Input
+                                    :title="t('layer.name.title')"
+                                    :description="t('layer.name.description')"
+                                    v-model="element.name"
+                                />
+                                <Input
+                                    :title="t('layer.url.title')"
+                                    :description="t('layer.url.description')"
+                                    v-model="element.url"
+                                    required
+                                />
+                                <Input
+                                    v-if="LayerTools.isAttributeLayer(element)"
+                                    :title="t('layer.nameField.title')"
+                                    :description="t('layer.nameField.description')"
+                                    v-model="element.nameField"
+                                />
+                                <Input
+                                    v-if="LayerTools.isVectorLayer(element)"
+                                    :title="t('layer.maptipField.title')"
+                                    :description="t('layer.maptipField.description')"
+                                    v-model="element.maptipField"
+                                />
+                                <Input
+                                    :title="t('layer.expectedDrawTime.title')"
+                                    :description="t('layer.expectedDrawTime.description')"
+                                    v-model="element.expectedDrawTime"
+                                    type="number"
+                                    min="0"
+                                />
+                                <Input
+                                    :title="t('layer.expectedLoadTime.title')"
+                                    :description="t('layer.expectedLoadTime.description')"
+                                    v-model="element.expectedLoadTime"
+                                    type="number"
+                                    min="0"
+                                />
+                                <Input
+                                    :title="t('layer.maxLoadTime.title')"
+                                    :description="t('layer.maxLoadTime.description')"
+                                    v-model="element.maxLoadTime"
+                                    type="number"
+                                    min="0"
+                                    placeholder="0"
+                                />
+                                <Input
+                                    v-if="LayerTools.isFileLayer(element)"
+                                    :title="t('layer.colour.title')"
+                                    :description="t('layer.colour.description')"
+                                    v-model="element.colour"
+                                />
+                                <Input
+                                    v-if="LayerTools.isCSV(element)"
+                                    :title="t('layer.latField.title')"
+                                    :description="t('layer.latField.description')"
+                                    v-model="element.latField"
+                                />
+                                <Input
+                                    v-if="LayerTools.isCSV(element)"
+                                    :title="t('layer.longField.title')"
+                                    :description="t('layer.longField.description')"
+                                    v-model="element.longField"
+                                />
+                                <Input
+                                    v-if="LayerTools.isToleranceLayer(element)"
+                                    :title="t('layer.mouseTolerance.title')"
+                                    :description="t('layer.mouseTolerance.description')"
+                                    v-model="element.mouseTolerance"
+                                    type="number"
+                                    min="0"
+                                    placeholder="5"
+                                />
+                                <Input
+                                    v-if="LayerTools.isToleranceLayer(element)"
+                                    :title="t('layer.touchTolerance.title')"
+                                    :description="t('layer.touchTolerance.description')"
+                                    v-model="element.touchTolerance"
+                                    type="number"
+                                    min="0"
+                                    placeholder="15"
+                                />
+                                <Input
+                                    v-if="LayerTools.isAttributeLayer(element)"
+                                    :title="t('layer.initialFilteredQuery.title')"
+                                    :description="t('layer.initialFilteredQuery.description')"
+                                    v-model="element.initialFilteredQuery"
+                                />
+                                <Input
+                                    v-if="LayerTools.isAttributeLayer(element)"
+                                    :title="t('layer.permanentFilteredQuery.title')"
+                                    :description="t('layer.permanentFilteredQuery.description')"
+                                    v-model="element.permanentFilteredQuery"
+                                />
+                                <Select
+                                    v-if="LayerTools.isVectorLayer(element)"
+                                    :title="t('layer.identifyMode.title')"
+                                    :description="t('layer.identifyMode.description')"
+                                    v-model="element.identifyMode"
+                                    :options="[
+                                        {
+                                            label: t('layer.identifyMode.geometric'),
+                                            value: LayerIdentifyMode.GEOMETRIC
+                                        },
+                                        { label: t('layer.identifyMode.symbolic'), value: LayerIdentifyMode.SYMBOLIC },
+                                        { label: t('layer.identifyMode.hybrid'), value: LayerIdentifyMode.HYBRID }
+                                    ]"
+                                />
+                                <Select
+                                    v-if="LayerTools.isMIL(element)"
+                                    :title="t('layer.imageFormat.title')"
+                                    :description="t('layer.imageFormat.description')"
+                                    v-model="element.imageFormat"
+                                    :options="
+                                        imgFormatOpts.map(format => {
+                                            return { label: format, value: format };
+                                        })
+                                    "
+                                />
+                                <Input
+                                    v-if="LayerTools.isVectorLayer(element)"
+                                    type="object"
+                                    :title="t('layer.customRenderer.title')"
+                                    :description="t('layer.customRenderer.description')"
+                                    v-model="element.customRenderer"
+                                />
+                                <Input
+                                    v-if="LayerTools.isGeoJson(element) || LayerTools.isCSV(element)"
+                                    :type="LayerTools.isGeoJson(element) ? 'object' : 'text'"
+                                    :title="t('layer.rawData.title')"
+                                    :description="
+                                        t(
+                                            `layer.rawData.${
+                                                LayerTools.isGeoJson(element) ? 'geojson' : 'csv'
+                                            }.description`
+                                        )
+                                    "
+                                    v-model="element.rawData"
+                                />
+                            </div>
+                            <Checkbox
+                                v-if="LayerTools.isWFS(element)"
+                                :title="t('layer.xyInAttribs.title')"
+                                :description="t('layer.xyInAttribs.description')"
+                                v-model="element.xyInAttribs"
+                            />
+                            <Checkbox
+                                v-if="LayerTools.isFileLayer(element)"
+                                :title="t('layer.caching.title')"
+                                :description="t('layer.caching.description')"
+                                v-model="element.caching"
+                            />
+
+                            <Sublayers
+                                v-if="LayerTools.isParentLayer(element)"
+                                v-model="element.sublayers"
+                                :layer-type="element.layerType"
+                            />
+                            <Metadata v-model="element.metadata" />
+                            <Extent v-model="element.extent" :title="t('layer.extent')" />
+                            <Controls v-model="element.controls" />
+                            <Controls v-model="element.disabledControls" disabled />
+                            <State v-model="element.state" />
+                            <FieldMetadata
+                                v-model="element.fieldMetadata"
+                                v-if="LayerTools.isAttributeLayer(element)"
+                            />
+                            <DrawOrder v-model="element.drawOrder" v-if="LayerTools.isVectorLayer(element)" />
+                            <Fixtures v-model="element.fixtures" :layer-type="element.layerType" :sublayer="false" />
+                        </template>
+                    </Collapsible>
+                </template>
+            </draggable>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 // root.layers config nugget
 
@@ -231,441 +669,3 @@ const rubbishRemover = (config: RampLayerConfig, oldLayerType: LayerType, newLay
     }
 };
 </script>
-
-<template>
-    <div>
-        <!-- Header -->
-        <div class="flex items-center">
-            <h1 class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h1>
-            <div class="flex ml-auto">
-                <button
-                    class="bg-black hover:bg-gray-800 p-1 text-white flex-shrink-0 flex items-center justify-center"
-                    :class="updatedLegend ? 'cursor-default' : 'cursor-pointer'"
-                    @click="updateLegend"
-                    :aria-label="updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title')"
-                >
-                    <svg
-                        v-if="updatedLegend"
-                        data-slot="icon"
-                        fill="none"
-                        stroke-width="1.5"
-                        width="20px"
-                        height="20px"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                    >
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
-                    </svg>
-                    <svg
-                        v-else
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="white"
-                        height="20px"
-                        width="20px"
-                    >
-                        <path d="M0 0h24v24H0z" fill="none" />
-                        <path
-                            d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"
-                        />
-                    </svg>
-                    <span class="px-2">
-                        {{ updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title') }}
-                    </span>
-                    <button
-                        class="relative bottom-[1.5px]"
-                        v-if="!updatedLegend && (!allHaveId || !allUniqueIds)"
-                        :content="t('layers.idWarning')"
-                        v-tippy="{
-                            placement: 'top',
-                            trigger: 'mouseenter manual focus click'
-                        }"
-                        @click.stop
-                    >
-                        ⚠
-                    </button>
-                    <button
-                        v-if="!updatedLegend"
-                        :content="t('layers.autopopulateLegend.description')"
-                        :aria-label="t('layers.autopopulateLegend.description')"
-                        v-tippy="{
-                            placement: 'top',
-                            trigger: 'mouseenter manual focus click'
-                        }"
-                        @click.stop
-                    >
-                        <svg class="fill-current w-20 h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
-                            />
-                        </svg>
-                    </button>
-                </button>
-                <!-- add item button -->
-                <button
-                    class="bg-black cursor-pointer hover:bg-gray-800 ml-8 p-4 text-white flex-shrink-0 flex items-center justify-center"
-                    @click="addLayer"
-                >
-                    <svg
-                        class="relative bottom-[2px]"
-                        fill="white"
-                        height="18px"
-                        width="18px"
-                        viewBox="0 0 23 21"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                    </svg>
-                    <span class="px-2"> {{ t('layers.add') }} </span>
-                </button>
-            </div>
-        </div>
-        <!-- List of Layer Configs -->
-        <div>
-            <draggable
-                v-if="store.elc.layers.length > 0"
-                :list="store.elc.layers"
-                item-key="fake"
-                handle=".handle"
-                @change="onMoveEnd"
-            >
-                <template #item="{ element, index }">
-                    <Collapsible :thick-border="true">
-                        <template #header>
-                            <button
-                                :content="t('editor.reorder')"
-                                v-tippy
-                                class="cursor-move handle mr-1 ce-sm:mr-5"
-                                @click.stop
-                                :aria-label="t('editor.reorder')"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="w-6 h-6"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-                                    />
-                                </svg>
-                            </button>
-                            <button
-                                :content="t('editor.expand')"
-                                v-tippy
-                                class="arrow mr-1 ce-sm:mr-5"
-                                :aria-label="t('editor.expand')"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
-                                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                                </svg>
-                            </button>
-                            <span class="mr-1 ce-sm:mr-5 ce-sm:text-lg">{{
-                                element.id ? element.id : t('layer.title', [index + 1])
-                            }}</span>
-                            <div class="flex ml-auto">
-                                <button
-                                    @click.stop="removeLayer(index)"
-                                    class="mr-1"
-                                    :aria-label="t('layers.remove')"
-                                    :content="t('layers.remove')"
-                                    v-tippy
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="w-6 h-6"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                        />
-                                    </svg>
-                                </button>
-                                <div class="flex flex-col">
-                                    <button
-                                        @click.stop="reorderLayer(index, -1)"
-                                        :disabled="index === 0"
-                                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                                        :aria-label="t('editor.up')"
-                                        :content="t('editor.up')"
-                                        v-tippy
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            class="w-6 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="m4.5 15.75 7.5-7.5 7.5 7.5"
-                                            />
-                                        </svg>
-                                    </button>
-                                    <button
-                                        @click.stop="reorderLayer(index, 1)"
-                                        :disabled="index === store.elc.layers.length - 1"
-                                        class="disabled:text-gray-500 disabled:cursor-not-allowed"
-                                        :aria-label="t('editor.down')"
-                                        :content="t('editor.down')"
-                                        v-tippy
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke-width="1.5"
-                                            stroke="currentColor"
-                                            class="w-6 h-6"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                d="m19.5 8.25-7.5 7.5-7.5-7.5"
-                                            />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </template>
-                        <template #default>
-                            <div class="input-table mt-5">
-                                <GroupSelect
-                                    :title="t('layer.type')"
-                                    required
-                                    v-model="element.layerType"
-                                    :options="[
-                                        {
-                                            groupLabel: t('layer.type.group.esri'),
-                                            groupOptions: [
-                                                { label: t('layer.type.feature'), value: LayerType.FEATURE },
-                                                { label: t('layer.type.mapImage'), value: LayerType.MAPIMAGE },
-                                                { label: t('layer.type.tile'), value: LayerType.TILE },
-                                                { label: t('layer.type.imagery'), value: LayerType.IMAGERY }
-                                            ]
-                                        },
-                                        {
-                                            groupLabel: t('layer.type.group.ogc'),
-                                            groupOptions: [
-                                                { label: t('layer.type.wfs'), value: LayerType.WFS },
-                                                { label: t('layer.type.wms'), value: LayerType.WMS }
-                                            ]
-                                        },
-                                        {
-                                            groupLabel: t('layer.type.group.file'),
-                                            groupOptions: [
-                                                { label: t('layer.type.csv'), value: LayerType.CSV },
-                                                { label: t('layer.type.geojson'), value: LayerType.GEOJSON },
-                                                { label: t('layer.type.geojsonzip'), value: LayerType.GEOJSONZIPPED },
-                                                { label: t('layer.type.shapefile'), value: LayerType.SHAPEFILE },
-                                                { label: t('layer.type.flatty'), value: LayerType.FLATGEOBUF },
-                                                { label: t('layer.type.flattyzip'), value: LayerType.FLATGEOBUFZIPPED }
-                                            ]
-                                        },
-                                        {
-                                            groupLabel: t('layer.type.group.data'),
-                                            groupOptions: [
-                                                { label: t('layer.type.datatable'), value: LayerType.DATATABLE },
-                                                { label: t('layer.type.datacsv'), value: LayerType.DATACSV },
-                                                { label: t('layer.type.datajson'), value: LayerType.DATAJSON }
-                                            ]
-                                        }
-                                    ]"
-                                />
-                                <Input
-                                    :title="t('layer.id.title')"
-                                    :description="t('layer.id.description')"
-                                    :model-value="element.id"
-                                    @update:model-value="id => onLayerIdChange(id, index)"
-                                    required
-                                />
-                                <Input
-                                    :title="t('layer.name.title')"
-                                    :description="t('layer.name.description')"
-                                    v-model="element.name"
-                                />
-                                <Input
-                                    :title="t('layer.url.title')"
-                                    :description="t('layer.url.description')"
-                                    v-model="element.url"
-                                    required
-                                />
-                                <Input
-                                    v-if="LayerTools.isAttributeLayer(element)"
-                                    :title="t('layer.nameField.title')"
-                                    :description="t('layer.nameField.description')"
-                                    v-model="element.nameField"
-                                />
-                                <Input
-                                    v-if="LayerTools.isVectorLayer(element)"
-                                    :title="t('layer.maptipField.title')"
-                                    :description="t('layer.maptipField.description')"
-                                    v-model="element.maptipField"
-                                />
-                                <Input
-                                    :title="t('layer.expectedDrawTime.title')"
-                                    :description="t('layer.expectedDrawTime.description')"
-                                    v-model="element.expectedDrawTime"
-                                    type="number"
-                                    min="0"
-                                />
-                                <Input
-                                    :title="t('layer.expectedLoadTime.title')"
-                                    :description="t('layer.expectedLoadTime.description')"
-                                    v-model="element.expectedLoadTime"
-                                    type="number"
-                                    min="0"
-                                />
-                                <Input
-                                    :title="t('layer.maxLoadTime.title')"
-                                    :description="t('layer.maxLoadTime.description')"
-                                    v-model="element.maxLoadTime"
-                                    type="number"
-                                    min="0"
-                                    placeholder="0"
-                                />
-                                <Input
-                                    v-if="LayerTools.isFileLayer(element)"
-                                    :title="t('layer.colour.title')"
-                                    :description="t('layer.colour.description')"
-                                    v-model="element.colour"
-                                />
-                                <Input
-                                    v-if="LayerTools.isCSV(element)"
-                                    :title="t('layer.latField.title')"
-                                    :description="t('layer.latField.description')"
-                                    v-model="element.latField"
-                                />
-                                <Input
-                                    v-if="LayerTools.isCSV(element)"
-                                    :title="t('layer.longField.title')"
-                                    :description="t('layer.longField.description')"
-                                    v-model="element.longField"
-                                />
-                                <Input
-                                    v-if="LayerTools.isToleranceLayer(element)"
-                                    :title="t('layer.mouseTolerance.title')"
-                                    :description="t('layer.mouseTolerance.description')"
-                                    v-model="element.mouseTolerance"
-                                    type="number"
-                                    min="0"
-                                    placeholder="5"
-                                />
-                                <Input
-                                    v-if="LayerTools.isToleranceLayer(element)"
-                                    :title="t('layer.touchTolerance.title')"
-                                    :description="t('layer.touchTolerance.description')"
-                                    v-model="element.touchTolerance"
-                                    type="number"
-                                    min="0"
-                                    placeholder="15"
-                                />
-                                <Input
-                                    v-if="LayerTools.isAttributeLayer(element)"
-                                    :title="t('layer.initialFilteredQuery.title')"
-                                    :description="t('layer.initialFilteredQuery.description')"
-                                    v-model="element.initialFilteredQuery"
-                                />
-                                <Input
-                                    v-if="LayerTools.isAttributeLayer(element)"
-                                    :title="t('layer.permanentFilteredQuery.title')"
-                                    :description="t('layer.permanentFilteredQuery.description')"
-                                    v-model="element.permanentFilteredQuery"
-                                />
-                                <Select
-                                    v-if="LayerTools.isVectorLayer(element)"
-                                    :title="t('layer.identifyMode.title')"
-                                    :description="t('layer.identifyMode.description')"
-                                    v-model="element.identifyMode"
-                                    :options="[
-                                        {
-                                            label: t('layer.identifyMode.geometric'),
-                                            value: LayerIdentifyMode.GEOMETRIC
-                                        },
-                                        { label: t('layer.identifyMode.symbolic'), value: LayerIdentifyMode.SYMBOLIC },
-                                        { label: t('layer.identifyMode.hybrid'), value: LayerIdentifyMode.HYBRID }
-                                    ]"
-                                />
-                                <Select
-                                    v-if="LayerTools.isMIL(element)"
-                                    :title="t('layer.imageFormat.title')"
-                                    :description="t('layer.imageFormat.description')"
-                                    v-model="element.imageFormat"
-                                    :options="
-                                        imgFormatOpts.map(format => {
-                                            return { label: format, value: format };
-                                        })
-                                    "
-                                />
-                                <Input
-                                    v-if="LayerTools.isVectorLayer(element)"
-                                    type="object"
-                                    :title="t('layer.customRenderer.title')"
-                                    :description="t('layer.customRenderer.description')"
-                                    v-model="element.customRenderer"
-                                />
-                                <Input
-                                    v-if="LayerTools.isGeoJson(element) || LayerTools.isCSV(element)"
-                                    :type="LayerTools.isGeoJson(element) ? 'object' : 'text'"
-                                    :title="t('layer.rawData.title')"
-                                    :description="
-                                        t(
-                                            `layer.rawData.${
-                                                LayerTools.isGeoJson(element) ? 'geojson' : 'csv'
-                                            }.description`
-                                        )
-                                    "
-                                    v-model="element.rawData"
-                                />
-                            </div>
-                            <Checkbox
-                                v-if="LayerTools.isWFS(element)"
-                                :title="t('layer.xyInAttribs.title')"
-                                :description="t('layer.xyInAttribs.description')"
-                                v-model="element.xyInAttribs"
-                            />
-                            <Checkbox
-                                v-if="LayerTools.isFileLayer(element)"
-                                :title="t('layer.caching.title')"
-                                :description="t('layer.caching.description')"
-                                v-model="element.caching"
-                            />
-
-                            <Sublayers
-                                v-if="LayerTools.isParentLayer(element)"
-                                v-model="element.sublayers"
-                                :layer-type="element.layerType"
-                            />
-                            <Metadata v-model="element.metadata" />
-                            <Extent v-model="element.extent" :title="t('layer.extent')" />
-                            <Controls v-model="element.controls" />
-                            <Controls v-model="element.disabledControls" disabled />
-                            <State v-model="element.state" />
-                            <FieldMetadata
-                                v-model="element.fieldMetadata"
-                                v-if="LayerTools.isAttributeLayer(element)"
-                            />
-                            <DrawOrder v-model="element.drawOrder" v-if="LayerTools.isVectorLayer(element)" />
-                            <Fixtures v-model="element.fixtures" :layer-type="element.layerType" :sublayer="false" />
-                        </template>
-                    </Collapsible>
-                </template>
-            </draggable>
-        </div>
-    </div>
-</template>
