@@ -51,6 +51,8 @@ export class API {
                 const cleanedLangConfig = maptipMigrator(configs.configs[lang]);
                 store.configs[lang] = merge(defaultConfig[lang as 'en'], cleanedLangConfig);
             });
+        } else if (configs) {
+            throw new Error('Invalid config format');
         } else {
             store.configs = defaultConfig;
         }

@@ -118,6 +118,14 @@ const lodFields: Array<Field> = [
 
 <style lang="scss" scoped>
 .use-default {
-    @apply bg-black text-white p-2 hover:bg-gray-800 rounded-md;
+    @apply bg-black text-white p-4 rounded-[4px];
+        outline: none;
+        border-width: 1px;
+        border-color: #000;
+        &:hover,
+        &:focus {
+            background-color: rgba(209, 213, 219, 1);
+            color: black;
+        }
 }
 </style>

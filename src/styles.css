@@ -28,6 +28,10 @@
             cursor: pointer;
             color: black;
         }
+        select {
+            background-image: unset;
+            appearance: auto !important;
+        }
     }
 
     @layer utilities {

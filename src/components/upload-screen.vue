@@ -59,6 +59,11 @@
             </div>
         </div>
 
+        <div v-if="errorMessage !== ''" class="flex py-8 mt-8 bg-red-300">
+            <span class="ml-auto" role="alert">{{ errorMessage }}</span>
+            <button class="ml-auto px-4" @click="errorMessage = ''"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
+        </div>
+
         <div class="flex">
             <button class="continue-button max-w-[200px] ml-auto mt-40" :disabled="!jsonText" @click="startEditor">
                 {{ $t('upload.continue') }}
@@ -71,10 +76,14 @@
 import { ref } from 'vue';
 import { API } from '@/index';
 import { RampConfigs } from '@/definitions';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const fileInput = ref<HTMLInputElement | null>(null);
 const parsedData = ref<unknown>(null);
 const jsonText = ref<string>('');
+const errorMessage = ref<string>('');
 
 const handleDrop = (event: DragEvent): void => {
     const files = event.dataTransfer?.files;
@@ -141,7 +150,11 @@ const handleTextInput = (): void => {
 };
 
 const startEditor = () => {
-    ((window as any).ramp4EditorAPI as API).initialize(parsedData.value as RampConfigs);
+    try {
+        ((window as any).ramp4EditorAPI as API).initialize(parsedData.value as RampConfigs);    
+    } catch (error) {
+        errorMessage.value = t('upload.error.configs');
+    }
 };
 </script>
 

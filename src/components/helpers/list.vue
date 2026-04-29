@@ -179,7 +179,7 @@ const fieldToInputType: { [key: string]: string } = {
                     'cursor-not-allowed bg-gray-500': props.editDisabled,
                     'bg-black cursor-pointer hover:bg-gray-800': !props.editDisabled
                 }"
-                class="ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
+                class="ml-auto p-4 text-white flex-shrink-0 flex items-center justify-center"
             >
                 <svg
                     class="relative bottom-[2px]"

@@ -45,7 +45,7 @@ const onInput = (section: 'mapCoords' | 'scaleBar' | 'langToggle', key: string, 
 <template>
     <Collapsible :title="t('caption.title')" :description="t('caption.description')" :thick-border="true">
         <Collapsible :title="t('caption.coords.title')" :description="t('caption.coords.description')" required>
-            <div class="input-table">
+            <div>
                 <Select
                     :title="t('caption.coords.formatter.title')"
                     :description="t('caption.coords.formatter.description')"
