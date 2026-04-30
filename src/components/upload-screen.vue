@@ -151,7 +151,7 @@ const handleTextInput = (): void => {
 
 const startEditor = () => {
     try {
-        ((window as any).ramp4EditorAPI as API).initialize(parsedData.value as RampConfigs);    
+        ((window as any).ramp4EditorAPI as API).initialize(parsedData.value as RampConfigs);
     } catch (error) {
         errorMessage.value = t('upload.error.configs');
     }

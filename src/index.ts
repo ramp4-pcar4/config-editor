@@ -1,4 +1,4 @@
-import { createApp as createVueApp } from 'vue';
+import { createApp as createVueApp, toRaw } from 'vue';
 import type { ComponentPublicInstance } from 'vue';
 import { createPinia } from 'pinia';
 import { i18n } from './lang';
@@ -100,7 +100,8 @@ export const createInstance = (el: HTMLElement, config?: RampConfigs | undefined
  */
 const maptipMigrator = (configNugget: RampConfig): RampConfig => {
     // copy, so we don't mangle the source object
-    const con = structuredClone(configNugget);
+    // have to `toRaw` the config as its reactive and structureClone fails
+    const con = structuredClone(toRaw(configNugget));
 
     // find layer configs
 
