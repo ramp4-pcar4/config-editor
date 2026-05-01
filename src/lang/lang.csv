@@ -18,6 +18,7 @@ upload.file.aria,"Config file upload",1,"Config file upload",0
 upload.input.placeholder,"Paste your config or upload a file to the left",1,"Paste your config or upload a file to the left",0
 upload.input.aria,"Config file text input",1,"Config file text input",0
 upload.error.configs,"Invalid config format: no 'configs' object",1,"Format de configuration invalide : aucun objet 'configs'",0
+upload.error.invalidJSON,"Invalid JSON provided",1,"JSON invalide fourni",0
 upload.continue,Start editing,1,Start editing,0
 upload.back,Back,1,Back,0
 navbar.startingFixtures,Starting Fixtures,1,Calendrier de départ,1

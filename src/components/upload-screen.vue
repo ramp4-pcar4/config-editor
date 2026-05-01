@@ -61,7 +61,7 @@
 
         <div v-if="errorMessage !== ''" class="flex py-8 mt-8 bg-red-300">
             <span class="ml-auto" role="alert">{{ errorMessage }}</span>
-            <button class="ml-auto px-4" @click="errorMessage = ''"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
+            <button class="ml-auto px-4" @click="errorMessage = ''" :aria-label="errorMessage"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
         </div>
 
         <div class="flex">
@@ -150,6 +150,10 @@ const handleTextInput = (): void => {
 };
 
 const startEditor = () => {
+    if (!parsedData.value) {
+        errorMessage.value = t('upload.error.invalidJSON');
+        return;
+    }
     try {
         ((window as any).ramp4EditorAPI as API).initialize(parsedData.value as RampConfigs);
     } catch (error) {
