@@ -1,13 +1,18 @@
 <template>
     <div class="w-full h-full relative">
-        <vue3-json-editor
-            class="h-full"
-            v-model="configObject"
+        <JsonEditor
+            class="border border-black"
+            height="78vh"
+            :key="locale"
+            :modelValue="configJson"
             :lang="locale"
-            :mode="'text'"
-            :expanded-on-start="true"
-            @json-change="(json: any) => onJsonChange(json)"
+            @update:modelValue="onJsonChange"
         />
+        <div v-if="validatorErrors.length">
+            <ul class="list-disc ml-8">
+                <li v-for="(error, idx) in validatorErrors" :key="idx">{{ error }}</li>
+            </ul>
+        </div>
         <button type="button" ref="copybtn" class="copy-btn" @click="copyToClipboard()">
             <!-- Copy icon -->
             <svg
@@ -48,22 +53,39 @@
 <script setup lang="ts">
 import { useStore } from '@/store';
 import { ref, useTemplateRef } from 'vue';
-import { Vue3JsonEditor } from 'vue3-json-editor';
 import { useI18n } from 'vue-i18n';
+import 'ramp-json-editor/dist/ramp-json-editor.css';
 
 const { t, locale } = useI18n();
 
 const store = useStore();
 
+const validatorErrors = ref<any>([]);
 const configObject = ref<Object>({ startingFixtures: store.startingFixtures, configs: store.configs });
+const configJson = ref<string>(JSON.stringify(configObject.value, null, 2));
 
 const buttonEl = useTemplateRef('copybtn');
 const textSpan = useTemplateRef('copytext')!;
 
-const onJsonChange = (json: any) => {
-    store.startingFixtures = json.startingFixtures;
+const onJsonChange = (json: string) => {
+    let parsed: any;
+    try {
+        parsed = JSON.parse(json);
+    } catch (error: any) {
+        validatorErrors.value = [error.message];
+        return;
+    }
 
-    store.configs = json.configs;
+    // TODO: add RAMP schema validation (ajv)?
+    validatorErrors.value = [];
+    configJson.value = json;
+    if (JSON.stringify(parsed) === JSON.stringify(configObject.value)) {
+        return;
+    }
+
+    configObject.value = parsed;
+    store.startingFixtures = parsed.startingFixtures;
+    store.configs = parsed.configs;
 };
 
 const copyToClipboard = () => {
