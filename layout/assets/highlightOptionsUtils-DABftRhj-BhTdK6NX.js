@@ -1,1 +1,0 @@
-import"./HighlightDefaults-BZadl2MY-C0D9YPA-.js";function e(e){return e?.name??`default`}export{e as t};
