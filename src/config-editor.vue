@@ -1,25 +1,23 @@
 <template>
     <div class="ramp4-config-editor h-full">
-        <StartingScreen v-if="!store.initialized && !library" />
-        <div v-else class="h-full flex flex-col">
-            <div class="flex items-center">
-                <h2 class="h-9 text-3xl font-semibold">{{ t('editor.title') }}</h2>
-                <span class="ml-auto"></span>
-                <button
-                    v-if="!library"
-                    class="black-bg-button"
-                    @click="() => createNew()"
-                >
-                    {{ t('editor.new') }}
-                </button>
-            </div>
-            <div class="main-container flex-grow mt-3 flex">
-                <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
-                <div class="flex-grow h-full pl-5 overflow-y-auto">
-                    <div v-if="store.editingTemplate === ''">
-                        {{ t('editor.startEditing') }}
+        <div ref="app-size" class="h-full">
+            <StartingScreen v-if="!store.initialized && !library" />
+            <div v-else class="h-full flex flex-col">
+                <div class="flex items-center">
+                    <h2 class="h-36 text-3xl font-semibold">{{ t('editor.title') }}</h2>
+                    <span class="ml-auto"></span>
+                    <button v-if="!library" class="black-bg-button" @click="() => createNew()">
+                        {{ t('editor.new') }}
+                    </button>
+                </div>
+                <div class="main-container flex-grow mt-12 flex">
+                    <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
+                    <div class="flex-grow h-full pl-20 overflow-y-auto">
+                        <div v-if="store.editingTemplate === ''">
+                            {{ t('editor.startEditing') }}
+                        </div>
+                        <component v-else :is="editors[store.editingTemplate]"></component>
                     </div>
-                    <component v-else :is="editors[store.editingTemplate]"></component>
                 </div>
             </div>
         </div>
@@ -41,16 +39,20 @@ import SystemEditor from '@/components/system.vue';
 import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
 
+import CustomResizeObserver from './scripts/resize-observer';
+
 import '@/styles.css';
 import 'ramp-pcar/dist/ramp.css';
 import { useI18n } from 'vue-i18n';
-import { onMounted } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
 const { t } = useI18n();
 const store = useStore();
 let library: boolean = false;
+
+const appSizeContainer = useTemplateRef('app-size');
 
 const editors: { [key: string]: any } = {
     fixtures: FixturesEditor,
@@ -83,6 +85,12 @@ onMounted(() => {
         offset: [0, 5]
     });
 
+    // Puts `ce-xs` `ce-sm` `ce-md` `ce-lg` classes on the container, used instead of window sizes because this app can live inside other pages/apps
+    // `ce` (config-editor) prefix is to prevent styles bleeding into nest RAMP instances. sm:m-20 would apply to the RAMP component based on the editors size instead.
+    const ro = new CustomResizeObserver();
+    ro.observe(appSizeContainer.value!);
+
+    // Used to turn off certain UI elements in library mode.
     if (import.meta.env.MODE.includes('lib')) {
         library = true;
     }
@@ -95,6 +103,8 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
 
 .ramp4-config-editor {
     height: 100%;
+    width: 100%;
+    
     font-family: $font-list;
     h1,
     h2,
@@ -134,7 +144,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         );
         column-gap: var(--grid-layout-gap);
         row-gap: 16px;
-
+    
         select,
         input {
             @apply block border border-black text-sm;
@@ -143,7 +153,8 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         input[type='text'],
         input[type='number'],
         select {
-            @apply w-full p-2;
+            width: 100%;
+            padding: 4px;
         }
     }
 
@@ -152,22 +163,28 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         color: red;
     }
 
-    .ramp-styles {
-        .p-5 {
-            padding: 5px;
-        }
-    }
-
     .config-navbar {
         width: 324px;
     }
 
     .main-container {
-        height: calc(100% - 40px);
+        height: calc(100% - 60px);
     }
 
     .black-bg-button {
-        @apply bg-black text-white p-2 rounded-md;
+        @apply bg-black text-white p-8 rounded-[4px];
+        outline: none;
+        border-width: 1px;
+        border-color: #000;
+        &:hover,
+        &:focus {
+            background-color: rgba(209, 213, 219, 1);
+            color: black;
+        }
+    }
+
+    .white-bg-button {
+        @apply  p-8 rounded-[4px];
         outline: none;
         border-width: 1px;
         border-color: #000;

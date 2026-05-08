@@ -28,7 +28,7 @@ const { t } = useI18n();
 
 <template>
     <div>
-        <h1 class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h1>
+        <h3 class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h3>
         <Appbar v-model="store.elc.fixtures.appbar" />
         <AreasOfInterest v-model="store.elc.fixtures['areas-of-interest']" />
         <Basemap v-model="store.elc.fixtures.basemap" />

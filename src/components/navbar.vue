@@ -2,7 +2,7 @@
 <template>
     <div class="navbar-wrapper flex flex-col items-center border-black border-2 divide-y divide-slate-200">
         <div
-            class="w-full p-1 sm:p-3 hover:bg-gray-200 cursor-pointer border-gray-800"
+            class="w-full p-4 ce-sm:px-12 hover:bg-gray-200 cursor-pointer border-gray-800"
             :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
             @click="setTemplate('starting-fixtures')"
         >
@@ -10,7 +10,7 @@
         </div>
         <div class="w-full">
             <div
-                class="flex items-center hover:bg-gray-200 cursor-pointer w-full p-1 sm:p-3"
+                class="flex items-center hover:bg-gray-200 cursor-pointer w-full p-4 ce-sm:px-12"
                 @click="
                     () => {
                         configsExpanded = !configsExpanded;
@@ -18,7 +18,7 @@
                 "
             >
                 <svg
-                    class="sm:mr-1"
+                    class="ce-sm:mr-4"
                     xmlns="http://www.w3.org/2000/svg"
                     height="18"
                     viewBox="0 0 24 24"
@@ -30,7 +30,7 @@
                 {{ t('navbar.configs') }}
             </div>
             <template v-if="configsExpanded">
-                <div v-for="lang in Object.keys(store.configs)" :key="`config-${lang}`" class="ml-2 sm:ml-5">
+                <div v-for="lang in Object.keys(store.configs)" :key="`config-${lang}`" class="ml-8 ce-sm:ml-20">
                     <div
                         class="flex items-center hover:bg-gray-200 cursor-pointer"
                         @click="
@@ -40,7 +40,7 @@
                         "
                     >
                         <svg
-                            class="sm:mr-1"
+                            class="ce-sm:mr-4"
                             xmlns="http://www.w3.org/2000/svg"
                             height="18"
                             viewBox="0 0 24 24"
@@ -55,7 +55,7 @@
                         <div
                             v-for="section in sections"
                             :key="`${section}-${lang}`"
-                            class="hover:bg-gray-200 cursor-pointer ml-1 sm:ml-3 pl-1 sm:pl-2"
+                            class="hover:bg-gray-200 cursor-pointer ml-4 ce-sm:ml-12 pl-4 ce-sm:pl-8"
                             :class="{
                                 'bg-gray-200':
                                     store.editingTemplate === section.toLowerCase() && store.editingLang === lang
@@ -69,7 +69,7 @@
             </template>
         </div>
         <div
-            class="hover:bg-gray-200 cursor-pointer w-full p-1 sm:p-3"
+            class="hover:bg-gray-200 cursor-pointer w-full p-4 ce-sm:px-12"
             :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
             @click="setTemplate('options')"
         >
@@ -77,15 +77,15 @@
         </div>
         <span class="mt-auto"></span>
         <div class="w-full flex-col justify-items-center">
-            <div class="w-full flex justify-center sm:w-4/5">
+            <div class="w-full flex justify-center ce-sm:w-4/5">
                 <button
-                    class="black-bg-button"
+                    class="white-bg-button"
                     @click="setTemplate('preview')"
                 >
                     {{ t('navbar.preview') }}
                 </button>
             </div>
-            <div v-if="!props.library" class="w-full flex justify-center sm:w-4/5">
+            <div v-if="!props.library" class="w-full flex justify-center ce-sm:w-4/5">
                 <button
                     class="black-bg-button"
                     @click="setTemplate('json')"
@@ -157,12 +157,11 @@ onMounted(() => {
 <style lang="scss" scoped>
 @media (min-width: 640px) {
     .navbar-wrapper {
-        font-size: 16px;
-        line-height: 24px;
+        @apply text-base;
     }
 }
 
-.black-bg-button {
+.black-bg-button,.white-bg-button {
     @apply flex-1 my-3 mx-1;
 }
 </style>

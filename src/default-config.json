@@ -564,11 +564,6 @@
                 "root": {
                     "name": "root",
                     "children": [
-                        {
-                            "layerId": "",
-                            "symbologyExpanded": true,
-                            "entryIndex": 0
-                        }
                     ]
                 },
                 "headerControls": ["groupToggle", "visibilityToggle", "layerReorder"]
@@ -1173,11 +1168,6 @@
                 "root": {
                     "name": "root",
                     "children": [
-                        {
-                            "layerId": "",
-                            "symbologyExpanded": true,
-                            "entryIndex": 0
-                        }
                     ]
                 },
                 "headerControls": ["groupToggle", "visibilityToggle", "layerReorder"]

@@ -5,10 +5,19 @@
     @tailwind variants;
 
     @layer base {
+        input[type='text']{
+            display: block;
+            border-width: 1px;
+            border-color: black;
+            font-size: 14px;
+            line-height: 20px;
+        }
         input[type='checkbox'] {
             border-width: 2px;
             border-color: black;
             margin-right: 8px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
             color: black;
         }
@@ -18,6 +27,10 @@
             margin-right: 8px;
             cursor: pointer;
             color: black;
+        }
+        select {
+            background-image: unset;
+            appearance: auto !important;
         }
     }
 

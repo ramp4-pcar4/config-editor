@@ -161,7 +161,7 @@ const fieldToInputType: { [key: string]: string } = {
 <template>
     <Collapsible :thick-border="topLevel">
         <template #header>
-            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 sm:mr-3" :aria-label="t('editor.expand')">
+            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 ce-sm:mr-3" :aria-label="t('editor.expand')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                 </svg>
@@ -179,7 +179,7 @@ const fieldToInputType: { [key: string]: string } = {
                     'cursor-not-allowed bg-gray-500': props.editDisabled,
                     'bg-black cursor-pointer hover:bg-gray-800': !props.editDisabled
                 }"
-                class="ml-auto p-1 text-white flex-shrink-0 flex items-center justify-center"
+                class="ml-auto p-4 text-white flex-shrink-0 flex items-center justify-center"
             >
                 <svg
                     class="relative bottom-[2px]"
@@ -231,7 +231,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             viewBox="0 0 24 24"
                                             stroke-width="1.5"
                                             stroke="currentColor"
-                                            class="w-6 h-6"
+                                            class="w-20 h-20"
                                         >
                                             <path
                                                 stroke-linecap="round"
@@ -250,9 +250,10 @@ const fieldToInputType: { [key: string]: string } = {
                                             v-if="['string', 'number', 'boolean'].includes(field.type)"
                                             :type="fieldToInputType[field.type]"
                                             :disabled="editDisabled"
+                                            class="text-base"
                                             :class="{
                                                 'w-full max-w-xs': field.type !== 'boolean',
-                                                'cursor-pointer': field.type === 'boolean'
+                                                'cursor-pointer w-16 h-16': field.type === 'boolean'
                                             }"
                                             v-model="list[index][field.property]"
                                             v-bind:checked="field.type === 'boolean' ? field.checked : undefined"
@@ -280,7 +281,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             :type="fieldToInputType[field.type]"
                                             :class="{
                                                 'w-full max-w-xs': field.type.toLowerCase() !== 'boolean',
-                                                'cursor-pointer': field.type.toLowerCase() === 'boolean'
+                                                'cursor-pointer w-16 h-16': field.type.toLowerCase() === 'boolean'
                                             }"
                                             :aria-label="t(field.title)"
                                             :disabled="editDisabled"
@@ -313,7 +314,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                 viewBox="0 0 24 24"
                                                 stroke-width="1.5"
                                                 stroke="currentColor"
-                                                class="w-6 h-6"
+                                                class="w-20"
                                             >
                                                 <path
                                                     stroke-linecap="round"
@@ -337,7 +338,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                     viewBox="0 0 24 24"
                                                     stroke-width="1.5"
                                                     stroke="currentColor"
-                                                    class="w-6 h-6"
+                                                    class="w-20"
                                                 >
                                                     <path
                                                         stroke-linecap="round"
@@ -360,7 +361,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                     viewBox="0 0 24 24"
                                                     stroke-width="1.5"
                                                     stroke="currentColor"
-                                                    class="w-6 h-6"
+                                                    class="w-20"
                                                 >
                                                     <path
                                                         stroke-linecap="round"
@@ -381,7 +382,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-1 sm:mr-3"
+                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-4 ce-sm:mr-12"
                                         @click.stop
                                         :content="t('editor.reorder')"
                                         v-tippy
@@ -393,7 +394,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             viewBox="0 0 24 24"
                                             stroke-width="1.5"
                                             stroke="currentColor"
-                                            class="w-6 h-6"
+                                            class="w-20"
                                         >
                                             <path
                                                 stroke-linecap="round"
@@ -405,7 +406,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :content="t('editor.expand')"
                                         v-tippy
-                                        class="mr-1 sm:mr-3 arrow"
+                                        class="mr-4 ce-sm:mr-12 arrow"
                                         :aria-label="t('editor.expand')"
                                     >
                                         <svg
@@ -417,7 +418,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                         </svg>
                                     </button>
-                                    <span class="mr-1 sm:mr-5 sm:text-lg">{{
+                                    <span class="mr-4 ce-sm:mr-20 ce-sm:text-lg">{{
                                         list[index].id ||
                                         list[index].name ||
                                         list[index].layerId ||
@@ -442,7 +443,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                 viewBox="0 0 24 24"
                                                 stroke-width="1.5"
                                                 stroke="currentColor"
-                                                class="w-6 h-6"
+                                                class="w-20"
                                             >
                                                 <path
                                                     stroke-linecap="round"
@@ -466,7 +467,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                     viewBox="0 0 24 24"
                                                     stroke-width="1.5"
                                                     stroke="currentColor"
-                                                    class="w-6 h-6"
+                                                    class="w-20"
                                                 >
                                                     <path
                                                         stroke-linecap="round"
@@ -489,7 +490,7 @@ const fieldToInputType: { [key: string]: string } = {
                                                     viewBox="0 0 24 24"
                                                     stroke-width="1.5"
                                                     stroke="currentColor"
-                                                    class="w-6 h-6"
+                                                    class="w-20"
                                                 >
                                                     <path
                                                         stroke-linecap="round"
