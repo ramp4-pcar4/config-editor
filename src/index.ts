@@ -8,6 +8,7 @@ import VueTippy from 'vue-tippy';
 import { useStore } from '@/store';
 import { merge } from 'es-toolkit';
 import defaultConfig from './default-config.json';
+import JsonEditor from 'ramp-json-editor';
 
 // This is the starting point for the "lib" build, which is what other apps will use as they
 // just treat this editor like a tool / component.
@@ -20,6 +21,7 @@ export class API {
 
         element.use(createPinia());
         element.use(i18n);
+        element.use(JsonEditor);
 
         element.use(VueTippy, {
             directive: 'tippy', // => v-tippy

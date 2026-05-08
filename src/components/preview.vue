@@ -4,7 +4,7 @@
         <p class="mt-3">
             <span class="font-semibold">{{ t('preview.note') }}</span> {{ t('preview.warning') }}
         </p>
-        <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black"></div>
+        <div ref="rampInstance" class="mt-3 flex-grow border-2 border-black h-[70dvh]"></div>
     </div>
 </template>
 
