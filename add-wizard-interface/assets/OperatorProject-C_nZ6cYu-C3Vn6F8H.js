@@ -1,1 +1,0 @@
-import"./Point2D-Dv9TD-aS-BX2lO5H3.js";import"./Envelope2D--XzpZvDM-BV-dWCqw.js";import"./Transformation2D-CgG_JMDd-DKqo2oTZ.js";import"./MultiPathImpl-BmhZeruS-Dsmr6X9f.js";import{p as e}from"./SpatialReference-BR2CzbrM-CataHYjX.js";export{e as OperatorProject};
