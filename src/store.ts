@@ -6,9 +6,10 @@ export const useStore = defineStore('store', () => {
     const initialized = ref<boolean>(false);
     const editingTemplate = ref<string>('');
     const editingLang = ref<string>('');
-    const startingFixtures = ref<Array<string | undefined>>();
+    const startingFixtures = ref<Array<string>>();
     const configs = ref<{ [key: string]: RampConfig }>({});
     const options = ref<RampOptions>({});
+    const wizardOpen = ref<boolean>(false);
 
     // sadly the JSDoc gets disrespected by the defineStore grinder. While "elc" isn't as verbose, its very common so will minifiy real nice
     /**
@@ -16,5 +17,5 @@ export const useStore = defineStore('store', () => {
      */
     const elc = computed((): RampConfig => configs.value[editingLang.value]);
 
-    return { elc, initialized, startingFixtures, editingLang, editingTemplate, configs, options };
+    return { elc, initialized, startingFixtures, editingLang, editingTemplate, configs, options, wizardOpen };
 });

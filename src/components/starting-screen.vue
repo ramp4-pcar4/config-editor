@@ -1,6 +1,7 @@
 <template>
     <div class="flex flex-col h-full start-container">
         <h2 class="">{{ t('editor.title') }}</h2>
+
         <div v-if="!uploading">
             <div class="subtitle">{{ t('start.welcome') }}</div>
             <div class="flex justify-center items-center">
@@ -48,16 +49,25 @@
 <script setup lang="ts">
 import { API } from '@/index';
 import { useI18n } from 'vue-i18n';
+import { useStore } from '@/store';
 
 import uploadScreen from './upload-screen.vue';
 import { ref } from 'vue';
 
 const { t } = useI18n();
+const store = useStore();
 
 let uploading = ref(false);
 
 const newConfig = () => {
     ((window as any).ramp4EditorAPI as API).initialize();
+
+    store.initialized = true;
+    store.wizardOpen = true;
+
+    if (!store.editingLang) {
+        store.editingLang = 'en';
+    }
 };
 </script>
 
@@ -75,13 +85,8 @@ h2 {
     margin-bottom: 20px !important;
 }
 
-.start-container {
-    /* margin-right: 10%;
-    margin-left: 10%; */
-}
-
 button {
-    @apply items-center mx-3 border-black border-solid border px-5 flex w-full justify-center;
+    @apply mx-3 flex w-full items-center justify-center border border-solid border-black px-5;
     height: 100px;
     outline: none;
     &:hover,

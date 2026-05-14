@@ -65,3 +65,87 @@ system.suppressNumberLocalization.title,Suppress Number Localization,1,Suppressi
 system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,Détermine s'il faut afficher les nombres au format décimal simple au lieu de les formater en fonction de la langue de l'app.,1
 system.scrollToInstance.title,Scroll To Instance,1,Défilement vers l'instance,1
 system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,Détermine si le navigateur défile jusqu'à l'instance RAMP lorsqu'on appuie sur un bouton dans l'application.,1
+wizard.open,Open wizard,1,Ouvrir l'assistant,0
+wizard.quickStart,Quick start wizard,1,Assistant de démarrage rapide,0
+wizard.setup,Set up a working RAMP instance in a few steps,1,Configurez une instance RAMP fonctionnelle en quelques étapes,0
+wizard.back,Back,1,Retour,1
+wizard.next,Next,1,Suivant,1
+wizard.confirm,Confirm & Enter Main Editor,1,Confirmer et accéder à l'éditeur principal,0
+wizard.discard,Discard,1,Jeter,0
+wizard.discardChanges,Discard wizard changes?,1,Ignorer les modifications apportées par l'Assistant?,0
+wizard.discardWarning,Your changes in the wizard haven’t been applied yet.,1,Vos modifications dans l'assistant n'ont pas encore été appliquées.,0
+wizard.cancel,Keep editing,1,Continuer à éditer,0
+wizard.errors.fix,Please fix the following:,1,Veuillez corriger les éléments suivants:,0
+wizard.defaults.title,Defaults,1,Valeurs par défaut,0
+wizard.defaults.description,Choose basic map defaults and startup fixture settings,1,Choisissez les paramètres par défaut de la carte de base et les paramètres de démarrage des luminaires,0
+wizard.defaults.basic,Basic defaults,1,Paramètres par défaut de base,0
+wizard.defaults.locale,Language,1,Langue,1
+wizard.defaults.mapFixtures,Map fixtures on startup,1,Planifiez les points de repère au démarrage,0
+wizard.defaults.mapFixtures.description,Choose which fixtures are included when the map initializes.,1,Choisissez les équipements à inclure lors de l'initialisation de la carte.,0
+wizard.defaults.mapFixtures.default,Load default map fixtures,1,Charger les éléments de carte par défaut,0
+wizard.layers.title,Layers,1,Couches,1
+wizard.layers.description,Add layer source data (at least one layer is required).,1,Ajouter les données sources de la couche (au moins une couche est requise).,0
+wizard.layers.add,Add a layer,1,,0
+wizard.layers.source,Source URL,1,URL source,0
+wizard.layers.source.description,Provide a URL to a file or map service.,1,Fournissez une URL vers un service de fichiers ou de cartes.,0
+wizard.layers.name,Layer name,1,Nom du calque,0
+wizard.layers.type,Layer type,1,Type de calque,0
+wizard.layers.selectType,Select a layer type,1,Sélectionnez un type de calque,0
+wizard.layers.addLayer,Add layer,1,Ajouter un calque,0
+wizard.layers.count,Layers in this map,1,Les couches de cette carte,0
+wizard.layers.none,No layers yet. Add your first layer to continue.,1,"Aucune couche pour l'instant. Ajoutez votre première couche pour continuer.",0
+wizard.layers.reorder,Drag to reorder,1,Faites glisser pour réorganiser,0
+wizard.layers.edit,Edit,1,Éditer,1
+wizard.layers.remove,Remove,1,Supprimer,1
+wizard.layers.loading,Loading fields,1,Chargement des champs,0
+wizard.layers.advanced.settings,Advanced layer settings,1,Paramètres de calque avancés,0
+wizard.layers.advanced.metadata,Field metadata,1,Métadonnées de champ,0
+wizard.layers.advanced.metadata.configure,Configure the layer metadata properties.,1,Configurer les propriétés des métadonnées de la couche.,0
+wizard.layers.advanced.metadata.none,No field metadata available for configuration for this layer.,1,Aucune métadonnée de champ n'est disponible pour la configuration de cette couche.,0
+wizard.layers.advanced.metadata.alias,Alias,1,Alias,1
+wizard.layers.advanced.grid.cols,Grid columns,1,Colonnes de la grille,0
+wizard.layers.advanced.grid.cols.configure,Configure layer grid columns.,1,Configurer les colonnes de la grille des calques.,0
+wizard.layers.advanced.grid.cols.none,No grid columns are available for configuration for this layer.,1,Aucune colonne de grille n'est disponible pour la configuration de cette couche.,0
+wizard.layers.advanced.grid.cols.title,Title,1,Titre,1
+wizard.layers.advanced.grid.cols.visible,Visible,1,Visible,1
+wizard.layers.sublayers.title,Sublayer,1,Sous-couches,1
+wizard.layers.sublayers.description,Select at least one sublayer to include in this map image layer.,1,Sélectionnez au moins une sous-couche à inclure dans cette couche d'image cartographique.,0
+wizard.layers.sublayers.none,No sublayers available for this service.,1,Aucune sous-couche disponible pour ce service.,0
+wizard.layers.sublayers.loading,Loading sublayers...,1,Chargement des sous-couches...,0
+wizard.layers.hide,Hide,1,Cacher,1
+wizard.layers.show,Show,1,Montrer,1
+wizard.layers.cancel,Cancel,1,Annuler,1
+wizard.layers.save,Save changes,1,Enregistrer les modifications,0
+wizard.layers.types.geojson,GeoJSON,1,GeoJSON,1
+wizard.layers.types.shape,Zipped Shapefile,1,Shapefile zippé,1
+wizard.layers.types.csv,CSV,1,CSV,1
+wizard.layers.types.feature,ESRI Feature Layer,1,Couche d'éléments d'ESRI,1
+wizard.layers.types.mil,ESRI Map Image Layer,1,Couche d'image de la carte ESRI,1
+wizard.layers.types.tile,ESRI Tile Layer,1,Couche de tuiles ESRI,0
+wizard.layers.types.imagery,ESRI Imagery Layer,1,Couche d'imagerie d'ESRI,1
+wizard.layers.types.wms,OGC Web Map Service,1,Couche WMS de l'OGC,1
+wizard.layers.types.wfs,OGC Web Feature Service,1,Service d'entités Web OGC,1
+wizard.layers.errors.sublayer.load,Unable to load sublayers from the map image layer service URL.,1,Impossible de charger les sous-couches à partir de l'URL du service de couches d'images de la carte.,0
+wizard.layers.errors.sublayer.required,Select at least one sublayer.,1,Sélectionnez au moins une sous-couche.,0
+wizard.layers.errors.url.invalid,Please enter a valid HTTP or HTTPS URL.,1,Veuillez saisir une URL HTTP ou HTTPS valide.,0
+wizard.layers.errors.url.undetect,Could not detect a supported layer type.,1,Impossible de détecter un type de couche pris en charge.,0
+wizard.layers.errors.url.required,Please provide a source URL.,1,Veuillez fournir l'URL source.,0
+wizard.layers.errors.name.required,Please provide a layer name.,1,Veuillez indiquer le nom du calque.,0
+wizard.layers.errors.type.required,Please select a layer type.,1,Veuillez sélectionner un type de calque.,0
+wizard.layers.errors.metadata.load,Unable to load field information from the layer service URL.,1,Impossible de charger les informations de champ à partir de l'URL du service de couche.,0
+wizard.legend.title,Legend preview,1,Aperçu de la légende,0
+wizard.legend.none,No legend items yet. Add a layer to preview it here.,1,Aucun élément de légende pour le moment. Ajoutez un calque pour le prévisualiser ici.,0
+wizard.basemap.title,Basemap,1,Fond de carte,0
+wizard.basemap.description,Choose one basemap for the map background.,1,Choisissez un fond de carte.,0
+wizard.extent.title,Starting extent,1,Étendue de départ,0
+wizard.extent.description,Define the default starting map extents when RAMP loads.,1,Définissez l'étendue de la carte de départ par défaut lors du chargement de RAMP.,0
+wizard.extent.mercator,Mercator default extent (Canada wide),1,Étendue par défaut de Mercator (à l'échelle du Canada),0
+wizard.extent.lambert,Lambert default extent,1,Étendue par défaut de Lambert,0
+wizard.extent.restore,Restore default,1,Restaurer les valeurs par défaut,0
+wizard.review.title,Summary,1,Résumé,0
+wizard.review.description,Review your map settings, then exit to proceed to the main editor.,1,Vérifiez les paramètres de votre carte, puis quittez pour accéder à l'éditeur principal.,0
+wizard.errors.layer.name,Each layer needs a name.,1,Chaque calque doit avoir un nom.,0
+wizard.errors.layer.type,Layer {layerName} needs a layer type.,1,Le calque {layerName} nécessite un type de calque.,0
+wizard.errors.layer.url,Layer {layerName} needs a URL.,1,Le calque ${layerName} a besoin d'une URL.,0
+wizard.errors.layer.sublayer,Layer ${layerName} needs at least one sublayer.,1,Le calque ${layerName} nécessite au moins un sous-calque.,0
+wizard.errors.basemap,Select a basemap to continue.,1,Sélectionnez une carte de base pour continuer.,0
