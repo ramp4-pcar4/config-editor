@@ -1,1 +1,0 @@
-import{x as e}from"./decorators-ZlNXPDAo-CUugYC01.js";import{n as t}from"./tslib.es6-D23imAM7-C50a1nFc.js";import{n,t as r}from"./FeatureLikeLayerView-CMMlYxhP-BJCr6kO9.js";var i=class extends r{constructor(){super(...arguments),this.layer=null}},a=class extends n(i){};a=t([e(`esri.views.2d.layers.OrientedImageryLayerView2D`)],a);var o=a;export{o as default};

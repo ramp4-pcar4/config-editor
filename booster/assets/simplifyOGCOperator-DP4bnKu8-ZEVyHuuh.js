@@ -1,1 +1,0 @@
-import{d as e,n as t,s as n}from"./apiConverter-BJkAF8mH-CE6q3ssq.js";import{t as r}from"./OperatorSimplifyOGC-BJygiHPH-KAmnElwb.js";var i=new r;function a(e,t,n,r){return i.isSimple(e,t,n,r,null)}function o(){return i.supportsCurves()}function s(r,i){return a(n(r),t(e(r)),i!=null,i??null)}o();export{s as isSimple};
