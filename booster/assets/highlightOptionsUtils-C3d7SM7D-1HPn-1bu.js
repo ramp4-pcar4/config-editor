@@ -1,0 +1,1 @@
+import"./HighlightDefaults-BuCDzcMG-CMCICWg7.js";function e(e){return e?.name??`default`}export{e as t};

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="width=device-width,initial-scale=1" name="viewport" />
+
+        <title>Éditeur de configuration PCAR4</title>
+
+        <!-- Load stylesheet -->
+        <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_2/cdts/cdts-styles.css" />
+
+        <!-- Load/activate closure template scripts -->
+        <script
+            src="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_2/cdts/compiled/wet-fr.js"
+            data-cdts-setup='{"cdnEnv": "prod"}'
+        ></script>
+      <script type="module" crossorigin src="./assets/chunk-BQCxAhux-B1s75bQu.js"></script>
+      <script type="module" crossorigin src="./assets/preload-helper-CP_edrrL.js"></script>
+      <script type="module" crossorigin src="./assets/typedArrayUtil-DYSyCOD_-DIvTpH0Q.js"></script>
+      <script type="module" crossorigin src="./assets/Error-ndV5rHvq-BYGTzcDb.js"></script>
+      <script type="module" crossorigin src="./assets/promiseUtils-BPG26xDs-DDDyue1-.js"></script>
+      <script type="module" crossorigin src="./assets/ObservableBase-Bh0n92o6-De85lCNy.js"></script>
+      <script type="module" crossorigin src="./assets/MapUtils-B9HELEkm-CKmgnWTW.js"></script>
+      <script type="module" crossorigin src="./assets/jsonMap-BLlHFWcU-ea_KrpB4.js"></script>
+      <script type="module" crossorigin src="./assets/tracking-LPbEBMy7-C5BLvAEP.js"></script>
+      <script type="module" crossorigin src="./assets/decorators-ZlNXPDAo-CUugYC01.js"></script>
+      <script type="module" crossorigin src="./assets/PooledArray-DtOgAEc0-YPFD98ge.js"></script>
+      <script type="module" crossorigin src="./assets/nextTick-BnUlnj-w-B6BVpXNQ.js"></script>
+      <script type="module" crossorigin src="./assets/time-CZDdoUVM-CojUetU1.js"></script>
+      <script type="module" crossorigin src="./assets/scheduling-BvtNyCOr-CNZWYAX3.js"></script>
+      <script type="module" crossorigin src="./assets/Accessor-CpDhSRay-CT5tUupY.js"></script>
+      <script type="module" crossorigin src="./assets/tslib.es6-D23imAM7-C50a1nFc.js"></script>
+      <script type="module" crossorigin src="./assets/JSONSupport-DfOsVOf3-DX5X9w8d.js"></script>
+      <script type="module" crossorigin src="./assets/ClipRect-BERUDzmM-B81I2_7x.js"></script>
+      <script type="module" crossorigin src="./assets/Evented-CmI0uhB--F1PbnZeX.js"></script>
+      <script type="module" crossorigin src="./assets/SimpleObservable-CfPjwt2L-CBzKyWrG.js"></script>
+      <script type="module" crossorigin src="./assets/request-BHP5wMb6-PN1xUkoB.js"></script>
+      <script type="module" crossorigin src="./assets/Collection-IA1KtA-Z-C42xdoPe.js"></script>
+      <script type="module" crossorigin src="./assets/colorUtils-DDC8SjYu-CeAb_3Vk.js"></script>
+      <script type="module" crossorigin src="./assets/mathUtils-DUZju9LU-DxcR6qLd.js"></script>
+      <script type="module" crossorigin src="./assets/Color-B0UWuL9j-COTL4mFA.js"></script>
+      <script type="module" crossorigin src="./assets/Ellipsoid-CC8uHNvY-CASUOWuq.js"></script>
+      <script type="module" crossorigin src="./assets/assets-j55Owtsv-CeagknLS.js"></script>
+      <script type="module" crossorigin src="./assets/pe-Thhzqe5M-BiHTVb_d.js"></script>
+      <script type="module" crossorigin src="./assets/spatialReferenceUtils-D2B2EnZy-DyL7WPUK.js"></script>
+      <script type="module" crossorigin src="./assets/units-BC8-piul-CgmZk3q-.js"></script>
+      <script type="module" crossorigin src="./assets/SpatialReference-ChsjIq2y-DHbd4-Gr.js"></script>
+      <script type="module" crossorigin src="./assets/Point-Bx0NlFZd-DHrUs054.js"></script>
+      <script type="module" crossorigin src="./assets/Extent-ChGz0DOZ-D1Vc3yb5.js"></script>
+      <script type="module" crossorigin src="./assets/Clonable-B35i9g0O-Cue6F_ik.js"></script>
+      <script type="module" crossorigin src="./assets/createFeatureId-CV8Z7cXi-BFDzDImA.js"></script>
+      <script type="module" crossorigin src="./assets/Identifiable-D1zLYVH1-tKIpO5qu.js"></script>
+      <script type="module" crossorigin src="./assets/UnknownTimeZone-Dh9RjgJ8-BZwpXkZE.js"></script>
+      <script type="module" crossorigin src="./assets/locale-ADNY2NIj-DE9s3t21.js"></script>
+      <script type="module" crossorigin src="./assets/timeZoneUtils-CJXtBugu-CGFMvp5v.js"></script>
+      <script type="module" crossorigin src="./assets/date-D-rPUJBN-DE0JLC8N.js"></script>
+      <script type="module" crossorigin src="./assets/guards-DZkenTVo-C6Rq4khe.js"></script>
+      <script type="module" crossorigin src="./assets/sql-DfUpaVpC-BD3HKhyf.js"></script>
+      <script type="module" crossorigin src="./assets/fieldUtils-C2SlRjua-CFbOpI1Z.js"></script>
+      <script type="module" crossorigin src="./assets/fieldFormatUtils-DaraO6I2-C1cHmvYc.js"></script>
+      <script type="module" crossorigin src="./assets/getPopupProvider-BYStMkoZ-CSLxNnWU.js"></script>
+      <script type="module" crossorigin src="./assets/graphicInstanceUtils-Bdw0Vcgi-D_CRiknl.js"></script>
+      <script type="module" crossorigin src="./assets/aaBoundingRect-7NObVHoK-DcGB2Gi6.js"></script>
+      <script type="module" crossorigin src="./assets/curveUtils-C9O3Q6kr-CcJlNfcQ.js"></script>
+      <script type="module" crossorigin src="./assets/common-DgIStbYe-C5WZrRjJ.js"></script>
+      <script type="module" crossorigin src="./assets/mat3-CvJM__c0-CMEITU4K.js"></script>
+      <script type="module" crossorigin src="./assets/mat3f64-H1VyAOlk-CCFRvWLA.js"></script>
+      <script type="module" crossorigin src="./assets/vec2-BNGcJ5FZ-Eac4vBC8.js"></script>
+      <script type="module" crossorigin src="./assets/curveExtent-Cel8EJ0T-CrWuz_ZP.js"></script>
+      <script type="module" crossorigin src="./assets/Polyline-DihY7g0O-xFzuYKa3.js"></script>
+      <script type="module" crossorigin src="./assets/Multipoint-C9F0n3nR-B_FfoVX5.js"></script>
+      <script type="module" crossorigin src="./assets/coordsUtils-DU4cvOtV-DmpITVlR.js"></script>
+      <script type="module" crossorigin src="./assets/Polygon-BYSa6hNe-BnuLsToG.js"></script>
+      <script type="module" crossorigin src="./assets/jsonTypeUtils-DkQOCfAl-FXkAuv4H.js"></script>
+      <script type="module" crossorigin src="./assets/jsonUtils-BbQIRzat-Z8q1x__R.js"></script>
+      <script type="module" crossorigin src="./assets/reactiveUtils-6jIZIaR0-BhER5Lhu.js"></script>
+      <script type="module" crossorigin src="./assets/screenUtils-TBnwIy4h-CXCbc27r.js"></script>
+      <script type="module" crossorigin src="./assets/SimpleMarkerSymbol-C5jeQml6-0vMWDaCk.js"></script>
+      <script type="module" crossorigin src="./assets/PictureMarkerSymbol-BeO9AmkD-DF1f_IE-.js"></script>
+      <script type="module" crossorigin src="./assets/Promise-eismRPs_-DRq7tOst.js"></script>
+      <script type="module" crossorigin src="./assets/Loadable-lWmPFkVj-BHDTBcdN.js"></script>
+      <script type="module" crossorigin src="./assets/apiKeyUtils-rt5UDHM4-DBgZefuT.js"></script>
+      <script type="module" crossorigin src="./assets/Portal-WZdIXLyA-Dw2pn07Z.js"></script>
+      <script type="module" crossorigin src="./assets/textUtils-DlLKcQr7-CjvYGkYX.js"></script>
+      <script type="module" crossorigin src="./assets/TextSymbol-BPFebfsz-D1zN61rB.js"></script>
+      <script type="module" crossorigin src="./assets/collectionUtils-BKsdcVd5-Bacz4mLn.js"></script>
+      <script type="module" crossorigin src="./assets/opacityUtils-CVegYGtS-BZNFBA-e.js"></script>
+      <script type="module" crossorigin src="./assets/mat4f64-B3SVWMa--ChP1Yk_U.js"></script>
+      <script type="module" crossorigin src="./assets/DoubleArray-CBKJpGQF-B0VI7Sn1.js"></script>
+      <script type="module" crossorigin src="./assets/aaBoundingBox-CO4I_z6q-CA5aYC7m.js"></script>
+      <script type="module" crossorigin src="./assets/vec3f64-CG5ySZkG-hNj9Jc47.js"></script>
+      <script type="module" crossorigin src="./assets/symbolLayerUtils3D-CzY4elsx-BHpqxM9H.js"></script>
+      <script type="module" crossorigin src="./assets/typeUtils-BBgNtU8A-C_WC9BiU.js"></script>
+      <script type="module" crossorigin src="./assets/typeUtils-C9S6c9Me-D2Yjaq-d.js"></script>
+      <script type="module" crossorigin src="./assets/Graphic-DGxZxjj1-CiIkffRa.js"></script>
+      <script type="module" crossorigin src="./assets/mat4-C2gx1S7R-B2gZWP_w.js"></script>
+      <script type="module" crossorigin src="./assets/utils-0kqHNNd6-Ck3g4C1Z.js"></script>
+      <script type="module" crossorigin src="./assets/parser-DrKGmpEa-fXJ5IkG0.js"></script>
+      <script type="module" crossorigin src="./assets/jsonUtils-D3eexpL--EtE5B3H4.js"></script>
+      <script type="module" crossorigin src="./assets/layerContainerType-D294HPLX-CHUAFXkj.js"></script>
+      <script type="module" crossorigin src="./assets/BlendLayer-DJ2pYSMf-BVsrdLtS.js"></script>
+      <script type="module" crossorigin src="./assets/lengthUtils-Cu4-XbaN-BS1tzj5Q.js"></script>
+      <script type="module" crossorigin src="./assets/unitConversionUtils-B5RvLFq1-CKSoK6oO.js"></script>
+      <script type="module" crossorigin src="./assets/ElevationInfo-CebVQtOd-Cio71b-L.js"></script>
+      <script type="module" crossorigin src="./assets/GraphicsCollection-Dq2HaXCP-B4f8w_pY.js"></script>
+      <script type="module" crossorigin src="./assets/timeUtils-CkGc5Qud-BuF0YxVb.js"></script>
+      <script type="module" crossorigin src="./assets/TimeExtent-CoDXYfBo-FLXWB7lD.js"></script>
+      <script type="module" crossorigin src="./assets/Layer-DpHpUHe4-vOqcepXp.js"></script>
+      <script type="module" crossorigin src="./assets/ScaleRangeLayer-aX7xZERH-Bfy3RamJ.js"></script>
+      <script type="module" crossorigin src="./assets/GraphicsLayer-stCedg6d-DNgTrL6Q.js"></script>
+      <script type="module" crossorigin src="./assets/messages-CVpnhi24-Rd5wIvj9.js"></script>
+      <script type="module" crossorigin src="./assets/number-DCZzENL7-DusHLZzi.js"></script>
+      <script type="module" crossorigin src="./assets/intl-I2E_pjNt-C1LjB53i.js"></script>
+      <script type="module" crossorigin src="./assets/sanitizerUtils-CBtpcjao-Bxk6wHdD.js"></script>
+      <script type="module" crossorigin src="./assets/projector-DuJ6m3pL-5ixsM1u6.js"></script>
+      <script type="module" crossorigin src="./assets/runtime-CaipCQyx-CK80TH8T.js"></script>
+      <script type="module" crossorigin src="./assets/uuid-KPvt78tX-DA_JDUfK.js"></script>
+      <script type="module" crossorigin src="./assets/widget-DnoCeS5i-Di19zLDC.js"></script>
+      <script type="module" crossorigin src="./assets/Widget-D3U4T8zG-Beg1jQ6t.js"></script>
+      <script type="module" crossorigin src="./assets/LabeledSwitch-BUkCFN7u-CPetn35w.js"></script>
+      <script type="module" crossorigin src="./assets/SketchLabelOptions-Oxe9Wy_l-CgQNpy4T.js"></script>
+      <script type="module" crossorigin src="./assets/SketchOptions-COhMGaKC-BKNI6Bdc.js"></script>
+      <script type="module" crossorigin src="./assets/vec3-D0JSMCWt-DBmoWHq5.js"></script>
+      <script type="module" crossorigin src="./assets/LineSnappingHint-DQAM0wts-d-p4rnKq.js"></script>
+      <script type="module" crossorigin src="./assets/CurveSnappingHint-Cl1UL_OO-CswWF-kM.js"></script>
+      <script type="module" crossorigin src="./assets/SnappingCandidate-CKR0XYFU-Bi41Unu2.js"></script>
+      <script type="module" crossorigin src="./assets/closestPointOnCurve-D-uoI-Cj-Bm1TLYcl.js"></script>
+      <script type="module" crossorigin src="./assets/geodesicConstants-DyOpEyMf-DKpXR6aM.js"></script>
+      <script type="module" crossorigin src="./assets/geodesicUtils-D7njDzJ2-BIVCqlMS.js"></script>
+      <script type="module" crossorigin src="./assets/vec2f64-D8dbcrKD-CZDvRQrX.js"></script>
+      <script type="module" crossorigin src="./assets/geometry2dUtils-w1TB9KxL-DMg1CDHp.js"></script>
+      <script type="module" crossorigin src="./assets/mathUtils-BW4nYQyN-6m_1fD7u.js"></script>
+      <script type="module" crossorigin src="./assets/dehydratedPoint-4Kht1gvJ-BnLBIGbk.js"></script>
+      <script type="module" crossorigin src="./assets/memoize-BzVNAtJh-BOSCkWO5.js"></script>
+      <script type="module" crossorigin src="./assets/elevationInfoUtils-BkvfU5l--BskBvmaK.js"></script>
+      <script type="module" crossorigin src="./assets/normalizedPoint-BgDzRjPu-BpS0fM30.js"></script>
+      <script type="module" crossorigin src="./assets/vec4-DtLpLkJR-C-POo-hV.js"></script>
+      <script type="module" crossorigin src="./assets/quatf64-BVIu7a1q-DDZGA2Pv.js"></script>
+      <script type="module" crossorigin src="./assets/vec4f64-DFGee9an-D781FUme.js"></script>
+      <script type="module" crossorigin src="./assets/vectorStacks-B1gbr-JX-dGr0zRyG.js"></script>
+      <script type="module" crossorigin src="./assets/plane-Bmb6IkzK-CvYVpUPH.js"></script>
+      <script type="module" crossorigin src="./assets/ObjectStack-Dpo-0vSe-Cv6jdH8x.js"></script>
+      <script type="module" crossorigin src="./assets/ray-CTgCPW-X-_0LKSebP.js"></script>
+      <script type="module" crossorigin src="./assets/vec3-IMxs4PQg-C1_cFA4B.js"></script>
+      <script type="module" crossorigin src="./assets/sphere-nPueV3Hd-BW3Eyf19.js"></script>
+      <script type="module" crossorigin src="./assets/constraints-BF3gOvcs-DNLY8y94.js"></script>
+      <script type="module" crossorigin src="./assets/EdgeSnappingCandidate-pNzDQTJK-2p4scq2o.js"></script>
+      <script type="module" crossorigin src="./assets/DrapedEdgeSnappingCandidate-DxSLKc5I-BLbbro4w.js"></script>
+      <script type="module" crossorigin src="./assets/HighlightDefaults-BuCDzcMG-CMCICWg7.js"></script>
+      <script type="module" crossorigin src="./assets/PropertiesPool-C-E-9RO9-YH879RWI.js"></script>
+      <script type="module" crossorigin src="./assets/Queue-ZPjJqHCS-AVRz0_TU.js"></script>
+      <script type="module" crossorigin src="./assets/signal-FL_VH1r3-kGlKPOv9.js"></script>
+      <script type="module" crossorigin src="./assets/InputManager-DIM_N28t-2mdt5Bgv.js"></script>
+      <script type="module" crossorigin src="./assets/IntersectionSnappingHint-CVmAOEr_-DDTcK27l.js"></script>
+      <script type="module" crossorigin src="./assets/IntersectionSnappingCandidate-B1eFXjow-CKuRuw3I.js"></script>
+      <script type="module" crossorigin src="./assets/LineSnappingCandidate-CmsPsivJ-D3E8mw_B.js"></script>
+      <script type="module" crossorigin src="./assets/ParallelSnappingHint-DNOoVwty-xv3ncr4H.js"></script>
+      <script type="module" crossorigin src="./assets/RightAngleSnappingHint-DyvSaNt9-FxdvDCN9.js"></script>
+      <script type="module" crossorigin src="./assets/RightAngleTriangleSnappingCandidate-MUZmOMrW-B5QeFqc-.js"></script>
+      <script type="module" crossorigin src="./assets/UpdatingHandles-S9vgXoA1-DHG65N-9.js"></script>
+      <script type="module" crossorigin src="./assets/PointSnappingHint-BLJ2HWci-BTBMnmEW.js"></script>
+      <script type="module" crossorigin src="./assets/VertexSnappingCandidate-Bn-3r_9u-c27cQiGq.js"></script>
+      <script type="module" crossorigin src="./assets/asyncUtils-BcprHkvJ-Bd5wYQRC.js"></script>
+      <script type="module" crossorigin src="./assets/workers-Bp4qysmZ-BPNMqWTW.js"></script>
+      <script type="module" crossorigin src="./assets/workers-47twhdLM-CZjHQC65.js"></script>
+      <script type="module" crossorigin src="./assets/WorkerHandle-NSB_f-MV-eJzMofU-.js"></script>
+      <script type="module" crossorigin src="./assets/MeasurementWorkerHandle-BGO57h2J-M-UN3Mz-.js"></script>
+      <script type="module" crossorigin src="./assets/earcut-CUPBLdFg-BYYCVxcp.js"></script>
+      <script type="module" crossorigin src="./assets/projectBuffer-CuuOt5Kp-UvA9ltGO.js"></script>
+      <script type="module" crossorigin src="./assets/GeographicTransformation-DMRX6oBN-BWW1iDDl.js"></script>
+      <script type="module" crossorigin src="./assets/spatialReferenceEllipsoidUtils-C7JSAv4V-CyAAJoST.js"></script>
+      <script type="module" crossorigin src="./assets/projectionUtils-BoZCn8FG-ROfBV_lc.js"></script>
+      <script type="module" crossorigin src="./assets/projectPointToVector-Ci12rR4F-Cr-VyTfZ.js"></script>
+      <script type="module" crossorigin src="./assets/projectVectorToVector-tRnsfWdy-ZeiGrKff.js"></script>
+      <script type="module" crossorigin src="./assets/quantity-Cj_GpAS2-Djk-_5cT.js"></script>
+      <script type="module" crossorigin src="./assets/euclideanLengthMeasurementUtils-ByyGsSm2-7yMEX00f.js"></script>
+      <script type="module" crossorigin src="./assets/geodesicMeasurementUtils-CQECzPrN-BVFiG6LY.js"></script>
+      <script type="module" crossorigin src="./assets/geodeticCurveType-C4lBjwVn-SfZNPxbO.js"></script>
+      <script type="module" crossorigin src="./assets/geodeticLengthOperator-B1mXT1WU-Bui94_TQ.js"></script>
+      <script type="module" crossorigin src="./assets/lineSegment-7kalB-6z-BRC0L84H.js"></script>
+      <script type="module" crossorigin src="./assets/triangle-DYd02Wak-DwYFhnSY.js"></script>
+      <script type="module" crossorigin src="./assets/automaticLengthMeasurementUtils-Cv7VoouQ-CugJLm1-.js"></script>
+      <script type="module" crossorigin src="./assets/hitTestSelectUtils-dOBe8Rru-1E2dWhIu.js"></script>
+      <script type="module" crossorigin src="./assets/isSupportedObject-B1jGq3dr-DZE_9lmK.js"></script>
+      <script type="module" crossorigin src="./assets/keybindings-C8XgRs3Q-BsnZw2wR.js"></script>
+      <script type="module" crossorigin src="./assets/layerUtils-CuqoXXZq-CiI2Aj09.js"></script>
+      <script type="module" crossorigin src="./assets/editableLayers-DJGXKS6U-BaakKsYA.js"></script>
+      <script type="module" crossorigin src="./assets/layerUtils-CjTZrGA--DPoA7KnJ.js"></script>
+      <script type="module" crossorigin src="./assets/screenUtils-BUx5ne9m-CWPGLUdI.js"></script>
+      <script type="module" crossorigin src="./assets/fieldType-W1rGR3nR-ZhC0yKQ5.js"></script>
+      <script type="module" crossorigin src="./assets/Field-Jbo6O0A8-Bo-v4trd.js"></script>
+      <script type="module" crossorigin src="./assets/DynamicDataLayer-C5zzgVLq-DLpXhNmh.js"></script>
+      <script type="module" crossorigin src="./assets/QuantizationParameters-diHsrLAF-BaYtrRBU.js"></script>
+      <script type="module" crossorigin src="./assets/StatisticDefinition-D05RDsKw-4a4OXFJG.js"></script>
+      <script type="module" crossorigin src="./assets/Query-DX5Fyee--B6LpsGdt.js"></script>
+      <script type="module" crossorigin src="./assets/Version-CsupOUKD-aWRy9FMl.js"></script>
+      <script type="module" crossorigin src="./assets/utils-DpXpfZIo-C2kItMc4.js"></script>
+      <script type="module" crossorigin src="./assets/snappingUtils-BvMD5Ges-DomFbLl5.js"></script>
+      <script type="module" crossorigin src="./assets/viewUtils-Dj2VVJ8O-DHQkbivv.js"></script>
+      <script type="module" crossorigin src="./assets/viewUtils-Cocxxxe5-DbYj423q.js"></script>
+      <script type="module" crossorigin src="./assets/SketchViewModel-DQHyOSwV-B14aJOkP.js"></script>
+      <script type="module" crossorigin src="./assets/_plugin-vue_export-helper-DjzNVFIQ-Bt944kDv.js"></script>
+      <script type="module" crossorigin src="./assets/vue.esm-bundler-7UEitcnU-D6Vla4Vf.js"></script>
+      <script type="module" crossorigin src="./assets/pinia-kdhWbWx5-DmyTAIsW.js"></script>
+      <script type="module" crossorigin src="./assets/config-Se2FTV7I-DuBQns42.js"></script>
+      <script type="module" crossorigin src="./assets/dom-DGvQWTyN-Brje-rJp.js"></script>
+      <script type="module" crossorigin src="./assets/controllers-BB20cB10-BNBrGLfj.js"></script>
+      <script type="module" crossorigin src="./assets/debounce-UPMvVyUs-D8a5PNVD.js"></script>
+      <script type="module" crossorigin src="./assets/directionModeIcons-DZj3tcdI-9gKDucUA.js"></script>
+      <script type="module" crossorigin src="./assets/drapedUtils-CLEB0rWh-BSyQdvU_.js"></script>
+      <script type="module" crossorigin src="./assets/globalCss-CiwWsZz7-DaP1sXcG.js"></script>
+      <script type="module" crossorigin src="./assets/defaultsJSON-CRD0Q47g-KeLGmJbR.js"></script>
+      <script type="module" crossorigin src="./assets/defaults-toXkKK_C-DL-z5j3_.js"></script>
+      <script type="module" crossorigin src="./assets/jsonUtils-CzZwbnLy-BJ2w5v9w.js"></script>
+      <script type="module" crossorigin src="./assets/keyboard-Ch7SG0at-BTp0c3ql.js"></script>
+      <script type="module" crossorigin src="./assets/layerViewUtils-BRyU5NeF-Bwb90JKn.js"></script>
+      <script type="module" crossorigin src="./assets/lib-DLotWnTl-DmUagDGA.js"></script>
+      <script type="module" crossorigin src="./assets/selectionUtils-LMkJ-xm_-C534Pc5B.js"></script>
+      <script type="module" crossorigin src="./assets/store-BjBk834J-CI2Kimbe.js"></script>
+      <script type="module" crossorigin src="./assets/throttle-BVe2wltk-CShJvKiI.js"></script>
+      <script type="module" crossorigin src="./assets/vue-i18n-CKa_z5QX-PDNgcAw1.js"></script>
+      <script type="module" crossorigin src="./assets/main-Dn78hbcA-DWzr08Sj.js"></script>
+      <script type="module" crossorigin src="./assets/main-mUJe2Sup.js"></script>
+      <link rel="stylesheet" crossorigin href="./assets/main-hddM9P-u.css">
+    </head>
+    <body>
+        <!-- template top and no-script fallback -->
+        <div id="def-top"></div>
+
+        <div id="wb-cont">
+            <div id="app" class="container"></div>
+        </div>
+
+        <!-- template footer and no-script fallback -->
+        <div id="def-footer"></div>
+
+        <script type="text/javascript">
+
+            var defTop = document.getElementById('def-top');
+            defTop.outerHTML = wet.builder.top({
+                lngLinks: [
+                    {
+                        lang: 'en',
+                        href: window.location.href.replace('ca-fr.html', 'ca-en.html'),
+                        text: 'English'
+                    }
+                ]
+            });
+
+            document.querySelectorAll('.wb-sl').forEach(function (skipLink) {
+                skipLink.setAttribute('href', window.location.href.split(/#[^\/]/)[0] + '#' + skipLink.href.split('#')[1]);
+            });
+            var interval = setInterval(function () {
+                var links = document.querySelectorAll('.wb-sl');
+                if (links.length === 3) {
+                    clearInterval(interval);
+                    links[2].setAttribute('href', window.location.href.split(/#[^\/]/)[0] + '?' + links[2].href.split('?')[1]);
+                }
+            }, 200);
+        </script>
+
+        <script>
+            var defFooter = document.getElementById('def-footer');
+            defFooter.outerHTML = wet.builder.footer({});
+        </script>
+
+
+        <style>
+            body {
+                margin: 0;
+            }
+            #wb-cont {
+                display: flex;
+                flex-direction: column;
+                padding: 8px;
+                height: calc(100vh - 32px);
+                gap: 16px;
+            }
+            #app {
+                height:100%;
+            }
+        </style>
+    </body>
+</html>
+<!-- START OF SmartSource Data Collector TAG -->
+<!-- Copyright (c) 1996-2021 Webtrends Inc.  All rights reserved. -->
+<!-- Version: 9.4.0 -->
+<script src="scripts/webtrends.js" type="text/javascript"></script>
+<!-- ----------------------------------------------------------------------------------- -->
+<!-- Warning: The two script blocks below must remain inline. Moving them to an external -->
+<!-- JavaScript include file can cause serious problems with cross-domain tracking.      -->
+<!-- ----------------------------------------------------------------------------------- -->
+<script type="text/javascript">
+    //<![CDATA[
+    var _tag = new WebTrends();
+    _tag.dcsGetId();
+    //]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    _tag.dcsCustom = function () {
+        // Add custom parameters here.
+        //_tag.DCSext.param_name=param_value;
+    };
+    _tag.dcsCollect();
+    //]]>
+</script>
+<noscript>
+    <div>
+        <img
+            alt="DCSIMG"
+            id="DCSIMG"
+            width="1"
+            height="1"
+            src="https://sdc.ncr.ec.gc.ca/dcs2kf7dq10000kzg8kpqz5gp_3q4i/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.environmental-maps.canada.ca"
+        />
+    </div>
+</noscript>
+<!-- END OF SmartSource Data Collector TAG -->
