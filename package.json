@@ -32,7 +32,7 @@
         "es-toolkit": "~1.45.1",
         "pinia": "^3.0.4",
         "ramp-json-editor": "^1.0.3",
-        "ramp-pcar": "^4.19.0",
+        "ramp-pcar": "^4.20.0",
         "vue": "^3.5.30",
         "vue-i18n": "^9.13.1",
         "vue-tippy": "^6.6.4",
