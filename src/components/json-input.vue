@@ -6,6 +6,7 @@
             :key="locale"
             :modelValue="configJson"
             :lang="locale"
+            :validator="validate"
             @update:modelValue="onJsonChange"
         />
         <div class="flex mt-2 w-full">
@@ -55,13 +56,43 @@
 import { useStore } from '@/store';
 import { ref, useTemplateRef } from 'vue';
 import { useI18n } from 'vue-i18n';
+
 import 'ramp-json-editor/dist/ramp-json-editor.css';
+import Ajv2019 from 'ajv/dist/2019';
+import schema from '../../RampSchema.json';
 
-const { t, locale } = useI18n();
+const localizedConfigSchema = {
+    type: 'object',
+    required: schema.required ?? [],
+    additionalProperties: false,
+    properties: schema.properties
+};
 
+const rampSchema = {
+    $schema: 'https://json-schema.org/draft/2019-09/schema',
+    $defs: schema.$defs,
+    type: 'object',
+    required: ['configs'],
+    additionalProperties: false,
+    properties: {
+        configs: {
+            type: 'object',
+            required: ['en', 'fr'],
+            additionalProperties: false,
+            properties: {
+                en: localizedConfigSchema,
+                fr: localizedConfigSchema
+            }
+        }
+    }
+};
+
+const { locale } = useI18n();
 const store = useStore();
 
 const validatorErrors = ref<any>([]);
+const ajv = new Ajv2019({ strict: false, allErrors: true });
+const validate = ajv.compile(rampSchema);
 const configObject = ref<Object>({ startingFixtures: store.startingFixtures, configs: store.configs });
 const configJson = ref<string>(JSON.stringify(configObject.value, null, 2));
 
@@ -77,7 +108,12 @@ const onJsonChange = (json: string) => {
         return;
     }
 
-    // TODO: add RAMP schema validation (ajv)?
+    // ramp schema validation
+    if (!validate(parsed)) {
+        validatorErrors.value = validate.errors?.map(err => `${err.schemaPath}: ${err.message}`) ?? [];
+        return;
+    }
+
     validatorErrors.value = [];
     configJson.value = json;
     if (JSON.stringify(parsed) === JSON.stringify(configObject.value)) {
@@ -85,8 +121,8 @@ const onJsonChange = (json: string) => {
     }
 
     configObject.value = parsed;
-    store.startingFixtures = parsed.startingFixtures;
-    store.configs = parsed.configs;
+    store.startingFixtures = parsed.startingFixtures as any;
+    store.configs = parsed.configs as any;
 };
 
 const copyToClipboard = () => {
