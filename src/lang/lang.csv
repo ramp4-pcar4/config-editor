@@ -65,6 +65,12 @@ system.suppressNumberLocalization.title,Suppress Number Localization,1,Suppressi
 system.suppressNumberLocalization.description,Determines whether to display numbers in plain decimal format instead of formatting them based on the app language.,1,Détermine s'il faut afficher les nombres au format décimal simple au lieu de les formater en fonction de la langue de l'app.,1
 system.scrollToInstance.title,Scroll To Instance,1,Défilement vers l'instance,1
 system.scrollToInstance.description,Determines whether the browser will scroll to the RAMP instance when a button within the app is pressed.,1,Détermine si le navigateur défile jusqu'à l'instance RAMP lorsqu'on appuie sur un bouton dans l'application.,1
+validation.invalidJson,Invalid JSON: {message},1,JSON non valide: {message},1
+validation.requiredProperty,This property is required.,1,Cette propriété est obligatoire.,1
+validation.unknownProperty,This property is not allowed.,1,Cette propriété n’est pas autorisée.,1
+validation.invalidType,Expected a value of type {type}.,1,Attendu une valeur de type {type}.,1
+validation.invalidOption,This value is not one of the allowed options.,1,Cette valeur ne fait pas partie des options autorisées.,1
+validation.invalidValue,This value is invalid.,1,Cette valeur n’est pas valide.,1
 wizard.open,Open wizard,1,Ouvrir l'assistant,0
 wizard.quickStart,Quick start wizard,1,Assistant de démarrage rapide,0
 wizard.setup,Set up a working RAMP instance in a few steps,1,Configurez une instance RAMP fonctionnelle en quelques étapes,0
