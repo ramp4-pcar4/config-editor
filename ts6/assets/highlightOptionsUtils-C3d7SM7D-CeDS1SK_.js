@@ -1,0 +1,1 @@
+import"./main-oTxL539D.js";function e(e){return e?.name??`default`}export{e as t};

@@ -1,0 +1,1 @@
+import{Ax as e,KE as t,Mm as n}from"./main-oTxL539D.js";function r(r){if(!r)return[];let i=n(r)?[r]:e.isCollection(r)?r.toArray():Array.isArray(r)?r:[];return i=i?.filter(t),(i?.length??0)===0?[]:i}function i(e){return!!(e&&typeof e==`object`&&`pixelRanges`in e&&e.pixelRanges)}function a(e){return Array.isArray(e.pixelRanges)&&e.pixelRanges.length===0}export{i as n,r,a as t};
