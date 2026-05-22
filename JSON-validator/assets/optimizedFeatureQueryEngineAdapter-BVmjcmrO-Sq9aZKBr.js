@@ -1,0 +1,1 @@
+import{l as e}from"./featureConversionUtils-B0LNiJAO-BnSUY8f5.js";var t={getObjectId:e=>e.objectId,getAttributes:e=>e.attributes,getAttribute:(e,t)=>e.attributes[t],cloneWithGeometry:(t,n,r)=>new e(n,t.attributes,null,t.objectId),getGeometry:e=>e.geometry,getCentroid:(e,t)=>e.ensureCentroid(t)};export{t};

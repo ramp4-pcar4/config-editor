@@ -1,0 +1,1 @@
+import{d as e}from"./Error-D4B15biX-BEtbr5nu.js";var t=()=>e.respectPrefersReducedMotion&&window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;export{t};
