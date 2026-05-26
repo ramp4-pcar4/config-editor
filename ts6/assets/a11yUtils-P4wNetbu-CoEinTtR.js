@@ -1,0 +1,1 @@
+import{eE as e}from"./main-CNZ6Q9g2.js";var t=()=>e.respectPrefersReducedMotion&&window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;export{t};

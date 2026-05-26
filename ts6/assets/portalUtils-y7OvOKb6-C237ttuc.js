@@ -1,1 +1,0 @@
-import{nm as e}from"./main-oTxL539D.js";function t(t,n){return t===null?n:new e({url:t.field(`url`)})}export{t};

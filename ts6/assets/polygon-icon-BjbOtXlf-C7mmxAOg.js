@@ -1,0 +1,1 @@
+import{St as e,Tt as t,Vt as n,ft as r,vt as i}from"./main-CNZ6Q9g2.js";n();var a={},o={xmlns:`http://www.w3.org/2000/svg`,viewBox:`0 0 24 24`};function s(n,r){return e(),i(`svg`,o,[...r[0]||=[t(`path`,{d:`M0 0h24v24H0z`,fill:`none`},null,-1),t(`path`,{d:`M3 6l6-3 6 3 6-3v12l-6 3-6-3-6 3z`},null,-1)]])}var c=r(a,[[`render`,s]]);export{c as default};

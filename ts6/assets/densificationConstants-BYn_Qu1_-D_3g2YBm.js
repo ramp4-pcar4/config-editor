@@ -1,1 +1,0 @@
-import{lE as e}from"./main-oTxL539D.js";function t(){return e(`curve-densification-coarse-segments`)}function n(){return e(`curve-densification-max-segments`)}function r(){return e(`curve-densification-min-segments`)}function i(){return e(`curve-densification-pixel-deviation`)}export{t as i,n,r,i as t};

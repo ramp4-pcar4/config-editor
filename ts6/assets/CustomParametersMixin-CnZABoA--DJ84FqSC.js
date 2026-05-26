@@ -1,1 +1,0 @@
-import{Dw as e,Ew as t,XS as n}from"./main-oTxL539D.js";var r=r=>{let i=r,a=class extends i{constructor(){super(...arguments),this.customParameters=null}};return n([t({type:Object,json:{write:{overridePolicy:e=>({enabled:!!(e&&Object.keys(e).length>0)})}}})],a.prototype,`customParameters`,void 0),a=n([e(`esri.layers.mixins.CustomParametersMixin`)],a),a};export{r as t};

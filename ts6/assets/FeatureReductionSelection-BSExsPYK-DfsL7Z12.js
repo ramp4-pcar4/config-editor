@@ -1,1 +1,0 @@
-import{Dw as e,Ew as t,XS as n,ob as r}from"./main-oTxL539D.js";var i,a=i=class extends r{constructor(e){super(e),this.type=`selection`}clone(){return new i}};n([t({type:[`selection`],readOnly:!0,json:{write:!0}})],a.prototype,`type`,void 0),a=i=n([e(`esri.layers.support.FeatureReductionSelection`)],a);export{a as t};
