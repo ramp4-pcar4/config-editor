@@ -1,1 +1,0 @@
-import{ST as e}from"./main-CNZ6Q9g2.js";function t(t,n){return new Promise((r,i)=>{t.readyState>=HTMLMediaElement.HAVE_CURRENT_DATA?r():(n(e(t,`canplay`,r)),n(e(t,`error`,i)))})}export{t};

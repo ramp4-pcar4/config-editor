@@ -1,1 +1,0 @@
-import"./main-CNZ6Q9g2.js";function e(e){return e?.name??`default`}export{e as t};

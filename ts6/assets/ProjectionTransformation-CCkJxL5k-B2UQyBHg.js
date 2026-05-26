@@ -1,1 +1,0 @@
-import"./Point2D-BBbbx__F-B0e6it_H.js";import"./Envelope2D-B54anLBS-aKp9Lp5I.js";import{h as e}from"./SpatialReference-DESQkHRK-Bx29bIiz.js";export{e as queryTransformationList};

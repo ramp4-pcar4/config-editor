@@ -1,1 +1,0 @@
-import{Gu as e}from"./main-CNZ6Q9g2.js";var t=()=>e((e,t)=>{let n=new Set;return t.onDisconnected(()=>{n.forEach(e=>e.cancel())}),{add:e=>{[e].flat().forEach(e=>n.add(e))},resources:n}});export{t};
