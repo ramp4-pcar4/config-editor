@@ -1,0 +1,1 @@
+import{nm as e}from"./main-CNZ6Q9g2.js";function t(t,n){return t===null?n:new e({url:t.field(`url`)})}export{t};
