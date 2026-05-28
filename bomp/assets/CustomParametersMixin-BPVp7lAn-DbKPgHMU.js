@@ -1,1 +1,0 @@
-import{$D as e,IT as t,eO as n}from"./main-B1TNKY4t.js";var r=r=>{let i=r,a=class extends i{constructor(){super(...arguments),this.customParameters=null}};return t([e({type:Object,json:{write:{overridePolicy:e=>({enabled:!!(e&&Object.keys(e).length>0)})}}})],a.prototype,`customParameters`,void 0),a=t([n(`esri.layers.mixins.CustomParametersMixin`)],a),a};export{r as t};

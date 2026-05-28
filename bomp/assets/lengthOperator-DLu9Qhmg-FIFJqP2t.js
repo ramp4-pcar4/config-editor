@@ -1,1 +1,0 @@
-import{Lw as e,_p as t,xp as n}from"./main-B1TNKY4t.js";function r(r,i={}){let{unit:a}=i,o=n(r).calculateLength2D(),s=t(r);return o&&a&&s&&(o=e(o,s,a)),o}export{r as execute};

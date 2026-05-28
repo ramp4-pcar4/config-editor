@@ -1,1 +1,0 @@
-import{FC as e,IC as t,MC as n,Rx as r}from"./main-B1TNKY4t.js";import{t as i}from"./densifyCurvedGeometry-C9dGUSQz-hlkQlFC-.js";import{t as a}from"./densificationConstants-DLtGJlfd-C_SJsTNt.js";function o(e,t,n,r){let{height:o,width:c}=r??s(e);return i(e,{maxDeviation:Math.min(c/t,o/n)*a()})}function s(i){let a=r(t(),i);return{width:e(a),height:n(a)}}export{o as t};

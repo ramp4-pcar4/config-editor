@@ -1,1 +1,0 @@
-import{Xm as e,nh as t}from"./main-B1TNKY4t.js";var n=new e;function r(e,t,r){return n.execute(e,t,r,null)}function i(e,r,i){let a=n.executeMany(new t(e),r,i,null);return Array.from(a)}function a(e,t,r){return n.isSimpleAsFeature(e,t,r,null,null)}function o(){return n.supportsCurves()}export{r as i,i as n,o as r,a as t};

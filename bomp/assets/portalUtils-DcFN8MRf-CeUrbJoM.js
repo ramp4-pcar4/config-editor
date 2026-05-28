@@ -1,1 +1,0 @@
-import{iv as e}from"./main-B1TNKY4t.js";function t(t,n){return t===null?n:new e({url:t.field(`url`)})}export{t};
