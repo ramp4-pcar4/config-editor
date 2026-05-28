@@ -1,0 +1,1 @@
+import{$k as e}from"./main-B1TNKY4t.js";var t=()=>e.respectPrefersReducedMotion&&window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;export{t};

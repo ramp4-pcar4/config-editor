@@ -1,0 +1,1 @@
+import{fp as e,hp as t,sp as n,tp as r}from"./main-B1TNKY4t.js";var i=new r;function a(e,t,n,r){return i.isSimple(e,t,n,r,null)}function o(){return i.supportsCurves()}function s(r,i){return a(e(r),n(t(r)),i!=null,i??null)}o();export{s as isSimple};

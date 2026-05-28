@@ -1,0 +1,1 @@
+import{Nm as e,vp as t,xp as n}from"./main-B1TNKY4t.js";var r=new e;function i(e,i){let a=t(e);return r.execute(a.getGeometry(),n(i),a.getSpatialReference())}export{i as execute};
