@@ -1,1 +1,0 @@
-import{Um as e,Ym as t}from"./main-CNZ6Q9g2.js";function n(e){return{geometryType:t(e[0]),geometries:e.map(e=>e.toJSON())}}function r(t,n,r){let i=e(n);return t.map(e=>{let t=i.fromJSON(e);return t.spatialReference=r,t})}export{r as n,n as t};

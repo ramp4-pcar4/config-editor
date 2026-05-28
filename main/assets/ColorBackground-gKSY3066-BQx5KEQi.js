@@ -1,0 +1,1 @@
+import{$D as e,IT as t,VD as n,dA as r,eO as i,jT as a,rj as o}from"./main-B1TNKY4t.js";var s=o({default:()=>u}),c,l=c=class extends a{constructor(e){super(e),this.color=new n([0,0,0,1])}clone(){return new c(r({color:this.color}))}};t([e({type:n,json:{write:!0}})],l.prototype,`color`,void 0),l=c=t([i(`esri.webmap.background.ColorBackground`)],l);var u=l;export{u as n,s as t};

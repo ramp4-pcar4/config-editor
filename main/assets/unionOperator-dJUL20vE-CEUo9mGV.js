@@ -1,0 +1,1 @@
+import{gp as e,yp as t}from"./main-B1TNKY4t.js";import{n}from"./operatorUnion-BtNay6mH-kK8Taz85.js";function r(r){let[i,a]=e(r);return t(n(i,a),a)}export{r as executeMany};

@@ -1,0 +1,1 @@
+import{Br as e,Ir as t,Pr as n,Wr as r}from"./main-B1TNKY4t.js";var i=e(class extends r{constructor(){super(...arguments),this.key=t}render(e,t){return this.key=e,t}update(e,[t,r]){return t!==this.key&&(n(e),this.key=t),r}});export{i as t};
