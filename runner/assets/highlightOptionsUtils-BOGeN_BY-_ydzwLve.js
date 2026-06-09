@@ -1,1 +1,0 @@
-import"./main-B1TNKY4t.js";function e(e){return e?.name??`default`}export{e as t};

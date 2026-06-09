@@ -1,1 +1,0 @@
-import{iv as e,vw as t}from"./main-B1TNKY4t.js";function n(n){let r=`metric`;if(!n)return r;let{map:i}=n,a=(i&&`portalItem`in i?i.portalItem?.portal:null)??e.getDefault();switch(a.user?.units??a.units){case r:return r;case`english`:return`imperial`}return t(n.spatialReference)??r}export{n as t};

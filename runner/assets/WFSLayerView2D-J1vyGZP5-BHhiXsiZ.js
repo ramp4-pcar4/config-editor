@@ -1,1 +1,0 @@
-import{IT as e,eO as t}from"./main-B1TNKY4t.js";import{n,t as r}from"./FeatureLikeLayerView-CZ_gEKSU-DFIukuo-.js";var i=class extends r{constructor(){super(...arguments),this.layer=null}},a=class extends n(i){};a=e([t(`esri.views.2d.layers.WFSLayerView2D`)],a);var o=a;export{o as default};

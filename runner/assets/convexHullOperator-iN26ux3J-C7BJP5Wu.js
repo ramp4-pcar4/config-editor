@@ -1,1 +1,0 @@
-import{gp as e,vp as t,xp as n,yp as r}from"./main-B1TNKY4t.js";import{i,n as a,r as o}from"./operatorConvexHull-DrZXci-5-BjkQYj_R.js";function s(e){let n=t(e);return r(i(n.getGeometry()),n.getSpatialReference())}function c(t,n={}){let{merge:i=!1}=n,[a,s]=e(t);return o(a,i).map(e=>r(e,s))}function l(e){return a(n(e))}export{s as execute,c as executeMany,l as isConvex};
