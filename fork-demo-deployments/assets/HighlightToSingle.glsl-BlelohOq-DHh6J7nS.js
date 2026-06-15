@@ -1,0 +1,1 @@
+import"./ShaderBuilder-Dy-kUWY5-CiPIRO_O.js";import"./glsl-BgsHvHfn-CIx088aE.js";import"./FloatArray-CCh0HzKA--k3dBsyW.js";import{d as e}from"./ColorMaterial-CQAzQQFZ-BFndFUPx.js";export{e as build};

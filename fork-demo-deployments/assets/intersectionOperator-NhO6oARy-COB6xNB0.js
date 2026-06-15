@@ -1,0 +1,1 @@
+import{vp as e,xp as t,yp as n}from"./main-B1TNKY4t.js";import{r}from"./operatorIntersection-en2OQIm0-C0Ntnuud.js";function i(i,a){let o=e(i),s=o.getSpatialReference();return n(r(o.getGeometry(),t(a),s),s)}export{i as execute};
