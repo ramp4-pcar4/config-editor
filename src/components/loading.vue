@@ -1,7 +1,5 @@
 <template>
-    <div class="loader">
-        {{ t('editor.loading') }}
-    </div>
+    <div class="loader">MOHSIN {{ t('editor.loading') }}</div>
 </template>
 
 <script setup lang="ts">
