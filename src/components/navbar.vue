@@ -1,105 +1,115 @@
-
 <template>
-    <div class="navbar-wrapper flex flex-col items-center border-black border-2 divide-y divide-slate-200">
-        <div
-            class="w-full p-4 ce-sm:px-12 hover:bg-gray-200 cursor-pointer border-gray-800"
-            :class="{ 'bg-gray-200': store.editingTemplate === 'starting-fixtures' }"
-            @click="setTemplate('starting-fixtures')"
-        >
-            {{ t('navbar.startingFixtures') }}
-        </div>
-        <div class="w-full">
-            <div
-                class="flex items-center hover:bg-gray-200 cursor-pointer w-full p-4 ce-sm:px-12"
-                @click="
-                    () => {
-                        configsExpanded = !configsExpanded;
-                    }
-                "
+    <div class="navbar-wrapper flex h-full">
+        <nav class="section-rail flex flex-col" :aria-label="t('sidebar.sections')">
+            <button
+                v-for="item in railItems"
+                :key="item.id"
+                type="button"
+                class="rail-button"
+                :class="{ active: activeGroup === item.id || groupHasActiveTemplate(item.id) }"
+                @click="activeGroup = item.id"
             >
-                <svg
-                    class="ce-sm:mr-4"
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    width="18"
-                    :class="{ 'rotate-180': configsExpanded }"
-                >
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                </svg>
-                {{ t('navbar.configs') }}
-            </div>
-            <template v-if="configsExpanded">
-                <div v-for="lang in Object.keys(store.configs)" :key="`config-${lang}`" class="ml-8 ce-sm:ml-20">
-                    <div
-                        class="flex items-center hover:bg-gray-200 cursor-pointer"
-                        @click="
-                            () => {
-                                langsExpanded[lang] = !langsExpanded[lang];
-                            }
-                        "
-                    >
-                        <svg
-                            class="ce-sm:mr-4"
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            width="18"
-                            :class="{ 'rotate-180': langsExpanded[lang] }"
-                        >
-                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                        </svg>
-                        {{ lang }}
-                    </div>
-                    <template v-if="langsExpanded[lang]">
-                        <div
-                            v-for="section in sections"
-                            :key="`${section}-${lang}`"
-                            class="hover:bg-gray-200 cursor-pointer ml-4 ce-sm:ml-12 pl-4 ce-sm:pl-8"
-                            :class="{
-                                'bg-gray-200':
-                                    store.editingTemplate === section.toLowerCase() && store.editingLang === lang
-                            }"
-                            @click="setTemplate(section, lang)"
-                        >
-                            {{ t(`navbar.${section}`) }}
-                        </div>
-                    </template>
-                </div>
-            </template>
-        </div>
-        <div
-            class="hover:bg-gray-200 cursor-pointer w-full p-4 ce-sm:px-12"
-            :class="{ 'bg-gray-200': store.editingTemplate === 'options' }"
-            @click="setTemplate('options')"
-        >
-            {{ t('navbar.options') }}
-        </div>
-        <span class="mt-auto"></span>
-        <div class="w-full flex-col justify-items-center">
-            <div class="w-full flex justify-center ce-sm:w-4/5">
+                <span>{{ item.title }}</span>
+            </button>
+
+            <div class="rail-actions">
                 <button
-                    class="white-bg-button"
+                    type="button"
+                    class="rail-action"
+                    :class="{ active: store.editingTemplate === 'preview' }"
                     @click="setTemplate('preview')"
                 >
                     {{ t('navbar.preview') }}
                 </button>
-            </div>
-            <div v-if="!props.library" class="w-full flex justify-center ce-sm:w-4/5">
+
                 <button
-                    class="black-bg-button"
+                    v-if="!props.library"
+                    type="button"
+                    class="rail-action"
+                    :class="{ active: store.editingTemplate === 'json' }"
                     @click="setTemplate('json')"
                 >
                     {{ t('navbar.json') }}
                 </button>
-                <button
-                    class="black-bg-button"
-                    @click="download()"
-                >
+
+                <button v-if="!props.library" type="button" class="rail-action" @click="download()">
                     {{ t('navbar.download') }}
                 </button>
             </div>
-        </div>
+        </nav>
+
+        <aside class="sidebar-panel flex min-w-0 flex-1 flex-col">
+            <div class="sidebar-header">
+                <h3>{{ activeRailItem.title }}</h3>
+                <p>{{ activeRailItem.description }}</p>
+            </div>
+
+            <div class="sidebar-content">
+                <template v-if="activeGroup === 'defaults'">
+                    <button
+                        type="button"
+                        class="sidebar-link"
+                        :class="{ active: store.editingTemplate === 'starting-fixtures' }"
+                        @click="setTemplate('starting-fixtures')"
+                    >
+                        {{ t('navbar.startingFixtures') }}
+                    </button>
+
+                    <button
+                        type="button"
+                        class="sidebar-link"
+                        :class="{ active: store.editingTemplate === 'options' }"
+                        @click="setTemplate('options')"
+                    >
+                        {{ t('navbar.options') }}
+                    </button>
+                </template>
+
+                <template v-else-if="activeGroup === 'layers'">
+                    <div class="sidebar-section-label">{{ t('navbar.configs') }}</div>
+                    <button
+                        type="button"
+                        class="sidebar-link"
+                        :class="{ active: store.editingTemplate === 'layers' }"
+                        @click="setTemplate('layers')"
+                    >
+                        {{ t('navbar.layers') }}
+                    </button>
+                </template>
+
+                <template v-else-if="activeGroup === 'basemap'">
+                    <div class="sidebar-section-label">{{ t('navbar.configs') }}</div>
+                    <button
+                        type="button"
+                        class="sidebar-link"
+                        :class="{ active: store.editingTemplate === 'map' }"
+                        @click="setTemplate('map')"
+                    >
+                        {{ t('navbar.map') }}
+                    </button>
+                </template>
+
+                <template v-else-if="activeGroup === 'startView'">
+                    <div class="sidebar-section-label">{{ t('navbar.configs') }}</div>
+                    <button
+                        v-for="section in startViewSections"
+                        :key="section"
+                        type="button"
+                        class="sidebar-link"
+                        :class="{ active: store.editingTemplate === section }"
+                        @click="setTemplate(section)"
+                    >
+                        {{ t(`navbar.${section}`) }}
+                    </button>
+                </template>
+
+                <template v-else>
+                    <div class="sidebar-empty">
+                        {{ t('sidebar.review.description') }}
+                    </div>
+                </template>
+            </div>
+        </aside>
     </div>
 </template>
 
@@ -107,7 +117,7 @@
 // table of contents + buttons on the left of the app
 
 import { useStore } from '@/store';
-import { onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
@@ -118,50 +128,242 @@ const props = defineProps({
 });
 
 const store = useStore();
-const sections = ['map', 'layers', 'fixtures', 'panels', 'system'];
-
-const configsExpanded = ref<boolean>(false);
-const langsExpanded = ref<{ [key: string]: boolean }>({});
-
 const { t } = useI18n();
 
-const emit = defineEmits(['templateUpdated', 'langUpdated']);
+type SidebarGroup = 'defaults' | 'layers' | 'basemap' | 'startView' | 'review';
+
+const activeGroup = ref<SidebarGroup>('defaults');
+const startViewSections = ['fixtures', 'panels', 'system'];
+
+const railItems = computed(() => [
+    {
+        id: 'defaults' as SidebarGroup,
+        title: t('sidebar.defaults'),
+        description: t('sidebar.defaults.description')
+    },
+    {
+        id: 'layers' as SidebarGroup,
+        title: t('sidebar.layers'),
+        description: t('sidebar.layers.description')
+    },
+    {
+        id: 'basemap' as SidebarGroup,
+        title: t('sidebar.basemap'),
+        description: t('sidebar.basemap.description')
+    },
+    {
+        id: 'startView' as SidebarGroup,
+        title: t('sidebar.startView'),
+        description: t('sidebar.startView.description')
+    },
+    {
+        id: 'review' as SidebarGroup,
+        title: t('sidebar.review'),
+        description: t('sidebar.review.description')
+    }
+]);
+
+const activeRailItem = computed(() => railItems.value.find(item => item.id === activeGroup.value) ?? railItems.value[0]);
+const configTemplates = ['layers', 'map', 'fixtures', 'panels', 'system'];
+
+const groupTemplates: Record<SidebarGroup, string[]> = {
+    defaults: ['starting-fixtures', 'options'],
+    layers: ['layers'],
+    basemap: ['map'],
+    startView: startViewSections,
+    review: ['preview', 'json']
+};
 
 const setTemplate = (template: string, lang?: string) => {
     store.editingTemplate = template;
     if (lang) {
         store.editingLang = lang;
+    } else if (configTemplates.includes(template) && !store.editingLang) {
+        store.editingLang = Object.keys(store.configs)[0] ?? '';
     }
 };
+
+const groupHasActiveTemplate = (group: SidebarGroup) => groupTemplates[group].includes(store.editingTemplate);
 
 const download = () => {
     const dataStr =
-            'data:text/json;charset=utf-8,' +
-            encodeURIComponent(JSON.stringify({ startingFixtures: store.startingFixtures, configs: store.configs }));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute('href', dataStr);
-            downloadAnchorNode.hidden = true;
-            downloadAnchorNode.setAttribute('download', 'ramp_config.json');
-            document.body.appendChild(downloadAnchorNode); // required for firefox
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
+        'data:text/json;charset=utf-8,' +
+        encodeURIComponent(JSON.stringify({ startingFixtures: store.startingFixtures, configs: store.configs }));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute('href', dataStr);
+    downloadAnchorNode.hidden = true;
+    downloadAnchorNode.setAttribute('download', 'ramp_config.json');
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
 };
-
-onMounted(() => {
-    Object.keys(store.configs).forEach(lang => {
-        langsExpanded.value[lang] = false;
-    });
-});
 </script>
 
 <style lang="scss" scoped>
-@media (min-width: 640px) {
-    .navbar-wrapper {
-        @apply text-base;
+.navbar-wrapper {
+    border-right: 1px solid var(--editor-border);
+    background: #fff;
+}
+
+.section-rail {
+    width: 148px;
+    flex: 0 0 148px;
+    gap: 4px;
+    padding: 12px 8px;
+    background: var(--editor-primary);
+}
+
+.rail-button {
+    display: flex;
+    min-height: 48px;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 8px 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+    outline: none;
+
+    &:hover,
+    &:focus {
+        background: var(--editor-primary-hover);
+    }
+
+    &.active {
+        background: #fff;
+        color: var(--editor-primary);
     }
 }
 
-.black-bg-button,.white-bg-button {
-    @apply flex-1 my-3 mx-1;
+.rail-actions {
+    display: grid;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.rail-action {
+    min-height: 38px;
+    width: 100%;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 8px 10px;
+    background: transparent;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    text-align: center;
+    outline: none;
+
+    &:hover,
+    &:focus,
+    &.active {
+        background: #fff;
+        color: var(--editor-primary);
+    }
+}
+
+.sidebar-panel {
+    background: #fff;
+}
+
+.sidebar-header {
+    border-bottom: 1px solid var(--editor-border);
+    padding: 18px 20px;
+
+    h3 {
+        margin: 0;
+        color: #111827;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+    }
+
+    p {
+        margin: 6px 0 0;
+        color: #4b5563;
+        font-size: 13px;
+        line-height: 18px;
+    }
+}
+
+.sidebar-content {
+    display: grid;
+    gap: 8px;
+    padding: 14px;
+}
+
+.sidebar-section-label {
+    margin: 4px 6px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.sidebar-empty {
+    border: 1px solid var(--editor-border);
+    border-radius: 4px;
+    padding: 14px;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.sidebar-link,
+.sidebar-action {
+    display: flex;
+    min-height: 42px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 10px 12px;
+    color: #1f2937;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: left;
+    outline: none;
+
+    span {
+        color: #6b7280;
+        font-size: 12px;
+        text-transform: uppercase;
+    }
+
+    &:hover,
+    &:focus {
+        border-color: #c9d3df;
+        background: #f3f6f9;
+    }
+
+    &.active {
+        border-color: var(--editor-primary);
+        background: #eef2f6;
+        color: #111827;
+        font-weight: 600;
+    }
+}
+
+.sidebar-action {
+    justify-content: center;
+    border-color: var(--editor-primary);
+    background: var(--editor-primary);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover,
+    &:focus {
+        background: var(--editor-primary-hover);
+        color: #fff;
+    }
 }
 </style>

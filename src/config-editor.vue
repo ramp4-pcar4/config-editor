@@ -2,12 +2,25 @@
     <div class="ramp4-config-editor h-full">
         <div ref="app-size" class="h-full">
             <StartingScreen v-if="!store.initialized && !library" />
-            <div v-else class="h-full flex flex-col">
-                <div class="flex items-center">
-                    <h2 class="h-36 text-3xl font-semibold">{{ t('editor.title') }}</h2>
+            <div v-else class="editor-layout h-full flex flex-col">
+                <div class="editor-toolbar flex items-center">
+                    <h2 class="m-0 text-3xl font-semibold">{{ t('editor.title') }}</h2>
                     <span class="ml-auto"></span>
 
-                    <button v-if="store.initialized && !library" class="black-bg-button mr-2" @click="openWizard">
+                    <div class="config-language-toggle" role="group" :aria-label="t('editor.configLanguage')">
+                        <button
+                            v-for="option in configLanguageOptions"
+                            :key="option.id"
+                            type="button"
+                            :class="{ active: store.editingLang === option.id }"
+                            @click="setConfigLanguage(option.id)"
+                        >
+                            <span class="config-language-full">{{ option.label }}</span>
+                            <span class="config-language-short">{{ option.shortLabel }}</span>
+                        </button>
+                    </div>
+
+                    <button v-if="store.initialized && !library" class="black-bg-button" @click="openWizard">
                         {{ t('wizard.open') }}
                     </button>
 
@@ -16,10 +29,10 @@
                     </button>
                 </div>
 
-                <div class="main-container flex-grow mt-12 flex">
+                <div class="main-container flex-grow flex min-h-0">
                     <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
 
-                    <div class="flex-grow h-full pl-20 overflow-y-auto">
+                    <div class="editor-content flex-grow h-full min-w-0 overflow-y-auto">
                         <component
                             v-if="store.editingTemplate && editors[store.editingTemplate]"
                             :is="editors[store.editingTemplate]"
@@ -53,7 +66,7 @@ import CustomResizeObserver from './scripts/resize-observer';
 import '@/styles.css';
 import 'ramp-pcar/dist/ramp.css';
 import { useI18n } from 'vue-i18n';
-import { onMounted, useTemplateRef, ref } from 'vue';
+import { computed, onMounted, useTemplateRef, ref } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
@@ -74,6 +87,19 @@ const editors: { [key: string]: any } = {
     'starting-fixtures': StartingFixturesEditor,
     system: SystemEditor
 };
+
+const configLanguageLabels: Record<string, { label: string; shortLabel: string }> = {
+    en: { label: 'English', shortLabel: 'EN' },
+    fr: { label: 'Français', shortLabel: 'FR' }
+};
+
+const configLanguageOptions = computed(() =>
+    Object.keys(store.configs).map(lang => ({
+        id: lang,
+        label: configLanguageLabels[lang]?.label ?? lang.toUpperCase(),
+        shortLabel: configLanguageLabels[lang]?.shortLabel ?? lang.toUpperCase()
+    }))
+);
 
 onMounted(() => {
     setDefaultProps({
@@ -98,6 +124,10 @@ onMounted(() => {
     if (import.meta.env.MODE.includes('lib')) {
         library.value = true;
     }
+
+    if (!store.editingLang && configLanguageOptions.value.length) {
+        store.editingLang = configLanguageOptions.value[0].id;
+    }
 });
 
 const createNew = () => {
@@ -109,6 +139,10 @@ const createNew = () => {
 const openWizard = () => {
     store.wizardOpen = true;
 };
+
+const setConfigLanguage = (lang: string) => {
+    store.editingLang = lang;
+};
 </script>
 
 <style lang="scss">
@@ -116,6 +150,11 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     Segoe UI Emoji;
 
 .ramp4-config-editor {
+    --editor-primary: #26374a;
+    --editor-primary-hover: #1f2d3d;
+    --editor-border: #d8dee5;
+    --editor-surface: #f5f6f7;
+
     height: 100%;
     width: 100%;
     
@@ -170,12 +209,99 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         color: red;
     }
 
+    .editor-layout {
+        min-height: 0;
+        background: var(--editor-surface);
+    }
+
+    .editor-toolbar {
+        gap: 8px;
+        min-height: 68px;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--editor-border);
+        background: #fff;
+    }
+
+    .config-language-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-right: 8px;
+        border: 1px solid var(--editor-border);
+        border-radius: 4px;
+        overflow: hidden;
+
+        .config-language-short {
+            display: none;
+        }
+
+        button {
+            min-height: 36px;
+            padding: 8px 10px;
+            border-left: 1px solid var(--editor-border);
+            background: #fff;
+            color: #1f2937;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 18px;
+            outline: none;
+
+            &:hover,
+            &:focus {
+                background: #eef2f6;
+            }
+
+            &.active {
+                background: var(--editor-primary);
+                color: #fff;
+            }
+        }
+    }
+
+    .editor-toolbar {
+        .black-bg-button {
+            min-height: 38px;
+            padding: 8px 12px;
+            border-color: var(--editor-primary);
+            border-radius: 4px;
+            background: var(--editor-primary);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 18px;
+
+            &:hover,
+            &:focus {
+                border-color: var(--editor-primary-hover);
+                background: var(--editor-primary-hover);
+                color: #fff;
+            }
+        }
+    }
+
+    @media (max-width: 760px) {
+        .config-language-toggle {
+            .config-language-full {
+                display: none;
+            }
+
+            .config-language-short {
+                display: inline;
+            }
+        }
+    }
+
     .config-navbar {
-        width: 324px;
+        width: 432px;
     }
 
     .main-container {
-        height: calc(100% - 60px);
+        height: calc(100% - 68px);
+    }
+
+    .editor-content {
+        padding: 24px 32px;
+        background: #fff;
     }
 
     .black-bg-button {

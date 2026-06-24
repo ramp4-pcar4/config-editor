@@ -59,6 +59,7 @@ export class API {
             store.configs = defaultConfig;
         }
 
+        store.editingLang = Object.keys(store.configs)[0] ?? '';
         store.initialized = true;
     }
 
