@@ -33,10 +33,8 @@
                     <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
 
                     <div class="editor-content flex-grow h-full min-w-0 overflow-y-auto">
-                        <component
-                            v-if="store.editingTemplate && editors[store.editingTemplate]"
-                            :is="editors[store.editingTemplate]"
-                        />
+                        <Preview v-if="sidebarEditorTemplates.includes(store.editingTemplate)" />
+                        <component v-else-if="store.editingTemplate && editors[store.editingTemplate]" :is="editors[store.editingTemplate]" />
                         <div v-else class="pt-4 text-sm text-gray-600">{{ t('editor.startEditing') }}</div>
                     </div>
                 </div>
@@ -51,14 +49,7 @@
 import StartingScreen from './components/starting-screen.vue';
 import Navbar from './components/navbar.vue';
 import WizardModal from './components/wizard/wizard-modal.vue';
-import StartingFixturesEditor from '@/components/starting-fixtures.vue';
-import FixturesEditor from './components/fixtures/fixtures.vue';
 import JsonInput from './components/json-input.vue';
-import LayersEditor from '@/components/layers/layers.vue';
-import MapEditor from '@/components/map/map.vue';
-import PanelsEditor from '@/components/panels.vue';
-import SystemEditor from '@/components/system.vue';
-import OptionsEditor from '@/components/options.vue';
 import Preview from '@/components/preview.vue';
 
 import CustomResizeObserver from './scripts/resize-observer';
@@ -75,17 +66,11 @@ const store = useStore();
 const library = ref(false);
 
 const appSizeContainer = useTemplateRef('app-size');
+const sidebarEditorTemplates = ['fixtures', 'layers', 'map', 'options', 'panels', 'starting-fixtures', 'system'];
 
 const editors: { [key: string]: any } = {
-    fixtures: FixturesEditor,
     json: JsonInput,
-    layers: LayersEditor,
-    map: MapEditor,
-    options: OptionsEditor,
-    panels: PanelsEditor,
-    preview: Preview,
-    'starting-fixtures': StartingFixturesEditor,
-    system: SystemEditor
+    preview: Preview
 };
 
 const configLanguageLabels: Record<string, { label: string; shortLabel: string }> = {
@@ -292,7 +277,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .config-navbar {
-        width: 432px;
+        width: 520px;
     }
 
     .main-container {

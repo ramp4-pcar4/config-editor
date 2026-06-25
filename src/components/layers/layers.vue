@@ -2,7 +2,7 @@
     <div>
         <!-- Header -->
         <div class="flex items-center">
-            <h3 class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h3>
+            <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('layers.title') }} ({{ store.elc.layers.length }})</h3>
             <div class="flex ml-auto">
                 <button
                     class="bg-black hover:bg-gray-800 p-4 text-white flex-shrink-0 flex items-center justify-center"
@@ -460,6 +460,10 @@ import { useI18n } from 'vue-i18n';
 
 const store = useStore();
 const { t } = useI18n();
+
+defineProps({
+    compact: Boolean
+});
 
 const updatedLegend = ref<boolean>(false);
 const imgFormatOpts = ref(['png', 'png8', 'png24', 'png32', 'jpg', 'pdf', 'bmp', 'gif', 'svg']);

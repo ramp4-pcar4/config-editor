@@ -6,13 +6,17 @@ import { Checkbox } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
+defineProps({
+    compact: Boolean
+});
+
 const store = useStore();
 const { t } = useI18n();
 </script>
 
 <template>
     <div>
-        <h3 class="text-2xl font-semibold">{{ t('navbar.options') }}</h3>
+        <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('navbar.options') }}</h3>
         <Checkbox v-model="store.options!.loadDefaultEvents" checked :title="t('options.defaultEvents')" />
         <Checkbox v-model="store.options!.loadDefaultFixtures" checked :title="t('options.defaultFixtures')" />
         <Checkbox v-model="store.options!.startRequired" :title="t('options.startRequired')" />

@@ -7,7 +7,7 @@
                 type="button"
                 class="rail-button"
                 :class="{ active: activeGroup === item.id || groupHasActiveTemplate(item.id) }"
-                @click="activeGroup = item.id"
+                @click="setActiveGroup(item.id)"
             >
                 <span>{{ item.title }}</span>
             </button>
@@ -17,7 +17,7 @@
                     type="button"
                     class="rail-action"
                     :class="{ active: store.editingTemplate === 'preview' }"
-                    @click="setTemplate('preview')"
+                    @click="setReviewTemplate('preview')"
                 >
                     {{ t('navbar.preview') }}
                 </button>
@@ -27,7 +27,7 @@
                     type="button"
                     class="rail-action"
                     :class="{ active: store.editingTemplate === 'json' }"
-                    @click="setTemplate('json')"
+                    @click="setReviewTemplate('json')"
                 >
                     {{ t('navbar.json') }}
                 </button>
@@ -39,18 +39,29 @@
         </nav>
 
         <aside class="sidebar-panel flex min-w-0 flex-1 flex-col">
-            <div class="sidebar-header">
+            <div v-if="!sidebarDetailOpen" class="sidebar-header">
                 <h3>{{ activeRailItem.title }}</h3>
                 <p>{{ activeRailItem.description }}</p>
             </div>
 
             <div class="sidebar-content">
-                <template v-if="activeGroup === 'defaults'">
+                <template v-if="sidebarDetailOpen">
+                    <button type="button" class="sidebar-back" @click="sidebarDetailOpen = ''">
+                        <span aria-hidden="true">&lt;</span>
+                        {{ activeRailItem.title }}
+                    </button>
+
+                    <h3 class="sidebar-detail-title">{{ detailTitle }}</h3>
+
+                    <component v-if="activeDetailComponent" :is="activeDetailComponent" compact />
+                </template>
+
+                <template v-else-if="activeGroup === 'defaults'">
                     <button
                         type="button"
                         class="sidebar-link"
                         :class="{ active: store.editingTemplate === 'starting-fixtures' }"
-                        @click="setTemplate('starting-fixtures')"
+                        @click="openDetail('starting-fixtures')"
                     >
                         {{ t('navbar.startingFixtures') }}
                     </button>
@@ -59,7 +70,7 @@
                         type="button"
                         class="sidebar-link"
                         :class="{ active: store.editingTemplate === 'options' }"
-                        @click="setTemplate('options')"
+                        @click="openDetail('options')"
                     >
                         {{ t('navbar.options') }}
                     </button>
@@ -71,7 +82,7 @@
                         type="button"
                         class="sidebar-link"
                         :class="{ active: store.editingTemplate === 'layers' }"
-                        @click="setTemplate('layers')"
+                        @click="openDetail('layers')"
                     >
                         {{ t('navbar.layers') }}
                     </button>
@@ -83,7 +94,7 @@
                         type="button"
                         class="sidebar-link"
                         :class="{ active: store.editingTemplate === 'map' }"
-                        @click="setTemplate('map')"
+                        @click="openDetail('map')"
                     >
                         {{ t('navbar.map') }}
                     </button>
@@ -97,7 +108,7 @@
                         type="button"
                         class="sidebar-link"
                         :class="{ active: store.editingTemplate === section }"
-                        @click="setTemplate(section)"
+                        @click="openDetail(section)"
                     >
                         {{ t(`navbar.${section}`) }}
                     </button>
@@ -119,6 +130,13 @@
 import { useStore } from '@/store';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import StartingFixturesEditor from '@/components/starting-fixtures.vue';
+import FixturesEditor from '@/components/fixtures/fixtures.vue';
+import LayersEditor from '@/components/layers/layers.vue';
+import MapEditor from '@/components/map/map.vue';
+import OptionsEditor from '@/components/options.vue';
+import PanelsEditor from '@/components/panels.vue';
+import SystemEditor from '@/components/system.vue';
 
 const props = defineProps({
     library: {
@@ -133,6 +151,7 @@ const { t } = useI18n();
 type SidebarGroup = 'defaults' | 'layers' | 'basemap' | 'startView' | 'review';
 
 const activeGroup = ref<SidebarGroup>('defaults');
+const sidebarDetailOpen = ref<string>('');
 const startViewSections = ['fixtures', 'panels', 'system'];
 
 const railItems = computed(() => [
@@ -165,6 +184,15 @@ const railItems = computed(() => [
 
 const activeRailItem = computed(() => railItems.value.find(item => item.id === activeGroup.value) ?? railItems.value[0]);
 const configTemplates = ['layers', 'map', 'fixtures', 'panels', 'system'];
+const detailEditors: Record<string, any> = {
+    fixtures: FixturesEditor,
+    layers: LayersEditor,
+    map: MapEditor,
+    options: OptionsEditor,
+    panels: PanelsEditor,
+    'starting-fixtures': StartingFixturesEditor,
+    system: SystemEditor
+};
 
 const groupTemplates: Record<SidebarGroup, string[]> = {
     defaults: ['starting-fixtures', 'options'],
@@ -174,6 +202,15 @@ const groupTemplates: Record<SidebarGroup, string[]> = {
     review: ['preview', 'json']
 };
 
+const activeDetailComponent = computed(() => detailEditors[sidebarDetailOpen.value]);
+const detailTitle = computed(() => {
+    if (sidebarDetailOpen.value === 'starting-fixtures') {
+        return t('navbar.startingFixtures');
+    }
+
+    return t(`navbar.${sidebarDetailOpen.value}`);
+});
+
 const setTemplate = (template: string, lang?: string) => {
     store.editingTemplate = template;
     if (lang) {
@@ -181,6 +218,21 @@ const setTemplate = (template: string, lang?: string) => {
     } else if (configTemplates.includes(template) && !store.editingLang) {
         store.editingLang = Object.keys(store.configs)[0] ?? '';
     }
+};
+
+const openDetail = (template: string) => {
+    setTemplate(template);
+    sidebarDetailOpen.value = template;
+};
+
+const setActiveGroup = (group: SidebarGroup) => {
+    activeGroup.value = group;
+    sidebarDetailOpen.value = '';
+};
+
+const setReviewTemplate = (template: string) => {
+    setActiveGroup('review');
+    setTemplate(template);
 };
 
 const groupHasActiveTemplate = (group: SidebarGroup) => groupTemplates[group].includes(store.editingTemplate);
@@ -270,6 +322,7 @@ const download = () => {
 }
 
 .sidebar-panel {
+    min-height: 0;
     background: #fff;
 }
 
@@ -295,7 +348,11 @@ const download = () => {
 
 .sidebar-content {
     display: grid;
+    flex: 1;
     gap: 8px;
+    min-height: 0;
+    align-content: start;
+    overflow-y: auto;
     padding: 14px;
 }
 
@@ -315,6 +372,46 @@ const download = () => {
     color: #4b5563;
     font-size: 14px;
     line-height: 20px;
+}
+
+.sidebar-back {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 6px;
+    border: 0;
+    border-radius: 4px;
+    padding: 6px 8px;
+    color: var(--editor-primary);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    outline: none;
+
+    span {
+        font-size: 20px;
+        line-height: 16px;
+    }
+
+    &:hover,
+    &:focus {
+        background: #eef2f6;
+    }
+}
+
+.sidebar-detail-title {
+    margin: 4px 0 0;
+    color: #111827;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+}
+
+.sidebar-content :deep(.input-table) {
+    --grid-layout-gap: 12px;
+    --grid-column-count: 1;
+
+    row-gap: 12px;
 }
 
 .sidebar-link,

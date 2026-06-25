@@ -24,11 +24,15 @@ import { useI18n } from 'vue-i18n';
 
 const store = useStore();
 const { t } = useI18n();
+
+defineProps({
+    compact: Boolean
+});
 </script>
 
 <template>
     <div>
-        <h3 class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h3>
+        <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('navbar.fixtures') }}</h3>
         <Appbar v-model="store.elc.fixtures.appbar" />
         <AreasOfInterest v-model="store.elc.fixtures['areas-of-interest']" />
         <Basemap v-model="store.elc.fixtures.basemap" />

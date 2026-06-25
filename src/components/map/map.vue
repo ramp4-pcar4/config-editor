@@ -12,13 +12,17 @@ import { Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
+defineProps({
+    compact: Boolean
+});
+
 const store = useStore();
 const { t } = useI18n();
 </script>
 
 <template>
     <div>
-        <h3 class="text-2xl font-semibold">Map</h3>
+        <h3 v-if="!compact" class="text-2xl font-semibold">Map</h3>
         <div class="mt-4 input-table">
             <Input
                 :title="t('map.initialBasemapId.title')"

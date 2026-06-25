@@ -9,6 +9,10 @@ import { useI18n } from 'vue-i18n';
 const store = useStore();
 const { t } = useI18n();
 
+defineProps({
+    compact: Boolean
+});
+
 const itemFields: Array<Field> = [
     {
         type: 'string',
@@ -34,7 +38,7 @@ const itemFields: Array<Field> = [
 
 <template>
     <div>
-        <h3 class="text-2xl font-semibold">{{ t('navbar.panels') }}</h3>
+        <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('navbar.panels') }}</h3>
         <Checkbox
             v-model="store.elc.panels!.reorderable"
             checked

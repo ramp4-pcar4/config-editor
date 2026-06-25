@@ -10,13 +10,17 @@ import { Checkbox, Input } from '@/components/helpers';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 
+defineProps({
+    compact: Boolean
+});
+
 const store = useStore();
 const { t } = useI18n();
 </script>
 
 <template>
     <div>
-        <h3 class="text-2xl font-semibold">{{ t('navbar.system') }}</h3>
+        <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('navbar.system') }}</h3>
         <Input
             :title="t('system.proxyUrl.title')"
             :description="t('system.proxyUrl.description')"

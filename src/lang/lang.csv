@@ -35,6 +35,7 @@ navbar.fixtures,Fixtures,1,Appareils,1
 navbar.panels,Panels,1,Panneaux,1
 navbar.system,System,1,Système,1
 sidebar.sections,Editor sections,1,Sections de l'éditeur,0
+sidebar.backToDefaults,Defaults,1,Valeurs par défaut,0
 sidebar.defaults,Defaults,1,Valeurs par défaut,0
 sidebar.defaults.description,Set startup defaults and general editor options.,1,Définissez les valeurs de démarrage et les options générales.,0
 sidebar.layers,Layers,1,Couches,1
