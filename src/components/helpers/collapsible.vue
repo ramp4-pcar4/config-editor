@@ -129,8 +129,8 @@ const toggle = () => {
 }
 
 .ce-collapsible-body {
-    margin-left: 16px;
+    margin-left: 8px;
     border-left: 2px solid #e5e7eb;
-    padding: 14px 14px 16px 16px;
+    padding: 12px 12px 14px 10px;
 }
 </style>

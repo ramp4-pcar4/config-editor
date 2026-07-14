@@ -159,7 +159,7 @@ const fieldToInputType: { [key: string]: string } = {
 </script>
 
 <template>
-    <Collapsible :thick-border="topLevel">
+    <Collapsible class="ce-list-collapsible" :thick-border="topLevel">
         <template #header>
             <button :content="t('editor.expand')" v-tippy class="arrow mr-1 ce-sm:mr-3" :aria-label="t('editor.expand')">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
@@ -376,7 +376,7 @@ const fieldToInputType: { [key: string]: string } = {
                         </div>
                         <div v-else>
                             <!-- Regular mode (not table layout) -->
-                            <Collapsible>
+                            <Collapsible class="ce-list-item-collapsible">
                                 <template #header>
                                     <button
                                         :disabled="editDisabled"
@@ -427,7 +427,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             list[index].index ?? index + 1
                                         }`
                                     }}</span>
-                                    <div class="flex justify-center ml-auto">
+                                    <div class="ce-list-item-actions flex justify-center ml-auto">
                                         <button
                                             @click.stop="remove(index)"
                                             :disabled="editDisabled"
@@ -549,6 +549,14 @@ const fieldToInputType: { [key: string]: string } = {
 </template>
 
 <style scoped lang="scss">
+.ce-list-collapsible {
+    container: ce-list-header / inline-size;
+}
+
+.ce-list-item-collapsible {
+    container: ce-list-item-header / inline-size;
+}
+
 .ce-list-add-button {
     display: inline-flex;
     flex: 0 0 auto;
@@ -620,5 +628,46 @@ const fieldToInputType: { [key: string]: string } = {
     line-height: 18px;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+@container ce-list-header (max-width: 330px) {
+    .ce-list-collapsible > :deep(.ce-collapsible-header) {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        align-items: center;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .arrow {
+        grid-column: 1;
+        grid-row: 1;
+        margin-right: 0;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .ce-input-header {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .ce-list-add-button {
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@container ce-list-item-header (max-width: 300px) {
+    .ce-list-item-collapsible > :deep(.ce-collapsible-header) {
+        display: grid;
+        grid-template-columns: 30px 30px minmax(0, 1fr);
+        align-items: center;
+    }
+
+    .ce-list-item-collapsible > :deep(.ce-collapsible-header) > .ce-list-item-actions {
+        grid-column: 2 / 4;
+        grid-row: 2;
+        justify-self: end;
+        margin-left: 0;
+    }
 }
 </style>

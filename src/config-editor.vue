@@ -385,7 +385,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .config-navbar {
-        width: 560px;
+        width: clamp(560px, 62vw, 620px);
     }
 
     .main-container {

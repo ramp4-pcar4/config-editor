@@ -111,6 +111,11 @@ panels.open.screen.description,ID of the screen of the panel to show.,1,ID de l'
 panels.open.pin.title,Pin,1,Épinger,1
 panels.open.pin.description,Whether to pin the panel as well,1,Vous pouvez également épingler le panneau,1
 preview.note,Note:,1,Remarque:,1
+preview.updating,Updating preview...,1,Updating preview...,0
+preview.restarting,Restarting preview...,1,Restarting preview...,0
+preview.updated,Preview updated.,1,Preview updated.,0
+preview.error,Preview could not be updated.,1,Preview could not be updated.,0
+preview.restart,Restart preview,1,Restart preview,0
 preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere.",1,"Si l'instance RAMP ne s'initialise pas comme prévu, il est probable que vous ayez oublié une valeur obligatoire et/ou spécifié une valeur invalide quelque part.",1
 startingFixtures.input,Comma-separated tool IDs:,1,ID des appareils séparés par des virgules:,1
 startingFixtures.sidebar.description,Choose the built-in tools that load when the map starts. Extension IDs remain available for custom integrations.,1,Choisissez les outils intégrés qui se chargent au démarrage de la carte. Les ID d'extension restent disponibles pour les intégrations personnalisées.,1
