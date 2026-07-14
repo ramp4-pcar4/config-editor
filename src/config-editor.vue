@@ -7,13 +7,13 @@
                     <h2 class="m-0 text-3xl font-semibold">{{ t('editor.title') }}</h2>
                     <span class="ml-auto"></span>
 
-                    <div class="config-language-toggle" role="group" :aria-label="t('editor.configLanguage')">
+                    <div class="config-language-toggle" role="group" :aria-label="t('editor.displayLanguage')">
                         <button
-                            v-for="option in configLanguageOptions"
+                            v-for="option in displayLanguageOptions"
                             :key="option.id"
                             type="button"
-                            :class="{ active: store.editingLang === option.id }"
-                            @click="setConfigLanguage(option.id)"
+                            :class="{ active: locale === option.id }"
+                            @click="setDisplayLanguage(option.id)"
                         >
                             <span class="config-language-full">{{ option.label }}</span>
                             <span class="config-language-short">{{ option.shortLabel }}</span>
@@ -36,7 +36,11 @@
                         class="editor-content flex-grow h-full min-w-0"
                         :class="{ 'json-open': store.editingTemplate === 'json' }"
                     >
-                        <Preview class="editor-preview" />
+                        <Preview
+                            v-if="!mobileLayout"
+                            class="editor-preview"
+                            :refresh-request="desktopPreviewRefreshRequest"
+                        />
 
                         <div v-if="store.editingTemplate === 'json'" class="json-overlay" @click.self="closeJsonOverlay">
                             <section class="json-drawer" role="dialog" :aria-label="t('navbar.json')">
@@ -62,7 +66,7 @@
                 </div>
 
                 <section
-                    v-if="mobilePreviewOpen"
+                    v-if="mobileLayout && mobilePreviewOpen"
                     class="mobile-preview-sheet"
                     role="dialog"
                     :aria-label="t('navbar.preview')"
@@ -99,14 +103,18 @@ import CustomResizeObserver from './scripts/resize-observer';
 import '@/styles.css';
 import 'ramp-pcar/dist/ramp.css';
 import { useI18n } from 'vue-i18n';
-import { computed, onMounted, useTemplateRef, ref } from 'vue';
+import { onBeforeUnmount, onMounted, useTemplateRef, ref } from 'vue';
 import { setDefaultProps } from 'vue-tippy';
 import { useStore } from '@/store';
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const store = useStore();
 const library = ref(false);
 const mobilePreviewOpen = ref(false);
+const desktopPreviewRefreshRequest = ref(0);
+
+const mobileLayoutQuery = typeof window !== 'undefined' ? window.matchMedia('(max-width: 900px)') : undefined;
+const mobileLayout = ref(mobileLayoutQuery?.matches ?? false);
 
 const appSizeContainer = useTemplateRef('app-size');
 
@@ -115,13 +123,19 @@ const configLanguageLabels: Record<string, { label: string; shortLabel: string }
     fr: { label: 'Français', shortLabel: 'FR' }
 };
 
-const configLanguageOptions = computed(() =>
-    Object.keys(store.configs).map(lang => ({
-        id: lang,
-        label: configLanguageLabels[lang]?.label ?? lang.toUpperCase(),
-        shortLabel: configLanguageLabels[lang]?.shortLabel ?? lang.toUpperCase()
-    }))
-);
+const displayLanguageOptions = Object.keys(configLanguageLabels).map(lang => ({
+    id: lang,
+    label: configLanguageLabels[lang]?.label ?? lang.toUpperCase(),
+    shortLabel: configLanguageLabels[lang]?.shortLabel ?? lang.toUpperCase()
+}));
+
+const updateMobileLayout = (event: MediaQueryListEvent) => {
+    mobileLayout.value = event.matches;
+
+    if (!event.matches) {
+        mobilePreviewOpen.value = false;
+    }
+};
 
 onMounted(() => {
     setDefaultProps({
@@ -147,9 +161,15 @@ onMounted(() => {
         library.value = true;
     }
 
-    if (!store.editingLang && configLanguageOptions.value.length) {
-        store.editingLang = configLanguageOptions.value[0].id;
+    if (!store.editingLang && Object.keys(store.configs).length) {
+        store.editingLang = Object.keys(store.configs)[0];
     }
+
+    mobileLayoutQuery?.addEventListener('change', updateMobileLayout);
+});
+
+onBeforeUnmount(() => {
+    mobileLayoutQuery?.removeEventListener('change', updateMobileLayout);
 });
 
 const createNew = () => {
@@ -163,19 +183,17 @@ const openWizard = () => {
     store.wizardOpen = true;
 };
 
-const setConfigLanguage = (lang: string) => {
-    store.editingLang = lang;
-};
-
-const isMobileLayout = () => {
-    return typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
+const setDisplayLanguage = (lang: string) => {
+    locale.value = lang;
 };
 
 const openPreview = () => {
     store.editingTemplate = 'preview';
 
-    if (isMobileLayout()) {
+    if (mobileLayout.value) {
         mobilePreviewOpen.value = true;
+    } else {
+        desktopPreviewRefreshRequest.value++;
     }
 };
 

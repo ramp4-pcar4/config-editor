@@ -101,7 +101,9 @@ const DEFAULT_FIXTURES = [
 
 const ALL_FIXTURES = [
     'appbar',
+    'areas-of-interest',
     'basemap',
+    'crosshairs',
     'details',
     'export',
     'geosearch',
@@ -114,6 +116,7 @@ const ALL_FIXTURES = [
     'metadata',
     'northarrow',
     'overviewmap',
+    'panguard',
     'scrollguard',
     'settings',
     'wizard'
