@@ -30,14 +30,56 @@
                 </div>
 
                 <div class="main-container flex-grow flex min-h-0">
-                    <Navbar class="config-navbar h-full flex-shrink-0" :library="library" />
+                    <Navbar class="config-navbar h-full flex-shrink-0" :library="library" @open-preview="openPreview" />
 
-                    <div class="editor-content flex-grow h-full min-w-0 overflow-y-auto">
-                        <Preview v-if="sidebarEditorTemplates.includes(store.editingTemplate)" />
-                        <component v-else-if="store.editingTemplate && editors[store.editingTemplate]" :is="editors[store.editingTemplate]" />
-                        <div v-else class="pt-4 text-sm text-gray-600">{{ t('editor.startEditing') }}</div>
+                    <div
+                        class="editor-content flex-grow h-full min-w-0"
+                        :class="{ 'json-open': store.editingTemplate === 'json' }"
+                    >
+                        <Preview class="editor-preview" />
+
+                        <div v-if="store.editingTemplate === 'json'" class="json-overlay" @click.self="closeJsonOverlay">
+                            <section class="json-drawer" role="dialog" :aria-label="t('navbar.json')">
+                                <div class="json-drawer-header">
+                                    <button type="button" class="json-drawer-back" :aria-label="t('editor.close')" @click="closeJsonOverlay">
+                                        <span aria-hidden="true">&lt;</span>
+                                    </button>
+
+                                    <div>
+                                        <h3>{{ t('navbar.json') }}</h3>
+                                        <p>{{ t('sidebar.review.json.description') }}</p>
+                                    </div>
+
+                                    <button type="button" class="json-drawer-close" @click="closeJsonOverlay">
+                                        {{ t('editor.close') }}
+                                    </button>
+                                </div>
+
+                                <JsonInput />
+                            </section>
+                        </div>
                     </div>
                 </div>
+
+                <section
+                    v-if="mobilePreviewOpen"
+                    class="mobile-preview-sheet"
+                    role="dialog"
+                    :aria-label="t('navbar.preview')"
+                >
+                    <div class="mobile-preview-header">
+                        <button type="button" class="mobile-preview-back" :aria-label="t('editor.close')" @click="closeMobilePreview">
+                            <span aria-hidden="true">&lt;</span>
+                        </button>
+
+                        <div>
+                            <h3>{{ t('navbar.preview') }}</h3>
+                            <p>{{ t('sidebar.review.preview.description') }}</p>
+                        </div>
+                    </div>
+
+                    <Preview class="mobile-preview-panel" />
+                </section>
             </div>
 
             <WizardModal v-model:open="store.wizardOpen" @confirm="() => store.wizardOpen = false" @cancel="() => store.wizardOpen = false" />
@@ -64,14 +106,9 @@ import { useStore } from '@/store';
 const { t } = useI18n();
 const store = useStore();
 const library = ref(false);
+const mobilePreviewOpen = ref(false);
 
 const appSizeContainer = useTemplateRef('app-size');
-const sidebarEditorTemplates = ['fixtures', 'layers', 'map', 'options', 'panels', 'starting-fixtures', 'system'];
-
-const editors: { [key: string]: any } = {
-    json: JsonInput,
-    preview: Preview
-};
 
 const configLanguageLabels: Record<string, { label: string; shortLabel: string }> = {
     en: { label: 'English', shortLabel: 'EN' },
@@ -119,6 +156,7 @@ const createNew = () => {
     store.initialized = false;
     store.editingTemplate = '';
     store.wizardOpen = false;
+    mobilePreviewOpen.value = false;
 };
 
 const openWizard = () => {
@@ -127,6 +165,26 @@ const openWizard = () => {
 
 const setConfigLanguage = (lang: string) => {
     store.editingLang = lang;
+};
+
+const isMobileLayout = () => {
+    return typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches;
+};
+
+const openPreview = () => {
+    store.editingTemplate = 'preview';
+
+    if (isMobileLayout()) {
+        mobilePreviewOpen.value = true;
+    }
+};
+
+const closeMobilePreview = () => {
+    mobilePreviewOpen.value = false;
+};
+
+const closeJsonOverlay = () => {
+    store.editingTemplate = 'preview';
 };
 </script>
 
@@ -161,9 +219,9 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .input-table {
-        --grid-layout-gap: 100px;
+        --grid-layout-gap: 20px;
         --grid-column-count: 10;
-        --grid-item--min-width: min(250px, 100%);
+        --grid-item--min-width: min(220px, 100%);
         --gap-count: calc(var(--grid-column-count) - 1);
         --total-gap-width: calc(var(--gap-count) * var(--grid-layout-gap));
         --grid-item--max-width: calc((100% - var(--total-gap-width)) / var(--grid-column-count));
@@ -178,14 +236,46 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     
         select,
         input {
-            @apply border border-black text-sm;
+            border: 1px solid #b8c2cc;
+            border-radius: 4px;
+            background: #fff;
+            color: #111827;
+            font-size: 13px;
+            line-height: 18px;
+            outline: none;
+            transition:
+                border-color 120ms ease,
+                box-shadow 120ms ease,
+                background-color 120ms ease;
+
+            &:hover:not(:disabled) {
+                border-color: #8c98a5;
+            }
+
+            &:focus {
+                border-color: var(--editor-primary);
+                box-shadow: 0 0 0 3px rgba(38, 55, 74, 0.14);
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                background: #f3f4f6;
+                color: #6b7280;
+            }
         }
 
         input[type='text'],
         input[type='number'],
         select {
             width: 100%;
-            padding: 4px;
+            min-height: 36px;
+            padding: 7px 9px;
+        }
+
+        input[type='checkbox'] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--editor-primary);
         }
     }
 
@@ -277,16 +367,300 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .config-navbar {
-        width: 520px;
+        width: 560px;
     }
 
     .main-container {
         height: calc(100% - 68px);
+        background: #fff;
     }
 
     .editor-content {
+        position: relative;
+        overflow: hidden;
         padding: 24px 32px;
         background: #fff;
+    }
+
+    .editor-preview {
+        height: 100%;
+    }
+
+    .json-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(17, 24, 39, 0.28);
+    }
+
+    .json-drawer {
+        display: flex;
+        width: min(920px, calc(100% - 32px));
+        height: min(760px, calc(100% - 32px));
+        min-height: 0;
+        flex-direction: column;
+        overflow: hidden;
+        border: 1px solid var(--editor-border);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.22);
+    }
+
+    .json-drawer-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        border-bottom: 1px solid var(--editor-border);
+        padding: 14px 16px;
+
+        h3,
+        p {
+            margin: 0;
+        }
+
+        h3 {
+            color: #111827;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 24px;
+        }
+
+        p {
+            margin-top: 3px;
+            color: #4b5563;
+            font-size: 13px;
+            line-height: 18px;
+        }
+    }
+
+    .json-drawer-back {
+        display: none;
+    }
+
+    .json-drawer-close {
+        flex: 0 0 auto;
+        border: 1px solid #c9d3df;
+        border-radius: 6px;
+        padding: 7px 10px;
+        background: #fff;
+        color: var(--editor-primary);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 16px;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            border-color: var(--editor-primary);
+            background: #eef2f6;
+        }
+    }
+
+    .json-drawer .json-input-panel {
+        min-height: 0;
+        flex: 1;
+        overflow: hidden;
+        padding: 14px 16px 16px;
+        scrollbar-color: #8c98a5 #eef2f6;
+        scrollbar-width: thin;
+    }
+
+    .mobile-preview-sheet {
+        display: none;
+    }
+
+    @media (max-width: 900px) {
+        .editor-toolbar {
+            min-height: auto;
+            flex-wrap: wrap;
+            padding: 12px 14px;
+
+            h2 {
+                width: 100%;
+                font-size: 22px;
+                line-height: 28px;
+            }
+
+            .ml-auto {
+                display: none;
+            }
+        }
+
+        .main-container {
+            display: block;
+            flex: 1 1 auto;
+            height: auto;
+            min-height: 0;
+        }
+
+        .config-navbar {
+            width: 100%;
+            height: 100%;
+        }
+
+        .editor-content {
+            display: none;
+        }
+
+        .editor-content.json-open {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: block;
+            height: 100%;
+            padding: 0;
+            background: transparent;
+        }
+
+        .editor-content.json-open .editor-preview {
+            display: none;
+        }
+
+        .editor-content.json-open .json-overlay {
+            position: fixed;
+            padding: 0;
+        }
+
+        .editor-content.json-open .json-drawer {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .json-drawer-header {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            align-items: center;
+            justify-content: flex-start;
+            flex: 0 0 auto;
+            gap: 12px;
+            padding: 12px 14px;
+            background: #fff;
+
+            h3 {
+                font-size: 17px;
+                line-height: 22px;
+            }
+        }
+
+        .json-drawer-back {
+            display: inline-flex;
+            width: 42px;
+            height: 38px;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--editor-primary);
+            border-radius: 4px;
+            background: var(--editor-primary);
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1;
+            outline: none;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+
+            &:hover,
+            &:focus {
+                border-color: var(--editor-primary-hover);
+                background: var(--editor-primary-hover);
+            }
+        }
+
+        .json-drawer-close {
+            display: none;
+        }
+
+        .json-drawer .json-input-panel {
+            flex: 1 1 0;
+            overflow: hidden;
+            padding: 12px;
+        }
+
+        .mobile-preview-sheet {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            min-height: 0;
+            flex-direction: column;
+            background: #fff;
+        }
+
+        .mobile-preview-header {
+            display: flex;
+            flex: 0 0 auto;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--editor-border);
+            padding: 12px 14px;
+            background: #fff;
+
+            h3,
+            p {
+                margin: 0;
+            }
+
+            h3 {
+                color: #111827;
+                font-size: 17px;
+                font-weight: 700;
+                line-height: 22px;
+            }
+
+            p {
+                margin-top: 3px;
+                color: #4b5563;
+                font-size: 13px;
+                line-height: 18px;
+            }
+        }
+
+        .mobile-preview-back {
+            display: inline-flex;
+            width: 42px;
+            height: 38px;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--editor-primary);
+            border-radius: 4px;
+            background: var(--editor-primary);
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1;
+            outline: none;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+
+            &:hover,
+            &:focus {
+                border-color: var(--editor-primary-hover);
+                background: var(--editor-primary-hover);
+            }
+        }
+
+        .mobile-preview-panel {
+            min-height: 0;
+            flex: 1;
+            padding: 12px;
+            background: #f5f6f7;
+
+            .preview-note {
+                margin-top: 8px;
+                font-size: 12px;
+                line-height: 16px;
+            }
+        }
     }
 
     .black-bg-button {

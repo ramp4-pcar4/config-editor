@@ -176,10 +176,9 @@ const fieldToInputType: { [key: string]: string } = {
             <button
                 @click.stop="add"
                 :class="{
-                    'cursor-not-allowed bg-gray-500': props.editDisabled,
-                    'bg-black cursor-pointer hover:bg-gray-800': !props.editDisabled
+                    'ce-list-add-button--disabled': props.editDisabled
                 }"
-                class="ml-auto p-4 text-white flex-shrink-0 flex items-center justify-center"
+                class="ce-list-add-button"
             >
                 <svg
                     class="relative bottom-[2px]"
@@ -191,7 +190,7 @@ const fieldToInputType: { [key: string]: string } = {
                 >
                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
-                <span class="px-2">{{ addPrompt ?? t('list.add') }}</span>
+                <span>{{ addPrompt ?? t('list.add') }}</span>
             </button>
         </template>
         <template #default>
@@ -218,9 +217,9 @@ const fieldToInputType: { [key: string]: string } = {
                                 <hr class="border-solid border-t border-gray-300 my-2" />
                                 <div :class="`grid cols-${itemFields?.length} gap-4`">
                                     <button
-                                        :disabled="editDisabled"
-                                        :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed"
+                                            :disabled="editDisabled"
+                                            :class="{ handle: !editDisabled }"
+                                            class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
                                         :content="t('editor.reorder')"
                                         v-tippy
                                         :aria-label="t('editor.reorder')"
@@ -303,7 +302,7 @@ const fieldToInputType: { [key: string]: string } = {
                                         <button
                                             @click.stop="remove(index)"
                                             :disabled="editDisabled"
-                                            class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
+                                            class="ce-list-icon-button disabled:cursor-not-allowed"
                                             :aria-label="removePrompt ?? t('list.remove')"
                                             :content="removePrompt ?? t('list.remove')"
                                             v-tippy
@@ -327,7 +326,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, -1)"
                                                 :disabled="editDisabled || index === 0"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.up')"
                                                 :content="t('editor.up')"
                                                 v-tippy
@@ -350,7 +349,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, 1)"
                                                 :disabled="editDisabled || index === list.length - 1"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.down')"
                                                 :content="t('editor.down')"
                                                 v-tippy
@@ -382,7 +381,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-4 ce-sm:mr-12"
+                                        class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
                                         @click.stop
                                         :content="t('editor.reorder')"
                                         v-tippy
@@ -406,7 +405,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :content="t('editor.expand')"
                                         v-tippy
-                                        class="mr-4 ce-sm:mr-12 arrow"
+                                        class="ce-list-icon-button arrow"
                                         :aria-label="t('editor.expand')"
                                     >
                                         <svg
@@ -418,7 +417,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                         </svg>
                                     </button>
-                                    <span class="mr-4 ce-sm:mr-20 ce-sm:text-lg">{{
+                                    <span class="ce-list-item-title">{{
                                         list[index].id ||
                                         list[index].name ||
                                         list[index].layerId ||
@@ -432,7 +431,7 @@ const fieldToInputType: { [key: string]: string } = {
                                         <button
                                             @click.stop="remove(index)"
                                             :disabled="editDisabled"
-                                            class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
+                                            class="ce-list-icon-button disabled:cursor-not-allowed"
                                             :aria-label="removePrompt ?? t('list.remove')"
                                             :content="removePrompt ?? t('list.remove')"
                                             v-tippy
@@ -456,7 +455,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, -1)"
                                                 :disabled="editDisabled || index === 0"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.up')"
                                                 :content="t('editor.up')"
                                                 v-tippy
@@ -479,7 +478,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, 1)"
                                                 :disabled="editDisabled || index === list.length - 1"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.down')"
                                                 :content="t('editor.down')"
                                                 v-tippy
@@ -548,3 +547,78 @@ const fieldToInputType: { [key: string]: string } = {
         </template>
     </Collapsible>
 </template>
+
+<style scoped lang="scss">
+.ce-list-add-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-left: auto;
+    border: 1px solid var(--editor-primary);
+    border-radius: 6px;
+    padding: 7px 10px;
+    background: var(--editor-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    outline: none;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+
+    &:hover,
+    &:focus {
+        border-color: var(--editor-primary-hover);
+        background: var(--editor-primary-hover);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+}
+
+.ce-list-add-button--disabled {
+    cursor: not-allowed;
+    border-color: #9ca3af;
+    background: #9ca3af;
+    box-shadow: none;
+}
+
+.ce-list-icon-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #374151;
+    outline: none;
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background: #eef2f6;
+        color: var(--editor-primary);
+    }
+
+    &:disabled {
+        color: #9ca3af;
+    }
+}
+
+.ce-list-item-title {
+    min-width: 0;
+    overflow: hidden;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>

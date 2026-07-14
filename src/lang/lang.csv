@@ -6,6 +6,7 @@ editor.down,Move down,1,Descendre,1
 editor.up,Move up,1,Monter,1
 editor.expand,Toggle expand,1,Basculer vers l'agrandissement,1
 editor.new,New config,1,Nouveau,0
+editor.close,Close,1,Close,0
 editor.startEditing,Use the table of contents on the left to start editing.,1,Use the table of contents on the left to start editing.,0
 editor.configLanguage,Config,1,Configuration,0
 start.new,Create new config,1,Create new config,0
@@ -22,37 +23,84 @@ upload.error.configs,"Invalid config format: no 'configs' object",1,"Format de c
 upload.error.invalidJSON,"Invalid JSON provided",1,"JSON invalide fourni",0
 upload.continue,Start editing,1,Start editing,0
 upload.back,Back,1,Back,0
-navbar.startingFixtures,Starting Fixtures,1,Calendrier de départ,1
+navbar.startingFixtures,Startup tools,1,Calendrier de départ,1
 navbar.configs,Configs,1,Configurations,1
-navbar.options,Options,1,Options,1
+navbar.options,Startup behavior,1,Options,1
 navbar.preview,Preview map,1,Aperçu carte,0
 navbar.copy,Copy to clipboard,1,Copy to clipboard,0
 navbar.json,Config JSON,1,Config JSON,0
 navbar.download,Download,1,Download,0
 navbar.map,Map,1,Carte,1
 navbar.layers,Layers,1,Couches,1
-navbar.fixtures,Fixtures,1,Appareils,1
-navbar.panels,Panels,1,Panneaux,1
+navbar.fixtures,Tools,1,Appareils,1
+navbar.panels,Layout,1,Panneaux,1
 navbar.system,System,1,Système,1
 sidebar.sections,Editor sections,1,Sections de l'éditeur,0
+sidebar.setup,Startup,1,Setup,0
+sidebar.setup.description,Decide what loads first and whether the map starts on its own.,1,Choose what loads when the map starts and how the editor initializes it.,0
+sidebar.map,Map,1,Map,0
+sidebar.map.description,Set the opening basemap and common map defaults.,1,Choose the starting basemap and adjust map behavior.,0
+sidebar.tools,Tools,1,Tools,0
+sidebar.tools.description,Configure the map UI tools people use most: legend, search, details, export, and help.,1,Configure map tools such as legend search details export and help.,0
+sidebar.layout,Layout,1,Layout,0
+sidebar.layout.description,Choose which panels open at startup and how panels behave.,1,Control panels and what opens when the map starts.,0
+sidebar.advanced,Advanced,1,Advanced,0
+sidebar.advanced.description,Use deeper system and map-definition settings when the defaults are not enough.,1,Edit system settings and deeper map definitions when needed.,0
+sidebar.reviewExport,Review & export,1,Review & export,0
+sidebar.reviewExport.description,Preview the map, inspect JSON, or download the finished configuration.,1,Preview the map inspect JSON or download the configuration.,0
+sidebar.summary.startup,Startup,1,Startup,0
+sidebar.summary.mode,Mode,1,Mode,0
+sidebar.summary.startupTools,Startup tools,1,Startup tools,0
+sidebar.summary.basemap,Basemap,1,Basemap,0
+sidebar.summary.layers,Layers,1,Layers,0
+sidebar.summary.tools,Tools,1,Configured tools,0
+sidebar.summary.panels,Open panels,1,Open panels,0
+sidebar.summary.config,Config language,1,Config language,0
+sidebar.summary.ready,Next step,1,Next step,0
+sidebar.meta.default,Default,1,Default,0
+sidebar.meta.count,"{count} configured",1,"{count} configured",0
+sidebar.meta.layers,"{count} layers",1,"{count} layers",0
+sidebar.meta.tools,"{count} tools",1,"{count} tools",0
+sidebar.meta.panels,"{count} panels",1,"{count} panels",0
+sidebar.meta.basemaps,"{count} basemaps",1,"{count} basemaps",0
+sidebar.meta.autoStart,Auto start,1,Auto start,0
+sidebar.meta.manualStart,Manual start,1,Manual start,0
+sidebar.meta.preview,Preview,1,Preview,0
+sidebar.meta.json,JSON,1,JSON,0
+sidebar.meta.proxy,Proxy set,1,Proxy set,0
+sidebar.setup.startingFixtures.title,Startup tools,1,Startup fixtures,0
+sidebar.setup.startingFixtures.description,Choose which tools are loaded as soon as the map opens.,1,Choose the tools and fixtures loaded as soon as the map opens.,0
+sidebar.setup.options.title,Startup behavior,1,Startup behavior,0
+sidebar.setup.options.description,Control default loading behavior and whether the map starts automatically.,1,Control default events default fixtures and whether the map starts automatically.,0
+sidebar.advanced.system.title,System settings,1,System settings,0
+sidebar.advanced.system.description,Adjust proxy, display, feature data, and app-wide behavior.,1,Configure proxy display feature data and app-wide behavior.,0
+sidebar.advanced.map.title,Map definitions,1,Map definitions,0
+sidebar.advanced.map.description,Edit basemap definitions, tile schemas, extents, labels, and timing defaults.,1,Edit basemap definitions tile schemas extents LOD sets labels and layer timing defaults.,0
 sidebar.backToDefaults,Defaults,1,Valeurs par défaut,0
 sidebar.defaults,Defaults,1,Valeurs par défaut,0
 sidebar.defaults.description,Set startup defaults and general editor options.,1,Définissez les valeurs de démarrage et les options générales.,0
+sidebar.defaults.startingFixtures.description,Choose the fixtures that load when the map starts.,1,Choose the fixtures that load when the map starts.,0
+sidebar.defaults.options.description,Set startup initialization options.,1,Set startup initialization options.,0
 sidebar.layers,Layers,1,Couches,1
 sidebar.layers.description,Add and edit layer configuration by language.,1,Ajoutez et modifiez la configuration des couches par langue.,0
+sidebar.layers.config.description,Add layers and edit advanced layer configuration.,1,Add layers and edit advanced layer configuration.,0
 sidebar.basemap,Basemap,1,Fond de carte,0
 sidebar.basemap.description,Edit map and basemap settings for each config.,1,Modifiez les paramètres de carte et de fond de carte de chaque configuration.,0
+sidebar.basemap.config.description,Choose the initial basemap and edit advanced map settings.,1,Choose the initial basemap and edit advanced map settings.,0
 sidebar.startView,Start view,1,Vue de départ,0
 sidebar.startView.description,Configure startup fixtures and advanced map sections.,1,Configurez les éléments de démarrage et les sections de carte avancées.,0
+sidebar.startView.fixtures.description,Configure RAMP fixtures such as legend, grid, appbar, geosearch, and map controls.,1,Configure RAMP fixtures such as legend, grid, appbar, geosearch, and map controls.,0
+sidebar.startView.panels.description,Configure panel ordering and startup panel state.,1,Configure panel ordering and startup panel state.,0
+sidebar.startView.system.description,Configure app-wide system, display, and behavior settings.,1,Configure app-wide system, display, and behavior settings.,0
 sidebar.review,Review,1,Réviser,0
 sidebar.review.description,Preview the map, inspect JSON, or download the config.,1,Prévisualisez la carte, inspectez le JSON ou téléchargez la configuration.,0
 options.defaultEvents,Load default events,1,Charger les événements par défaut,1
-options.defaultFixtures,Load default fixtures,1,Charger les appareils par défaut,1
+options.defaultFixtures,Load default tools,1,Charger les appareils par défaut,1
 options.startRequired,Prevent initializing the map automatically,1,Empêcher l'initialisation automatique de la carte,1
-panels.reorderable.title,Reorderable,1,Réassortissable,1
-panels.reorderable.description,Enables panel reorder controls,1,Active les contrôles de réorganisation des panneaux,1
-panels.open.title,Open,1,Ouvrir,1
-panels.open.description,The panels to open on startup. Panels with props are currently not supported.,1,Les panneaux à ouvrir au démarrage. Les panneaux avec accessoires ne sont actuellement pas pris en charge.,1
+panels.reorderable.title,Panel reordering,1,Réassortissable,1
+panels.reorderable.description,Allow users to reorder panels while using the map.,1,Active les contrôles de réorganisation des panneaux,1
+panels.open.title,Startup panels,1,Ouvrir,1
+panels.open.description,Choose the panels that open when the map starts. Panels with props are currently not supported.,1,Les panneaux à ouvrir au démarrage. Les panneaux avec accessoires ne sont actuellement pas pris en charge.,1
 panels.open.add,Add panel,1,Ajouter un panneau,1
 panels.open.remove,Remove panel,1,Retirer le panneau,1
 panels.open.id.title,Panel ID,1,ID du panneau,1
@@ -63,7 +111,38 @@ panels.open.pin.title,Pin,1,Épinger,1
 panels.open.pin.description,Whether to pin the panel as well,1,Vous pouvez également épingler le panneau,1
 preview.note,Note:,1,Remarque:,1
 preview.warning,"If the RAMP instance does not initialize as expected, it is likely that you missed a required value and/or specified an invalid value somewhere.",1,"Si l'instance RAMP ne s'initialise pas comme prévu, il est probable que vous ayez oublié une valeur obligatoire et/ou spécifié une valeur invalide quelque part.",1
-startingFixtures.input,Comma separated fixture IDs:,1,ID des appareils séparés par des virgules:,1
+startingFixtures.input,Comma-separated tool IDs:,1,ID des appareils séparés par des virgules:,1
+startingFixtures.sidebar.description,Choose the tools that load when the map starts. Use the custom field for tool IDs that are not listed here.,1,Choose the fixtures that load when the map starts. Use the custom field for fixture IDs that are not listed here.,0
+startingFixtures.sidebar.restoreDefault,Use defaults,1,Use defaults,0
+startingFixtures.sidebar.custom,Custom tool IDs,1,Custom fixture IDs,0
+startingFixtures.sidebar.show,Show,1,Show,0
+startingFixtures.sidebar.hide,Hide,1,Hide,0
+options.sidebar.description,Set how the map instance initializes before users begin interacting with it.,1,Set startup options for how the map instance initializes.,0
+panels.sidebar.description,Control panel ordering and the panels that should open on startup.,1,Configure panel behavior and panels that should open on startup.,0
+panels.sidebar.group.title,Panel startup layout,1,Panel startup layout,0
+panels.sidebar.group.description,Choose what opens first and whether people can reorder panels later.,1,Choose what opens first and whether people can reorder panels later.,0
+panels.sidebar.on,On,1,On,0
+panels.sidebar.off,Off,1,Off,0
+panels.sidebar.count,"{count} panels",1,"{count} configured",0
+system.sidebar.description,Configure app-wide system behavior and advanced display options.,1,Configure app-wide system behavior and advanced display options.,0
+system.sidebar.notSet,Not set,1,Not set,0
+system.sidebar.default,Default,1,Default,0
+system.sidebar.advanced,Advanced,1,Advanced,0
+system.sidebar.common.title,Common system settings,1,Common system settings,0
+system.sidebar.common.description,Start with service access and visual behavior before changing deeper defaults.,1,Start with service access and visual behavior before changing deeper defaults.,0
+system.sidebar.advancedSettings.title,Advanced system settings,1,Advanced system settings,0
+system.sidebar.advancedSettings.description,Feature exposure, localization, and browser behavior for special cases.,1,Feature exposure, localization, and browser behavior for special cases.,0
+system.sidebar.network.title,Network,1,Network,0
+system.sidebar.network.description,Set proxy behavior for services that need it.,1,Set proxy behavior for services that need it.,0
+system.sidebar.display.title,Display,1,Display,0
+system.sidebar.display.description,Choose app-wide display defaults such as zoom icons and animation.,1,Choose app-wide display defaults such as zoom icons and animation.,0
+system.sidebar.featureData.title,Feature data,1,Feature data,0
+system.sidebar.featureData.description,Choose which feature fields and measurements are exposed to users.,1,Choose which feature fields and measurements are exposed to users.,0
+system.sidebar.behavior.title,Behavior,1,Behavior,0
+system.sidebar.behavior.description,Configure localization and browser scroll behavior.,1,Configure localization and browser scroll behavior.,0
+sidebar.review.preview.description,Open the live map preview for the current configuration.,1,Open the live map preview for the current configuration.,0
+sidebar.review.json.description,Inspect or edit the raw generated configuration JSON.,1,Inspect or edit the raw generated configuration JSON.,0
+sidebar.review.download.description,Download the current configuration as a JSON file.,1,Download the current configuration as a JSON file.,0
 system.proxyUrl.title,Proxy URL,1,URL du proxy,1
 system.proxyUrl.description,An optional proxy to be used for dealing with same-origin issues. URL must either be a relative path on the same server or an absolute path on a server which sets CORS headers. Applies only to map services.,1,"Un proxy optionnel à utiliser pour traiter les problèmes de même origine. L'URL doit être soit un chemin relatif sur le même serveur, soit un chemin absolu sur un serveur qui définit des en-têtes CORS. Ne s'applique qu'aux services de cartographie.",1
 system.zoomIcon.title,Zoom Icon,1,Icône de zoom,1

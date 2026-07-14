@@ -5,6 +5,29 @@ map.pointZoomScale.title,Point Zoom Scale,1,Point Zoom Échelle,1
 map.pointZoomScale.description,The zoom level when zooming to a point feature (e.g. when using the zoom button in the datagrid). Must be a positive integer.,1,"Le niveau de zoom lorsque vous zoomez sur un élément ponctuel (par exemple, lorsque vous utilisez le bouton de zoom dans la grille de données). Il doit s'agir d'un nombre entier positif.",1
 map.mapMouseThrottle.title,Map Mouse Throttle,1,Souris de la carte Accélérateur,1
 map.mapMouseThrottle.description,The amount of throttling (in milliseconds) to be used for the map mouse move event. A value of 0 means no throttle.,1,Le niveau d'accélération (en millisecondes) à utiliser pour l'événement de déplacement de la souris de la carte. Une valeur de 0 signifie qu'il n'y a pas d'étranglement.,1
+map.sidebar.description,Start with the basemap and everyday map behavior. Advanced definitions stay available below.,1,Choose a map setting to edit. Common choices are shown first and advanced configuration stays available below.,0
+map.sidebar.notSet,Not set,1,Not set,0
+map.sidebar.count,"{count} items",1,"{count} configured",0
+map.sidebar.advanced,Advanced,1,Advanced,0
+map.sidebar.settings,Settings,1,Settings,0
+map.sidebar.noPreview,No preview,1,No preview,0
+map.sidebar.common.title,Everyday map setup,1,Everyday map setup,0
+map.sidebar.common.description,Start here for the opening basemap and map interaction defaults.,1,Start here for the opening basemap and map interaction defaults.,0
+map.sidebar.general.title,Map behavior,1,General settings,0
+map.sidebar.general.description,Set zoom and interaction defaults used across the map.,1,Edit initial basemap ID and map interaction defaults.,0
+map.sidebar.initialBasemap.title,Starting basemap,1,Initial basemap,0
+map.sidebar.initialBasemap.description,Choose the basemap people see first.,1,Choose the basemap shown when the map first loads.,0
+map.sidebar.basemapDefinitions.title,Basemap library,1,Basemap definitions,0
+map.sidebar.advancedDefinitions.title,Advanced map definitions,1,Advanced map definitions,0
+map.sidebar.advancedDefinitions.description,Tile schemas, extents, LOD sets, captions, labels, and timing defaults.,1,Tile schemas, extents, LOD sets, captions, labels, and timing defaults.,0
+map.sidebar.defaultLabels.title,Layer label defaults,1,Default labels,0
+map.sidebar.defaultLabels.description,Set default label behavior for map layers.,1,Configure default label settings for map layers.,0
+map.sidebar.lambert.title,Lambert maps,1,Lambert maps,0
+map.sidebar.lambert.description,Canadian Lambert projection basemaps.,1,Canadian Lambert projection basemaps.,0
+map.sidebar.mercator.title,Mercator maps,1,Mercator maps,0
+map.sidebar.mercator.description,World Mercator projection basemaps.,1,World Mercator projection basemaps.,0
+map.sidebar.other.title,Other maps,1,Other maps,0
+map.sidebar.other.description,Basemaps using custom or ungrouped tile schemas.,1,Basemaps using custom or ungrouped tile schemas.,0
 basemaps.title,Basemaps,1,Cartes de base,1
 basemaps.description,The list of basemaps to be made available via the basemap selector. Minimum one is required.,1,La liste des cartes de base à mettre à disposition via le sélecteur de cartes de base. Une seule au minimum est requise.,1
 basemaps.description.overview,"Key-value dictionary where the key is the tile schema id and the value is the basemap. When duplicate tile schema id's are provided, the latest entry will be used.",1,"Dictionnaire clé-valeur dans lequel la clé est l'identifiant du schéma de tuiles et la valeur est la carte de base. Lorsque des identifiants de schéma de tuiles sont fournis en double, c'est la dernière entrée qui est utilisée.",1

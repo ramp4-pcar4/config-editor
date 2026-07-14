@@ -15,10 +15,41 @@ const { t } = useI18n();
 </script>
 
 <template>
-    <div>
+    <div class="options-editor">
         <h3 v-if="!compact" class="text-2xl font-semibold">{{ t('navbar.options') }}</h3>
-        <Checkbox v-model="store.options!.loadDefaultEvents" checked :title="t('options.defaultEvents')" />
-        <Checkbox v-model="store.options!.loadDefaultFixtures" checked :title="t('options.defaultFixtures')" />
-        <Checkbox v-model="store.options!.startRequired" :title="t('options.startRequired')" />
+        <p class="options-copy">{{ t('options.sidebar.description') }}</p>
+
+        <section class="options-card">
+            <Checkbox v-model="store.options!.loadDefaultEvents" checked :title="t('options.defaultEvents')" />
+        </section>
+
+        <section class="options-card">
+            <Checkbox v-model="store.options!.loadDefaultFixtures" checked :title="t('options.defaultFixtures')" />
+        </section>
+
+        <section class="options-card">
+            <Checkbox v-model="store.options!.startRequired" :title="t('options.startRequired')" />
+        </section>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.options-editor {
+    display: grid;
+    gap: 12px;
+}
+
+.options-copy {
+    margin: 0;
+    color: #4b5563;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.options-card {
+    border: 1px solid #d8dee5;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fff;
+}
+</style>
