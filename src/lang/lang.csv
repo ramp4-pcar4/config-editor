@@ -4,7 +4,8 @@ editor.loading,Waiting for config...,1,En attendant la configuration...,1
 editor.reorder,Drag to reorder,1,Faites glisser pour réorganiser,1
 editor.down,Move down,1,Descendre,1
 editor.up,Move up,1,Monter,1
-editor.expand,Toggle expand,1,Basculer vers l'agrandissement,1
+editor.expand,"Expand {title}",1,"Ouvrir {title}",1
+editor.collapse,"Collapse {title}",1,"Fermer {title}",1
 editor.new,New config,1,Nouveau,0
 editor.close,Close,1,Close,0
 editor.startEditing,Use the table of contents on the left to start editing.,1,Use the table of contents on the left to start editing.,0

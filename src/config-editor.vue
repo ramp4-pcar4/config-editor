@@ -2,7 +2,7 @@
     <div class="ramp4-config-editor h-full">
         <div ref="app-size" class="h-full">
             <StartingScreen v-if="!store.initialized && !library" />
-            <div v-else class="editor-layout h-full flex flex-col">
+            <div v-else class="editor-layout h-full flex flex-col" @keydown.esc="dismissVisibleTooltips">
                 <div class="editor-toolbar flex items-center">
                     <h2 class="m-0 text-3xl font-semibold">{{ t('editor.title') }}</h2>
                     <span class="ml-auto"></span>
@@ -187,6 +187,33 @@ const setDisplayLanguage = (lang: string) => {
     locale.value = lang;
 };
 
+type TooltipReference = HTMLElement & {
+    _tippy?: {
+        hide: () => void;
+        state: {
+            isVisible: boolean;
+        };
+    };
+};
+
+const dismissVisibleTooltips = (event: KeyboardEvent) => {
+    const editor = event.currentTarget as HTMLElement;
+    let dismissed = false;
+
+    editor.querySelectorAll<HTMLElement>('button, a, [tabindex]').forEach(element => {
+        const tooltip = (element as TooltipReference)._tippy;
+        if (tooltip?.state.isVisible) {
+            tooltip.hide();
+            dismissed = true;
+        }
+    });
+
+    if (dismissed) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+};
+
 const openPreview = () => {
     store.editingTemplate = 'preview';
 
@@ -215,6 +242,8 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     --editor-primary-hover: #1f2d3d;
     --editor-border: #d8dee5;
     --editor-surface: #f5f6f7;
+    --editor-focus-inner: #fff;
+    --editor-focus-outer: #0b5f9a;
 
     height: 100%;
     width: 100%;
@@ -307,6 +336,14 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         background: var(--editor-surface);
     }
 
+    .editor-layout :where(button, a[href], [role='button']):focus-visible {
+        position: relative;
+        z-index: 3;
+        outline: 2px solid var(--editor-focus-inner) !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 6px var(--editor-focus-outer) !important;
+    }
+
     .editor-toolbar {
         gap: 8px;
         min-height: 68px;
@@ -322,7 +359,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         margin-right: 8px;
         border: 1px solid var(--editor-border);
         border-radius: 4px;
-        overflow: hidden;
+        overflow: visible;
 
         .config-language-short {
             display: none;
@@ -338,6 +375,14 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
             font-weight: 600;
             line-height: 18px;
             outline: none;
+
+            &:first-child {
+                border-radius: 3px 0 0 3px;
+            }
+
+            &:last-child {
+                border-radius: 0 3px 3px 0;
+            }
 
             &:hover,
             &:focus {
@@ -372,6 +417,14 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         }
     }
 
+    @media (forced-colors: active) {
+        .editor-layout :where(button, a[href], [role='button']):focus-visible {
+            outline: 3px solid Highlight !important;
+            outline-offset: 2px;
+            box-shadow: none !important;
+        }
+    }
+
     @media (max-width: 760px) {
         .config-language-toggle {
             .config-language-full {
@@ -385,7 +438,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .config-navbar {
-        width: clamp(560px, 62vw, 620px);
+        width: clamp(560px, 40%, 620px);
     }
 
     .main-container {

@@ -133,6 +133,15 @@ const reorder = (idx: number, direction: number) => {
 
 const length = computed<number>(() => list.value.length);
 
+const itemTitle = (index: number) => {
+    const item = list.value[index];
+    const singular = props.singular || (props.title ? props.title.slice(0, -1) : '');
+
+    return (
+        item.id || item.name || item.layerId || item.gridId || item.panelId || `${singular} ${item.index ?? index + 1}`
+    );
+};
+
 // for items, we use the table layout instead of the collapsible layout iff
 //      - the user doesn't want a custom item template
 //      - 0 < number of fields < 4
@@ -159,9 +168,18 @@ const fieldToInputType: { [key: string]: string } = {
 </script>
 
 <template>
-    <Collapsible class="ce-list-collapsible" :thick-border="topLevel">
-        <template #header>
-            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 ce-sm:mr-3" :aria-label="t('editor.expand')">
+    <Collapsible class="ce-list-collapsible" :thick-border="topLevel" :title="`${title} (${length})`">
+        <template #header="{ expanded, toggle, controls, label }">
+            <button
+                type="button"
+                :content="label"
+                v-tippy
+                class="arrow mr-1 ce-sm:mr-3"
+                :aria-label="label"
+                :aria-expanded="expanded"
+                :aria-controls="controls"
+                @click="toggle"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                 </svg>
@@ -376,8 +394,8 @@ const fieldToInputType: { [key: string]: string } = {
                         </div>
                         <div v-else>
                             <!-- Regular mode (not table layout) -->
-                            <Collapsible class="ce-list-item-collapsible">
-                                <template #header>
+                            <Collapsible class="ce-list-item-collapsible" :title="itemTitle(index)">
+                                <template #header="{ expanded, toggle, controls, label }">
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
@@ -403,10 +421,14 @@ const fieldToInputType: { [key: string]: string } = {
                                         </svg>
                                     </button>
                                     <button
-                                        :content="t('editor.expand')"
+                                        type="button"
+                                        :content="label"
                                         v-tippy
                                         class="ce-list-icon-button arrow"
-                                        :aria-label="t('editor.expand')"
+                                        :aria-label="label"
+                                        :aria-expanded="expanded"
+                                        :aria-controls="controls"
+                                        @click="toggle"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -417,16 +439,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                         </svg>
                                     </button>
-                                    <span class="ce-list-item-title">{{
-                                        list[index].id ||
-                                        list[index].name ||
-                                        list[index].layerId ||
-                                        list[index].gridId ||
-                                        list[index].panelId ||
-                                        `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
-                                            list[index].index ?? index + 1
-                                        }`
-                                    }}</span>
+                                    <span class="ce-list-item-title">{{ itemTitle(index) }}</span>
                                     <div class="ce-list-item-actions flex justify-center ml-auto">
                                         <button
                                             @click.stop="remove(index)"
