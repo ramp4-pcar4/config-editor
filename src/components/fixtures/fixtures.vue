@@ -297,10 +297,7 @@ const activeSectionTitle = computed(() => {
             <Grid v-else-if="activeSection === 'grid'" v-model="store.elc.fixtures.grid" />
             <Help v-else-if="activeSection === 'help'" v-model="store.elc.fixtures.help" />
             <Hilight v-else-if="activeSection === 'hilight'" v-model="store.elc.fixtures.hilight" />
-            <LayerReorder
-                v-else-if="activeSection === 'layer-reorder'"
-                v-model="store.elc.fixtures['layer-reorder']"
-            />
+            <LayerReorder v-else-if="activeSection === 'layer-reorder'" v-model="store.elc.fixtures['layer-reorder']" />
             <Legend v-else-if="activeSection === 'legend'" v-model="store.elc.fixtures.legend" />
             <Mapnav v-else-if="activeSection === 'mapnav'" v-model="store.elc.fixtures.mapnav" />
             <Metadata v-else-if="activeSection === 'metadata'" v-model="store.elc.fixtures.metadata" />

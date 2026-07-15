@@ -42,10 +42,19 @@
                             :refresh-request="desktopPreviewRefreshRequest"
                         />
 
-                        <div v-if="store.editingTemplate === 'json'" class="json-overlay" @click.self="closeJsonOverlay">
+                        <div
+                            v-if="store.editingTemplate === 'json'"
+                            class="json-overlay"
+                            @click.self="closeJsonOverlay"
+                        >
                             <section class="json-drawer" role="dialog" :aria-label="t('navbar.json')">
                                 <div class="json-drawer-header">
-                                    <button type="button" class="json-drawer-back" :aria-label="t('editor.close')" @click="closeJsonOverlay">
+                                    <button
+                                        type="button"
+                                        class="json-drawer-back"
+                                        :aria-label="t('editor.close')"
+                                        @click="closeJsonOverlay"
+                                    >
                                         <span aria-hidden="true">&lt;</span>
                                     </button>
 
@@ -72,7 +81,12 @@
                     :aria-label="t('navbar.preview')"
                 >
                     <div class="mobile-preview-header">
-                        <button type="button" class="mobile-preview-back" :aria-label="t('editor.close')" @click="closeMobilePreview">
+                        <button
+                            type="button"
+                            class="mobile-preview-back"
+                            :aria-label="t('editor.close')"
+                            @click="closeMobilePreview"
+                        >
                             <span aria-hidden="true">&lt;</span>
                         </button>
 
@@ -86,7 +100,11 @@
                 </section>
             </div>
 
-            <WizardModal v-model:open="store.wizardOpen" @confirm="() => store.wizardOpen = false" @cancel="() => store.wizardOpen = false" />
+            <WizardModal
+                v-model:open="store.wizardOpen"
+                @confirm="() => (store.wizardOpen = false)"
+                @cancel="() => (store.wizardOpen = false)"
+            />
         </div>
     </div>
 </template>
@@ -234,7 +252,15 @@ const closeJsonOverlay = () => {
 </script>
 
 <style lang="scss">
-$font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
+$font-list:
+    'Montserrat',
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Helvetica,
+    Arial,
+    sans-serif,
+    Apple Color Emoji,
     Segoe UI Emoji;
 
 .ramp4-config-editor {
@@ -247,7 +273,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
 
     height: 100%;
     width: 100%;
-    
+
     font-family: $font-list;
     h1,
     h2,
@@ -280,7 +306,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
         );
         column-gap: var(--grid-layout-gap);
         row-gap: 16px;
-    
+
         select,
         input {
             border: 1px solid #b8c2cc;
@@ -747,7 +773,7 @@ $font-list: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica
     }
 
     .white-bg-button {
-        @apply  p-8 rounded-[4px];
+        @apply p-8 rounded-[4px];
         outline: none;
         border-width: 1px;
         border-color: #000;

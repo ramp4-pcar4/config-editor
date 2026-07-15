@@ -294,7 +294,9 @@ const railItems = computed(() => [
     }
 ]);
 
-const activeRailItem = computed(() => railItems.value.find(item => item.id === activeGroup.value) ?? railItems.value[0]);
+const activeRailItem = computed(
+    () => railItems.value.find(item => item.id === activeGroup.value) ?? railItems.value[0]
+);
 
 const setupItems = computed(() => [
     {

@@ -235,9 +235,9 @@ const fieldToInputType: { [key: string]: string } = {
                                 <hr class="border-solid border-t border-gray-300 my-2" />
                                 <div :class="`grid cols-${itemFields?.length} gap-4`">
                                     <button
-                                            :disabled="editDisabled"
-                                            :class="{ handle: !editDisabled }"
-                                            class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
+                                        :disabled="editDisabled"
+                                        :class="{ handle: !editDisabled }"
+                                        class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
                                         :content="t('editor.reorder')"
                                         v-tippy
                                         :aria-label="t('editor.reorder')"
@@ -305,15 +305,24 @@ const fieldToInputType: { [key: string]: string } = {
                                             :value="
                                                 field.type === 'object'
                                                     ? JSON.stringify(list[index][field.property])
-                                                    : list[index][field.property]?.join(',') ?? ''
+                                                    : (list[index][field.property]?.join(',') ?? '')
                                             "
-                                            @input="(e: Event) => {
-                        if (field.type === 'object') {
-                          list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
-                        } else {
-                          list[index][field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim());
-                        }
-                    }"
+                                            @input="
+                                                (e: Event) => {
+                                                    if (field.type === 'object') {
+                                                        list[index][field.property] = JSON.parse(
+                                                            (e.target as HTMLInputElement).value
+                                                        );
+                                                    } else {
+                                                        list[index][field.property] =
+                                                            (e.target as HTMLInputElement).value === ''
+                                                                ? []
+                                                                : (e.target as HTMLInputElement).value
+                                                                      .split(',')
+                                                                      .map(s => s.trim());
+                                                    }
+                                                }
+                                            "
                                         />
                                     </div>
                                     <div class="flex ml-auto">

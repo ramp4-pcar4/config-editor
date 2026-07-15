@@ -20,7 +20,9 @@
 
             <button type="button" class="layers-card" @click="updateLegend">
                 <span>
-                    <strong>{{ updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title') }}</strong>
+                    <strong>{{
+                        updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title')
+                    }}</strong>
                     <small>{{ t('layers.autopopulateLegend.description') }}</small>
                 </span>
                 <em>{{ updatedLegend ? t('layers.sidebar.done') : t('layers.sidebar.action') }}</em>
@@ -49,7 +51,9 @@
                             class="layers-secondary-action"
                             :class="{ done: updatedLegend }"
                             @click="updateLegend"
-                            :aria-label="updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title')"
+                            :aria-label="
+                                updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title')
+                            "
                         >
                             {{ updatedLegend ? t('layers.updatedLegend.title') : t('layers.autopopulateLegend.title') }}
                         </button>
@@ -110,7 +114,9 @@
                 <div v-if="store.elc.layers.length === 0 && !addingLayer" class="layers-empty">
                     <strong>{{ t('layers.empty.title') }}</strong>
                     <span>{{ t('layers.empty.description') }}</span>
-                    <button type="button" class="layers-primary-action" @click="startAddLayer">{{ t('layers.add') }}</button>
+                    <button type="button" class="layers-primary-action" @click="startAddLayer">
+                        {{ t('layers.add') }}
+                    </button>
                 </div>
 
                 <div v-else class="layers-flow">
@@ -138,7 +144,11 @@
                                         <span class="layer-row-title">{{ layerDisplayName(element, index) }}</span>
                                         <span class="layer-row-meta">
                                             <span>{{ layerTypeLabel(element.layerType) }}</span>
-                                            <span>{{ element.url ? t('layers.status.sourceSet') : t('layers.status.needsSource') }}</span>
+                                            <span>{{
+                                                element.url
+                                                    ? t('layers.status.sourceSet')
+                                                    : t('layers.status.needsSource')
+                                            }}</span>
                                         </span>
                                     </button>
 
@@ -439,7 +449,10 @@
                                     />
                                 </div>
                                 <State v-model="selectedLayer.state" />
-                                <DrawOrder v-model="selectedLayer.drawOrder" v-if="LayerTools.isVectorLayer(selectedLayer)" />
+                                <DrawOrder
+                                    v-model="selectedLayer.drawOrder"
+                                    v-if="LayerTools.isVectorLayer(selectedLayer)"
+                                />
                             </template>
 
                             <template v-else>
@@ -474,7 +487,11 @@
                                     v-model="selectedLayer.fieldMetadata"
                                     v-if="LayerTools.isAttributeLayer(selectedLayer)"
                                 />
-                                <Fixtures v-model="selectedLayer.fixtures" :layer-type="selectedLayer.layerType" :sublayer="false" />
+                                <Fixtures
+                                    v-model="selectedLayer.fixtures"
+                                    :layer-type="selectedLayer.layerType"
+                                    :sublayer="false"
+                                />
                             </template>
                         </div>
                     </section>
@@ -700,9 +717,12 @@ const layerStatusLabel = (layer: RampLayerConfig, index: number) => {
 };
 
 const duplicateLayerId = (layer: RampLayerConfig, index: number) => {
-    return !!layer.id && store.elc.layers.some((candidate, candidateIndex) => {
-        return candidateIndex !== index && candidate.id === layer.id;
-    });
+    return (
+        !!layer.id &&
+        store.elc.layers.some((candidate, candidateIndex) => {
+            return candidateIndex !== index && candidate.id === layer.id;
+        })
+    );
 };
 
 const hasSourceOptions = (layer: RampLayerConfig) => {

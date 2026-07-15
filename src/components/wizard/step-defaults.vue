@@ -73,7 +73,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useStore } from '@/store';
 import { useI18n } from 'vue-i18n';
 import ErrorList from './error-list.vue';
-    
+
 defineProps<{ errors: any[] }>();
 
 const store = useStore();
@@ -166,6 +166,8 @@ const toggleFixture = (fixture: string) => {
 
     selectedFixtures.value = nextFixtures;
     // check if set of selected fixtures matchecs default fixtures
-    loadDefaultFixtures.value = (selectedFixtures.value.length === DEFAULT_FIXTURES.length && selectedFixtures.value.every(f => DEFAULT_FIXTURES.includes(f)));
+    loadDefaultFixtures.value =
+        selectedFixtures.value.length === DEFAULT_FIXTURES.length &&
+        selectedFixtures.value.every(f => DEFAULT_FIXTURES.includes(f));
 };
 </script>
