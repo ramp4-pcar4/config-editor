@@ -69,6 +69,11 @@ details.templates.xml,XML,1,XML,1
 details.templates.json,JSON,1,JSON,1
 export.title,Export,1,Exporter,1
 export.description,Provides configuration to the export fixture,1,Fournit la configuration de l'appareil d'exportation,1
+export.editor.copy,Choose what appears in exported map images and how the export panel behaves.,1,Choose what appears in exported map images and how the export panel behaves.,0
+export.editor.basics.title,Export basics,1,Export basics,0
+export.editor.basics.description,Set the panel width and default file name for exported images.,1,Set the panel width and default file name for exported images.,0
+export.editor.content.title,Export content,1,Export content,0
+export.editor.content.description,Choose which sections are available and selected when users open export.,1,Choose which sections are available and selected when users open export.,0
 export.fileName.title,File Name,1,Nom du fichier,1
 export.fileName.description,The file name of the exported image,1,Le nom du fichier de l'image exportée,1
 export.title.title,Title,1,Titre,1
@@ -95,6 +100,7 @@ export.selectable.title,Selectable,1,Sélectionnable,1
 export.selectable.description,Indicates if this component is selectable,1,Indique si ce composant est sélectionnable,1
 geosearch.title,Geosearch,1,Geosearch,1
 geosearch.description,Provides configuration to the geosearch fixture,1,Fournit la configuration de l'appareil geosearch,1
+geosearch.editor.copy,Control place search behavior, lookup services, and where the search panel appears.,1,Control place search behavior, lookup services, and where the search panel appears.,0
 geosearch.serviceUrls.title,Service URLs,1,URL des services,1
 geosearch.serviceUrls.description,Set of URLs for lookup services. Defaults align with GeoGratis APIs.,1,Ensemble d'URL pour les services de consultation. Les valeurs par défaut sont alignées sur les API de GeoGratis.,1
 geosearch.serviceUrls.geoNames.title,Geo Names,1,Noms géographiques,1
@@ -122,6 +128,9 @@ geosearch.settings.disabledSearchTypes.fsa,FSA (Forward Sortation Area),1,RTA (r
 geosearch.settings.disabledSearchTypes.lat/lng,Latitude/Logitude,1,Latitude/Longitude,1
 grid.title,Grid,1,Grille,1
 grid.description,Provides configuration to the grid fixture,1,Fournit la configuration de la grille de fixation,1
+grid.editor.copy,Configure data grids, merge grids, and the grid panel behavior.,1,Configure data grids, merge grids, and the grid panel behavior.,0
+grid.editor.panel.title,Grid panel,1,Grid panel,0
+grid.editor.panel.description,Adjust panel width and advanced placement behavior.,1,Adjust panel width and advanced placement behavior.,0
 grid.mergeGrids.title,Merge Grids,1,Fusionner les grilles,1
 grid.mergeGrids.description,"Provides specifications for merge grids. Can also be used to configure single-layer grids, but the 'gridOption' property within the layer configuration object is preferred.",1,"Fournit des spécifications pour les grilles de fusion. Il peut également être utilisé pour configurer des grilles à couche unique, mais il est préférable d'utiliser la propriété 'gridOption' de l'objet de configuration de la couche.",1
 grid.mergeGrids.add,Add merge grid,1,Ajouter une grille de fusion,1
@@ -222,6 +231,32 @@ help.title,Help,1,Aide,1
 help.description,Provides configuration to the help fixture,1,Permet de configurer le dispositif d'aide,1
 help.location.title,Location,1,Lieu,1
 help.location.description,"Relative path or URL to the help directory, which contains the help content and images. Markdown files must be named for the language they support, e.g. en.md, fr.md. Images must be placed in a subfolder named images.",1,"Chemin relatif ou URL vers le répertoire d'aide, qui contient le contenu de l'aide et les images. Les fichiers Markdown doivent être nommés en fonction de la langue qu'ils supportent, par exemple en.md, fr.md. Les images doivent être placées dans un sous-dossier nommé images.",1
+fixtures.sidebar.description,Choose a tool to customize. Common map tools are first; advanced tools stay tucked away until needed.,1,Choose a map tool to configure. Common map UI tools are shown first and advanced fixtures stay available below.,0
+fixtures.sidebar.configure,Configure,1,Configure,0
+fixtures.sidebar.default,Default,1,Default,0
+fixtures.sidebar.custom,Custom,1,Custom,0
+fixtures.sidebar.common.title,Common tools,1,Common tools,0
+fixtures.sidebar.common.description,The tools most maps expose directly to users.,1,The tools most maps expose directly to users.,0
+fixtures.sidebar.advanced.title,Advanced tools,1,Advanced tools,0
+fixtures.sidebar.advanced.description,Specialized tools and lower-level map controls.,1,Specialized tools and lower-level map controls.,0
+fixtures.sidebar.legend.description,Controls the layer legend shown to map users.,1,Controls the layer legend shown to map users.,0
+fixtures.sidebar.geosearch.description,Controls place search and geolocation lookup behavior.,1,Controls place search and geolocation lookup behavior.,0
+fixtures.sidebar.details.description,Sets default templates for identify/details results.,1,Sets default templates for identify/details results.,0
+fixtures.sidebar.mapnav.description,Chooses which map navigation buttons are available.,1,Chooses which map navigation buttons are available.,0
+fixtures.sidebar.basemap.description,Controls the basemap switcher tool.,1,Controls the basemap switcher tool.,0
+fixtures.sidebar.export.description,Configures map image export options.,1,Configures map image export options.,0
+fixtures.sidebar.help.description,Points the Help tool to its markdown content.,1,Points the Help tool to its markdown content.,0
+fixtures.sidebar.layerReorder.description,Lets users reorder layers from the map UI.,1,Lets users reorder layers from the map UI.,0
+fixtures.sidebar.grid.description,Configures data grids and merged grid behavior.,1,Configures data grids and merged grid behavior.,0
+fixtures.sidebar.appbar.description,Controls app bar groups and custom app bar buttons.,1,Controls app bar groups and custom app bar buttons.,0
+fixtures.sidebar.settings.description,Configures the Settings tool.,1,Configures the Settings tool.,0
+fixtures.sidebar.overviewMap.description,Adds a small overview map to help users orient themselves.,1,Adds a small overview map to help users orient themselves.,0
+fixtures.sidebar.northArrow.description,Shows north direction and north-pole indicators.,1,Shows north direction and north-pole indicators.,0
+fixtures.sidebar.metadata.description,Configures the metadata tool shown to users.,1,Configures the metadata tool shown to users.,0
+fixtures.sidebar.aoi.description,Builds a list of saved areas users can jump to.,1,Builds a list of saved areas users can jump to.,0
+fixtures.sidebar.scrollguard.description,Controls scroll behavior when the map is embedded in a page.,1,Controls scroll behavior when the map is embedded in a page.,0
+fixtures.sidebar.hilight.description,Controls how identified features are visually highlighted.,1,Controls how identified features are visually highlighted.,0
+fixtures.sidebar.wizard.description,Configures the in-map wizard tool.,1,Configures the in-map wizard tool.,0
 hilight.title,Hilight,1,Mettre en lumière,1
 hilight.description,Provides configuration to the hilight fixture,1,Fournit la configuration de la lampe à incandescence,1
 hilight.mode.title,Mode,1,Mode,1
@@ -238,6 +273,9 @@ layerReorder.title,Layer Reorder,1,Réorganisation des couches,1
 layerReorder.description,Provides configuration to the layer reorder fixture,1,Permet de configurer le dispositif de réorganisation des couches.,1
 legend.title,Legend,1,Légende,1
 legend.description,"Provides configuration to the legend fixture. If not supplied, a blank legend is displayed.",1,"Fournit la configuration de la fixation de la légende. S'il n'est pas fourni, une légende vierge est affichée.",1
+legend.editor.copy,Control legend layout, header actions, wrapping behavior, and the legend tree.,1,Control legend layout, header actions, wrapping behavior, and the legend tree.,0
+legend.editor.layout.title,Legend layout,1,Legend layout,0
+legend.editor.layout.description,Set panel width, header controls, and item wrapping behavior.,1,Set panel width, header controls, and item wrapping behavior.,0
 legend.root.title,Root,1,Racine,1
 legend.root.description,Provides configuration to the legend's tree structure,1,Permet de configurer l'arborescence de la légende,1
 legend.headerControls.title,Header Controls,1,Contrôles de l'en-tête,1

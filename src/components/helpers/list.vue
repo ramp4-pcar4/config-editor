@@ -133,6 +133,15 @@ const reorder = (idx: number, direction: number) => {
 
 const length = computed<number>(() => list.value.length);
 
+const itemTitle = (index: number) => {
+    const item = list.value[index];
+    const singular = props.singular || (props.title ? props.title.slice(0, -1) : '');
+
+    return (
+        item.id || item.name || item.layerId || item.gridId || item.panelId || `${singular} ${item.index ?? index + 1}`
+    );
+};
+
 // for items, we use the table layout instead of the collapsible layout iff
 //      - the user doesn't want a custom item template
 //      - 0 < number of fields < 4
@@ -159,9 +168,18 @@ const fieldToInputType: { [key: string]: string } = {
 </script>
 
 <template>
-    <Collapsible :thick-border="topLevel">
-        <template #header>
-            <button :content="t('editor.expand')" v-tippy class="arrow mr-1 ce-sm:mr-3" :aria-label="t('editor.expand')">
+    <Collapsible class="ce-list-collapsible" :thick-border="topLevel" :title="`${title} (${length})`">
+        <template #header="{ expanded, toggle, controls, label }">
+            <button
+                type="button"
+                :content="label"
+                v-tippy
+                class="arrow mr-1 ce-sm:mr-3"
+                :aria-label="label"
+                :aria-expanded="expanded"
+                :aria-controls="controls"
+                @click="toggle"
+            >
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 24 24" width="20">
                     <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                 </svg>
@@ -176,10 +194,9 @@ const fieldToInputType: { [key: string]: string } = {
             <button
                 @click.stop="add"
                 :class="{
-                    'cursor-not-allowed bg-gray-500': props.editDisabled,
-                    'bg-black cursor-pointer hover:bg-gray-800': !props.editDisabled
+                    'ce-list-add-button--disabled': props.editDisabled
                 }"
-                class="ml-auto p-4 text-white flex-shrink-0 flex items-center justify-center"
+                class="ce-list-add-button"
             >
                 <svg
                     class="relative bottom-[2px]"
@@ -191,7 +208,7 @@ const fieldToInputType: { [key: string]: string } = {
                 >
                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                 </svg>
-                <span class="px-2">{{ addPrompt ?? t('list.add') }}</span>
+                <span>{{ addPrompt ?? t('list.add') }}</span>
             </button>
         </template>
         <template #default>
@@ -220,7 +237,7 @@ const fieldToInputType: { [key: string]: string } = {
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed"
+                                        class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
                                         :content="t('editor.reorder')"
                                         v-tippy
                                         :aria-label="t('editor.reorder')"
@@ -288,22 +305,31 @@ const fieldToInputType: { [key: string]: string } = {
                                             :value="
                                                 field.type === 'object'
                                                     ? JSON.stringify(list[index][field.property])
-                                                    : list[index][field.property]?.join(',') ?? ''
+                                                    : (list[index][field.property]?.join(',') ?? '')
                                             "
-                                            @input="(e: Event) => {
-                        if (field.type === 'object') {
-                          list[index][field.property] = JSON.parse((e.target as HTMLInputElement).value)
-                        } else {
-                          list[index][field.property] = (e.target as HTMLInputElement).value === '' ? [] : (e.target as HTMLInputElement).value.split(',').map(s => s.trim());
-                        }
-                    }"
+                                            @input="
+                                                (e: Event) => {
+                                                    if (field.type === 'object') {
+                                                        list[index][field.property] = JSON.parse(
+                                                            (e.target as HTMLInputElement).value
+                                                        );
+                                                    } else {
+                                                        list[index][field.property] =
+                                                            (e.target as HTMLInputElement).value === ''
+                                                                ? []
+                                                                : (e.target as HTMLInputElement).value
+                                                                      .split(',')
+                                                                      .map(s => s.trim());
+                                                    }
+                                                }
+                                            "
                                         />
                                     </div>
                                     <div class="flex ml-auto">
                                         <button
                                             @click.stop="remove(index)"
                                             :disabled="editDisabled"
-                                            class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
+                                            class="ce-list-icon-button disabled:cursor-not-allowed"
                                             :aria-label="removePrompt ?? t('list.remove')"
                                             :content="removePrompt ?? t('list.remove')"
                                             v-tippy
@@ -327,7 +353,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, -1)"
                                                 :disabled="editDisabled || index === 0"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.up')"
                                                 :content="t('editor.up')"
                                                 v-tippy
@@ -350,7 +376,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, 1)"
                                                 :disabled="editDisabled || index === list.length - 1"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.down')"
                                                 :content="t('editor.down')"
                                                 v-tippy
@@ -377,12 +403,12 @@ const fieldToInputType: { [key: string]: string } = {
                         </div>
                         <div v-else>
                             <!-- Regular mode (not table layout) -->
-                            <Collapsible>
-                                <template #header>
+                            <Collapsible class="ce-list-item-collapsible" :title="itemTitle(index)">
+                                <template #header="{ expanded, toggle, controls, label }">
                                     <button
                                         :disabled="editDisabled"
                                         :class="{ handle: !editDisabled }"
-                                        class="cursor-move disabled:text-gray-500 disabled:cursor-not-allowed mr-4 ce-sm:mr-12"
+                                        class="ce-list-icon-button cursor-move disabled:cursor-not-allowed"
                                         @click.stop
                                         :content="t('editor.reorder')"
                                         v-tippy
@@ -404,10 +430,14 @@ const fieldToInputType: { [key: string]: string } = {
                                         </svg>
                                     </button>
                                     <button
-                                        :content="t('editor.expand')"
+                                        type="button"
+                                        :content="label"
                                         v-tippy
-                                        class="mr-4 ce-sm:mr-12 arrow"
-                                        :aria-label="t('editor.expand')"
+                                        class="ce-list-icon-button arrow"
+                                        :aria-label="label"
+                                        :aria-expanded="expanded"
+                                        :aria-controls="controls"
+                                        @click="toggle"
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -418,21 +448,12 @@ const fieldToInputType: { [key: string]: string } = {
                                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
                                         </svg>
                                     </button>
-                                    <span class="mr-4 ce-sm:mr-20 ce-sm:text-lg">{{
-                                        list[index].id ||
-                                        list[index].name ||
-                                        list[index].layerId ||
-                                        list[index].gridId ||
-                                        list[index].panelId ||
-                                        `${props.singular || props.title?.slice(0, props.title.length - 1)} ${
-                                            list[index].index ?? index + 1
-                                        }`
-                                    }}</span>
-                                    <div class="flex justify-center ml-auto">
+                                    <span class="ce-list-item-title">{{ itemTitle(index) }}</span>
+                                    <div class="ce-list-item-actions flex justify-center ml-auto">
                                         <button
                                             @click.stop="remove(index)"
                                             :disabled="editDisabled"
-                                            class="disabled:text-gray-500 disabled:cursor-not-allowed mr-1"
+                                            class="ce-list-icon-button disabled:cursor-not-allowed"
                                             :aria-label="removePrompt ?? t('list.remove')"
                                             :content="removePrompt ?? t('list.remove')"
                                             v-tippy
@@ -456,7 +477,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, -1)"
                                                 :disabled="editDisabled || index === 0"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.up')"
                                                 :content="t('editor.up')"
                                                 v-tippy
@@ -479,7 +500,7 @@ const fieldToInputType: { [key: string]: string } = {
                                             <button
                                                 @click.stop="reorder(index, 1)"
                                                 :disabled="editDisabled || index === list.length - 1"
-                                                class="disabled:text-gray-500 disabled:cursor-not-allowed"
+                                                class="ce-list-icon-button disabled:cursor-not-allowed"
                                                 :aria-label="t('editor.down')"
                                                 :content="t('editor.down')"
                                                 v-tippy
@@ -548,3 +569,127 @@ const fieldToInputType: { [key: string]: string } = {
         </template>
     </Collapsible>
 </template>
+
+<style scoped lang="scss">
+.ce-list-collapsible {
+    container: ce-list-header / inline-size;
+}
+
+.ce-list-item-collapsible {
+    container: ce-list-item-header / inline-size;
+}
+
+.ce-list-add-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-left: auto;
+    border: 1px solid var(--editor-primary);
+    border-radius: 6px;
+    padding: 7px 10px;
+    background: var(--editor-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    outline: none;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+
+    &:hover,
+    &:focus {
+        border-color: var(--editor-primary-hover);
+        background: var(--editor-primary-hover);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+}
+
+.ce-list-add-button--disabled {
+    cursor: not-allowed;
+    border-color: #9ca3af;
+    background: #9ca3af;
+    box-shadow: none;
+}
+
+.ce-list-icon-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    color: #374151;
+    outline: none;
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+        background: #eef2f6;
+        color: var(--editor-primary);
+    }
+
+    &:disabled {
+        color: #9ca3af;
+    }
+}
+
+.ce-list-item-title {
+    min-width: 0;
+    overflow: hidden;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@container ce-list-header (max-width: 330px) {
+    .ce-list-collapsible > :deep(.ce-collapsible-header) {
+        display: grid;
+        grid-template-columns: 28px minmax(0, 1fr);
+        align-items: center;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .arrow {
+        grid-column: 1;
+        grid-row: 1;
+        margin-right: 0;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .ce-input-header {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .ce-list-collapsible > :deep(.ce-collapsible-header) > .ce-list-add-button {
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@container ce-list-item-header (max-width: 300px) {
+    .ce-list-item-collapsible > :deep(.ce-collapsible-header) {
+        display: grid;
+        grid-template-columns: 30px 30px minmax(0, 1fr);
+        align-items: center;
+    }
+
+    .ce-list-item-collapsible > :deep(.ce-collapsible-header) > .ce-list-item-actions {
+        grid-column: 2 / 4;
+        grid-row: 2;
+        justify-self: end;
+        margin-left: 0;
+    }
+}
+</style>
