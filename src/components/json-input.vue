@@ -1,18 +1,21 @@
 <template>
-    <div class="w-full h-full">
-        <JsonEditor
-            class="border border-black"
-            height="70vh"
-            :key="locale"
-            :modelValue="configJson"
-            :lang="locale"
-            :validator="validate"
-            @update:modelValue="onJsonChange"
-        />
-        <div class="flex mt-2 w-full">
-            <ul v-if="validatorErrors.length" class="p-4 mt-4">
-                <li v-for="(error, idx) in validatorErrors" :key="`${error.path}-${idx}`" class="px-3 py-2">
-                    <div class="text-sm text-red-700 mt-1">{{ error.path }}: {{ error.message }}</div>
+    <div class="json-input-panel w-full h-full">
+        <div class="json-editor-shell">
+            <JsonEditor
+                class="json-editor"
+                height="100%"
+                :key="locale"
+                :modelValue="configJson"
+                :lang="locale"
+                :validator="validate"
+                @update:modelValue="onJsonChange"
+            />
+        </div>
+
+        <div class="json-actions flex w-full">
+            <ul v-if="validatorErrors.length" class="json-errors">
+                <li v-for="(error, idx) in validatorErrors" :key="`${error.path}-${idx}`">
+                    <div>{{ error.path }}: {{ error.message }}</div>
                 </li>
             </ul>
 
@@ -233,12 +236,63 @@ const showCopiedState = () => {
 </style>
 
 <style lang="scss" scoped>
+.json-input-panel {
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+}
+
+.json-editor-shell {
+    min-height: 0;
+    flex: 1 1 0;
+    overflow: hidden;
+    border: 1px solid #111827;
+}
+
+.json-editor,
+.json-editor-shell :deep(.jsoneditor-vue) {
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.json-actions {
+    flex: 0 0 auto;
+    min-height: 36px;
+    align-items: flex-start;
+    gap: 12px;
+    overflow: hidden;
+    border: 1px solid #111827;
+    border-top: 0;
+    background: #fff;
+}
+
+.json-errors {
+    flex: 1 1 auto;
+    max-height: 112px;
+    min-width: 0;
+    overflow-y: auto;
+    margin: 0;
+    padding: 8px 10px;
+    color: #b91c1c;
+    font-size: 12px;
+    line-height: 16px;
+
+    li + li {
+        margin-top: 6px;
+    }
+}
+
 .copy-btn {
-    padding: 12px;
     display: inline-flex;
+    min-height: 38px;
     align-items: center;
     gap: 6px;
     margin-left: auto;
+    padding: 9px 12px;
+    color: #111827;
+    font-size: 13px;
+    line-height: 18px;
 }
 
 .copy-icon {

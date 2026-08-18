@@ -175,6 +175,7 @@ export interface RampLayerConfig {
     //  refreshInterval?: number;
     expectedDrawTime?: number;
     expectedLoadTime?: number;
+    maxLoadTime?: number;
     fieldMetadata?: RampLayerFieldMetadataConfig;
     nameField?: string;
     maptipField?: string;

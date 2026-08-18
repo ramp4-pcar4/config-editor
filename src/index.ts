@@ -47,18 +47,23 @@ export class API {
 
         store.startingFixtures = configs?.startingFixtures ?? undefined;
         store.options = options ?? {};
+        store.configs = {};
 
         if (configs?.configs && Object.keys(configs.configs).length > 0) {
             Object.keys(configs.configs).forEach((lang: string) => {
                 const cleanedLangConfig = maptipMigrator(configs.configs[lang]);
-                store.configs[lang] = merge(defaultConfig[lang as 'en'], cleanedLangConfig);
+                const languageDefaults = defaultConfig[lang as keyof typeof defaultConfig];
+                store.configs[lang] = languageDefaults
+                    ? merge(structuredClone(languageDefaults), cleanedLangConfig)
+                    : cleanedLangConfig;
             });
         } else if (configs) {
             throw new Error('Invalid config format');
         } else {
-            store.configs = defaultConfig;
+            store.configs = structuredClone(defaultConfig);
         }
 
+        store.editingLang = Object.keys(store.configs)[0] ?? '';
         store.initialized = true;
     }
 
@@ -87,6 +92,7 @@ export class API {
     setLanguage(newLang: string) {
         if (newLang !== 'en' && newLang !== 'fr') {
             console.error('RAMP4 Config Editor only supports English and French.');
+            return;
         }
         i18n.global.locale.value = newLang;
     }

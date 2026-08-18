@@ -216,7 +216,7 @@ const onInput = (key: string, val: string): void => {
 <template>
     <Collapsible :title="props.title" :required="required" :description="description">
         <div ref="rampInstance" class="w-full h-[400px]"></div>
-        <button @click="saveExtent" class="mt-2 bg-black text-white p-1 hover:bg-gray-800">
+        <button @click="saveExtent" class="ce-extent-save">
             {{ t('extent.save') }}
         </button>
         <div class="mt-4">
@@ -280,3 +280,30 @@ const onInput = (key: string, val: string): void => {
         </div>
     </Collapsible>
 </template>
+
+<style scoped lang="scss">
+.ce-extent-save {
+    min-height: 34px;
+    margin-top: 10px;
+    border: 1px solid var(--editor-primary);
+    border-radius: 6px;
+    padding: 7px 10px;
+    background: var(--editor-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 16px;
+    outline: none;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        box-shadow 120ms ease;
+
+    &:hover,
+    &:focus {
+        border-color: var(--editor-primary-hover);
+        background: var(--editor-primary-hover);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+}
+</style>

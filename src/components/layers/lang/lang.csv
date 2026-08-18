@@ -1,11 +1,45 @@
 key,enValue,enValid,frValue,frValid
 layers.title,Layers,1,Couches,1
-layers.autopopulateLegend.title,Autopopulate Legend,1,Légende de l'autopopulation,1
-layers.autopopulateLegend.description,Updates the legend by creating entries in the top root level for any layers that do not have one and removing entries for layers not present in the layers config.,1,Met à jour la légende en créant des entrées dans le niveau racine supérieur pour toutes les couches qui n'en ont pas et en supprimant les entrées pour les couches qui ne sont pas présentes dans la configuration des couches.,1
-layers.updatedLegend.title,Updated Legend!,1,Légende mise à jour!,1
+layers.autopopulateLegend.title,Sync legend,1,Légende de l'autopopulation,1
+layers.autopopulateLegend.description,Create missing legend entries for current layers and remove entries for layers that no longer exist.,1,Met à jour la légende en créant des entrées dans le niveau racine supérieur pour toutes les couches qui n'en ont pas et en supprimant les entrées pour les couches qui ne sont pas présentes dans la configuration des couches.,1
+layers.updatedLegend.title,Legend synced,1,Légende mise à jour!,1
 layers.idWarning,A unique ID must be specified for each layer for the legend to update correctly.,1,Un identifiant unique doit être spécifié pour chaque couche afin que la légende soit correctement mise à jour.,1
 layers.add,Add layer,1,Ajouter une couche,1
 layers.remove,Remove layer,1,Enlever la couche,1
+layers.sidebar.description,Add layers, review the layer list, or sync the legend from the current layers.,1,Add layers or open the full advanced layer configuration. Advanced settings keep every layer field available.,0
+layers.sidebar.add.description,Create a new layer entry with the required source fields.,1,Create a new layer entry, then configure its details in advanced settings.,0
+layers.sidebar.advanced.title,Layer list,1,Advanced layer settings,0
+layers.sidebar.advanced.description,Edit layer IDs, source details, controls, metadata, state, and advanced options.,1,Edit layer IDs, source details, controls, metadata, state, fixtures, and other advanced options.,0
+layers.sidebar.action,Open,1,Open,0
+layers.sidebar.done,Done,1,Done,0
+layers.sidebar.count,"{count} layers",1,"{count} configured",0
+layers.inspector.description,"Select a layer, then edit the fields that matter for that task.",1,"Select a layer, then edit the fields that matter for that task.",0
+layers.empty.title,No layers yet,1,No layers yet,0
+layers.empty.description,Add a layer to define its source, display name, interaction settings, and advanced options.,1,Add a layer to define its source, display name, interaction settings, and advanced options.,0
+layers.draft.title,New layer,1,New layer,0
+layers.draft.description,Choose the layer type and fill in the basics before adding it to the list.,1,Choose the layer type and fill in the basics before adding it to the list.,0
+layers.draft.cancel,Cancel,1,Cancel,0
+layers.draft.create,Create layer,1,Create layer,0
+layers.list.title,Layer list,1,Layer list,0
+layers.list.description,Choose a layer to inspect. Drag rows to change draw order.,1,Choose a layer to inspect. Drag rows to change draw order.,0
+layers.inspector.eyebrow,Layer inspector,1,Layer inspector,0
+layers.tabs.label,Layer inspector sections,1,Layer inspector sections,0
+layers.tabs.basics,Basics,1,Basics,0
+layers.tabs.basics.copy,Start with the required identity and service fields.,1,Start with the required identity and service fields.,0
+layers.tabs.source,Source,1,Source,0
+layers.tabs.source.copy,Configure source-specific details for file, OGC, map image, and data layers.,1,Configure source-specific details for file, OGC, map image, and data layers.,0
+layers.tabs.source.empty,This layer type does not need extra source settings beyond the service URL in Basics.,1,This layer type does not need extra source settings beyond the service URL in Basics.,0
+layers.tabs.interaction,Interaction,1,Interaction,0
+layers.tabs.interaction.copy,Control identify behaviour, tool availability, filters, and click/tap tolerance.,1,Control identify behaviour, tool availability, filters, and click/tap tolerance.,0
+layers.tabs.display,Display,1,Display,0
+layers.tabs.display.copy,Adjust visual behaviour, initial state, renderers, and draw order.,1,Adjust visual behaviour, initial state, renderers, and draw order.,0
+layers.tabs.advanced,Advanced,1,Advanced,0
+layers.tabs.advanced.copy,Use these lower-frequency settings for timing, metadata, extents, fields, and fixture overrides.,1,Use these lower-frequency settings for timing, metadata, extents, fields, and fixture overrides.,0
+layers.status.sourceSet,Source set,1,Source set,0
+layers.status.needsSource,Needs source,1,Needs source,0
+layers.status.needsId,Needs ID,1,Needs ID,0
+layers.status.duplicateId,Duplicate ID,1,Duplicate ID,0
+layers.status.ready,Ready,1,Ready,0
 layer.title,Layer {0},1,Couche {0},1
 layer.type,Layer Type,1,Type de couche,1
 layer.type.group.esri,ESRI ArcGIS Server,1,ESRI ArcGIS Server,1
@@ -27,21 +61,21 @@ layer.type.flattyzip,Zipped FlatGeobuf Layer,1,Couche FlatGeobuf zippé,0
 layer.type.datacsv,Non-Spatial CSV File Layer,1,Couche de fichier CSV non spatiale,1
 layer.type.datatable,ESRI Table Layer,1,Couche de table ESRI,1
 layer.type.datajson,Compact JSON File Layer,1,Couche de fichiers JSON compacte,1
-layer.id.title,ID,1,Identifiant,1
+layer.id.title,Layer ID,1,Identifiant,1
 layer.id.description,"ID of the layer. Should be unique for every layer. Updating this field will also automatically update the layer ID field for the legend entry associated with this layer, if it exists.",1,"ID de la couche. Il doit être unique pour chaque couche. La mise à jour de ce champ entraînera également la mise à jour automatique du champ d'identification de la couche pour l'entrée de la légende associée à cette couche, si elle existe.",1
 layer.name.title,Name,1,Nom,1
 layer.name.description,Display name of the layer. Can override the name coming from the service.,1,Nom d'affichage de la couche. Peut remplacer le nom provenant du service.,1
-layer.url.title,URL,1,URL,1
+layer.url.title,Service URL,1,URL,1
 layer.url.description,Service endpoint of the layer. Should match the layer type.,1,Point de terminaison du service de la couche. Doit correspondre au type de couche.,1
-layer.nameField.title,Name Field,1,Champ du nom,1
+layer.nameField.title,Feature name field,1,Champ du nom,1
 layer.nameField.description,The display field of the layer. If it is not present the viewer will make an attempt to scrape this information.,1,"Le champ d'affichage de la couche. S'il n'est pas présent, le visualiseur tentera de récupérer cette information.",1
-layer.maptipField.title,Maptip Field,1,Champ d'info-bulle,1
+layer.maptipField.title,Hover/tooltip field,1,Champ d'info-bulle,1
 layer.maptipField.description,"Field to be used for maptips. If not present, the viewer will use name field, if provided.",1,"Champ à utiliser pour les infobulles. S'il n'est pas présent, le visualiseur utilisera le champ du nom, s'il est fourni.",1
 layer.refreshInterval.title,Refresh Interval,1,Intervalle de rafraîchissement,1
 layer.refreshInterval.description,Automatic refresh interval of the layer (minutes). Max is 100. Zero disables refresh. Currently not supported.,1,Intervalle de rafraîchissement automatique de la couche (minutes). Le maximum est de 100. Zéro désactive le rafraîchissement. Ce paramètre n'est pas pris en charge actuellement.,1
-layer.expectedDrawTime.title,Expected Draw Time,1,Temps de tirage prévu,1
+layer.expectedDrawTime.title,Slow draw threshold,1,Temps de tirage prévu,1
 layer.expectedDrawTime.description,The time (in milliseconds) after which a 'slow-to-draw' notification is shown. Zero disables notifications. Map-level settings are used if no value is set.,1,Le temps (en millisecondes) après lequel une notification "lent à dessiner" est affichée. Zéro désactive les notifications. Les paramètres de niveau de carte sont utilisés si aucune valeur n'est définie.,0
-layer.expectedLoadTime.title,Expected Load Time,1,Temps de chargement prévu,1
+layer.expectedLoadTime.title,Slow load threshold,1,Temps de chargement prévu,1
 layer.expectedLoadTime.description,The time (in milliseconds) after which a 'slow-to-load' notification is shown. Zero disables notifications. Map-level settings are used if no value is set.,1,Le temps (en millisecondes) après lequel une notification "chargement lent" est affichée. Zéro désactive les notifications. Les paramètres de niveau de carte sont utilisés si aucune valeur n'est définie.,0
 layer.maxLoadTime.title,Max Load Time,1,Temps de chargement maximum,1
 layer.maxLoadTime.description,The time (in milliseconds) a layer can load for before entering the error state. Map-level settings are used if the value is zero or missing.,1,Temps (en millisecondes) pendant lequel une couche peut être chargée avant d'entrer dans l'état d'erreur. Les paramètres de niveau de carte sont utilisés si la valeur est nulle ou manquante.,0

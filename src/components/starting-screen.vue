@@ -72,6 +72,33 @@ const newConfig = () => {
 </script>
 
 <style lang="scss" scoped>
+.start-container {
+    box-sizing: border-box;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+    .start-container {
+        max-width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .start-container {
+        max-width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .start-container {
+        max-width: 1170px;
+    }
+}
+
 h2 {
     font-size: 36px !important;
     line-height: 40px !important;
