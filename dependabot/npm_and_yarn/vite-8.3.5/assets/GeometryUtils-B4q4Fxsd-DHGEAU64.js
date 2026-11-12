@@ -1,0 +1,1 @@
+var e=1/Math.LN2;function t(e,t){return(e%=t)>=0?e:e+t}function n(e){return t(e*.7111111111111111,256)}function r(t){return Math.log(t)*e}export{n,r as t};

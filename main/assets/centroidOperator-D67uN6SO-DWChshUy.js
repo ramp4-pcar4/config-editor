@@ -1,0 +1,1 @@
+import{l as e,t}from"./chunk-foFoljWS-Bq_Xcyas.js";import"./apiConverter-DgVehggs-DT8mrpwC.js";import{t as n}from"./centroidOperator-BXJs0iaf-UGVGDcep.js";var r=e({t:()=>i}),i=t({execute:()=>n});export{r as t};
